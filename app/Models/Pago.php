@@ -12,3 +12,4 @@ class Pago extends Model
         return $this->belongsTo('App\Compra');
     }
 }
+//hola jeyson
