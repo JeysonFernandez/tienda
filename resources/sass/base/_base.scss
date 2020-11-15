@@ -1,0 +1,86 @@
+body {
+    font-size: 14.4px;
+    font-family: 'Open Sans', sans-serif;
+    overflow-x:  hidden;
+}
+
+// TOOLS
+hr.vertical {
+    border:         none;
+    border-left:    1px solid #D2D2D2;
+    height:         100%;
+    width:          1px;
+}
+
+.bg-black {
+    background-color: black;
+    color: white;
+}
+
+.bg-gray {
+    background-color: lightgrey;
+}
+
+.white-link a{
+    text-decoration: none;
+    color: white;
+}
+
+.input-rounded {
+    border-radius: 20px;
+}
+
+.blurred-text {
+
+    &:after {
+        content: 'lorem ipsum dolor';
+        filter: blur(4px);
+    }
+}
+
+.blurred-text-xl {
+
+    &:after {
+        content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit Voluptas consequatur quae laboriosam quos magnam dolore optio voluptatibus! Assumenda';
+        filter: blur(5px);
+    }
+}
+
+.no-border {
+    border: unset;
+}
+
+.cursor-none {
+    cursor: initial !important;
+}
+
+
+// COLORS
+.color-pcm-blue {
+    color: $pcmBlue;
+}
+
+.color-pcm-pale-blue {
+    color: $pcmPaleBlue;
+}
+
+.color-pcm-red {
+    color: $pcmRed;
+}
+
+#baguetteBox-slider {
+
+    figcaption {
+        font-size: 1.1em;
+        padding: 0.9em;
+    }
+}
+
+@media (min-width: 1400px) {
+
+    .container {
+        max-width: 1400px;
+        padding: 0em 2em;
+    }
+}
+

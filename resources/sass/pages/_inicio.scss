@@ -1,0 +1,92 @@
+.main-inicio {
+
+    .slider-title {
+        color: $pcmBlue;
+        font-weight: 600;
+    }
+
+    .black-link a {
+        background-color: white;
+        color: black;
+    }
+
+    .banner-image {
+        width: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+        padding: 2.5em 0em;
+    }
+
+    .banner-content {
+        text-align: center;
+        color: white;
+        padding-left: 150px;
+        max-width:1200px;
+    }
+
+    .busquedas-frecuentes {
+        display: flex;
+        padding:0;
+        list-style-type: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+
+        li {
+            margin-bottom: 0.5em;
+        }
+    }
+}
+
+@media(max-width:990px) {
+
+    .main-inicio {
+
+        .banner-content {
+            text-align: center;
+            color: white;
+            padding: 0em 2em;
+            max-width:1200px;
+        }
+    }
+}
+
+@media(max-width:575px) {
+
+    .main-inicio {
+
+        .banner-image {
+            h1 {
+                font-size: 1.7em;
+            }
+        }
+
+        .busquedas-frecuentes {
+            gap: 10px;
+
+            li {
+                margin-top: 1em;
+                font-size: 0.9em;
+            }
+        }
+
+        .que-es-pcm {
+            img {
+                width: 140px;
+                margin: auto;
+                display: block;
+            }
+        }
+
+        .slider-inicio {
+
+            img {
+                width: 140px;
+            }
+        }
+
+    }
+}
+

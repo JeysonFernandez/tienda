@@ -1,0 +1,17 @@
+.modal {
+    background-color: rgba(255, 255, 255, 0.548);
+
+    button.close {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+
+    h2 {
+        font-size: 1.3em;
+    }
+
+    form {
+        font-size: 0.9em;
+    }
+}

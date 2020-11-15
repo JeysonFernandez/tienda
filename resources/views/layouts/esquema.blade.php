@@ -39,36 +39,17 @@
                                         </div>
                                     </form>
                                 </li>
-                                <li class="nav-item mx-2">
-                                    <a class="nav-link font-weight-bolder" href="">Cómo funciona</a>
-                                </li>
-                                <li class="nav-item  mx-0 mx-xl-2">
-                                <a class="nav-link font-weight-bolder" href="">Contacto</a>
-                                </li>
-                                @isset($concesion)
-                                    <li class="nav-item mx-0 mx-xl-2">
-                                        <a class="nav-link font-weight-bolder" href="">Iniciar sesión</a>
-                                    </li>
-                                @else
-                                    <li class="nav-item mx-0 mx-xl-2">
-                                        <a class="nav-link font-weight-bolder" href="">Iniciar sesión</a>
-                                    </li>
-                                @endisset
-                                <li class="nav-item mx-0 mx-xl-3">
-                                    @isset($concesion)
-                                        <a href="" class="btn btn-success font-weight-bolder">
-                                            Registrarse gratis
-                                        </a>
-                                    @else
-                                        <a href="" class="btn btn-success font-weight-bolder">
-                                            Registrarse gratis
-                                        </a>
-                                    @endisset
-                                </li>
-                                <li class="nav-item mx-0 mx-xl-2 my-md-2">
-                                    <a class="btn btn-pcm-pale-blue font-weight-bolder" href="">Publica tu Proyecto</a>
+
+
+                                <li class="nav-item mx-0 mx-xl-2">
+                                <a class="nav-link font-weight-bolder" href="{{route('publico.auth.login')}}">Iniciar sesión</a>
                                 </li>
 
+                                <li class="nav-item mx-0 mx-xl-3">
+                                    <a href="" class="btn btn-success font-weight-bolder">
+                                        Registrarse gratis
+                                    </a>
+                                </li>
                             @else
                                 <li class="nav-item mx-4">
                                     <form action="" method="post">
@@ -81,22 +62,15 @@
                                         </div>
                                     </form>
                                 </li>
-                                <li class="nav-item mx-2">
-                                    <a class="nav-link font-weight-bolder" href="">Cómo funciona</a>
-                                </li>
-                                <li class="nav-item mx-2">
-                                    <a class="nav-link font-weight-bolder" href="">Contacto</a>
-                                </li>
+                                {{--
                                 <li class="nav-item mx-2">
                                     <a class="nav-link font-weight-bolder" href="">Mis Favoritos</a>
                                 </li>
-
+                                --}}
                                 <li class="nav-item mx-2">
-                                    <a class="nav-link font-weight-bolder" href="">Mi Maletin</a>
+                                    <a class="nav-link font-weight-bolder" href="">Mi Carrito</a>
                                 </li>
-                                <li class="nav-item mx-3 my-md-2">
-                                    <a class="btn btn-pcm-pale-blue font-weight-bolder" href="">Publica tu Proyecto</a>
-                                </li>
+
                                 <li class="nav-item mx-3">
                                     <div class="btn-group info-usuario-dropdown">
                                         <a class="btn btn-success inicial-usuario d-flex align-items-center rounded-circle font-weight-bolder dropdown-toggle" id="userDropdown" role="button"
@@ -125,7 +99,7 @@
                 </div>
             </nav>
 
-            <main>
+            <main class="container">
                 @yield('content')
             </main>
 

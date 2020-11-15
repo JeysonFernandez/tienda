@@ -1,0 +1,31 @@
+.tns-outer{
+    position: relative;
+}
+
+.tns-nav {
+    @include centrado;
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+    z-index: 30;
+
+
+    button {
+        width: 9px;
+        height: 9px;
+        padding: 0;
+        margin: 0 5px;
+        border-radius: 50%;
+        background: #c2c2c2;
+        border: 0;
+    }
+
+    .tns-nav-active {
+        background:$pcmBlue ;
+    }
+}
+
+#baguetteBox-overlay .full-image img{
+    max-width: 570px;
+
+}

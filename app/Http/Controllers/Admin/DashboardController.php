@@ -1,0 +1,993 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+use App\Categoria;
+use App\Color;
+use App\Genero;
+use App\Marca;
+use App\Producto;
+use App\Talla;
+use App\Proveedor;
+use App\Tipo;
+use App\Usuario;
+use App\Fecha;
+use App\Pago;
+use App\Compra;
+use App\CompraProducto;
+use App\Pedido;
+use App\NotificacionProducto;
+use App\NotificacionUsuario;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+
+class DashboardController extends Controller
+{
+    public function __Construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('isadmin');
+    }
+
+    public function getDashboard()
+    {
+        $fechaHoy = now()->format('Y-m-d');
+
+        $fechaUnaSemana = date("Y-m-d", strtotime(now()."+ 1 week"));
+
+        $fechaMes = date("Y-m-d", strtotime(now() . "+ 1 month"));
+        //$fechaMes = date_create_from_format("Y-m-d",$fechaMes);
+
+        $fechaAnio = date("Y-m-d", strtotime(now() . "+ 1 year"));
+
+
+        $pedidosHoy = Pedido::where('fecha','=',"$fechaHoy")->select(DB::raw('count(id) as cantidad'))->get();
+        $pedidosEnUnaSemana = Pedido::whereBetween('fecha',[$fechaHoy,$fechaUnaSemana])
+            ->select(DB::raw('count(id) as cantidad'))
+            ->get();
+        $pedidosEnUnMes = $pedidosEnUnaSemana = Pedido::whereBetween('fecha',[$fechaHoy,$fechaMes])
+            ->select(DB::raw('count(id) as cantidad'))
+            ->get();
+        
+       
+        $comprasHoy = Compra::where('fecha_compra','=',"$fechaHoy")->select(DB::raw('count(id) as cantidad'))->get();
+
+        
+        $pagosHoy = Pago::where('fecha','=',"$fechaHoy")->where('estado','!=','a')->select(DB::raw('count(id) as
+        cantidad'))->get();
+        $pagosEnUnaSemana = Pago::whereBetween('fecha',["$fechaHoy","$fechaUnaSemana"])
+            //->where('estado','!=','a')
+            ->select(DB::raw('count(id) as cantidad'))
+            ->get();
+        $pagosEnUnMes = Pago::where('fecha','=',"$fechaMes")->where('estado','!=','a')->select(DB::raw('count(id) as
+        cantidad'))->get();
+        
+        
+        
+         
+        return view('admin.index', [
+            'pedidosHoy' => $pedidosHoy,
+            'pedidosEnUnaSemana' => $pedidosEnUnaSemana,
+            'pedidosEnUnMes' => $pedidosEnUnMes,
+            'comprasHoy' => $comprasHoy,
+            'pagosHoy' => $pagosHoy,
+            'pagosEnUnaSemana' => $pagosEnUnaSemana,
+            'pagosEnUnMes' => $pagosEnUnMes,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+
+    public function getComprasProductos($id){
+        $produc = Compra::find($id);
+        return view('admin.compras.productos_compra', [
+        'produc' => $produc,
+        'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+        'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+    public function getPedidosProductos($id){
+        $produc = Pedido::find($id);
+        return view('admin.pedidos.productos_pedido', [
+        'produc' => $produc,
+        'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+        'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+
+    public function getProductos()
+    {
+
+        $producto = Producto::where('borrado','=','no')->get();
+        
+        
+        return view('admin.productos.productos', [
+            'productos' => $producto, 
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+
+    public function getGraficoProducto(Request $request)
+    {
+        $datosNombre = [];
+        $datosCantidad = [];
+
+        $productos = DB::table('productos')
+        ->select('productos.id','productos.categoria_id','productos.genero_id','productos.talla_id','productos.color_id')
+        ->leftJoin('compra_producto','compra_producto.producto_id','productos.id')
+        ->addSelect(DB::raw('count(producto_id) as cantidad'))
+        ->groupBy('productos.id','productos.categoria_id','productos.genero_id','productos.talla_id','productos.color_id')
+        ->orderBy('cantidad','desc')
+        ->take(6)
+        ->get();
+
+        $categorias = Categoria::all();
+        $generos = Genero::all();
+        $tallas = Talla::all();
+        $colors = Color::all();
+
+        $count = 0;
+        foreach($productos as $producto){
+            $nombreProducto[$count] ="";
+            foreach($categorias as $categoria){
+                if($categoria->id === $producto->categoria_id){
+                  $nombreProducto[$count] = $nombreProducto[$count]." ".$categoria->nombre;
+                }
+            }
+            foreach($generos as $genero){
+                if($genero->id === $producto->genero_id){
+                    $nombreProducto[$count] = $nombreProducto[$count]." ".$genero->nombre;
+                }
+            }
+            foreach($tallas as $talla){
+                if($talla->id === $producto->talla_id){
+                    $nombreProducto[$count] = $nombreProducto[$count]." ".$talla->nombre;
+                }
+            }
+            foreach($colors as $color){
+                if($color->id === $producto->color_id){
+                    $nombreProducto[$count] = $nombreProducto[$count]." ".$color->nombre;
+                }
+            }
+            $cantidadProducto[$count] = $producto->cantidad;
+            $count++;
+        }
+
+        $datosNombre[0] = $nombreProducto;
+        $datosCantidad[0] = $cantidadProducto;
+       
+        
+        $generos = $this->obtenerDatos('generos', 'genero');
+        $nombre = $generos['nombres'];
+        $cantidad = $generos['cantidad'];
+        $valor = "generos";
+
+
+        if ($request->get('opciones') === "tallas") {
+            $tallas = $this->obtenerDatos('tallas', 'talla');
+            $nombre = $tallas['nombres'];
+            $cantidad = $tallas['cantidad'];
+            $valor = "tallas";
+        } else if ($request->get('opciones') === "marcas") {
+            $marcas = $this->obtenerDatos('marcas', 'marca');
+            $nombre = $marcas['nombres'];
+            $cantidad = $marcas['cantidad'];
+            $valor = "marcas";
+        } else if ($request->get('opciones') === "tipos") {
+            $tipos = $this->obtenerDatos('tipos', 'tipo');
+            $nombre = $tipos['nombres'];
+            $cantidad = $tipos['cantidad'];
+            $valor = "tipos";
+        } else if ($request->get('opciones') === "categorias") {
+            $categorias = $this->obtenerDatos('categorias', 'categoria');
+            $nombre  = $categorias['nombres'];
+            $cantidad = $categorias['cantidad'];
+            $valor = "categorias";
+        } else if ($request->get('opciones') === "colores") {
+            $colors = $this->obtenerDatos('colors', 'color');
+            $nombre = $colors['nombres'];
+            $cantidad = $colors['cantidad'];
+            $valor = "colores";
+        } else if ($request->get('opciones') === "proveedores") {
+            $colors = $this->obtenerDatos('proveedor', 'proveedor');
+            $nombre = $colors['nombres'];
+            $cantidad = $colors['cantidad'];
+            $valor = "proveedores";
+        }
+
+        $datosNombre[1] = $nombre;
+        $datosCantidad[1] = $cantidad;
+
+
+        return view('admin.productos.graficos', [
+            'nombre' => $datosNombre,
+            'cantidad' => $datosCantidad,
+            'valor' => $valor,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+
+    public function getGraficoPed(){
+         $pedidosE = DB::table('pedidos')
+         ->where('tipo','=','e')
+         ->select(DB::raw('count(tipo) as cantidadE'))
+         ->get();
+         $pedidosV = DB::table('pedidos')
+         ->where('tipo','=','v')
+         ->select(db::raw('count(tipo) as cantidadV'))
+         ->get();
+
+
+         $nombre = ['Express','Normal'];
+         $cantidad = [$pedidosE[0]->cantidadE,$pedidosV[0]->cantidadV];
+
+        return view('admin.pedidos.graficos', [
+        'nombre' => $nombre,
+        'cantidad' => $cantidad,
+        
+        'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+        'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+
+    }
+    public function getGraficoUsu(){
+        $usuarios = Usuario::where('tipo','=','u')->get();
+
+        $adelantado = 0;
+        $retrasado = 0;
+        $aldia = 0;
+
+        foreach($usuarios as $usuario){
+            if($usuario->estado_calidad === "a"){
+                $adelantado++;
+            }else if($usuario->estado_calidad === "r"){
+                $retrasado++;
+            }else{
+                $aldia++;
+            }
+        }
+
+
+        $nombre = ['Adelantado','Al Día','Retrasado'];
+        $cantidad = [$adelantado,$aldia,$retrasado];
+
+        return view('admin.usuarios.graficos', [
+        'nombre' => $nombre,
+        'cantidad' => $cantidad,
+
+        'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+        'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+
+    }
+    public function getGraficoCom(Request $request){
+        
+        
+
+        $fechaInicial = "";
+        $fechaFinal = "";
+        $mensaje = "";
+
+        $nombre = ['Pendiente','Terminada'];
+        $cantidad = [];
+
+        if ($request->get('fechaInicial') != null && $request->get('fechaFinal') != null) {
+
+            if ($request->get('fechaInicial') < $request->get('fechaFinal')) {
+                $fechaInicial = $request->get('fechaInicial');
+                $fechaFinal = $request->get('fechaFinal');
+                $compras = DB::table('compras')
+                ->select('compras.estado')
+                ->where('compras.fecha_compra', '>=', "$fechaInicial")
+                ->where('compras.fecha_compra', '<=', "$fechaFinal" )
+                ->addSelect(DB::raw('count(compras.estado) as cantidad'))
+                ->groupBy('compras.estado')
+                ->get();
+
+                
+                if(count($compras)>1){
+                    if($compras[0]->estado === "p"){
+                        $cantidad[0] = $compras[0]->cantidad;
+                        $cantidad[1] = $compras[1]->cantidad;
+                    }else{
+                        $cantidad[1] = $compras[0]->cantidad;
+                        $cantidad[0] = $compras[1]->cantidad;
+                    }
+                }else if(count($compras)>0){
+                    if($compras[0]->estado === "p"){
+                        $cantidad[0] = $compras[0]->cantidad;
+                        $cantidad[1] = 0;
+                    }else{
+                        $cantidad[1] = 0;
+                        $cantidad[0] = $compras[1]->cantidad;
+                    }
+                }else{
+                    $mensaje = "No existen datos para las fechas asignadas";
+                }
+
+
+            } else {
+                $mensaje = "La fecha inicial tiene que ser menor a fecha final";
+            }
+        } else {
+             $compras = DB::table('compras')
+             ->select('compras.estado')
+             ->addSelect(DB::raw('count(compras.estado) as
+                 cantidad'))
+                 ->groupBy('compras.estado')
+                 ->get();
+            if(count($compras)>1){
+                if($compras[0]->estado === "p"){
+                    $cantidad[0] = $compras[0]->cantidad;
+                    $cantidad[1] = $compras[1]->cantidad;
+                }else{
+                    $cantidad[1] = $compras[0]->cantidad;
+                    $cantidad[0] = $compras[1]->cantidad;
+                    }
+                }else if(count($compras)>0){
+                if($compras[0]->estado === "p"){
+                    $cantidad[0] = $compras[0]->cantidad;
+                    $cantidad[1] = 0;
+                }else{
+                    $cantidad[1] = 0;
+                    $cantidad[0] = $compras[1]->cantidad;
+                }
+            }else{
+                $mensaje = "";
+            }
+
+            $mensaje = 'Selecciones las fechas para una busqueda personalizada';
+        }
+         
+        return view('admin.compras.graficos',[
+            'nombre' => $nombre,
+            'cantidad' => $cantidad,
+            'mensaje' => $mensaje,
+            'fechaInicial' => $fechaInicial,
+            'fechaFinal' => $fechaFinal,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+
+    public function getGraficoProductoMasVendido(){
+        $productos = DB::table('productos')
+        ->select('categoria_id')
+        ->get();
+
+    }
+    
+    public function getGraficoPag(Request $request){
+
+
+
+    $fechaInicial = "";
+    $fechaFinal = "";
+    $mensaje = "";
+
+    $nombre = ['Retrasado','Adelantada','A tiempo'];
+    $cantidad = ["","",""];
+
+    if ($request->get('fechaInicial') != null && $request->get('fechaFinal') != null) {
+        if ($request->get('fechaInicial') < $request->get('fechaFinal')) {
+            $fechaInicial = $request->get('fechaInicial');
+            $fechaFinal = $request->get('fechaFinal');
+            $pagos = DB::table('pagos')
+            ->select('pagos.estado')
+            ->where('pagos.fecha', '>=', "$fechaInicial")
+            ->where('pagos.fecha', '<=', "$fechaFinal" ) ->addSelect(DB::raw('count(pagos.estado) as cantidad'))
+                ->groupBy('pagos.estado')
+                ->get();
+            if(count($pagos)>2){
+                switch ($pagos[0]->estado){
+                    case "r":
+                        $cantidad[0] = $pagos[0]->cantidad;
+                        break;
+                    case "a":
+                        $cantidad[1] = $pagos[0]->cantidad;
+                        break;
+                    case "t":
+                        $cantidad[2] = $pagos[0]->cantidad;
+                        break;
+                }
+                switch ($pagos[1]->estado){
+                    case "r":
+                    $cantidad[0] = $pagos[1]->cantidad;
+                    break;
+                    case "a":
+                    $cantidad[1] = $pagos[1]->cantidad;
+                    break;
+                    case "t":
+                    $cantidad[2] = $pagos[1]->cantidad;
+                    break;
+                }
+                switch ($pagos[2]->estado){
+                    case "r":
+                    $cantidad[0] = $pagos[2]->cantidad;
+                    break;
+                    case "a":
+                    $cantidad[1] = $pagos[2]->cantidad;
+                    break;
+                    case "t":
+                    $cantidad[2] = $pagos[2]->cantidad;
+                    break;
+                }
+            } else if(count($pagos)>1) {
+                switch ($pagos[0]->estado){
+                    case "r":
+                    $cantidad[0] = $pagos[0]->cantidad;
+                    break;
+                    case "a":
+                    $cantidad[1] = $pagos[0]->cantidad;
+                    break;
+                    case "t":
+                    $cantidad[2] = $pagos[0]->cantidad;
+                    break;
+                }
+                switch ($pagos[1]->estado){
+                    case "r":
+                    $cantidad[0] = $pagos[1]->cantidad;
+                    break;
+                    case "a":
+                    $cantidad[1] = $pagos[1]->cantidad;
+                    break;
+                    case "t":
+                    $cantidad[2] = $pagos[1]->cantidad;
+                    break;
+                }
+
+                if($cantidad[0] == ""){
+                    $cantidad[0] = 0;
+                }else if($cantidad[1] == ""){
+                    $cantidad[1] = 0;
+                }else{
+                    $cantidad[2] = 0;
+                }
+            }else if(count($pagos)>0){
+                switch ($pagos[0]->estado){
+                    case "r":
+                    $cantidad[0] = $pagos[0]->cantidad;
+                    break;
+                    case "a":
+                    $cantidad[1] = $pagos[0]->cantidad;
+                    break;
+                    case "t":
+                    $cantidad[2] = $pagos[0]->cantidad;
+                    break;
+                }
+                if($cantidad[0] == ""){
+                    $cantidad[0] = 0;
+                }
+                if($cantidad[1] == ""){
+                    $cantidad[1] = 0;
+                }
+                if($cantidad[2] == ""){
+                    $cantidad[2] = 0;
+                }
+            }
+        
+    } else {
+        $pagos = DB::table('pagos')
+        ->select('pagos.estado')
+        ->addSelect(DB::raw('count(pagos.estado) as
+        cantidad'))
+        ->groupBy('pagos.estado')
+        ->get();
+        if(count($pagos)>2){
+            switch ($pagos[0]->estado){
+                case "r":
+                $cantidad[0] = $pagos[0]->cantidad;
+                break;
+                case "a":
+                $cantidad[1] = $pagos[0]->cantidad;
+                break;
+                case "t":
+                $cantidad[2] = $pagos[0]->cantidad;
+                break;
+            }
+            switch ($pagos[1]->estado){
+                case "r":
+                $cantidad[0] = $pagos[1]->cantidad;
+                break;
+                case "a":
+                $cantidad[1] = $pagos[1]->cantidad;
+                break;
+                case "t":
+                $cantidad[2] = $pagos[1]->cantidad;
+                break;
+            }
+            switch ($pagos[2]->estado){
+                case "r":
+                $cantidad[0] = $pagos[2]->cantidad;
+                break;
+                case "a":
+                $cantidad[1] = $pagos[2]->cantidad;
+                break;
+                case "t":
+                $cantidad[2] = $pagos[2]->cantidad;
+                break;
+            }
+        } else if(count($pagos)>1) {
+            switch ($pagos[0]->estado){
+                case "r":
+                $cantidad[0] = $pagos[0]->cantidad;
+                break;
+                case "a":
+                $cantidad[1] = $pagos[0]->cantidad;
+                break;
+                case "t":
+                $cantidad[2] = $pagos[0]->cantidad;
+                break;
+            }
+            switch ($pagos[1]->estado){
+                case "r":
+                $cantidad[0] = $pagos[1]->cantidad;
+                break;
+                case "a":
+                $cantidad[1] = $pagos[1]->cantidad;
+                break;
+                case "t":
+                $cantidad[2] = $pagos[1]->cantidad;
+                break;
+            }
+
+            if($cantidad[0] == ""){
+                $cantidad[0] = 0;
+            }else if($cantidad[1] == ""){
+                $cantidad[1] = 0;
+            }else{
+                $cantidad[2] = 0;
+            }
+        }else if(count($pagos)>0){
+            switch ($pagos[0]->estado){
+                case "r":
+                $cantidad[0] = $pagos[0]->cantidad;
+                break;
+                case "a":
+                $cantidad[1] = $pagos[0]->cantidad;
+                break;
+                case "t":
+                $cantidad[2] = $pagos[0]->cantidad;
+                break;
+            }
+            if($cantidad[0] == ""){
+                $cantidad[0] = 0;
+            }
+            if($cantidad[1] == ""){
+                $cantidad[1] = 0;
+            }
+            if($cantidad[2] == ""){
+                $cantidad[2] = 0;
+            }
+
+            }
+        }
+    }
+
+    if($cantidad[0] == "" && $cantidad[1]=="" && $cantidad[2]==""){
+        $mensaje ="No existen pagos";
+    }
+    return view('admin.pagos.graficos',[
+        'nombre' => $nombre,
+        'cantidad' => $cantidad,
+        'mensaje' => $mensaje,
+        'fechaInicial' => $fechaInicial,
+        'fechaFinal' => $fechaFinal,
+        'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+        'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+
+
+
+
+
+    function obtenerDatos($tabla, $campo)
+    {
+        $datos = [];
+        $data = DB::table("$tabla")
+            ->select("$tabla" . '.nombre as nombre')
+            ->leftJoin('productos', "$tabla" . '.id', '=', 'productos.' . "$campo" . '_id')
+            ->AddSelect(DB::raw('count(productos.' . "$campo" . '_id) as cantidad'))
+            ->groupBy("$tabla" . '.nombre')
+            ->get();
+        $count = 0;
+        foreach ($data as $nom) {
+            $nombre[$count] = $nom->nombre;
+            $cantidad[$count] = $nom->cantidad;
+            $count++;
+        }
+
+        $datos = ['nombres' => $nombre, 'cantidad' => $cantidad];
+
+        return $datos;
+    }
+
+
+
+    public function getCategorias()
+    {
+        $categoria = Categoria::where('borrado','=','no')->get();
+        return view('admin.categorias.categorias', [
+            'categorias' => $categoria,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+    public function getMarcas()
+    {
+        $marca = Marca::where('borrado','=','no')->get();
+
+        return view('admin.marcas.marcas', [
+            'marcas' => $marca,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+    public function getTipos()
+    {
+        $tipo = Tipo::where('borrado','=','no')->get();
+
+        return view('admin.tipos.tipos', [
+            'tipos' => $tipo,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+    public function getTallas()
+    {
+        $talla = Talla::where('borrado','=','no')->get();
+
+        return view('admin.tallas.tallas', [
+            'tallas' => $talla,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+
+    public function getNotificacionesUsuarios()
+    {
+       
+        return view('admin.notificaciones.notificacionesUsuarios', [
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+    public function getNotificacionesProductos()
+    {
+        return view('admin.notificaciones.notificacionesProductos', [
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+
+    public function getColor()
+    {
+        $color = Color::where('borrado','=','no')->get();
+
+        return view('admin.colores.colors', [
+            'colors' => $color,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+    public function getGeneros()
+    {
+        $genero = Genero::where('borrado','=','no')->get();
+
+
+        return view('admin.generos.generos', [
+            'generos' => $genero,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+    public function getProveedores()
+    {
+        $proveedores = Proveedor::where('borrado','=','no')->get();
+
+        return view('admin.proveedores.proveedores', [
+            'proveedores' => $proveedores,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+
+    public function getUsuarios()
+    {
+        //$usuarios = Usuario::all()->where('tipo','!=','a');
+        /*$usuarios = DB::table('usuarios')
+        ->Join('pedidos', 'usuarios.id', '=', 'pedidos.usuario_id')
+        ->where('usuarios.tipo', '!=', 'a')
+        ->addSelect(DB::raw('count(pedidos.usuario_id) as user_count'))
+        ->get();*/
+
+        /*$usuarios = DB::table('generos')
+        ->select('generos.nombre')
+        ->rightJoin('productos', 'generos.id', '=', 'productos.genero_id')
+        //->AddSelect(DB::raw('count(productos.genero_id) as user_count'))
+        ->groupBy('generos.nombre')
+        ->get();*/
+
+        /*$usuarios = DB::table('usuarios')
+            ->select('usuarios.id', 'usuarios.nombre', 'usuarios.apellido', 'usuarios.username', 'estado_calidad')
+            ->where('usuarios.tipo', '!=', 'a')
+            ->leftJoin('compras', 'usuarios.id', '=', 'compras.usuario_id')
+            ->AddSelect(DB::raw('count(compras.usuario_id) as compras'))
+            ->addSelect(DB::raw('compras.deuda_pendiente as deuda'))
+            ->leftJoin('pedidos', 'usuarios.id', '=', 'pedidos.usuario_id')
+            ->AddSelect(DB::raw('count(pedidos.usuario_id) as pedidos'))
+            ->groupBy('usuarios.id', 'usuarios.nombre', 'usuarios.apellido', 'usuarios.username', 'estado_calidad', 'compras.deuda_pendiente')
+            ->get();*/
+
+        $usuarios = Usuario::where('tipo','<>','a')->get();
+        
+        return view('admin.usuarios.usuarios', [
+            'usuarios' => $usuarios,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+    public function getFechas()
+    {
+        $fechas = Fecha::all();
+
+        return view('admin.fechas.fechas', [
+            'fechas' => $fechas,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+    public function getPagos()
+    {
+        $pagos = Pago::all();
+
+        return view('admin.pagos.pagos', [
+            'pagos' => $pagos,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+
+
+    public function getPedidos(Request $request)
+    {
+        $pedidos = DB::table('pedidos')
+            ->select('pedidos.id', 'pedidos.fecha', 'pedidos.hora', 'pedidos.lugar_visita', 'pedidos.tipo','pedidos.estado')
+            ->leftJoin('usuarios', 'usuarios.id', '=', 'pedidos.usuario_id')
+            ->AddSelect(DB::raw('usuarios.username as usuario'))
+            ->groupBy(
+                'pedidos.id',
+                'pedidos.fecha',
+                'pedidos.hora',
+                'pedidos.lugar_visita',
+                'pedidos.tipo',
+                'pedidos.estado',
+                'usuarios.username'
+            )
+            ->get();
+
+        $fechaInicial = "";
+        $fechaFinal = "";
+        $mensaje = "";
+
+        if ($request->get('fechaInicial') != null && $request->get('fechaFinal') != null) {
+
+            if ($request->get('fechaInicial') < $request->get('fechaFinal')) {
+                $fechaInicial = $request->get('fechaInicial');
+                $fechaFinal = $request->get('fechaFinal');
+                $pedidos = DB::table('pedidos')
+                    ->select('pedidos.id', 'pedidos.fecha', 'pedidos.hora', 'pedidos.lugar_visita',
+                    'pedidos.tipo','pedidos.estado')
+                    ->where('pedidos.fecha', '>=', "$fechaInicial")
+                    ->where('pedidos.fecha', '<=', "$fechaFinal")->leftJoin('usuarios', 'usuarios.id', '=', 'pedidos.usuario_id')
+                    ->AddSelect(DB::raw('usuarios.username as usuario'))
+                    ->groupBy(
+                        'pedidos.id',
+                        'pedidos.fecha',
+                        'pedidos.hora',
+                        'pedidos.lugar_visita',
+                        'pedidos.tipo',
+                        'pedidos.estado',
+                        'usuarios.username'
+                    )
+                    ->get();
+            } else {
+                $mensaje = "La fecha inicial tiene que ser menor a fecha final";
+            }
+        } else {
+            $mensaje = 'Selecciones las fechas para una busqueda personalizada';
+        }
+
+        return view('admin.pedidos.pedidos', [
+            'pedidos' => $pedidos,
+            'mensaje' => $mensaje,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+
+    public function getPedidosUsuario(Request $request, $id)
+    {
+        $pedidos = DB::table('pedidos')
+            ->where('pedidos.usuario_id', '=', "$id")
+            ->select('pedidos.id', 'pedidos.fecha', 'pedidos.hora', 'pedidos.lugar_visita', 'pedidos.tipo','pedidos.estado')
+            ->leftJoin('usuarios', 'usuarios.id', '=', 'pedidos.usuario_id')
+            ->AddSelect(DB::raw('usuarios.username as usuario'))
+            ->where('usuarios.id', '=', "$id")
+            ->groupBy(
+                'pedidos.id',
+                'pedidos.fecha',
+                'pedidos.hora',
+                'pedidos.lugar_visita',
+                'pedidos.tipo',
+                'pedidos.estado',
+                'usuarios.username'
+            )
+            ->get();
+
+        $fechaInicial = "";
+        $fechaFinal = "";
+        $mensaje = "";
+
+        if ($request->get('fechaInicial') != null && $request->get('fechaFinal') != null) {
+
+            if ($request->get('fechaInicial') < $request->get('fechaFinal')) {
+                $fechaInicial = $request->get('fechaInicial');
+                $fechaFinal = $request->get('fechaFinal');
+                $pedidos = DB::table('pedidos')
+                    ->where('pedidos.usuario_id', '=', "$id")
+                    ->select('pedidos.id', 'pedidos.fecha', 'pedidos.hora', 'pedidos.lugar_visita', 'pedidos.tipo','pedidos.estado')
+                    ->where('pedidos.fecha', '>=', "$fechaInicial")
+                    ->where('pedidos.fecha', '<=', "$fechaFinal")->leftJoin('usuarios', 'usuarios.id', '=', 'pedidos.usuario_id')
+                    ->AddSelect(DB::raw('usuarios.username as usuario'))
+                    
+                    ->groupBy(
+                        'pedidos.id',
+                        'pedidos.fecha',
+                        'pedidos.hora',
+                        'pedidos.lugar_visita',
+                        'pedidos.tipo',
+                        'pedidos.estado',
+                        'usuarios.username'
+                    )
+                    ->get();
+            } else {
+                $mensaje = "La fecha inicial tiene que ser menor a fecha final";
+            }
+        } else {
+            $mensaje = 'Selecciones las fechas para una busqueda personalizada';
+        }
+
+        return view('admin.pedidos.pedidos', [
+            'pedidos' => $pedidos,
+            'mensaje' => $mensaje,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+
+    public function getCompras(Request $request)
+    {
+
+        $compras = DB::table('compras')
+            ->select('compras.id', 'compras.estado', 'compras.deuda_total', 'compras.deuda_pendiente', 'compras.fecha_siguiente_pago')
+            ->leftJoin('usuarios', 'usuarios.id', '=', 'compras.usuario_id')
+            ->AddSelect(DB::raw('usuarios.username as usuario'))
+            ->groupBy('compras.id', 'compras.estado', 'compras.deuda_total', 'compras.deuda_pendiente', 'compras.fecha_siguiente_pago', 'usuarios.username')
+            ->get();
+
+        $fechaInicial = "";
+        $fechaFinal = "";
+        $mensaje = "";
+
+        if ($request->get('fechaInicial') != null && $request->get('fechaFinal') != null) {
+
+            if ($request->get('fechaInicial') < $request->get('fechaFinal')) {
+                $fechaInicial = $request->get('fechaInicial');
+                $fechaFinal = $request->get('fechaFinal');
+                $compras = DB::table('compras')
+                    ->select('compras.id', 'compras.estado', 'compras.deuda_total', 'compras.deuda_pendiente', 'compras.fecha_siguiente_pago')
+                    ->where('compras.fecha_siguiente_pago', '>=', "$fechaInicial")
+                    ->where('compras.fecha_siguiente_pago', '<=', "$fechaFinal")
+                    ->leftJoin('usuarios', 'usuarios.id', '=', 'compras.usuario_id')
+                    ->AddSelect(DB::raw('usuarios.username as usuario'))
+                    ->groupBy(
+                        'compras.id',
+                        'compras.estado',
+                        'compras.deuda_total',
+                        'compras.deuda_pendiente',
+                        'compras.fecha_siguiente_pago',
+                        'usuarios.username'
+                    )
+                    ->get();
+                $mensaje = "entro";
+            } else {
+                $mensaje = "La fecha inicial tiene que ser menor a fecha final";
+            }
+        }
+
+
+        return view('admin.compras.compras', [
+            'compras' => $compras,
+            'mensaje' => $mensaje,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+    public function getComprasUsuario(Request $request, $id)
+    {
+        $compras = DB::table('compras')
+            ->select('compras.id', 'compras.estado', 'compras.deuda_total', 'compras.deuda_pendiente', 'compras.fecha_siguiente_pago')
+            ->leftJoin('usuarios', 'usuarios.id', '=', 'compras.usuario_id')
+            ->AddSelect(DB::raw('usuarios.username as usuario'))
+            ->where('usuarios.id', '=', "$id")
+            ->groupBy('compras.id', 'compras.estado', 'compras.deuda_total', 'compras.deuda_pendiente', 'compras.fecha_siguiente_pago', 'usuarios.username')
+            ->get();
+
+        $fechaInicial = "";
+        $fechaFinal = "";
+        $mensaje = "";
+
+        if ($request->get('fechaInicial') != null && $request->get('fechaFinal') != null) {
+
+            if ($request->get('fechaInicial') < $request->get('fechaFinal')) {
+                $fechaInicial = $request->get('fechaInicial');
+                $fechaFinal = $request->get('fechaFinal');
+                $compras = DB::table('compras')
+                    ->select('compras.id', 'compras.estado', 'compras.deuda_total', 'compras.deuda_pendiente', 'compras.fecha_siguiente_pago')
+                    ->where('compras.fecha_siguiente_pago', '>=', "$fechaInicial")
+                    ->where('compras.fecha_siguiente_pago', '<=', "$fechaFinal")->leftJoin(
+                        'usuarios',
+                        'usuarios.id',
+                        '=',
+                        'compras.usuario_id'
+                    )
+                    ->AddSelect(DB::raw('usuarios.username as usuario'))
+                    ->where('usuarios.id', '=', "$id")
+                    ->groupBy(
+                        'compras.id',
+                        'compras.estado',
+                        'compras.deuda_total',
+                        'compras.deuda_pendiente',
+                        'compras.fecha_siguiente_pago',
+                        'usuarios.username'
+                    )
+                    ->get();
+                $mensaje = "entro";
+            } else {
+                $mensaje = "La fecha inicial tiene que ser menor a fecha final";
+            }
+        }
+
+
+        return view('admin.usuarios.compras', [
+            'compras' => $compras,
+            'mensaje' => $mensaje,
+            'id' => $id,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+
+
+    public function getPagosCompra($id)
+    {
+        $pagos = DB::table('pagos')
+            ->select('pagos.id', 'pagos.monto', 'pagos.direccion', 'pagos.fecha', 'pagos.estado')
+            ->where('compra_id', '=', "$id")
+            ->get();
+
+        return view('admin.usuarios.pagos', [
+            'pagos' => $pagos,
+            'id' =>  $id,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
+    }
+}
