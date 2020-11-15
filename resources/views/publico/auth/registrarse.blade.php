@@ -10,7 +10,6 @@
                             <img class="w-75 img-fluid" src="{{asset('images/logo-consesion-minera.png')}}">
                         </div>
                         <form method="POST" action="{{ route('publico.auth.registro') }}">
-                        {!! RecaptchaV3::field('registro') !!}
                             @csrf
                             <div class="row">
                                 <div class="col-lg-12">

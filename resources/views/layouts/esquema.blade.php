@@ -46,7 +46,7 @@
                                 </li>
 
                                 <li class="nav-item mx-0 mx-xl-3">
-                                    <a href="" class="btn btn-success font-weight-bolder">
+                                    <a href="{{route('publico.auth.registrarse')}}" class="btn btn-success font-weight-bolder">
                                         Registrarse gratis
                                     </a>
                                 </li>
