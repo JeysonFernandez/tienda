@@ -20,6 +20,8 @@ use App\Http\Controllers\{ProductoController,UsuarioController,BuscadorControlle
 
 Route::get('/', [ProductoController::class,'homeProductos'])->name('index');
 Route::view('/registrarse', 'publico.auth.registrarse')->name('publico.auth.registrarse');
+Route::post('/registro',[UsuarioController::class,'registrar'])->name('publico.auth.registro');
+
 Route::view('/login', 'publico.auth.login')->name('publico.auth.login');
 
 Route::post('/usuarios/login', [UsuarioController::class,'login'])->name('usuarios.login');

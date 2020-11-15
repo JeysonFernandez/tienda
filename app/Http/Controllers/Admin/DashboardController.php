@@ -5,22 +5,22 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Categoria;
-use App\Color;
-use App\Genero;
-use App\Marca;
-use App\Producto;
-use App\Talla;
-use App\Proveedor;
-use App\Tipo;
-use App\Usuario;
-use App\Fecha;
-use App\Pago;
-use App\Compra;
-use App\CompraProducto;
-use App\Pedido;
-use App\NotificacionProducto;
-use App\NotificacionUsuario;
+use App\Models\Categoria;
+use App\Models\Color;
+use App\Models\Genero;
+use App\Models\Marca;
+use App\Models\Producto;
+use App\Models\Talla;
+use App\Models\Proveedor;
+use App\Models\Tipo;
+use App\Models\Usuario;
+use App\Models\Fecha;
+use App\Models\Pago;
+use App\Models\Compra;
+use App\Models\CompraProducto;
+use App\Models\Pedido;
+use App\Models\NotificacionProducto;
+use App\Models\NotificacionUsuario;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
@@ -51,11 +51,11 @@ class DashboardController extends Controller
         $pedidosEnUnMes = $pedidosEnUnaSemana = Pedido::whereBetween('fecha',[$fechaHoy,$fechaMes])
             ->select(DB::raw('count(id) as cantidad'))
             ->get();
-        
-       
+
+
         $comprasHoy = Compra::where('fecha_compra','=',"$fechaHoy")->select(DB::raw('count(id) as cantidad'))->get();
 
-        
+
         $pagosHoy = Pago::where('fecha','=',"$fechaHoy")->where('estado','!=','a')->select(DB::raw('count(id) as
         cantidad'))->get();
         $pagosEnUnaSemana = Pago::whereBetween('fecha',["$fechaHoy","$fechaUnaSemana"])
@@ -64,10 +64,10 @@ class DashboardController extends Controller
             ->get();
         $pagosEnUnMes = Pago::where('fecha','=',"$fechaMes")->where('estado','!=','a')->select(DB::raw('count(id) as
         cantidad'))->get();
-        
-        
-        
-         
+
+
+
+
         return view('admin.index', [
             'pedidosHoy' => $pedidosHoy,
             'pedidosEnUnaSemana' => $pedidosEnUnaSemana,
@@ -102,10 +102,10 @@ class DashboardController extends Controller
     {
 
         $producto = Producto::where('borrado','=','no')->get();
-        
-        
+
+
         return view('admin.productos.productos', [
-            'productos' => $producto, 
+            'productos' => $producto,
             'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
             'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
         ]);
@@ -159,8 +159,8 @@ class DashboardController extends Controller
 
         $datosNombre[0] = $nombreProducto;
         $datosCantidad[0] = $cantidadProducto;
-       
-        
+
+
         $generos = $this->obtenerDatos('generos', 'genero');
         $nombre = $generos['nombres'];
         $cantidad = $generos['cantidad'];
@@ -229,7 +229,7 @@ class DashboardController extends Controller
         return view('admin.pedidos.graficos', [
         'nombre' => $nombre,
         'cantidad' => $cantidad,
-        
+
         'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
         'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
         ]);
@@ -266,8 +266,8 @@ class DashboardController extends Controller
 
     }
     public function getGraficoCom(Request $request){
-        
-        
+
+
 
         $fechaInicial = "";
         $fechaFinal = "";
@@ -289,7 +289,7 @@ class DashboardController extends Controller
                 ->groupBy('compras.estado')
                 ->get();
 
-                
+
                 if(count($compras)>1){
                     if($compras[0]->estado === "p"){
                         $cantidad[0] = $compras[0]->cantidad;
@@ -343,7 +343,7 @@ class DashboardController extends Controller
 
             $mensaje = 'Selecciones las fechas para una busqueda personalizada';
         }
-         
+
         return view('admin.compras.graficos',[
             'nombre' => $nombre,
             'cantidad' => $cantidad,
@@ -361,7 +361,7 @@ class DashboardController extends Controller
         ->get();
 
     }
-    
+
     public function getGraficoPag(Request $request){
 
 
@@ -470,7 +470,7 @@ class DashboardController extends Controller
                     $cantidad[2] = 0;
                 }
             }
-        
+
     } else {
         $pagos = DB::table('pagos')
         ->select('pagos.estado')
@@ -652,7 +652,7 @@ class DashboardController extends Controller
 
     public function getNotificacionesUsuarios()
     {
-       
+
         return view('admin.notificaciones.notificacionesUsuarios', [
             'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
             'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
@@ -726,7 +726,7 @@ class DashboardController extends Controller
             ->get();*/
 
         $usuarios = Usuario::where('tipo','<>','a')->get();
-        
+
         return view('admin.usuarios.usuarios', [
             'usuarios' => $usuarios,
             'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
@@ -846,7 +846,7 @@ class DashboardController extends Controller
                     ->where('pedidos.fecha', '>=', "$fechaInicial")
                     ->where('pedidos.fecha', '<=', "$fechaFinal")->leftJoin('usuarios', 'usuarios.id', '=', 'pedidos.usuario_id')
                     ->AddSelect(DB::raw('usuarios.username as usuario'))
-                    
+
                     ->groupBy(
                         'pedidos.id',
                         'pedidos.fecha',

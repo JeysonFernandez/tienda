@@ -102,6 +102,10 @@
             <main class="container">
                 @yield('content')
             </main>
+            @include('sweetalert::alert')
+            <script src="{{ asset('js/publico/main.js') }}"></script>
 
+            @yield('javascript')
+            @stack('javascript')
     </body>
 </html>

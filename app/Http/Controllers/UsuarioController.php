@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUsuarioRequest;
 
+use RealRashid\SweetAlert\Facades\Alert;
+
 class UsuarioController extends Controller
 {
     /*public function __construct(){
@@ -44,23 +46,7 @@ class UsuarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $report = new Usuario();
-        $report->nombre = $request->get('nombre');
-        $report->apellido = $request->get('apellido');
-        $report->fono = $request->get('fono');
-        $report->tipo = 'u';
-        $report->sexo = $request->get('sexo');
-        $report->estado_calidad = 'a';
-        $report->direccion= $request->get('direccion');
-        $report->username = $request->get('username');
-        $report->conocido = 's';
-        $report->password = Hash::make($request->get('password'));
-        $report->save();
 
-        return redirect('/');
-    }
 
     /**
      * Display the specified resource.
@@ -140,7 +126,20 @@ class UsuarioController extends Controller
 
             }
         }
+
         return redirect()->route('index');
+    }
+
+    public function registrar(Request $request)
+    {
+        $usuario = Usuario::create($request->all());
+        $usuario->estado_calidad = 'a';
+        $usuario->tipo = 'u';
+        $usuario->conocido = 's';
+        $usuario->password = Hash::make($request->get('password'));
+        $usuario->save();
+
+        return redirect('/');
     }
 
     public function logout(){

@@ -9,7 +9,7 @@
                         <div class="text-center">
                             <img class="w-75 img-fluid" src="{{asset('images/logo-consesion-minera.png')}}">
                         </div>
-                        <form method="POST" action="{{ route('publico.registro') }}">
+                        <form method="POST" action="{{ route('publico.auth.registro') }}">
                         {!! RecaptchaV3::field('registro') !!}
                             @csrf
                             <div class="row">
@@ -115,21 +115,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-                            <input type="hidden" name="idConcesion" value="@isset($id) {{$id}} @else -1 @endisset">
-                            @if(request()->detalles)
-                            <input type="hidden" name="detalles" value="{{request()->detalles}}">
-                            @elseif(request()->contactos)
-                            <input type="hidden" name="contactos" value="{{request()->contactos}}">
-                            <div class="custom-control custom-checkbox">
-                                <input type="hidden" name="contacto">
-                                <input type="checkbox" class="custom-control-input" name="contacto" id="contacto-registro">
-                                <label class="custom-control-label" for="contacto-registro">Quiero que me contacten</label>
-                            </div>
-                            @elseif(request()->documentos)
-                            <input type="hidden" name="documentos" value="{{request()->documentos}}">
-                            @endif
 
 
                             <div class="form-group mt-3">
