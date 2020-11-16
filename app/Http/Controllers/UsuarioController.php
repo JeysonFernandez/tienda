@@ -127,6 +127,7 @@ class UsuarioController extends Controller
             }
         }
 
+        alert()->success('Logueado','logueado');
         return redirect()->route('index');
     }
 
