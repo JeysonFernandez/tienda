@@ -30,6 +30,8 @@ Route::get('/usuarios/logout', [UsuarioController::class,'logout'])->name('publi
 
 Route::group(['as' => 'publico.'], function () {
     Route::get('/busqueda', [BuscadorController::class, 'busqueda'])->name('busqueda');
+
+    Route::get('/ver/{id}', [BuscadorController::class, 'verProducto'])->name('ver-producto')->where('id', '[0-9]+');
 });
 //--------------------------------------------------------------------------------------------------------------------
 //Productos

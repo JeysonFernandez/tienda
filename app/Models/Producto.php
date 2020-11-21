@@ -16,6 +16,26 @@ class Producto extends Model
     public $timestamps = false;
     protected $table = "productos";
 
+    protected $fillable = [
+        'id',
+        'nombre',
+        'primer_apellido',
+        'segundo_apellido',
+        'email',
+        'password',
+        'tipo',
+        'estado_calidad',
+        'sexo',
+        'direccion',
+        'conocido',
+        'deuda_total',
+    ];
+
+    public function __toString()
+    {
+        return $this->categoria.' '.$this->marca;
+    }
+
 
     public function scopeActivas($query)
     {
@@ -24,28 +44,28 @@ class Producto extends Model
 
 
     public function categoria(){
-        return $this->belongsTo('App\Categoria');
+        return $this->belongsTo('App\Models\Categoria');
     }
     public function color(){
-        return $this->belongsTo('App\Color');
+        return $this->belongsTo('App\Models\Color');
     }
     public function marca(){
-        return $this->belongsTo('App\Marca');
+        return $this->belongsTo('App\Models\Marca');
     }
     public function proveedor(){
-        return $this->belongsTo('App\Proveedor');
+        return $this->belongsTo('App\Models\Proveedor');
     }
     public function talla(){
-        return $this->belongsTo('App\Talla');
+        return $this->belongsTo('App\Models\Talla');
     }
     public function tipo(){
-        return $this->belongsTo('App\Tipo');
+        return $this->belongsTo('App\Models\Tipo');
     }
     public function genero(){
-        return $this->belongsTo('App\Genero');
+        return $this->belongsTo('App\Models\Genero');
     }
     public function compras(){
-        return $this->belongsToMany('App\Producto');
+        return $this->belongsToMany('App\Models\Producto');
     }
 
     public function scopeOfCategoria($query, $categoria)

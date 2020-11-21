@@ -185,6 +185,15 @@ class BuscadorController extends Controller
         ]);
     }
 
+    public function verProducto($id)
+    {
+        $producto = Producto::find($id);
+
+        return view('publico.buscador.ver',compact('producto'));
+    }
+
+
+
     public function busqueda(Request $request)
     {
         $productos = Producto::query();
@@ -237,7 +246,6 @@ class BuscadorController extends Controller
             }
 
             $productos = $productos->get();
-
             return view('publico.buscador.resultados',compact('productos','categorias','colores','marcas','tallas','proveedores','tipos','generos','input'));
         }
 
