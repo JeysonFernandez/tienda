@@ -22,7 +22,7 @@
 
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-4 border-left">
                 @isset($concesiones)
                     @foreach ($concesiones as $concesion_busqueda )
                     <div class="col-xl-6 mb-3">

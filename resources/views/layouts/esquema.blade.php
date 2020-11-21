@@ -32,7 +32,7 @@
                             @guest
                                 <li class="nav-item  mx-0 mx-xl-4 mt-3 mt-xl-0 order-3 order-xl-0">
                                     <form action="{{route('publico.busqueda')}}" method="get">
-                                        @csrf
+
                                             <div class="input-group nav-search input-rounded shadow-sm">
                                             <input class="form-control input-rounded" placeholder="Buscar" type="text" name="buscadorTexto">
                                             <div class="input-group-append">
@@ -54,7 +54,7 @@
                                 </li>
                             @else
                                 <li class="nav-item mx-4">
-                                    <form action="" method="post">
+                                    <form action="{{route('publico.busqueda')}}" method="get">
                                         @csrf
                                             <div class="input-group nav-search input-rounded shadow-sm">
                                             <input class="form-control input-rounded" placeholder="Buscar" type="text" name="buscadorTexto">

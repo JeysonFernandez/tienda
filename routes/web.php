@@ -30,7 +30,6 @@ Route::get('/usuarios/logout', [UsuarioController::class,'logout'])->name('publi
 
 Route::group(['as' => 'publico.'], function () {
     Route::get('/busqueda', [BuscadorController::class, 'busqueda'])->name('busqueda');
-    Route::post('/resultados/ajax-contador', [BuscadorController::class, 'contadorBusqueda'])->name('contador-busqueda');
 });
 //--------------------------------------------------------------------------------------------------------------------
 //Productos
