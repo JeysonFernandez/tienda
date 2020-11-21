@@ -127,18 +127,19 @@ class UsuarioController extends Controller
             }
         }
 
-        alert()->success('Logueado','logueado');
+        alert()->success('Conectado!','Has iniciado sesión de forma correcta');
         return redirect()->route('index');
     }
 
     public function registrar(Request $request)
     {
         $usuario = Usuario::create($request->all());
-        $usuario->estado_calidad = 'a';
-        $usuario->tipo = 'u';
-        $usuario->conocido = 's';
+        $usuario->estado_calidad = 1;
+        $usuario->tipo = 1;
+        $usuario->conocido = 1;
         $usuario->password = Hash::make($request->get('password'));
         $usuario->save();
+
 
         return redirect('/');
     }

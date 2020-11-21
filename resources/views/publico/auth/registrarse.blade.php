@@ -6,10 +6,8 @@
             <div class="card p-0 o-hidden border-0 shadow-lg my-5">
                 <div class="card-body p-0">
                     <div class="p-5">
-                        <div class="text-center">
-                            <img class="w-75 img-fluid" src="{{asset('images/logo-consesion-minera.png')}}">
-                        </div>
-                        <form method="POST" action="{{ route('publico.auth.registro') }}">
+
+                        <form method="POST" action="{{ route('publico.registro') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-12">

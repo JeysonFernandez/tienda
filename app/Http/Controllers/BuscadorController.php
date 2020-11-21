@@ -184,4 +184,66 @@ class BuscadorController extends Controller
             'mensaje' => $mensaje
         ]);
     }
+
+    public function busqueda(Request $request)
+    {
+        $productos = Producto::query();
+        $productos->activas();
+
+        $categorias = Categoria::all();
+        $colores = Color::all();
+        $marcas = Marca::all();
+        $tallas = Talla::all();
+        $proveedores = Proveedor::all();
+        $tipos = Tipo::all();
+        $generos = Genero::all();
+
+        if ( $request->isMethod('get') ) {
+            $input = $request->all();
+
+            /*if(isset($input['buscadorTexto'])){
+
+                $concesiones ->where('nombre','LIKE', '%' .$input['buscadorTexto'] . '%')
+                    ->orWhere('sector','LIKE', '%' . $input['buscadorTexto'] . '%')
+                    ->orWhere('resena_tecnica','LIKE', '%' .$input['buscadorTexto'] . '%')
+                    ->orWhere('titulo_fotografias','LIKE', '%' .$input['buscadorTexto'] . '%');
+            }*/
+
+            if (isset($input['tipo_id'])) {
+                $productos->where('tipo_id',$input['tipo_id']);
+
+            }
+
+            if (isset($input['color_id'])) {
+                $productos->where('color_id',$input['color_id']);
+
+            }
+
+            if (isset($input['genero_id'])) {
+                $productos->where('genero_id',$input['genero_id']);
+            }
+
+            if (isset($input['categoria_id'])) {
+                $productos->where('categoria_id',$input['categoria_id']);
+            }
+
+            if (isset($input['marca_id'])) {
+                $productos->where('marca_id',$input['marca_id']);
+            }
+
+            if (isset($input['proveedor_id'])) {
+                $productos->where('proveedor_id',$input['proveedor_id']);
+
+            }
+
+            $productos = $productos->get();
+
+            return view('publico.buscador.resultados',compact('productos','categorias','colores','marcas','tallas','proveedores','tipos','generos','input'));
+        }
+
+        $input = [];
+        $productos = Producto::activas()->get();
+        return view('publico.buscador.resultados',compact('productos','categorias','colores','marcas','tallas','proveedores','tipos','generos','input'));
+    }
+
 }

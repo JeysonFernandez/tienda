@@ -32,6 +32,8 @@ class Usuario extends Authenticable
 
 
 
+
+
     public function compras(){
         return $this->hasMany('App\Compra');
     }

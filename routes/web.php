@@ -20,12 +20,18 @@ use App\Http\Controllers\{ProductoController,UsuarioController,BuscadorControlle
 
 Route::get('/', [ProductoController::class,'homeProductos'])->name('index');
 Route::view('/registrarse', 'publico.auth.registrarse')->name('publico.auth.registrarse');
-Route::post('/registro',[UsuarioController::class,'registrar'])->name('publico.auth.registro');
+Route::post('/registro',[UsuarioController::class,'registrar'])->name('publico.registro');
 
 Route::view('/login', 'publico.auth.login')->name('publico.auth.login');
 
 Route::post('/usuarios/login', [UsuarioController::class,'login'])->name('usuarios.login');
-Route::get('/usuarios/logout', [UsuarioController::class,'logout'])->name('usuarios.logout');
+Route::get('/usuarios/logout', [UsuarioController::class,'logout'])->name('publico.logout');
+
+
+Route::group(['as' => 'publico.'], function () {
+    Route::get('/busqueda', [BuscadorController::class, 'busqueda'])->name('busqueda');
+    Route::post('/resultados/ajax-contador', [BuscadorController::class, 'contadorBusqueda'])->name('contador-busqueda');
+});
 //--------------------------------------------------------------------------------------------------------------------
 //Productos
 /*

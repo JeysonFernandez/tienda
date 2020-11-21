@@ -7,10 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
 
+    const PUBLICADO = 1;
+    const BORRADOR = 2;
+    const BORRADO = 3;
+
 
 
     public $timestamps = false;
     protected $table = "productos";
+
+
+    public function scopeActivas($query)
+    {
+        return $query->where('borrado',Producto::PUBLICADO);
+    }
+
 
     public function categoria(){
         return $this->belongsTo('App\Categoria');
