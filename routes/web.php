@@ -31,32 +31,68 @@ Route::get('/usuarios/logout', [UsuarioController::class,'logout'])->name('publi
 
 Route::group(['as' => 'publico.'], function () {
     Route::get('/busqueda', [BuscadorController::class, 'busqueda'])->name('busqueda');
-
     Route::get('/ver/{id}', [BuscadorController::class, 'verProducto'])->name('ver-producto')->where('id', '[0-9]+');
+
+    Route::group(['as'=> 'producto.'], function(){
+        Route::get('/carrito',[ProductoController::class, 'carrito'])->name('carrito');
+        Route::get('/añadir-al-carrito/{id}', [ProductoController::class, 'addCarrito'])->name('addcarrito');
+        Route::get('/borrar-elemento-carro/{id}',[ProductoController::class, 'borrarElementoCarro'])->name('boorarelementocarrito');
+        Route::get('/borrar-carro',[ProductoController::class, 'borrarCarro'])->name('borrarcarro');
+        Route::post('/actualizar-carro/{id}',[ProductoController::class, 'actualizarCarrito'])->name('actualizarcarro');
+    });
 });
 
+//ADMIN-----------------------------------------------------------------------------------------------------------------------------------------
 Route::group(['as'=> 'admin.'], function(){
     Route::get('/admin',[DashboardController::class,'index'])->name('index');
+
     Route::group(['as'=> 'categoria.'], function(){
         Route::get('/categorias', [DashboardController::class,'getCategorias'])->name('getcategoria');
+        Route::delete('/categorias/confirmDelete', [CategoriaController::class,'confirmDelete'])->name('confirmDelete');
+        Route::post('/categorias/update',[CategoriaController::class,'confirmarUpdate'])->name('confirmarUpdate');
+        Route::resource('/categorias', 'CategoriaController');
     });
+
     Route::group(['as'=> 'color.'], function(){
         Route::get('/color',[DashboardController::class,'getColor'])->name('getcolor');
+        Route::delete('/colors/confirmDelete', [ColorController::class,'confirmDelete'])->name('confirmDelete');
+        Route::post('/colors/update',[ColorController::class,'confirmarUpdate'])->name('confirmarUpdate');
+        Route::resource('/colors', 'ColorController');
     });
+
     Route::group(['as'=> 'tipo.'], function(){    
         Route::get('/tipos', [DashboardController::class,'getTipos'])->name('gettipo');
+        Route::delete('/tipos/confirmDelete', [TipoController::class,'confirmDelete'])->name('confirmDelete');
+        Route::post('/tipos/update',[TipoController::class,'confirmarUpdate'])->name('confirmarUpdate');
+        Route::resource('/tipos', 'TipoController');
     });
+
     Route::group(['as'=> 'talla.'], function(){    
         Route::get('/tallas', [DashboardController::class,'getTallas'])->name('gettalla');
+        Route::delete('/tallas/confirmDelete', [TallaController::class,'confirmDelete'])->name('confirmDelete');
+        Route::post('/tallas/update',[TallaController::class,'confirmarUpdate'])->name('confirmarUpdate');
+        Route::resource('/tallas', 'TallaController');
     });
+
     Route::group(['as'=> 'marca.'], function(){    
         Route::get('/marcas', [DashboardController::class,'getMarcas'])->name('getmarca');
+        Route::delete('/marcas/confirmDelete', [MarcaController::class,'confirmDelete'])->name('confirmDelete');
+        Route::post('/marcas/update',[MarcaController::class,'confirmarUpdate'])->name('confirmarUpdate');
+        Route::resource('/marcas', 'MarcaController');
     });
+
     Route::group(['as'=> 'genero.'], function(){    
         Route::get('/generos', [DashboardController::class,'getGeneros'])->name('getgenero');
+        Route::delete('/generos/confirmDelete', [GeneroController::class,'confirmDelete'])->name('confirmDelete');
+        Route::post('/generos/update',[GeneroController::class,'confirmarUpdate'])->name('confirmarUpdate');
+        Route::resource('/generos', 'GeneroController');
     });
+
     Route::group(['as'=> 'proveedor.'], function(){        
         Route::get('/proveedores',[DashboardController::class,'getProveedores'])->name('getproveedor');
+        Route::delete('/proveedors/confirmDelete', [ProveedorController::class,'confirmDelete'])->name('confirmDelete');
+        Route::post('/proveedors/update',[ProveedorController::class,'confirmarUpdate'])->name('confirmarUpdate');
+        Route::resource('/proveedors', 'ProveedorController');
     });
 
     Route::group(['as'=> 'usuario.'], function(){        
@@ -67,10 +103,12 @@ Route::group(['as'=> 'admin.'], function(){
 
     Route::group(['as'=> 'producto.'], function(){        
         Route::get('/productos', [DashboardController::class,'getProductos'])->name('getproducto');
-        Route::get('/productos/graficos', [DashboardController::class,'getGraficoProducto'])->name('getgraficoproducto');
-        Route::post('/productos/grafico/tipo', [DashboardController::class,'getGraficoProducto'])->name('getgraficoproductopost');
+        Route::get('/productos/graficos', [ProductoController::class,'getGraficoProducto'])->name('getgraficoproducto');
+        Route::post('/productos/grafico/tipo', [ProductoController::class,'getGraficoProducto'])->name('getgraficoproductopost');
+        Route::delete('/productos/confirmDelete', [ProductoController::class,'confirmDelete'])->name('confirmDelete');
+        Route::post('/productos/update',[ProductoController::class,'confirmarUpdate'])->name('confirmarUpdate');
+        Route::resource('/productos', 'ProductoController');
     });
-
 
     Route::group(['as'=> 'compra.'], function(){        
         Route::get('/compras/{id}', [DashboardController::class,'getComprasUsuario'])->name('getcomprausuario');
@@ -80,6 +118,13 @@ Route::group(['as'=> 'admin.'], function(){
         Route::post('/compras/fecha', [DashboardController::class,'getCompras'])->name('getcomprapost');
         Route::get('/graficos/compras', [DashboardController::class,'getGraficoCom'])->name('getgraficocom');
         Route::post('/graficos/compras', [DashboardController::class,'getGraficoCom'])->name('getgraficocom');
+
+        Route::resource('/compras', 'CompraController');
+        Route::post('/admin/compras/agregar',[CompraController::class,'agregar'])->name('compra');
+        Route::post('/admin/compras/addcarrito',[CompraController::class,'addCarrito'])->name('compra');
+        Route::delete('/compras/confirmDelete', [CompraController::class,'confirmDelete'])->name('confirmDelete');
+        Route::get('/compras/detalle/{id}',[CompraController::class,'detalleCompraUsuario'])->name('detalleUsuario');
+        Route::get('/compras/detalleCuenta/{id}',[CompraController::class,'detalleCompraUsuarioCuenta'])->name('detalleUsuarioCuenta');
     });
 
     Route::group(['as'=> 'pago.'], function(){        
@@ -87,6 +132,10 @@ Route::group(['as'=> 'admin.'], function(){
         Route::get('/pagos/{id}', [DashboardController::class,'getPagosCompra'])->name('getpagocompra');
         Route::get('/graficos/pagos', [DashboardController::class,'getGraficoPag'])->name('getgraficopag');
         Route::post('/graficos/pagos', [DashboardController::class,'getGraficoPag'])->name('getgraficopag');
+
+        Route::resource('/pagos', 'PagoController');
+        Route::post('/admin/pagos/agregar',[PagoController::class,'Agregar'])->name('agregar');
+        Route::delete('/pagos/confirmDelete', [CompraController::class,'confirmDelete'])->name('confirmDelete');
     });
 
     Route::group(['as'=> 'notificacion.'], function(){        
@@ -96,6 +145,8 @@ Route::group(['as'=> 'admin.'], function(){
 
     Route::group(['as'=> 'fecha.'], function(){        
         Route::get('/fechas', [DashboardController::class,'getFechas'])->name('getfechas');
+        Route::resource('/fechas', 'FechaController');
+        Route::get('/fechas/eliminar/{fecha}{hora}',[FechaController::class,'eliminar'])->name('eliminarfecha');
     });
 
     Route::group(['as'=> 'pedido.'], function(){        
@@ -105,133 +156,23 @@ Route::group(['as'=> 'admin.'], function(){
         Route::get('/pedidos', [DashboardController::class,'getPedidos'])->name('getpedido');
         Route::post('/pedidos/fecha', [DashboardController::class,'getPedidos'])->name('getpedidopost');
         Route::get('/graficos/pedidos', [DashboardController::class,'getGraficoPed'])->name('getgraficoped');
+
+        Route::resource('/pedidos', 'PedidoController');
+        Route::get('/pedidos/cancelarPedido/{id}', [PedidoController::class,'cancelar'])->name('cancelarpedido');
+        Route::post('/pedidos/{id}', [PedidoController::class,'agregar'])->name('agregarpedido');
+        Route::get('/pedidos/detalle/{id}',[PedidoController::class,'detallePedidoUsuario'])->name('detalleUsuario');
+        Route::get('/pedidos/detalleCuenta/{id}',[PedidoController::class,'detallePedidoUsuarioCuenta'])->name('detalleUsuarioCuenta');
+        Route::delete('/pedidos/confirmDelete', [PedidoController::class,'confirmDelete'])->name('confirmDelete');
     });
 });
 //--------------------------------------------------------------------------------------------------------------------
-//Productos
 /*
-Route::delete('/productos/confirmDelete', 'ProductoController@confirmDelete')->name('productos.confirmDelete');
-Route::post('/productos/update','ProductoController@confirmarUpdate')->name('productos.confirmarUpdate');
-Route::resource('/productos', 'ProductoController');
-Route::get('/carrito','ProductoController@carrito')->name('productos.carrito');
-Route::get('/añadir-al-carrito/{id}', 'ProductoController@addCarrito');
-Route::get('/borrar-elemento-carro/{id}','ProductoController@borrarElementoCarro');
-Route::get('/borrar-carro','ProductoController@borrarCarro');
-Route::post('/actualizar-carro/{id}','ProductoController@actualizarCarrito');
-
-//Categorias
-Route::delete('/categorias/confirmDelete', 'CategoriaController@confirmDelete')->name('categorias.confirmDelete');
-Route::post('/categorias/update','CategoriaController@confirmarUpdate')->name('categorias.confirmarUpdate');
-Route::resource('/categorias', 'CategoriaController');
-
-//Tipos
-Route::delete('/tipos/confirmDelete', 'TipoController@confirmDelete')->name('tipos.confirmDelete');
-Route::post('/tipos/update','TipoController@confirmarUpdate')->name('tipos.confirmarUpdate');
-Route::resource('/tipos', 'TipoController');
-
-//Marcas
-Route::delete('/marcas/confirmDelete', 'MarcaController@confirmDelete')->name('marcas.confirmDelete');
-Route::post('/marcas/update','MarcaController@confirmarUpdate')->name('marcas.confirmarUpdate');
-Route::resource('/marcas', 'MarcaController');
-
-//Tallas
-Route::delete('/tallas/confirmDelete', 'TallaController@confirmDelete')->name('tallas.confirmDelete');
-Route::post('/tallas/update','TallaController@confirmarUpdate')->name('tallas.confirmarUpdate');
-Route::resource('/tallas', 'TallaController');
-
-//Colores
-Route::delete('/colors/confirmDelete', 'ColorController@confirmDelete')->name('colors.confirmDelete');
-Route::post('/colors/update','ColorController@confirmarUpdate')->name('colors.confirmarUpdate');
-Route::resource('/colors', 'ColorController');
-
-//Proveedores
-Route::delete('/proveedors/confirmDelete', 'ProveedorController@confirmDelete')->name('proveedors.confirmDelete');
-Route::post('/proveedors/update','ProveedorController@confirmarUpdate')->name('proveedors.confirmarUpdate');
-Route::resource('/proveedors', 'ProveedorController');
-
-//Generos
-Route::delete('/generos/confirmDelete', 'GeneroController@confirmDelete')->name('generos.confirmDelete');
-Route::post('/generos/update','GeneroController@confirmarUpdate')->name('generos.confirmarUpdate');
-Route::resource('/generos', 'GeneroController');
 */
 //Buscador
 Route::get('/buscadors', [BuscadorController::class,'datos'])->name('buscador.datos');
 Route::post('/buscadors/filtro', [BuscadorController::class,'filtroGeneral'])->name('buscador.filtroGeneral');
 Route::post('/buscadors/barranavegacion', [BuscadorController::class,'filtroBarra'])->name('buscador.filtroBarra');
 /*
-//Pedido
-Route::resource('/pedidos', 'PedidoController');
-Route::get('/pedidos/cancelarPedido/{id}', 'PedidoController@cancelar');
-Route::post('/pedidos/{id}', 'PedidoController@agregar');
-Route::get('/pedidos/detalle/{id}','PedidoController@detallePedidoUsuario')->name('pedidos.detalleUsuario');
-Route::get('/pedidos/detalleCuenta/{id}','PedidoController@detallePedidoUsuarioCuenta')->name('compras.detalleUsuarioCuenta');
-Route::delete('/pedidos/confirmDelete', 'PedidoController@confirmDelete')->name('pedidos.confirmDelete');
-
-//Compras
-Route::resource('/compras', 'CompraController');
-Route::post('/admin/compras/agregar','CompraController@agregar')->name('agregar.compra');
-Route::post('/admin/compras/addcarrito','CompraController@addCarrito')->name('carro.compra');
-Route::delete('/compras/confirmDelete', 'CompraController@confirmDelete')->name('compras.confirmDelete');
-Route::get('/compras/detalle/{id}','CompraController@detalleCompraUsuario')->name('compras.detalleUsuario');
-Route::get('/compras/detalleCuenta/{id}','CompraController@detalleCompraUsuarioCuenta')->name('compras.detalleUsuarioCuenta');
-
-//Fechas
-Route::resource('/fechas', 'FechaController');
-Route::get('/fechas/eliminar/{fecha}{hora}','FechaController@eliminar');
-
-//Pagos
-Route::resource('/pagos', 'PagoController');
-Route::post('/admin/pagos/agregar','PagoController@Agregar')->name('agregar.pago');
-Route::delete('/pagos/confirmDelete', 'PagoController@confirmDelete')->name('pagos.confirmDelete');
-
-Route::prefix('admin')->group(function () {
-    Route::get('/', 'Admin\DashboardController@getDashboard')->name('admin.index');
-    Route::get('/categorias', 'Admin\DashboardController@getCategorias')->name('admin.getcategoria');
-    Route::get('/color', 'Admin\DashboardController@getColor')->name('admin.getcolor');
-    Route::get('/tipos', 'Admin\DashboardController@getTipos')->name('admin.gettipo');
-    Route::get('/tallas', 'Admin\DashboardController@getTallas')->name('admin.gettalla');
-    Route::get('/marcas', 'Admin\DashboardController@getMarcas')->name('admin.getmarca');
-    Route::get('/generos', 'Admin\DashboardController@getGeneros')->name('admin.getgenero');
-    Route::get('/proveedores', 'Admin\DashboardController@getProveedores')->name('admin.getproveedor');
-
-    Route::get('/usuarios', 'Admin\DashboardController@getUsuarios')->name('admin.getusuario');
-    Route::get('/usuarios/{id}', 'Admin\DashboardController@getCompraUsuario')->name('admin.getcomprausuario');
-    Route::get('/graficos/usuarios', 'Admin\DashboardController@getGraficoUsu')->name('admin.getgraficousu');
-
-    Route::get('/productos', 'Admin\DashboardController@getProductos')->name('admin.getproducto');
-    Route::get('/productos/graficos', 'Admin\DashboardController@getGraficoProducto')->name('admin.getgraficoproducto');
-    Route::post('/productos/grafico/tipo', 'Admin\DashboardController@getGraficoProducto')->name('admin.getgraficoproductopost');
-
-
-    Route::get('/compras/{id}', 'Admin\DashboardController@getComprasUsuario')->name('admin.getcomprausuario');
-    Route::get('/compras/productos/{id}', 'Admin\DashboardController@getComprasProductos')->name('admin.getcompraproductos');
-    Route::post('/compras/fecha/{id}', 'Admin\DashboardController@getComprasUsuario')->name('admin.getcomprausuariopost');
-    Route::get('/compras', 'Admin\DashboardController@getCompras')->name('admin.getcompras');
-    Route::post('/compras/fecha', 'Admin\DashboardController@getCompras')->name('admin.getcomprapost');
-    Route::get('/graficos/compras', 'Admin\DashboardController@getGraficoCom')->name('admin.getgraficocom');
-    Route::post('/graficos/compras', 'Admin\DashboardController@getGraficoCom')->name('admin.getgraficocom');
-
-    Route::get('/pagos', 'Admin\DashboardController@getPagos')->name('admin.getpagos');
-    Route::get('/pagos/{id}', 'Admin\DashboardController@getPagosCompra')->name('admin.getpagocompra');
-    Route::get('/graficos/pagos', 'Admin\DashboardController@getGraficoPag')->name('admin.getgraficopag');
-    Route::post('/graficos/pagos', 'Admin\DashboardController@getGraficoPag')->name('admin.getgraficopag');
-
-
-    Route::get('/notificaciones/usuarios', 'Admin\DashboardController@getNotificacionesUsuarios')->name('admin.getnotificacionesusuarios');
-    Route::get('/notificaciones/productos', 'Admin\DashboardController@getNotificacionesProductos')->name('admin.getnotificacionesproductos');
-
-    Route::get('/fechas', 'Admin\DashboardController@getFechas')->name('admin.getfechas');
-
-    Route::get('/pedidos/{id}', 'Admin\DashboardController@getPedidosUsuario')->name('admin.getpedidousuario');
-    Route::get('/pedidos/productos/{id}', 'Admin\DashboardController@getPedidosProductos')->name('admin.getpedidosproductos');
-    Route::post('/pedidos/fecha/{id}', 'Admin\DashboardController@getPedidosUsuario')->name('admin.getpedidousuariopost');
-    Route::get('/pedidos', 'Admin\DashboardController@getPedidos')->name('admin.getpedido');
-    Route::post('/pedidos/fecha', 'Admin\DashboardController@getPedidos')->name('admin.getpedidopost');
-
-    Route::get('/graficos/pedidos', 'Admin\DashboardController@getGraficoPed')->name('admin.getgraficoped');
-});
-
-
 
 Route::prefix('usuario')->group(function(){
     Route::get('/{id}','usuario\DashboardUsuarioController@getCompras')->name('usuarioMenu.index');
