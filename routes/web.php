@@ -35,8 +35,52 @@ Route::group(['as' => 'publico.'], function () {
     Route::get('/ver/{id}', [BuscadorController::class, 'verProducto'])->name('ver-producto')->where('id', '[0-9]+');
 });
 
-Route::group(['as' => 'admin.'], function () {
+Route::group(['as'=> 'admin.'], function(){
     Route::get('/admin',[DashboardController::class,'index'])->name('index');
+    Route::get('/', ['as'=>'admin.index','uses'=>'Admin\DashboardController@getDashboard']);
+    Route::get('/categorias', ['as' => 'admin.getcategoria','uses' => 'Admin\DashboardController@getCategorias']);
+    Route::get('/color',['as' => 'admin.getcolor', 'uses' => 'Admin\DashboardController@getColor']);
+    Route::get('/tipos',['as' => 'admin.gettipo','uses'=> 'Admin\DashboardController@getTipos']);
+    Route::get('/tallas',['as' => 'admin.gettalla','uses' => 'Admin\DashboardController@getTallas']);
+    Route::get('/marcas',['as' => 'admin.getmarca','uses' => 'Admin\DashboardController@getMarcas']);
+    Route::get('/generos',['as' => 'admin.getgenero','uses' => 'Admin\DashboardController@getGeneros']);
+    Route::get('/proveedores',['as' => 'admin.getproveedor','uses' => 'Admin\DashboardController@getProveedores']);
+
+    Route::get('/usuarios',['as' => 'admin.getusuario','uses' => 'Admin\DashboardController@getUsuarios']);
+    Route::get('/usuarios/{id}',['as' => 'admin.getcomprausuario','uses' => 'Admin\DashboardController@getCompraUsuario']);
+    Route::get('/graficos/usuarios',['as' => 'admin.graficousu','uses' => 'Admin\DashboardController@getGraficoUsu']);
+
+    Route::get('/productos',['as' => 'admin.getproducto','uses' => 'Admin\DashboardController@getProductos']);
+    Route::get('/productos/graficos',['as' => 'admin.getgraficoproducto','uses' => 'Admin\DashboardController@getGraficoProducto']);
+    Route::post('/productos/grafico/tipo',['as' => 'admin.getgraficoproductopost','uses' => 'Admin\DashboardController@getGraficoProducto']);
+
+
+    Route::get('/compras/{id}',['as' => 'admin.getcomprausuario','uses' => 'Admin\DashboardController@getComprasUsuario']);
+    Route::get('/compras/productos/{id}',['as' => 'admin.getcompraproductos','uses' => 'Admin\DashboardController@getComprasProductos']);
+    Route::post('/compras/fecha/{id}',['as' => 'admin.getcomprausuariopost','uses' => 'Admin\DashboardController@getComprasUsuario']);
+    Route::get('/compras',['as' => 'admin.getcompras','uses' => 'Admin\DashboardController@getCompras']);
+    Route::post('/compras/fecha',['as' => 'admin.getcomprapost','uses' => 'Admin\DashboardController@getCompras']);
+    Route::get('/graficos/compras',['as' => 'admin.getgraficocom','uses' => 'Admin\DashboardController@getGraficoCom']);
+    Route::post('/graficos/compras',['as' => 'admin.getgraficocom','uses' => 'Admin\DashboardController@getGraficoCom']);
+
+    Route::get('/pagos',['as' => 'admin.getpagos','uses' => 'Admin\DashboardController@getPagos']);
+    Route::get('/pagos/{id}',['as' => 'admin.getpagocompra','uses' => 'Admin\DashboardController@getPagosCompra']);
+    Route::get('/graficos/pagos',['as' => 'admin.getgraficopag','uses' => 'Admin\DashboardController@getGraficoPag']);
+    Route::post('/graficos/pagos',['as' => 'admin.getgraficopag','uses' => 'Admin\DashboardController@getGraficoPag']);
+
+
+    Route::get('/notificaciones/usuarios',['as' => 'admin.getnotificacionesusuarios','uses' => 'Admin\DashboardController@getNotificacionesUsuarios']);
+    Route::get('/notificaciones/productos',['as' => 'admin.getnotificacionesproductos','uses' => 'Admin\DashboardController@getNotificacionesProductos']);
+
+    Route::get('/fechas',['as' => 'admin.getfechas','uses' => 'Admin\DashboardController@getFechas']);
+
+    Route::get('/pedidos/{id}',['as' => 'admin.getpedidousuario','uses' => 'Admin\DashboardController@getPedidosUsuario']);
+    Route::get('/pedidos/productos/{id}',['as' => 'admin.getpedidosproductos','uses' => 'Admin\DashboardController@getPedidosProductos']);
+    Route::post('/pedidos/fecha/{id}',['as' => 'admin.getpedidousuariopost','uses' => 'Admin\DashboardController@getPedidosUsuario']);
+    Route::get('/pedidos',['as' => 'admin.getpedido','uses' => 'Admin\DashboardController@getPedidos']);
+    Route::post('/pedidos/fecha',['as' => 'admin.getpedidopost','uses' => 'Admin\DashboardController@getPedidos']);
+
+    Route::get('/graficos/pedidos',['as' => 'admin.getgraficoped','uses' => 'Admin\DashboardController@getGraficoPed']);
 });
 //--------------------------------------------------------------------------------------------------------------------
 //Productos
