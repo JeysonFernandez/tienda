@@ -66,13 +66,13 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Caracteristicas</h6>
-                        <a class="collapse-item" href="{{--route('admin.getcategoria')--}}">Categorias</a>
-                        <a class="collapse-item" href="{{--route('admin.getcolor')--}}">Color</a>
-                        <a class="collapse-item" href="{{--route('admin.getgenero')--}}">Generos</a>
-                        <a class="collapse-item" href="{{--route('admin.getmarca')--}}">Marcas</a>
-                        <a class="collapse-item" href="{{--route('admin.gettipo')--}}">Tipos</a>
-                        <a class="collapse-item" href="{{--route('admin.gettalla')--}}">Tallas</a>
-                        <a class="collapse-item" href="{{--route('admin.getproveedor')--}}">Proveedores</a>
+                        <a class="collapse-item" href="{{route('admin.categoria.getcategoria')}}">Categorias</a>
+                        <a class="collapse-item" href="{{route('admin.color.getcolor')}}">Color</a>
+                        <a class="collapse-item" href="{{route('admin.genero.getgenero')}}">Generos</a>
+                        <a class="collapse-item" href="{{route('admin.marca.getmarca')}}">Marcas</a>
+                        <a class="collapse-item" href="{{route('admin.tipo.gettipo')}}">Tipos</a>
+                        <a class="collapse-item" href="{{route('admin.talla.gettalla')}}">Tallas</a>
+                        <a class="collapse-item" href="{{route('admin.proveedor.getproveedor')}}">Proveedores</a>
                     </div>
                 </div>
             </li>
@@ -96,12 +96,12 @@
                 </div>
             </li>-->
             <li class="nav-item">
-                <a class="nav-link" href="{{--route('admin.getproducto')--}}">
+                <a class="nav-link" href="{{route('admin.producto.getproducto')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Tabla Productos</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{--route('admin.getgraficoproducto')--}}">
+                <a class="nav-link" href="{{route('admin.producto.getgraficoproducto')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Graficos Productos</span></a>
             </li>
@@ -117,12 +117,12 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="{{--route('admin.getusuario')--}}">
+                <a class="nav-link" href="{{route('admin.usuario.getusuario')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Tabla Usuarios</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="{{--route('admin.getgraficousu')--}}" >
+                <a class="nav-link"  href="{{route('admin.usuario.getgraficousu')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Graficos Usuarios</span>
                 </a>
@@ -155,7 +155,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="{{--route('admin.getgraficocom')--}}" >
+                <a class="nav-link"  href="{{route('admin.compra.getgraficocom')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Graficos Compras</span>
                 </a>
@@ -172,7 +172,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="{{--route('admin.getgraficopag')--}}" >
+                <a class="nav-link"  href="{{route('admin.pago.getgraficopag')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Graficos Pagos</span>
                 </a>
@@ -189,7 +189,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="{{--route('admin.getgraficoped')--}}" >
+                <a class="nav-link"  href="{{route('admin.pedido.getgraficoped')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Graficos Pedidos</span>
                 </a>
@@ -292,7 +292,7 @@
                                     @endif
                                     <?php $cont++?>
                                 @endforeach--}}
-                                <a class="dropdown-item text-center small text-gray-500" href="{{--route('admin.getnotificacionesusuarios')--}}">Mostrar todas las notificaciones (Usuarios)</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="{{route('admin.notificacion.getnotificacionesusuarios')}}">Mostrar todas las notificaciones (Usuarios)</a>
                             </div>
                         </li>
 
@@ -329,7 +329,7 @@
                                     <?php $cont++?>
                                 @endforeach
                                     --}}
-                                <a class="dropdown-item text-center small text-gray-500" href="{{--route('admin.getnotificacionesproductos')--}}">Mostrar todas las notificaciones(Productos)</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="{{route('admin.notificacion.getnotificacionesproductos')}}">Mostrar todas las notificaciones(Productos)</a>
                             </div>
                         </li>
 
@@ -340,7 +340,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">@auth
-                                    {{--Auth::user()->nombre}} {{Auth::user()->apellido--}}
+                                    {{Auth::user()->nombre}} {{Auth::user()->apellido}}
                                 @endauth</span>
                                 <img class="img-profile rounded-circle"
                                     >
@@ -357,7 +357,7 @@
                                     Volver a la Tienda
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{{--route('usuarios.logout')--}}" >
+                                <a class="dropdown-item" href="{{route('publico.logout')}}" >
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Cerrar sesión
                                 </a>
