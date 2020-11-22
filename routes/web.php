@@ -100,6 +100,9 @@ Route::group(['as'=> 'admin.'], function(){
         Route::post('/productos/grafico/tipo', [ProductoController::class,'getGraficoProducto'])->name('getgraficoproductopost');
         Route::delete('/productos/confirmDelete', [ProductoController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/productos/update',[ProductoController::class,'confirmarUpdate'])->name('confirmarUpdate');
+        
+        Route::get('/productos/agregar',[ProductoController::class,'create'])->name('crearproducto');
+        Route::get('/productos/agregar',[ProductoController::class,'store'])->name('agregarproducto');
     });
 
     Route::group(['as'=> 'compra.'], function(){        
