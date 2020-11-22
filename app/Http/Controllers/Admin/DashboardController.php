@@ -611,9 +611,9 @@ class DashboardController extends Controller
 
     public function getCategorias()
     {
-        $categoria = Categoria::where('borrado','=','no')->get();
+        $categorias = Categoria::where('borrado',1)->get();
         return view('admin.categorias.categorias', [
-            'categorias' => $categoria,
+            'categorias' => $categorias,
             'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
             'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
         ]);

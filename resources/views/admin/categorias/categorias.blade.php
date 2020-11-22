@@ -6,20 +6,20 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Categorias</h1>
-    
+
 
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
+    <div class="card tabla shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Tabla de Categorias</h3></div>
-                <div class="p-2 bd-highlight"><a href="{{route('categorias.create')}}" class="btn btn-primary btn-lg text-right">Agregar</a></div>
+                <div class="p-2 bd-highlight"><a href="{{route('admin.categoria.crearCategoria')}}" class="btn btn-primary btn-lg text-right">Agregar</a></div>
 
             </div>
         </div>
-        
+
         <div class="card-body">
-            <div class="table-responsive">
+            <div class="">
                 <table class="table table-bordered text-center aling-center table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -36,25 +36,23 @@
                         </tr>
                     </tfoot>
                     <tbody>
-                        <?php $cont = 0?>
-                        @foreach ($categorias as $categoria)
-                            <?php $cont++?>
+                        @foreach ($categorias as $i=>$categoria)
                             <tr>
-                                <td>{{$cont}}</td>
+                                <td>{{$i + 1}}</td>
                                 <td>{{$categoria->nombre}}</td>
-                                <td> <a href="/categorias/{{ $categoria->id }}/edit" onclick="nombre(this)"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
-                                <a data-toggle="modal" data-target="#deleteModal" href="#" onclick="nombre(this)" id="{{$categoria->nombre}}-{{$categoria->id}}"><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a></td> 
+                                <td> <a href="{{route('admin.categoria.editarCategoria',['id' => $categoria->id])}}" onclick="nombre(this)"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
+                                <a data-toggle="modal" data-target="#deleteModal" href="#" onclick="nombre(this)" id="{{$categoria->nombre}}-{{$categoria->id}}"><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a></td>
                         </tr>
-                        
+
                         @endforeach
-                        
-                        
+
+
                     </tbody>
                 </table>
             </div>
         </div>
 
-        
+
     </div>
 
 </div>
@@ -73,20 +71,20 @@
                 <div class="modal-footer" >
                     <div class="d-flex justify-content-between">
                         <button class="btn btn-secondary .align-items-start" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="{{route('categorias.confirmDelete')}}" method="POST" name="f1" id="f1" >
+                    <form action="{{route('admin.categoria.confirmDelete')}}" method="POST" name="f1" id="f1" >
                         @csrf
                         @method('delete')
                         <input type="text" name="idfinal" id="idfinal" style="visibility: hidden" >
                         <button type="submit" class="btn btn-primary .align-items-end">eliminar</button>
                     </form>
                     </div>
-                    
-                    
+
+
                 </div>
             </div>
         </div>
     </div>
-    
+
 
 @endsection
 
@@ -99,5 +97,9 @@
             texto.innerHTML = nomb[0];
             document.f1.idfinal.value = nomb[1];
         }
+
+        $(document).ready(function () {
+            $('table').DataTable();
+        });
     </script>
 @endsection

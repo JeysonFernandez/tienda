@@ -27,7 +27,7 @@ return redirect()->route('admin.getcategoria');
 *
 * @return \Illuminate\Http\Response
 */
-public function create()
+public function crearCategoria()
 {
     return view('admin.categorias.create',['notificacionProductos'=>NotificacionProducto::all(),
     'notificacionUsuarios'=>NotificacionUsuario::all()]);
@@ -39,17 +39,17 @@ public function create()
 * @param \Illuminate\Http\Request $request
 * @return \Illuminate\Http\Response
 */
-public function store(StoreCategoria $request)
+public function guardarCategoria(Request $request)
 {
     /*$validaData = $request->validate([
     'title' => 'required|min:3'
     ]);*/
     $categoria = new Categoria();
     $categoria->nombre = $request->get('nombre');
-    $categoria->borrado = "no";
+    $categoria->borrado = 1;
     $categoria->save();
 
-    return redirect()->route('admin.getcategoria');
+    return redirect()->route('admin.categoria.verCategorias');
 }
 
 /**
@@ -72,15 +72,15 @@ public function show(Categoria $categoria)
 * @param \App\categoria $categoria
 * @return \Illuminate\Http\Response
 */
-public function edit($id)
+public function editarCategoria($id)
 {
-$categoria = Categoria::find($id);
+    $categoria = Categoria::find($id);
 
-return view('admin.categorias.edit',[
-'categoria' => $categoria,
-'notificacionProductos'=>NotificacionProducto::all(),
-'notificacionUsuarios'=>NotificacionUsuario::all()
-]);
+    return view('admin.categorias.edit',[
+    'categoria' => $categoria,
+    'notificacionProductos'=>NotificacionProducto::all(),
+    'notificacionUsuarios'=>NotificacionUsuario::all()
+    ]);
 }
 
 /**
@@ -90,7 +90,7 @@ return view('admin.categorias.edit',[
 * @param \App\categoria $categoria
 * @return \Illuminate\Http\Response
 */
-public function update(StoreCategoria $request, $id)
+public function update(Request $request, $id)
 {
 
     $categoria = Categoria::find($id);
@@ -100,16 +100,16 @@ public function update(StoreCategoria $request, $id)
     $categoria->save();
     return redirect()->route('admin.getcategoria');
 }
-public function confirmarUpdate(StoreCategoria $request)
-{
+    public function confirmarUpdate(Request $request)
+    {
 
-$categoria = Categoria::find($request->get('id'));
+        $categoria = Categoria::find($request->get('id'));
 
-$categoria->nombre = $request->get('nombre');
+        $categoria->nombre = $request->get('nombre');
 
-$categoria->save();
-return redirect()->route('admin.getcategoria');
-}
+        $categoria->save();
+        return redirect()->route('admin.categoria.verCategorias');
+    }
 
 /**
 * Remove the specified resource from storage.

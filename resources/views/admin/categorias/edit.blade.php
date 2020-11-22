@@ -5,17 +5,17 @@
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Categorias</h1>
-    
+
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Editar Categoria</h3></div>
-                <div class="p-2 bd-highlight"><a href="{{route('admin.getcategoria')}}" class="btn btn-primary btn-lg text-right">Volver</a></div>
+                <div class="p-2 bd-highlight"><a href="{{route('admin.categoria.verCategorias')}}" class="btn btn-primary btn-lg text-right">Volver</a></div>
             </div>
         </div>
-        
+
         <div class="card-body">
 
            <!-- @if ($errors->any())
@@ -27,18 +27,18 @@
                     </ul>
                 </div>
             @endif-->
-            
-            <form action="{{route('categorias.confirmarUpdate')}}" method="POST">
+
+            <form action="{{route('admin.categoria.guardarCategoria')}}" method="POST">
                 @csrf
-                
+
                 <div class="row row-space">
                     <div class="col-12">
                         <div class="input-group">
                             <label class="label">Nombre</label>
-                            <input class="input--style-4" type="text" id="nombre" name="nombre" value="{{old('nombre')}}" placeholder="{{$categoria->nombre}}">
+                            <input class="input--style-4" type="text" id="nombre" name="nombre" value="{{old('nombre') ?? $categoria->nombre ?? '' }}" placeholder="{{$categoria->nombre}}">
                         </div>
                     </div>
-                   
+
                 </div>
 
                 <div class="p-t-15">
@@ -47,14 +47,14 @@
                 <input class="input--style-4" style="visibility: hidden" type="text" id="id" name="id" value="{{$categoria->id}}" placeholder="{{$categoria->id}}">
             </form>
         </div>
-        
-        
+
+
     </div>
-    
-    
+
+
 
 </div>
-    
-    
-            
+
+
+
 @endsection

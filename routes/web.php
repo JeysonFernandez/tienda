@@ -48,8 +48,10 @@ Route::group(['as'=> 'admin.'], function(){
     Route::get('/admin',[DashboardController::class,'index'])->name('index');
     Route::group(['as'=> 'categoria.'], function(){
         Route::delete('/categorias/confirmDelete', [CategoriaController::class,'confirmDelete'])->name('confirmDelete');
-        Route::get('/categorias', [DashboardController::class,'getCategorias'])->name('llevameDiosito');
-        Route::post('/categorias/update',[CategoriaController::class,'confirmarUpdate'])->name('confirmarUpdate');
+        Route::get('/categorias', [DashboardController::class,'getCategorias'])->name('verCategorias');
+        Route::get('/categorias/crear', [CategoriaController::class,'crearCategoria'])->name('crearCategoria');
+        Route::get('/categoria/editar/{id}',[CategoriaController::class,'editarCategoria'])->name('editarCategoria');
+        Route::post('/categorias/update',[CategoriaController::class,'guardarCategoria'])->name('guardarCategoria');
     });
 
     Route::group(['as'=> 'color.'], function(){
@@ -58,54 +60,54 @@ Route::group(['as'=> 'admin.'], function(){
         Route::post('/colors/update',[ColorController::class,'confirmarUpdate'])->name('confirmarUpdate');
     });
 
-    Route::group(['as'=> 'tipo.'], function(){    
+    Route::group(['as'=> 'tipo.'], function(){
         Route::get('/tipos', [DashboardController::class,'getTipos'])->name('gettipo');
         Route::delete('/tipos/confirmDelete', [TipoController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/tipos/update',[TipoController::class,'confirmarUpdate'])->name('confirmarUpdate');
     });
 
-    Route::group(['as'=> 'talla.'], function(){    
+    Route::group(['as'=> 'talla.'], function(){
         Route::get('/tallas', [DashboardController::class,'getTallas'])->name('gettalla');
         Route::delete('/tallas/confirmDelete', [TallaController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/tallas/update',[TallaController::class,'confirmarUpdate'])->name('confirmarUpdate');
     });
 
-    Route::group(['as'=> 'marca.'], function(){    
+    Route::group(['as'=> 'marca.'], function(){
         Route::get('/marcas', [DashboardController::class,'getMarcas'])->name('getmarca');
         Route::delete('/marcas/confirmDelete', [MarcaController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/marcas/update',[MarcaController::class,'confirmarUpdate'])->name('confirmarUpdate');
     });
 
-    Route::group(['as'=> 'genero.'], function(){    
+    Route::group(['as'=> 'genero.'], function(){
         Route::get('/generos', [DashboardController::class,'getGeneros'])->name('getgenero');
         Route::delete('/generos/confirmDelete', [GeneroController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/generos/update',[GeneroController::class,'confirmarUpdate'])->name('confirmarUpdate');
     });
 
-    Route::group(['as'=> 'proveedor.'], function(){        
+    Route::group(['as'=> 'proveedor.'], function(){
         Route::get('/proveedores',[DashboardController::class,'getProveedores'])->name('getproveedor');
         Route::delete('/proveedors/confirmDelete', [ProveedorController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/proveedors/update',[ProveedorController::class,'confirmarUpdate'])->name('confirmarUpdate');
     });
 
-    Route::group(['as'=> 'usuario.'], function(){        
+    Route::group(['as'=> 'usuario.'], function(){
         Route::get('/usuarios', [DashboardController::class,'getUsuarios'])->name('getusuario');
         Route::get('/usuarios/{id}', [DashboardController::class,'getCompraUsuario'])->name('getcomprausuario');
         Route::get('/graficos/usuarios', [DashboardController::class,'getGraficoUsu'])->name('getgraficousu');
     });
 
-    Route::group(['as'=> 'producto.'], function(){        
+    Route::group(['as'=> 'producto.'], function(){
         Route::get('/productos', [DashboardController::class,'getProductos'])->name('getproducto');
         Route::get('/productos/graficos', [ProductoController::class,'getGraficoProducto'])->name('getgraficoproducto');
         Route::post('/productos/grafico/tipo', [ProductoController::class,'getGraficoProducto'])->name('getgraficoproductopost');
         Route::delete('/productos/confirmDelete', [ProductoController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/productos/update',[ProductoController::class,'confirmarUpdate'])->name('confirmarUpdate');
-        
+
         Route::get('/productos/agregar',[ProductoController::class,'create'])->name('crearproducto');
         Route::get('/productos/agregar',[ProductoController::class,'store'])->name('agregarproducto');
     });
 
-    Route::group(['as'=> 'compra.'], function(){        
+    Route::group(['as'=> 'compra.'], function(){
         Route::get('/compras/{id}', [DashboardController::class,'getComprasUsuario'])->name('getcomprausuario');
         Route::get('/compras/productos/{id}', [DashboardController::class,'getComprasProductos'])->name('getcompraproductos');
         Route::post('/compras/fecha/{id}', [DashboardController::class,'getComprasUsuario'])->name('getcomprausuariopost');
@@ -121,7 +123,7 @@ Route::group(['as'=> 'admin.'], function(){
         Route::get('/compras/detalleCuenta/{id}',[CompraController::class,'detalleCompraUsuarioCuenta'])->name('detalleUsuarioCuenta');
     });
 
-    Route::group(['as'=> 'pago.'], function(){        
+    Route::group(['as'=> 'pago.'], function(){
         Route::get('/pagos', [DashboardController::class,'getPagos'])->name('getpagos');
         Route::get('/pagos/{id}', [DashboardController::class,'getPagosCompra'])->name('getpagocompra');
         Route::get('/graficos/pagos', [DashboardController::class,'getGraficoPag'])->name('getgraficopag');
@@ -132,18 +134,18 @@ Route::group(['as'=> 'admin.'], function(){
         Route::delete('/pagos/confirmDelete', [PagoController::class,'confirmDelete'])->name('confirmDelete');
     });
 
-    Route::group(['as'=> 'notificacion.'], function(){        
+    Route::group(['as'=> 'notificacion.'], function(){
         Route::get('/notificaciones/usuarios', [DashboardController::class,'getNotificacionesUsuarios'])->name('getnotificacionesusuarios');
         Route::get('/notificaciones/productos', [DashboardController::class,'getNotificacionesProductos'])->name('getnotificacionesproductos');
     });
 
-    Route::group(['as'=> 'fecha.'], function(){        
+    Route::group(['as'=> 'fecha.'], function(){
         Route::get('/fechas', [DashboardController::class,'getFechas'])->name('getfechas');
         Route::resource('/fechas', 'FechaController');
         Route::get('/fechas/eliminar/{fecha}{hora}',[FechaController::class,'eliminar'])->name('eliminarfecha');
     });
 
-    Route::group(['as'=> 'pedido.'], function(){        
+    Route::group(['as'=> 'pedido.'], function(){
         Route::get('/pedidos/{id}', [DashboardController::class,'getPedidosUsuario'])->name('getpedidousuario');
         Route::get('/pedidos/productos/{id}', [DashboardController::class,'getPedidosProductos'])->name('getpedidosproductos');
         Route::post('/pedidos/fecha/{id}', [DashboardController::class,'getPedidosUsuario'])->name('getpedidousuariopost');
