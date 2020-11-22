@@ -37,50 +37,75 @@ Route::group(['as' => 'publico.'], function () {
 
 Route::group(['as'=> 'admin.'], function(){
     Route::get('/admin',[DashboardController::class,'index'])->name('index');
-    /*Route::get('/', ['as'=>'admin.index','uses'=>'Admin\DashboardController@getDashboard']);
-    Route::get('/categorias', ['as' => 'admin.getcategoria','uses' => 'Admin\DashboardController@getCategorias']);
-    Route::get('/color',['as' => 'admin.getcolor', 'uses' => 'Admin\DashboardController@getColor']);
-    Route::get('/tipos',['as' => 'admin.gettipo','uses'=> 'Admin\DashboardController@getTipos']);
-    Route::get('/tallas',['as' => 'admin.gettalla','uses' => 'Admin\DashboardController@getTallas']);
-    Route::get('/marcas',['as' => 'admin.getmarca','uses' => 'Admin\DashboardController@getMarcas']);
-    Route::get('/generos',['as' => 'admin.getgenero','uses' => 'Admin\DashboardController@getGeneros']);
-    Route::get('/proveedores',['as' => 'admin.getproveedor','uses' => 'Admin\DashboardController@getProveedores']);
+    Route::group(['as'=> 'categoria.'], function(){
+        Route::get('/categorias', [DashboardController::class,'getCategorias'])->name('getcategoria');
+    });
+    Route::group(['as'=> 'color.'], function(){
+        Route::get('/color',[DashboardController::class,'getColor'])->name('getcolor');
+    });
+    Route::group(['as'=> 'tipo.'], function(){    
+        Route::get('/tipos', [DashboardController::class,'getTipos'])->name('gettipo');
+    });
+    Route::group(['as'=> 'talla.'], function(){    
+        Route::get('/tallas', [DashboardController::class,'getTallas'])->name('gettalla');
+    });
+    Route::group(['as'=> 'marca.'], function(){    
+        Route::get('/marcas', [DashboardController::class,'getMarcas'])->name('getmarca');
+    });
+    Route::group(['as'=> 'genero.'], function(){    
+        Route::get('/generos', [DashboardController::class,'getGeneros'])->name('getgenero');
+    });
+    Route::group(['as'=> 'proveedor.'], function(){        
+        Route::get('/proveedores',[DashboardController::class,'getProveedores'])->name('getproveedor');
+    });
 
-    Route::get('/usuarios',['as' => 'admin.getusuario','uses' => 'Admin\DashboardController@getUsuarios']);
-    Route::get('/usuarios/{id}',['as' => 'admin.getcomprausuario','uses' => 'Admin\DashboardController@getCompraUsuario']);
-    Route::get('/graficos/usuarios',['as' => 'admin.graficousu','uses' => 'Admin\DashboardController@getGraficoUsu']);
+    Route::group(['as'=> 'usuario.'], function(){        
+        Route::get('/usuarios', [DashboardController::class,'getUsuarios'])->name('getusuario');
+        Route::get('/usuarios/{id}', [DashboardController::class,'getCompraUsuario'])->name('getcomprausuario');
+        Route::get('/graficos/usuarios', [DashboardController::class,'getGraficoUsu'])->name('getgraficousu');
+    });
 
-    Route::get('/productos',['as' => 'admin.getproducto','uses' => 'Admin\DashboardController@getProductos']);
-    Route::get('/productos/graficos',['as' => 'admin.getgraficoproducto','uses' => 'Admin\DashboardController@getGraficoProducto']);
-    Route::post('/productos/grafico/tipo',['as' => 'admin.getgraficoproductopost','uses' => 'Admin\DashboardController@getGraficoProducto']);
-
-
-    Route::get('/compras/{id}',['as' => 'admin.getcomprausuario','uses' => 'Admin\DashboardController@getComprasUsuario']);
-    Route::get('/compras/productos/{id}',['as' => 'admin.getcompraproductos','uses' => 'Admin\DashboardController@getComprasProductos']);
-    Route::post('/compras/fecha/{id}',['as' => 'admin.getcomprausuariopost','uses' => 'Admin\DashboardController@getComprasUsuario']);
-    Route::get('/compras',['as' => 'admin.getcompras','uses' => 'Admin\DashboardController@getCompras']);
-    Route::post('/compras/fecha',['as' => 'admin.getcomprapost','uses' => 'Admin\DashboardController@getCompras']);
-    Route::get('/graficos/compras',['as' => 'admin.getgraficocom','uses' => 'Admin\DashboardController@getGraficoCom']);
-    Route::post('/graficos/compras',['as' => 'admin.getgraficocom','uses' => 'Admin\DashboardController@getGraficoCom']);
-
-    Route::get('/pagos',['as' => 'admin.getpagos','uses' => 'Admin\DashboardController@getPagos']);
-    Route::get('/pagos/{id}',['as' => 'admin.getpagocompra','uses' => 'Admin\DashboardController@getPagosCompra']);
-    Route::get('/graficos/pagos',['as' => 'admin.getgraficopag','uses' => 'Admin\DashboardController@getGraficoPag']);
-    Route::post('/graficos/pagos',['as' => 'admin.getgraficopag','uses' => 'Admin\DashboardController@getGraficoPag']);
+    Route::group(['as'=> 'producto.'], function(){        
+        Route::get('/productos', [DashboardController::class,'getProductos'])->name('getproducto');
+        Route::get('/productos/graficos', [DashboardController::class,'getGraficoProducto'])->name('getgraficoproducto');
+        Route::post('/productos/grafico/tipo', [DashboardController::class,'getGraficoProducto'])->name('getgraficoproductopost');
+    });
 
 
-    Route::get('/notificaciones/usuarios',['as' => 'admin.getnotificacionesusuarios','uses' => 'Admin\DashboardController@getNotificacionesUsuarios']);
-    Route::get('/notificaciones/productos',['as' => 'admin.getnotificacionesproductos','uses' => 'Admin\DashboardController@getNotificacionesProductos']);
+    Route::group(['as'=> 'compra.'], function(){        
+        Route::get('/compras/{id}', [DashboardController::class,'getComprasUsuario'])->name('getcomprausuario');
+        Route::get('/compras/productos/{id}', [DashboardController::class,'getComprasProductos'])->name('getcompraproductos');
+        Route::post('/compras/fecha/{id}', [DashboardController::class,'getComprasUsuario'])->name('getcomprausuariopost');
+        Route::get('/compras', [DashboardController::class,'getCompras'])->name('getcompras');
+        Route::post('/compras/fecha', [DashboardController::class,'getCompras'])->name('getcomprapost');
+        Route::get('/graficos/compras', [DashboardController::class,'getGraficoCom'])->name('getgraficocom');
+        Route::post('/graficos/compras', [DashboardController::class,'getGraficoCom'])->name('getgraficocom');
+    });
 
-    Route::get('/fechas',['as' => 'admin.getfechas','uses' => 'Admin\DashboardController@getFechas']);
+    Route::group(['as'=> 'pago.'], function(){        
+        Route::get('/pagos', [DashboardController::class,'getPagos'])->name('getpagos');
+        Route::get('/pagos/{id}', [DashboardController::class,'getPagosCompra'])->name('getpagocompra');
+        Route::get('/graficos/pagos', [DashboardController::class,'getGraficoPag'])->name('getgraficopag');
+        Route::post('/graficos/pagos', [DashboardController::class,'getGraficoPag'])->name('getgraficopag');
+    });
 
-    Route::get('/pedidos/{id}',['as' => 'admin.getpedidousuario','uses' => 'Admin\DashboardController@getPedidosUsuario']);
-    Route::get('/pedidos/productos/{id}',['as' => 'admin.getpedidosproductos','uses' => 'Admin\DashboardController@getPedidosProductos']);
-    Route::post('/pedidos/fecha/{id}',['as' => 'admin.getpedidousuariopost','uses' => 'Admin\DashboardController@getPedidosUsuario']);
-    Route::get('/pedidos',['as' => 'admin.getpedido','uses' => 'Admin\DashboardController@getPedidos']);
-    Route::post('/pedidos/fecha',['as' => 'admin.getpedidopost','uses' => 'Admin\DashboardController@getPedidos']);
+    Route::group(['as'=> 'notificacion.'], function(){        
+        Route::get('/notificaciones/usuarios', [DashboardController::class,'getNotificacionesUsuarios'])->name('getnotificacionesusuarios');
+        Route::get('/notificaciones/productos', [DashboardController::class,'getNotificacionesProductos'])->name('getnotificacionesproductos');
+    });
 
-    Route::get('/graficos/pedidos',['as' => 'admin.getgraficoped','uses' => 'Admin\DashboardController@getGraficoPed']);*/
+    Route::group(['as'=> 'fecha.'], function(){        
+        Route::get('/fechas', [DashboardController::class,'getFechas'])->name('getfechas');
+    });
+
+    Route::group(['as'=> 'pedido.'], function(){        
+        Route::get('/pedidos/{id}', [DashboardController::class,'getPedidosUsuario'])->name('getpedidousuario');
+        Route::get('/pedidos/productos/{id}', [DashboardController::class,'getPedidosProductos'])->name('getpedidosproductos');
+        Route::post('/pedidos/fecha/{id}', [DashboardController::class,'getPedidosUsuario'])->name('getpedidousuariopost');
+        Route::get('/pedidos', [DashboardController::class,'getPedidos'])->name('getpedido');
+        Route::post('/pedidos/fecha', [DashboardController::class,'getPedidos'])->name('getpedidopost');
+        Route::get('/graficos/pedidos', [DashboardController::class,'getGraficoPed'])->name('getgraficoped');
+    });
 });
 //--------------------------------------------------------------------------------------------------------------------
 //Productos
