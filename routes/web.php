@@ -46,53 +46,46 @@ Route::group(['as' => 'publico.'], function () {
 //ADMIN-----------------------------------------------------------------------------------------------------------------------------------------
 Route::group(['as'=> 'admin.'], function(){
     Route::get('/admin',[DashboardController::class,'index'])->name('index');
-    Route::get('/categorias', [DashboardController::class,'getCategorias'])->name('getcategoria');
     Route::group(['as'=> 'categoria.'], function(){
         Route::delete('/categorias/confirmDelete', [CategoriaController::class,'confirmDelete'])->name('confirmDelete');
+        Route::get('/categorias', [DashboardController::class,'getCategorias'])->name('llevameDiosito');
         Route::post('/categorias/update',[CategoriaController::class,'confirmarUpdate'])->name('confirmarUpdate');
-        Route::resource('/categorias', 'CategoriaController');
     });
 
     Route::group(['as'=> 'color.'], function(){
         Route::get('/color',[DashboardController::class,'getColor'])->name('getcolor');
         Route::delete('/colors/confirmDelete', [ColorController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/colors/update',[ColorController::class,'confirmarUpdate'])->name('confirmarUpdate');
-        Route::resource('/colors', 'ColorController');
     });
 
     Route::group(['as'=> 'tipo.'], function(){    
         Route::get('/tipos', [DashboardController::class,'getTipos'])->name('gettipo');
         Route::delete('/tipos/confirmDelete', [TipoController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/tipos/update',[TipoController::class,'confirmarUpdate'])->name('confirmarUpdate');
-        Route::resource('/tipos', 'TipoController');
     });
 
     Route::group(['as'=> 'talla.'], function(){    
         Route::get('/tallas', [DashboardController::class,'getTallas'])->name('gettalla');
         Route::delete('/tallas/confirmDelete', [TallaController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/tallas/update',[TallaController::class,'confirmarUpdate'])->name('confirmarUpdate');
-        Route::resource('/tallas', 'TallaController');
     });
 
     Route::group(['as'=> 'marca.'], function(){    
         Route::get('/marcas', [DashboardController::class,'getMarcas'])->name('getmarca');
         Route::delete('/marcas/confirmDelete', [MarcaController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/marcas/update',[MarcaController::class,'confirmarUpdate'])->name('confirmarUpdate');
-        Route::resource('/marcas', 'MarcaController');
     });
 
     Route::group(['as'=> 'genero.'], function(){    
         Route::get('/generos', [DashboardController::class,'getGeneros'])->name('getgenero');
         Route::delete('/generos/confirmDelete', [GeneroController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/generos/update',[GeneroController::class,'confirmarUpdate'])->name('confirmarUpdate');
-        Route::resource('/generos', 'GeneroController');
     });
 
     Route::group(['as'=> 'proveedor.'], function(){        
         Route::get('/proveedores',[DashboardController::class,'getProveedores'])->name('getproveedor');
         Route::delete('/proveedors/confirmDelete', [ProveedorController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/proveedors/update',[ProveedorController::class,'confirmarUpdate'])->name('confirmarUpdate');
-        Route::resource('/proveedors', 'ProveedorController');
     });
 
     Route::group(['as'=> 'usuario.'], function(){        
@@ -107,7 +100,6 @@ Route::group(['as'=> 'admin.'], function(){
         Route::post('/productos/grafico/tipo', [ProductoController::class,'getGraficoProducto'])->name('getgraficoproductopost');
         Route::delete('/productos/confirmDelete', [ProductoController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/productos/update',[ProductoController::class,'confirmarUpdate'])->name('confirmarUpdate');
-        Route::resource('/productos', 'ProductoController');
     });
 
     Route::group(['as'=> 'compra.'], function(){        
@@ -119,7 +111,6 @@ Route::group(['as'=> 'admin.'], function(){
         Route::get('/graficos/compras', [DashboardController::class,'getGraficoCom'])->name('getgraficocom');
         Route::post('/graficos/compras', [DashboardController::class,'getGraficoCom'])->name('getgraficocompost');
 
-        Route::resource('/compras', 'CompraController');
         Route::post('/admin/compras/agregar',[CompraController::class,'agregar'])->name('agregarcompra');
         Route::post('/admin/compras/addcarrito',[CompraController::class,'addCarrito'])->name('agregarcarritocompra');
         Route::delete('/compras/confirmDelete', [CompraController::class,'confirmDelete'])->name('confirmDelete');
@@ -157,7 +148,6 @@ Route::group(['as'=> 'admin.'], function(){
         Route::post('/pedidos/fecha', [DashboardController::class,'getPedidos'])->name('getpedidopost');
         Route::get('/graficos/pedidos', [DashboardController::class,'getGraficoPed'])->name('getgraficoped');
 
-        Route::resource('/pedidos', 'PedidoController');
         Route::get('/pedidos/cancelarPedido/{id}', [PedidoController::class,'cancelar'])->name('cancelarpedido');
         Route::post('/pedidos/{id}', [PedidoController::class,'agregar'])->name('agregarpedido');
         Route::get('/pedidos/detalle/{id}',[PedidoController::class,'detallePedidoUsuario'])->name('detalleUsuario');

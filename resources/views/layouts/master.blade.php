@@ -66,7 +66,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Caracteristicas</h6>
-                        <a class="collapse-item" href="{{route('admin.llevameDiosito')}}">Categorias</a>
+                        <a class="collapse-item" href="{{route('admin.categoria.llevameDiosito')}}">Categorias</a>
                         <a class="collapse-item" href="{{route('admin.color.getcolor')}}">Color</a>
                         <a class="collapse-item" href="{{route('admin.genero.getgenero')}}">Generos</a>
                         <a class="collapse-item" href="{{route('admin.marca.getmarca')}}">Marcas</a>
