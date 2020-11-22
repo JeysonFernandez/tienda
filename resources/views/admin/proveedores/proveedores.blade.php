@@ -4,16 +4,12 @@
 
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Proveedores</h1>
-    
-
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Tabla de Proveedores</h3></div>
-                <div class="p-2 bd-highlight"><a href="/proveedors/create" class="btn btn-primary btn-lg text-right">Agregar</a></div>
+                <div class="p-2 bd-highlight"><a href="{{route('admin.proveedor.crearProveedor')}}" class="btn btn-primary btn-lg text-right">Agregar</a></div>
 
             </div>
         </div>
@@ -77,7 +73,7 @@
                 <div class="modal-footer" >
                     <div class="d-flex justify-content-between">
                         <button class="btn btn-secondary .align-items-start" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="{{route('proveedors.confirmDelete')}}" method="POST" name="f1" id="f1" >
+                    <form action="{{route('admin.proveedor.confirmDelete')}}" method="POST" name="f1" id="f1" >
                         @csrf
                         @method('delete')
                         <input type="text" name="idfinal" id="idfinal" style="visibility: hidden">

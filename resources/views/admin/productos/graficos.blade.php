@@ -16,7 +16,7 @@
                   <h6 class="m-0 font-weight-bold text-primary">Cantidad de productos por</h6>
                 </div>
                 <div class="card-body">
-                  <form action="{{route('admin.producto.getgraficoproductopost')}}" method="POST">
+                  <form action="{{route('admin.producto.getGraficoProductoPost')}}" method="POST">
                     @csrf
                     <select id="opciones" name="opciones">
                       <option id="categorias" value="categorias" @if ($valor === 'categorias')

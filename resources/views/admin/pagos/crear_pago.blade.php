@@ -4,7 +4,6 @@
 
 <div class="container-fluid">
 
-    <h1 class="h3 mb-2 text-gray-800">Pagos</h1>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -18,7 +17,7 @@
                 <div class="card mt-3">
                     <div class="card-header bg-light text-black ">Formulario Pago</div>
                     <div class="card-body">
-                    <form method="POST" action ="{{route('agregar.pago')}}">
+                    <form method="POST" action ="{{route('admin.pago.agregarPago')}}">
                             @csrf
                             <div class="form-group">
                                 <label for="compra"> Compra </label>

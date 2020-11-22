@@ -10,7 +10,7 @@
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Tabla de usuarios</h3></div>
-                <div class="p-2 bd-highlight"><a href="{{route('usuarios.create')}}" class="btn btn-primary btn-lg text-right">Agregar</a></div>
+                <div class="p-2 bd-highlight"><a href="{{--route('usuarios.create')--}}" class="btn btn-primary btn-lg text-right">Agregar</a></div>
 
             </div>
         </div>
@@ -48,8 +48,8 @@
                                 <td>{{$usuario->username}}</td>
                                 <td>{{$usuario->deuda_total}}</td>
                                 <td>{{$usuario->estado_calidad}}</td>
-                                <td><a href="{{route('admin.getpedidousuario',$usuario->id)}}" ><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
-                                    <a href="{{route('admin.getcomprausuario',$usuario->id)}}" ><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a> 
+                                <td><a href="{{route('admin.pedio.getPedidoUsuario',$usuario->id)}}" ><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
+                                    <a href="{{route('admin.compra.getCompraUsuario',$usuario->id)}}" ><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a> 
                                 </td> 
                         </tr>
                         

@@ -12,7 +12,7 @@
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Tabla de Pedidos</h3></div>
             </div>
             <h5>{{$mensaje}}</h5>
-            <form action="{{route('admin.getpedidousuariopost',$id)}}" method="POST">
+            <form action="{{route('admin.pedido.getPedidoUsuarioPost',$id)}}" method="POST">
                 @csrf
                 <input type="date" name="fechaInicial" id="fechaInicial" value="{{old('fechaInicial')}}">
                 <input type="date" name="fechaFinal" id="fechaFinal">
@@ -63,7 +63,7 @@
                                     @endif
                                 </td>
                                 <td> 
-                                    <a href="{{route('admin.getpedidoproductos',$pedido->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
+                                    <a href="{{route('admin.pedido.getPedidoProductos',$pedido->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
                                     
                             </tr>
                         
@@ -94,7 +94,7 @@
                 <div class="modal-footer" >
                     <div class="d-flex justify-content-between">
                         <button class="btn btn-secondary .align-items-start" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="{{route('productos.confirmDelete')}}" method="POST" name="f1" id="f1" >
+                    <form action="{{route('admin.producto.confirmDelete')}}" method="POST" name="f1" id="f1" >
                         @csrf
                         @method('delete')
                         <input type="text" name="idfinal" id="idfinal" style="visibility: hidden">

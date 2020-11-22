@@ -4,9 +4,6 @@
 
 <div class="container-fluid">
 
-    <h1 class="h3 mb-2 text-gray-800">Compras</h1>
-
-    <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
@@ -14,7 +11,7 @@
                 <div class="p-2 bd-highlight"><a href="/compras/create"><button type="button" class="btn btn-primary btn-lg text-right">Agregar</button></a></div>
             </div>  
             <h5>{{$mensaje}}</h5>
-            <form action="{{route('admin.getcomprausuariopost',$id)}}" method="POST">
+            <form action="{{route('admin.compra.getCompraUsuarioPost',$id)}}" method="POST">
                 @csrf
                 <input type="date" name="fechaInicial" id="fechaInicial">
                 <input type="date" name="fechaFinal" id="fechaFinal">
@@ -63,8 +60,8 @@
                                 <td>${{$compra->deuda_total}}</td>
                                 <td>${{$compra->deuda_pendiente}}</td>
                                 <td>{{$compra->fecha_siguiente_pago}}</td>
-                                <td><a href="{{route('admin.getcompraproductos',$compra->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
-                                    <a href="{{route('admin.getpagocompra',$compra->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
+                                <td><a href="{{route('admin.compra.getCompraProductos',$compra->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
+                                    <a href="{{route('admin.pago.getPagoCompra',$compra->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
                                 <a href="/compras/{{$compra->id}}" ><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a></td> 
                         </tr>
                         

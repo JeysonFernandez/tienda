@@ -26,7 +26,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form action="{{route('admin.producto.agregarproducto')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('admin.producto.agregarProducto')}}" method="POST" enctype="multipart/form-data">
                         @csrf 
                         <div class="form-group">
                             <label for="tipo"> Tipo </label>
