@@ -17,7 +17,7 @@
         <hr>
         <div class="row mt-5 ">
             <div class="col-3">
-                <div class="pl-0 dropdown-bar">
+                <div class="p-0 dropdown-bar">
                     @include('publico.buscador._buscador')
 
                 </div>

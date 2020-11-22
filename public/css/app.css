@@ -11019,7 +11019,6 @@ a.text-dark:focus {
 .dropdown-bar {
   background-color: #61C262;
   border-radius: 15px 15px 15px 15px;
-  padding: 0px 30px;
   padding-right: 0;
   width: 100%;
 }
@@ -11046,6 +11045,10 @@ a.text-dark:focus {
   text-decoration: none;
   background-color: transparent;
   border: 0;
+}
+
+.dropdown-bar .nav-dropdown .tipo-buscado {
+  width: 300px !important;
 }
 
 .dropdown-bar .nav-dropdown .container-toast {

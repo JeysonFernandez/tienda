@@ -1,10 +1,8 @@
 .dropdown-bar {
     background-color: #61C262;
     border-radius: 15px 15px 15px 15px;
-    padding: 0px 30px;
     padding-right: 0;
-    width:100%;
-
+    width: 100%;
     .nav-dropdown {
         padding-top: 10px;
         padding-bottom: 10px;
@@ -26,6 +24,10 @@
             background-color: transparent;
             border: 0;
 
+        }
+
+        .tipo-buscado {
+            width: 300px !important;
         }
 
         .container-toast {
