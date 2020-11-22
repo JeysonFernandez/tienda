@@ -3,8 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\{ProductoController,UsuarioController,BuscadorController};
+use App\Http\Controllers\{CategoriaController, ColorController, TipoController, TallaController, MarcaController};
+use App\Http\Controllers\{GeneroController,ProveedorController,CompraController,PagoController,FechaController,PedidoController};
 use App\Http\Controllers\Admin\{DashboardController};
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,9 +46,8 @@ Route::group(['as' => 'publico.'], function () {
 //ADMIN-----------------------------------------------------------------------------------------------------------------------------------------
 Route::group(['as'=> 'admin.'], function(){
     Route::get('/admin',[DashboardController::class,'index'])->name('index');
-
+    Route::get('/categorias', [DashboardController::class,'getCategorias'])->name('getcategoria');
     Route::group(['as'=> 'categoria.'], function(){
-        Route::get('/categorias', [DashboardController::class,'getCategorias'])->name('getcategoria');
         Route::delete('/categorias/confirmDelete', [CategoriaController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/categorias/update',[CategoriaController::class,'confirmarUpdate'])->name('confirmarUpdate');
         Route::resource('/categorias', 'CategoriaController');
@@ -117,11 +117,11 @@ Route::group(['as'=> 'admin.'], function(){
         Route::get('/compras', [DashboardController::class,'getCompras'])->name('getcompras');
         Route::post('/compras/fecha', [DashboardController::class,'getCompras'])->name('getcomprapost');
         Route::get('/graficos/compras', [DashboardController::class,'getGraficoCom'])->name('getgraficocom');
-        Route::post('/graficos/compras', [DashboardController::class,'getGraficoCom'])->name('getgraficocom');
+        Route::post('/graficos/compras', [DashboardController::class,'getGraficoCom'])->name('getgraficocompost');
 
         Route::resource('/compras', 'CompraController');
-        Route::post('/admin/compras/agregar',[CompraController::class,'agregar'])->name('compra');
-        Route::post('/admin/compras/addcarrito',[CompraController::class,'addCarrito'])->name('compra');
+        Route::post('/admin/compras/agregar',[CompraController::class,'agregar'])->name('agregarcompra');
+        Route::post('/admin/compras/addcarrito',[CompraController::class,'addCarrito'])->name('agregarcarritocompra');
         Route::delete('/compras/confirmDelete', [CompraController::class,'confirmDelete'])->name('confirmDelete');
         Route::get('/compras/detalle/{id}',[CompraController::class,'detalleCompraUsuario'])->name('detalleUsuario');
         Route::get('/compras/detalleCuenta/{id}',[CompraController::class,'detalleCompraUsuarioCuenta'])->name('detalleUsuarioCuenta');
@@ -131,11 +131,11 @@ Route::group(['as'=> 'admin.'], function(){
         Route::get('/pagos', [DashboardController::class,'getPagos'])->name('getpagos');
         Route::get('/pagos/{id}', [DashboardController::class,'getPagosCompra'])->name('getpagocompra');
         Route::get('/graficos/pagos', [DashboardController::class,'getGraficoPag'])->name('getgraficopag');
-        Route::post('/graficos/pagos', [DashboardController::class,'getGraficoPag'])->name('getgraficopag');
+        Route::post('/graficos/pagos', [DashboardController::class,'getGraficoPag'])->name('getgraficopagpost');
 
         Route::resource('/pagos', 'PagoController');
         Route::post('/admin/pagos/agregar',[PagoController::class,'Agregar'])->name('agregar');
-        Route::delete('/pagos/confirmDelete', [CompraController::class,'confirmDelete'])->name('confirmDelete');
+        Route::delete('/pagos/confirmDelete', [PagoController::class,'confirmDelete'])->name('confirmDelete');
     });
 
     Route::group(['as'=> 'notificacion.'], function(){        
