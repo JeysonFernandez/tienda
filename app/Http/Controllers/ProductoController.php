@@ -59,7 +59,7 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductos $request)
+    public function store(Request $request)
     {
         /*$validaData = $request->validate([
             'title' => 'required|min:3'

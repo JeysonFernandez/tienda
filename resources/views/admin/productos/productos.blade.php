@@ -13,7 +13,7 @@
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Tabla de Productos</h3></div>
-                <div class="p-2 bd-highlight"><a href="{{route('productos.create')}}" class="btn btn-primary btn-lg text-right">Agregar</a></div>
+                <div class="p-2 bd-highlight"><a href="{{route('admin.producto.crearproducto')}}" class="btn btn-primary btn-lg text-right">Agregar</a></div>
 
             </div>
         </div>
@@ -97,7 +97,7 @@
                 <div class="modal-footer" >
                     <div class="d-flex justify-content-between">
                         <button class="btn btn-secondary .align-items-start" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="{{route('productos.confirmDelete')}}" method="POST" name="f1" id="f1" >
+                    <form action="{{route('admin.producto.confirmDelete')}}" method="POST" name="f1" id="f1" >
                         @csrf
                         @method('delete')
                         <input type="text" name="idfinal" id="idfinal" style="visibility: hidden">

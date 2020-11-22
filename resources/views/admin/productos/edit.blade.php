@@ -27,7 +27,7 @@
                 </div>
             @endif-->
             
-            <form action="{{route('productos.confirmarUpdate')}}" method="POST">
+            <form action="{{route('admin.producto.confirmarUpdate')}}" method="POST">
                 @csrf
                 
                  @csrf
