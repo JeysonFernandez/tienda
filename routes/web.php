@@ -37,7 +37,7 @@ Route::group(['as' => 'publico.'], function () {
 
 Route::group(['as'=> 'admin.'], function(){
     Route::get('/admin',[DashboardController::class,'index'])->name('index');
-    Route::get('/', ['as'=>'admin.index','uses'=>'Admin\DashboardController@getDashboard']);
+    /*Route::get('/', ['as'=>'admin.index','uses'=>'Admin\DashboardController@getDashboard']);
     Route::get('/categorias', ['as' => 'admin.getcategoria','uses' => 'Admin\DashboardController@getCategorias']);
     Route::get('/color',['as' => 'admin.getcolor', 'uses' => 'Admin\DashboardController@getColor']);
     Route::get('/tipos',['as' => 'admin.gettipo','uses'=> 'Admin\DashboardController@getTipos']);
@@ -80,7 +80,7 @@ Route::group(['as'=> 'admin.'], function(){
     Route::get('/pedidos',['as' => 'admin.getpedido','uses' => 'Admin\DashboardController@getPedidos']);
     Route::post('/pedidos/fecha',['as' => 'admin.getpedidopost','uses' => 'Admin\DashboardController@getPedidos']);
 
-    Route::get('/graficos/pedidos',['as' => 'admin.getgraficoped','uses' => 'Admin\DashboardController@getGraficoPed']);
+    Route::get('/graficos/pedidos',['as' => 'admin.getgraficoped','uses' => 'Admin\DashboardController@getGraficoPed']);*/
 });
 //--------------------------------------------------------------------------------------------------------------------
 //Productos
