@@ -26,10 +26,9 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public function __Construct()
+    public function index()
     {
-        $this->middleware('auth');
-        $this->middleware('isadmin');
+        return view('admin.index');
     }
 
     public function getDashboard()

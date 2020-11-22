@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\{ProductoController,UsuarioController,BuscadorController};
+use App\Http\Controllers\Admin\{DashboardController};
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,10 @@ Route::group(['as' => 'publico.'], function () {
     Route::get('/busqueda', [BuscadorController::class, 'busqueda'])->name('busqueda');
 
     Route::get('/ver/{id}', [BuscadorController::class, 'verProducto'])->name('ver-producto')->where('id', '[0-9]+');
+});
+
+Route::group(['as' => 'admin.'], function () {
+    Route::get('/admin',[DashboardController::class,'index'])->name('index');
 });
 //--------------------------------------------------------------------------------------------------------------------
 //Productos
