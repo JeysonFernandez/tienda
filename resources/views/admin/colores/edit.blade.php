@@ -3,16 +3,12 @@
 @section('contenido')
 <div class="container-fluid">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Colores</h1>
-    
-
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Editar Color</h3></div>
-                <div class="p-2 bd-highlight"><a href="{{route('admin.getcolor')}}" class="btn btn-primary btn-lg text-right">Volver</a></div>
+                <div class="p-2 bd-highlight"><a href="{{route('admin.color.getColor')}}" class="btn btn-primary btn-lg text-right">Volver</a></div>
             </div>
         </div>
         
@@ -28,7 +24,7 @@
                 </div>
             @endif-->
             
-            <form action="{{route('colors.confirmarUpdate')}}" method="POST">
+            <form action="{{route('admin.color.confirmarUpdate')}}" method="POST">
                 @csrf
                 
                 <div class="row row-space">

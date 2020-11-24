@@ -4,7 +4,6 @@
 
 <div class="container-fluid">
     
-    <h1 class="h3 mb-2 text-gray-800">Compras</h1>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -34,7 +33,7 @@
                 <div class="card mt-3">
                     <div class="card-header bg-light text-black ">Formulario Compra</div>
                     <div class="card-body">
-                    <form method="POST" action ="{{route('agregar.compra')}}">
+                    <form method="POST" action ="{{route('admin.compra.agregarAlCarrito')}}">
                             @csrf
                             <div class="form-group">
                                 <label for="usuario"> Usuario </label>
@@ -81,7 +80,7 @@
         <div class="card mt-3">
             <div class="card-header bg-light text-black ">Productos</div>
             <div class="card-body">
-            <form method="POST" action ="{{route('carro.compra')}}">
+            <form method="POST" action ="{{route('admin.compra.agregarCompra')}}">
                     @csrf
                     <div class="form-row">
                         <div class="form-group col-md-5">
