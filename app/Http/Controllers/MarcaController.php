@@ -46,7 +46,7 @@ public function store(Request $request)
     ]);*/
     $marca = new Marca();
     $marca->nombre = $request->get('nombre');
-    $marca->borrado = "no";
+    $marca->borrado = 1;
     $marca->save();
 
     return redirect()->route('admin.getmarca');
@@ -121,14 +121,14 @@ return redirect()->route('admin.getmarca');
 public function destroy($id)
 {
 $marca = Marca::findOrFail($id);
-$marca->borrado = "si";
+$marca->borrado = 2;
 $marca->save();
 return redirect()->route('admin.getmarca');
 }
 
 public function confirmDelete(Request $request){
 $marca = Marca::findOrFail($request->idfinal);
-$marca->borrado = "si";
+$marca->borrado = 2;
 $marca->save();
 return redirect()->route('admin.getmarca');
 }

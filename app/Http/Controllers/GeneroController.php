@@ -46,7 +46,7 @@ public function store(Request $request)
     ]);*/
     $genero = new Genero();
     $genero->nombre = $request->get('nombre');
-    $genero->borrado = "no";
+    $genero->borrado = 1;
     $genero->save();
 
     return redirect()->route('admin.getgenero');
@@ -121,14 +121,14 @@ return redirect()->route('admin.getgenero');
 public function destroy($id)
 {
 $genero = Genero::findOrFail($id);
-$genero->borrado = "si";
+$genero->borrado = 2;
 $genero->save();
 return redirect()->route('admin.getgenero');
 }
 
 public function confirmDelete(Request $request){
 $genero = Genero::findOrFail($request->idfinal);
-$genero->borrado = "si";
+$genero->borrado = 2;
 $genero->save();
 return redirect()->route('admin.getgenero');
 }

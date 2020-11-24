@@ -120,14 +120,14 @@ public function update(Request $request, $id)
 public function destroy($id)
 {
 $categoria = Categoria::findOrFail($id);
-$categoria->borrado = "si";
+$categoria->borrado = 2;
 $categoria->save();
 return redirect()->route('admin.getcategoria');
 }
 
 public function confirmDelete(Request $request){
 $categoria = Categoria::find($request->idfinal);
-$categoria->borrado = "si";
+$categoria->borrado = 2;
 $categoria->save();
 return redirect()->route('admin.getcategoria');
 }

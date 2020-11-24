@@ -99,7 +99,7 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        $producto = Producto::where('borrado', '=', 'no')->findOrFail($producto->id);
+        $producto = Producto::where('borrado', '=', 1)->findOrFail($producto->id);
         return view('productos.detalle', [
             'producto' => $producto,
             'productos' => Producto::inRandomOrder()->take(6)->get()
@@ -189,7 +189,7 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         $producto = Producto::findOrFail($id);
-        $producto->borrado = "si";
+        $producto->borrado = 2;
         $producto->save();
         return redirect('/productos');
     }
@@ -197,7 +197,7 @@ class ProductoController extends Controller
     public function confirmDelete(Request $request)
     {
         $producto = Producto::findOrFail($request->idfinal);
-        $producto->borrado = "si";
+        $producto->borrado = 2;
         $producto->save();
         return redirect()->route('admin.getproducto');
     }
