@@ -46,7 +46,7 @@ public function store(Request $request)
     ]);*/
     $talla = new Talla();
     $talla->nombre = $request->get('nombre');
-    $talla->borrado = "no";
+    $talla->borrado = 1;
     $talla->save();
 
     return redirect()->route('admin.gettalla');
@@ -121,14 +121,14 @@ return redirect()->route('admin.gettalla');
 public function destroy($id)
 {
 $talla = Talla::findOrFail($id);
-$talla->borrado = "si";
+$talla->borrado = 2;
 $talla->save();
 return redirect()->route('admin.gettalla');
 }
 
 public function confirmDelete(Request $request){
 $talla = Talla::findOrFail($request->idfinal);
-$talla->borrado = "si";
+$talla->borrado = 2;
 $talla->save();
 return redirect()->route('admin.gettalla');
 }

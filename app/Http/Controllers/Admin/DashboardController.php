@@ -100,7 +100,7 @@ class DashboardController extends Controller
     public function getProductos()
     {
 
-        $producto = Producto::where('borrado','=','no')->get();
+        $producto = Producto::where('borrado','=',1)->get();
 
 
         return view('admin.productos.productos', [
@@ -620,7 +620,7 @@ class DashboardController extends Controller
     }
     public function getMarcas()
     {
-        $marca = Marca::where('borrado','=','no')->get();
+        $marca = Marca::where('borrado','=',1)->get();
 
         return view('admin.marcas.marcas', [
             'marcas' => $marca,
@@ -630,7 +630,7 @@ class DashboardController extends Controller
     }
     public function getTipos()
     {
-        $tipo = Tipo::where('borrado','=','no')->get();
+        $tipo = Tipo::where('borrado','=',1)->get();
 
         return view('admin.tipos.tipos', [
             'tipos' => $tipo,
@@ -640,7 +640,7 @@ class DashboardController extends Controller
     }
     public function getTallas()
     {
-        $talla = Talla::where('borrado','=','no')->get();
+        $talla = Talla::where('borrado','=',1)->get();
 
         return view('admin.tallas.tallas', [
             'tallas' => $talla,
@@ -667,7 +667,7 @@ class DashboardController extends Controller
 
     public function getColor()
     {
-        $color = Color::where('borrado','=','no')->get();
+        $color = Color::where('borrado','=',1)->get();
 
         return view('admin.colores.colors', [
             'colors' => $color,
@@ -677,7 +677,7 @@ class DashboardController extends Controller
     }
     public function getGeneros()
     {
-        $genero = Genero::where('borrado','=','no')->get();
+        $genero = Genero::where('borrado','=',1)->get();
 
 
         return view('admin.generos.generos', [
@@ -688,7 +688,7 @@ class DashboardController extends Controller
     }
     public function getProveedores()
     {
-        $proveedores = Proveedor::where('borrado','=','no')->get();
+        $proveedores = Proveedor::where('borrado','=',1)->get();
 
         return view('admin.proveedores.proveedores', [
             'proveedores' => $proveedores,

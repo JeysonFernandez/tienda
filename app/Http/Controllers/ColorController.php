@@ -46,7 +46,7 @@ public function store(Request $request)
     ]);*/
     $color = new Color();
     $color->nombre = $request->get('nombre');
-    $color->borrado = "no";
+    $color->borrado = 1;
     $color->save();
 
     return redirect()->route('admin.getcolor');
@@ -121,13 +121,13 @@ return redirect()->route('admin.getcolor');
 public function destroy($id)
 {
 $color = Color::findOrFail($id);
-$color->borrado = "si";
+$color->borrado = 2;
 return redirect()->route('admin.getcolor');
 }
 
 public function confirmDelete(Request $request){
 $color = Color::findOrFail($request->idfinal);
-$color->borrado = "si";
+$color->borrado = 2;
 $color->save();
 return redirect()->route('admin.getcolor');
 }

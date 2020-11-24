@@ -46,7 +46,7 @@ public function store(Request $request)
     ]);*/
     $tipo = new Tipo();
     $tipo->nombre = $request->get('nombre');
-    $tipo->borrado = "no";
+    $tipo->borrado = 1;
     $tipo->save();
 
     return redirect()->route('admin.gettipo');
@@ -120,14 +120,14 @@ return redirect()->route('admin.gettipo');
 public function destroy($id)
 {
 $tipo = Tipo::findOrFail($id);
-$tipo->borrado = "si";
+$tipo->borrado = 2;
 $tipo->save();
 return redirect()->route('admin.gettipo');
 }
 
 public function confirmDelete(Request $request){
 $tipo = Tipo::findOrFail($request->idfinal);
-$tipo->borrado = "si";
+$tipo->borrado = 2;
 $tipo->save();
 return redirect()->route('admin.gettipo');
 }
