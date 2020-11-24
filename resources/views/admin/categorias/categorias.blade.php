@@ -78,7 +78,10 @@
                         <button type="submit" class="btn btn-primary .align-items-end">eliminar</button>
                     </form>
                     </div>
-
+                    <div class="form-group">
+                        <label>Bootstrap DateTimePicker</label>
+                        <input type="text" class="form-control datetimepicker" name="Appointment_time">
+                    </div>
 
                 </div>
             </div>
@@ -100,12 +103,6 @@
             document.f1.idfinal.value = nomb[1];
         }
 
-        $(document).ready(function () {
-            $('table').DataTable();
-            $('#datetimepicker').datetimepicker({
-                format:'Y-m-d H:i',
-            });
 
-        });
     </script>
 @endsection
