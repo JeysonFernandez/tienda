@@ -39,7 +39,7 @@ public function create()
 * @param \Illuminate\Http\Request $request
 * @return \Illuminate\Http\Response
 */
-public function store(StoreTipo $request)
+public function store(Request $request)
 {
     /*$validaData = $request->validate([
     'title' => 'required|min:3'
