@@ -11383,6 +11383,10 @@ a.text-dark:focus {
      object-fit: cover;
 }
 
+.card-table {
+  width: 100%;
+}
+
 .favorite {
   top: 10px;
   right: 10px;
