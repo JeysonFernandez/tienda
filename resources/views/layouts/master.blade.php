@@ -67,12 +67,12 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Caracteristicas</h6>
                         <a class="collapse-item" href="{{route('admin.categoria.verCategorias')}}">Categorias</a>
-                        <a class="collapse-item" href="{{route('admin.color.getcolor')}}">Color</a>
-                        <a class="collapse-item" href="{{route('admin.genero.getgenero')}}">Generos</a>
-                        <a class="collapse-item" href="{{route('admin.marca.getmarca')}}">Marcas</a>
-                        <a class="collapse-item" href="{{route('admin.tipo.gettipo')}}">Tipos</a>
-                        <a class="collapse-item" href="{{route('admin.talla.gettalla')}}">Tallas</a>
-                        <a class="collapse-item" href="{{route('admin.proveedor.getproveedor')}}">Proveedores</a>
+                        <a class="collapse-item" href="{{route('admin.color.getColor')}}">Color</a>
+                        <a class="collapse-item" href="{{route('admin.genero.getGenero')}}">Generos</a>
+                        <a class="collapse-item" href="{{route('admin.marca.getMarca')}}">Marcas</a>
+                        <a class="collapse-item" href="{{route('admin.tipo.getTipo')}}">Tipos</a>
+                        <a class="collapse-item" href="{{route('admin.talla.getTalla')}}">Tallas</a>
+                        <a class="collapse-item" href="{{route('admin.proveedor.getProveedor')}}">Proveedores</a>
                     </div>
                 </div>
             </li>
@@ -96,12 +96,12 @@
                 </div>
             </li>-->
             <li class="nav-item">
-                <a class="nav-link" href="{{route('admin.producto.getproducto')}}">
+                <a class="nav-link" href="{{route('admin.producto.getProducto')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Tabla Productos</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{route('admin.producto.getgraficoproducto')}}">
+                <a class="nav-link" href="{{route('admin.producto.getGraficoProducto')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Graficos Productos</span></a>
             </li>
@@ -117,12 +117,12 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="{{route('admin.usuario.getusuario')}}">
+                <a class="nav-link" href="{{route('admin.usuario.getUsuario')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Tabla Usuarios</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="{{route('admin.usuario.getgraficousu')}}" >
+                <a class="nav-link"  href="{{route('admin.usuario.getGraficoUsuario')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Graficos Usuarios</span>
                 </a>
@@ -138,7 +138,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="/admin/fechas" >
+                <a class="nav-link" href="{{route('admin.fecha.getFechas')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Fechas</span>
                 </a>
@@ -149,13 +149,13 @@
                 Gestion Compras
             </div>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/compras" >
+                <a class="nav-link" href="{{route('admin.compra.getCompras')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Compras</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="{{route('admin.compra.getgraficocom')}}" >
+                <a class="nav-link"  href="{{route('admin.compra.getGraficoCom')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Graficos Compras</span>
                 </a>
@@ -166,13 +166,13 @@
                 Gestion Pagos
             </div>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/pagos" >
+                <a class="nav-link" href="{{route('admin.pago.getPagos')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Pagos</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="{{route('admin.pago.getgraficopag')}}" >
+                <a class="nav-link"  href="{{route('admin.pago.getGraficoPag')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Graficos Pagos</span>
                 </a>
@@ -183,13 +183,13 @@
                 Gestion Pedidos
             </div>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/pedidos" >
+                <a class="nav-link" href="{{route('admin.pedido.getPedido')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Pedidos</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="{{route('admin.pedido.getgraficoped')}}" >
+                <a class="nav-link"  href="{{route('admin.pedido.getGraficoPed')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Graficos Pedidos</span>
                 </a>
@@ -199,11 +199,11 @@
                 Notificaciones
             </div>
             <li class="nav-item">
-                <a class="nav-link" href="/admin/notificaciones/usuarios" >
+                <a class="nav-link" href="{{route('admin.notificacion.getNotificacionesUsuarios')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Notificaciones Usuarios</span>
                 </a>
-                <a class="nav-link" href="/admin/notificaciones/productos" >
+                <a class="nav-link" href="{{route('admin.notificacion.getNotificacionesProductos')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Notificaciones Produtos</span>
                 </a>
@@ -292,7 +292,7 @@
                                     @endif
                                     <?php $cont++?>
                                 @endforeach--}}
-                                <a class="dropdown-item text-center small text-gray-500" href="{{route('admin.notificacion.getnotificacionesusuarios')}}">Mostrar todas las notificaciones (Usuarios)</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="{{route('admin.notificacion.getNotificacionesUsuarios')}}">Mostrar todas las notificaciones (Usuarios)</a>
                             </div>
                         </li>
 
@@ -329,7 +329,7 @@
                                     <?php $cont++?>
                                 @endforeach
                                     --}}
-                                <a class="dropdown-item text-center small text-gray-500" href="{{route('admin.notificacion.getnotificacionesproductos')}}">Mostrar todas las notificaciones(Productos)</a>
+                                <a class="dropdown-item text-center small text-gray-500" href="{{route('admin.notificacion.getNotificacionesProductos')}}">Mostrar todas las notificaciones(Productos)</a>
                             </div>
                         </li>
 

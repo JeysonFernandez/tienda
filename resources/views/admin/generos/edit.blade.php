@@ -8,7 +8,7 @@
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Editar Genero</h3></div>
-                <div class="p-2 bd-highlight"><a href="{{route('admin.genero.getgenero')}}" class="btn btn-primary btn-lg text-right">Volver</a></div>
+                <div class="p-2 bd-highlight"><a href="{{route('admin.genero.getGenero')}}" class="btn btn-primary btn-lg text-right">Volver</a></div>
             </div>
         </div>
         

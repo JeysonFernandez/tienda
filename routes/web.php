@@ -55,12 +55,12 @@ Route::group(['as'=> 'admin.'], function(){
     });
 
     Route::group(['as'=> 'color.'], function(){
-        Route::get('/color',[DashboardController::class,'getColor'])->name('getcolor');
+        Route::get('/color',[DashboardController::class,'getColor'])->name('getColor');
         Route::delete('/colors/confirmDelete', [ColorController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/colors/update',[ColorController::class,'confirmarUpdate'])->name('confirmarUpdate');
 
-        Route::get('/colors/crear',[ProductoController::class,'create'])->name('crearColor');
-        Route::get('/colors/agregar',[ProductoController::class,'store'])->name('agregarColor');
+        Route::get('/colors/crear',[ColorController::class,'create'])->name('crearColor');
+        Route::get('/colors/agregar',[ColorController::class,'store'])->name('agregarColor');
     });
 
     Route::group(['as'=> 'tipo.'], function(){
@@ -68,8 +68,8 @@ Route::group(['as'=> 'admin.'], function(){
         Route::delete('/tipos/confirmDelete', [TipoController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/tipos/update',[TipoController::class,'confirmarUpdate'])->name('confirmarUpdate');
 
-        Route::get('/tipos/crear',[ProductoController::class,'create'])->name('crearTipo');
-        Route::get('/tipos/agregar',[ProductoController::class,'store'])->name('agregarTipo');
+        Route::get('/tipos/crear',[TipoController::class,'create'])->name('crearTipo');
+        Route::get('/tipos/agregar',[TipoController::class,'store'])->name('agregarTipo');
     });
 
     Route::group(['as'=> 'talla.'], function(){
@@ -77,26 +77,26 @@ Route::group(['as'=> 'admin.'], function(){
         Route::delete('/tallas/confirmDelete', [TallaController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/tallas/update',[TallaController::class,'confirmarUpdate'])->name('confirmarUpdate');
 
-        Route::get('/tallas/crear',[ProductoController::class,'create'])->name('crearTalla');
-        Route::get('/tallas/agregar',[ProductoController::class,'store'])->name('agregarTalla');
+        Route::get('/tallas/crear',[TallaController::class,'create'])->name('crearTalla');
+        Route::get('/tallas/agregar',[TallaController::class,'store'])->name('agregarTalla');
     });
 
     Route::group(['as'=> 'marca.'], function(){
-        Route::get('/marcas', [DashboardController::class,'getMarcas'])->name('getmarca');
+        Route::get('/marcas', [DashboardController::class,'getMarcas'])->name('getMarca');
         Route::delete('/marcas/confirmDelete', [MarcaController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/marcas/update',[MarcaController::class,'confirmarUpdate'])->name('confirmarUpdate');
 
-        Route::get('/marcas/crear',[ProductoController::class,'create'])->name('crearMarca');
-        Route::get('/marcas/agregar',[ProductoController::class,'store'])->name('agregarMarca');
+        Route::get('/marcas/crear',[MarcaController::class,'create'])->name('crearMarca');
+        Route::get('/marcas/agregar',[MarcaController::class,'store'])->name('agregarMarca');
     });
 
     Route::group(['as'=> 'genero.'], function(){
-        Route::get('/generos', [DashboardController::class,'getGeneros'])->name('getgenero');
+        Route::get('/generos', [DashboardController::class,'getGeneros'])->name('getGenero');
         Route::delete('/generos/confirmDelete', [GeneroController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/generos/update',[GeneroController::class,'confirmarUpdate'])->name('confirmarUpdate');
 
-        Route::get('/generos/crear',[ProductoController::class,'create'])->name('crearGenero');
-        Route::get('/generos/agregar',[ProductoController::class,'store'])->name('agregarGenero');
+        Route::get('/generos/crear',[GeneroController::class,'create'])->name('crearGenero');
+        Route::get('/generos/agregar',[GeneroController::class,'store'])->name('agregarGenero');
     });
 
     Route::group(['as'=> 'proveedor.'], function(){
@@ -104,20 +104,20 @@ Route::group(['as'=> 'admin.'], function(){
         Route::delete('/proveedors/confirmDelete', [ProveedorController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/proveedors/update',[ProveedorController::class,'confirmarUpdate'])->name('confirmarUpdate');
 
-        Route::get('/proveedors/crear',[ProductoController::class,'create'])->name('crearProveedor');
-        Route::get('/provedors/agregar',[ProductoController::class,'store'])->name('agregarProveedor');
+        Route::get('/proveedors/crear',[ProveedorController::class,'create'])->name('crearProveedor');
+        Route::get('/provedors/agregar',[ProveedorController::class,'store'])->name('agregarProveedor');
     });
 
     Route::group(['as'=> 'usuario.'], function(){
-        Route::get('/usuarios', [DashboardController::class,'getUsuarios'])->name('getusuario');
-        Route::get('/usuarios/{id}', [DashboardController::class,'getCompraUsuario'])->name('getcomprausuario');
-        Route::get('/graficos/usuarios', [DashboardController::class,'getGraficoUsu'])->name('getgraficousu');
+        Route::get('/usuarios', [DashboardController::class,'getUsuarios'])->name('getUsuario');
+        Route::get('/usuarios/{id}', [DashboardController::class,'getCompraUsuario'])->name('getCompraUsuario');
+        Route::get('/graficos/usuarios', [DashboardController::class,'getGraficoUsu'])->name('getGraficoUsuario');
     });
 
     Route::group(['as'=> 'producto.'], function(){
-        Route::get('/productos', [DashboardController::class,'getProductos'])->name('getproducto');
-        Route::get('/productos/graficos', [ProductoController::class,'getGraficoProducto'])->name('getgraficoproducto');
-        Route::post('/productos/grafico/tipo', [ProductoController::class,'getGraficoProducto'])->name('getgraficoProductoPost');
+        Route::get('/productos', [DashboardController::class,'getProductos'])->name('getProducto');
+        Route::get('/productos/graficos', [ProductoController::class,'getGraficoProducto'])->name('getGraficoProducto');
+        Route::post('/productos/grafico/tipo', [ProductoController::class,'getGraficoProducto'])->name('getGraficoProductoPost');
         Route::delete('/productos/confirmDelete', [ProductoController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/productos/update',[ProductoController::class,'confirmarUpdate'])->name('confirmarUpdate');
 
@@ -129,12 +129,12 @@ Route::group(['as'=> 'admin.'], function(){
         Route::get('/compras/{id}', [DashboardController::class,'getComprasUsuario'])->name('getCompraUsuario');
         Route::get('/compras/productos/{id}', [DashboardController::class,'getComprasProductos'])->name('getCompraProductos');
         Route::post('/compras/fecha/{id}', [DashboardController::class,'getComprasUsuario'])->name('getCompraUsuarioPost');
-        Route::get('/compras', [DashboardController::class,'getCompras'])->name('getcompras');
-        Route::post('/compras/fecha', [DashboardController::class,'getCompras'])->name('getcomprapost');
-        Route::get('/graficos/compras', [DashboardController::class,'getGraficoCom'])->name('getgraficocom');
-        Route::post('/graficos/compras', [DashboardController::class,'getGraficoCom'])->name('getgraficocompost');
+        Route::get('/compras', [DashboardController::class,'getCompras'])->name('getCompras');
+        Route::post('/compras/fecha', [DashboardController::class,'getCompras'])->name('getCompraPost');
+        Route::get('/graficos/compras', [DashboardController::class,'getGraficoCom'])->name('getGraficoCom');
+        Route::post('/graficos/compras', [DashboardController::class,'getGraficoCom'])->name('getGraficoComPost');
 
-        Route::post('/admin/compras/agregar',[CompraController::class,'agregar'])->name('agregarcompra');
+        Route::post('/admin/compras/agregar',[CompraController::class,'agregar'])->name('agregarCompra');
         Route::post('/admin/compras/addcarrito',[CompraController::class,'addCarrito'])->name('agregarAlCarrito');
         Route::delete('/compras/confirmDelete', [CompraController::class,'confirmDelete'])->name('confirmDelete');
         Route::get('/compras/detalle/{id}',[CompraController::class,'detalleCompraUsuario'])->name('detalleUsuario');
@@ -142,38 +142,38 @@ Route::group(['as'=> 'admin.'], function(){
     });
 
     Route::group(['as'=> 'pago.'], function(){
-        Route::get('/pagos', [DashboardController::class,'getPagos'])->name('getpagos');
+        Route::get('/pagos', [DashboardController::class,'getPagos'])->name('getPagos');
         Route::get('/pagos/{id}', [DashboardController::class,'getPagosCompra'])->name('getPagoCompra');
-        Route::get('/graficos/pagos', [DashboardController::class,'getGraficoPag'])->name('getgraficopag');
-        Route::post('/graficos/pagos', [DashboardController::class,'getGraficoPag'])->name('getgraficopagpost');
+        Route::get('/graficos/pagos', [DashboardController::class,'getGraficoPag'])->name('getGraficoPag');
+        Route::post('/graficos/pagos', [DashboardController::class,'getGraficoPag'])->name('getGraficoPagPost');
 
-        Route::post('/admin/pagos/agregar',[PagoController::class,'Agregar'])->name('agregarPago');
+        Route::post('/admin/pagos/agregar',[PagoController::class,'agregar'])->name('agregarPago');
         Route::delete('/pagos/confirmDelete', [PagoController::class,'confirmDelete'])->name('confirmDelete');
-        Route::get('/pagos/crear',[ProductoController::class,'create'])->name('crearPago');
+        Route::get('/pagos/crear',[PagoController::class,'create'])->name('crearPago');
     });
 
     Route::group(['as'=> 'notificacion.'], function(){
-        Route::get('/notificaciones/usuarios', [DashboardController::class,'getNotificacionesUsuarios'])->name('getnotificacionesusuarios');
-        Route::get('/notificaciones/productos', [DashboardController::class,'getNotificacionesProductos'])->name('getnotificacionesproductos');
+        Route::get('/notificaciones/usuarios', [DashboardController::class,'getNotificacionesUsuarios'])->name('getNotificacionesUsuarios');
+        Route::get('/notificaciones/productos', [DashboardController::class,'getNotificacionesProductos'])->name('getNotificacionesProductos');
     });
 
     Route::group(['as'=> 'fecha.'], function(){
-        Route::get('/fechas', [DashboardController::class,'getFechas'])->name('getfechas');
-        Route::get('/fechas/eliminar/{fecha}{hora}',[FechaController::class,'eliminar'])->name('eliminarfecha');
-        Route::get('/fechas/crear',[ProductoController::class,'create'])->name('crearFecha');
-        Route::get('/fechas/agregar',[ProductoController::class,'store'])->name('agregarFecha');
+        Route::get('/fechas', [DashboardController::class,'getFechas'])->name('getFechas');
+        Route::get('/fechas/eliminar/{fecha}{hora}',[FechaController::class,'eliminar'])->name('eliminarFecha');
+        Route::get('/fechas/crear',[FechaController::class,'create'])->name('crearFecha');
+        Route::get('/fechas/agregar',[FechaController::class,'store'])->name('agregarFecha');
     });
 
     Route::group(['as'=> 'pedido.'], function(){
         Route::get('/pedidos/{id}', [DashboardController::class,'getPedidosUsuario'])->name('getPedidoUsuario');
         Route::get('/pedidos/productos/{id}', [DashboardController::class,'getPedidosProductos'])->name('getPedidosProductos');
         Route::post('/pedidos/fecha/{id}', [DashboardController::class,'getPedidosUsuario'])->name('getPedidoUsuarioPost');
-        Route::get('/pedidos', [DashboardController::class,'getPedidos'])->name('getpedido');
+        Route::get('/pedidos', [DashboardController::class,'getPedidos'])->name('getPedido');
         Route::post('/pedidos/fecha', [DashboardController::class,'getPedidos'])->name('getPedidoPost');
-        Route::get('/graficos/pedidos', [DashboardController::class,'getGraficoPed'])->name('getgraficoped');
+        Route::get('/graficos/pedidos', [DashboardController::class,'getGraficoPed'])->name('getGraficoPed');
 
-        Route::get('/pedidos/cancelarPedido/{id}', [PedidoController::class,'cancelar'])->name('cancelarpedido');
-        Route::post('/pedidos/{id}', [PedidoController::class,'agregar'])->name('agregarpedido');
+        Route::get('/pedidos/cancelarPedido/{id}', [PedidoController::class,'cancelar'])->name('cancelarPedido');
+        Route::post('/pedidos/{id}', [PedidoController::class,'agregar'])->name('agregarPedido');
         Route::get('/pedidos/detalle/{id}',[PedidoController::class,'detallePedidoUsuario'])->name('detalleUsuario');
         Route::get('/pedidos/detalleCuenta/{id}',[PedidoController::class,'detallePedidoUsuarioCuenta'])->name('detalleUsuarioCuenta');
         Route::delete('/pedidos/confirmDelete', [PedidoController::class,'confirmDelete'])->name('confirmDelete');

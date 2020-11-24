@@ -16,7 +16,7 @@
                 </div>
                 <div class="card-body">
                   <h5>{{$mensaje}}</h5>
-                  <form action="{{route('admin.pago.getgraficopag')}}" method="POST">
+                  <form action="{{route('admin.pago.getGraficoPag')}}" method="POST">
                       @csrf
                       <input type="date" name="fechaInicial" id="fechaInicial" @if ($fechaInicial != "")
                           value="{{$fechaInicial}}"
