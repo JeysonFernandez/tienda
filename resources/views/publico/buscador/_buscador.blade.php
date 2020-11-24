@@ -12,12 +12,18 @@
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
+                    <div class="container-toast" aria-live="polite" aria-atomic="true">
+                        <div id="toast-region" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                            <div class="toast-header">
+                                <span id="card-nombre-region" class=" toast-title mr-auto">Categoria 1</span>
+                                <button id="btn-toast-region" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col texto-buscado">
-                    <p id="titulo-proyecto" class="p-busqueda ">
-                        Categorias
-                    </p>
-                </div>
+
             </li>
             <li class=" row nav-item nav-dropdown">
                 <div class="col btn-group">
@@ -31,12 +37,18 @@
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
+                    <div class="container-toast" aria-live="polite" aria-atomic="true">
+                        <div id="toast-region" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                            <div class="toast-header">
+                                <span id="card-nombre-region" class=" toast-title mr-auto"></span>
+                                <button id="btn-toast-region" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    <p id="titulo-proyecto" class="p-busqueda ">
-                        Categorias
-                    </p>
-                </div>
+
             </li>
             <li class=" row nav-item nav-dropdown">
                 <div class="col btn-group">
@@ -50,12 +62,18 @@
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
+                    <div class="container-toast" aria-live="polite" aria-atomic="true">
+                        <div id="toast-region" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                            <div class="toast-header">
+                                <span id="card-nombre-region" class=" toast-title mr-auto"></span>
+                                <button id="btn-toast-region" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    <p id="titulo-proyecto" class="p-busqueda ">
-                        Categorias
-                    </p>
-                </div>
+
             </li>
             <li class=" row nav-item nav-dropdown">
                 <div class="col btn-group">
@@ -69,12 +87,18 @@
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
+                    <div class="container-toast" aria-live="polite" aria-atomic="true">
+                        <div id="toast-region" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                            <div class="toast-header">
+                                <span id="card-nombre-region" class=" toast-title mr-auto"></span>
+                                <button id="btn-toast-region" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    <p id="titulo-proyecto" class="p-busqueda ">
-                        Categorias
-                    </p>
-                </div>
+
             </li>
             <li class=" row nav-item nav-dropdown">
                 <div class="col btn-group">
@@ -88,12 +112,18 @@
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
+                    <div class="container-toast" aria-live="polite" aria-atomic="true">
+                        <div id="toast-region" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                            <div class="toast-header">
+                                <span id="card-nombre-region" class=" toast-title mr-auto"></span>
+                                <button id="btn-toast-region" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    <p id="titulo-proyecto" class="p-busqueda ">
-                        Categorias
-                    </p>
-                </div>
+
             </li>
             <li class=" row nav-item nav-dropdown">
                 <div class="col btn-group">
@@ -107,12 +137,18 @@
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
+                    <div class="container-toast" aria-live="polite" aria-atomic="true">
+                        <div id="toast-region" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                            <div class="toast-header">
+                                <span id="card-nombre-region" class=" toast-title mr-auto"></span>
+                                <button id="btn-toast-region" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    <p id="titulo-proyecto" class="p-busqueda ">
-                        Categorias
-                    </p>
-                </div>
+
             </li>
             <li class=" row nav-item nav-dropdown">
                 <div class="col btn-group">
@@ -126,12 +162,18 @@
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
+                    <div class="container-toast" aria-live="polite" aria-atomic="true">
+                        <div id="toast-region" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                            <div class="toast-header">
+                                <span id="card-nombre-region" class=" toast-title mr-auto"></span>
+                                <button id="btn-toast-region" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col">
-                    <p id="titulo-proyecto" class="p-busqueda ">
-                        Categorias
-                    </p>
-                </div>
+
             </li>
             <li class="nav-dropdown">
                 <form id="form-buscador" method="get" action="{{ route('publico.busqueda') }}">

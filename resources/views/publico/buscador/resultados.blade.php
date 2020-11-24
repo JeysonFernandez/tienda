@@ -2,7 +2,7 @@
 
 @section('content')
 <section class="main-resultados my-5">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row align-items-end mb-5">
             <div class="col-xl-2">
                 <h1>Resultados</h1>
@@ -19,6 +19,7 @@
             <div class="col-3">
                 <div class="p-0 dropdown-bar">
                     @include('publico.buscador._buscador')
+
 
                 </div>
             </div>
@@ -101,7 +102,7 @@
 
 <script>
 
-
+$('#toast-region').toast('show');
 
 
 

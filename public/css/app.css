@@ -11090,7 +11090,7 @@ a.text-dark:focus {
 }
 
 .dropdown-bar {
-  background-color: #61C262;
+  background-color: #FF7518;
   border-radius: 15px 15px 15px 15px;
   padding: 0px 30px;
   padding-right: 0;
@@ -11225,10 +11225,12 @@ a.text-dark:focus {
 }
 
 .dropdown-bar {
-  background-color: #61C262;
+  background-color: #f6993f;
   border-radius: 15px 15px 15px 15px;
+  padding: 0px 30px;
   padding-right: 0;
-  width: 100%;
+  font-weight: 800;
+  width: 200px !important;
 }
 
 .dropdown-bar .nav-dropdown {
@@ -11244,26 +11246,16 @@ a.text-dark:focus {
 }
 
 .dropdown-bar .nav-dropdown .dropdown-toggle:focus {
-  color: #008d04;
+  color: #ff6c09;
   outline: 1px;
-}
-
-.dropdown-bar .nav-dropdown .p-busqueda {
-  color: white;
-  text-decoration: none;
-  background-color: transparent;
-  border: 0;
-}
-
-.dropdown-bar .nav-dropdown .tipo-buscado {
-  width: 300px !important;
 }
 
 .dropdown-bar .nav-dropdown .container-toast {
   position: absolute;
-  top: 40px;
+  top: 0px;
+  left: 150px;
   z-index: 99;
-  width: 140px;
+  width: 150px;
 }
 
 .dropdown-bar .nav-dropdown .container-toast .toast {
@@ -11278,10 +11270,10 @@ a.text-dark:focus {
 .dropdown-bar .nav-dropdown .container-toast .toast .toast-title {
   display: -webkit-box;
   -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   overflow: hidden;
-  font-size: 0.89em;
-  font-weight: 600;
+  font-size: 1em;
+  font-weight: 800;
 }
 
 .dropdown-bar .dropdown-menu {
@@ -11307,12 +11299,17 @@ a.text-dark:focus {
 }
 
 .dropdown-bar .dropdown-menu a:hover {
-  background-color: #00A8EE;
+  background-color: #FF7518;
   color: white;
 }
 
-.dropdown-bar .boton-buscar-filtro {
-  width: 100%;
+.dropdown-bar .boton-buscar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0px 15px 15px 0px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 @media (max-width: 1400px) {
@@ -11557,6 +11554,11 @@ hr.vertical {
 
 .bg-gray {
   background-color: lightgrey;
+}
+
+.btn-naranjo {
+  background-color: #f6993f !important;
+  color: white !important;
 }
 
 .white-link a {
@@ -24278,6 +24280,11 @@ body.sidebar-toggled footer.sticky-footer {
   .main-inicio .slider-inicio img {
     width: 140px;
   }
+}
+
+.main-resultados {
+  margin: auto;
+  width: 85%;
 }
 
 .main-resultados h1 {

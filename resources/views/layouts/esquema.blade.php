@@ -48,7 +48,7 @@
                                 </li>
 
                                 <li class="nav-item mx-0 mx-xl-3">
-                                    <a href="{{route('publico.auth.registrarse')}}" class="btn btn-success font-weight-bolder">
+                                    <a href="{{route('publico.auth.registrarse')}}" class="btn btn-naranjo font-weight-bolder">
                                         Registrarse gratis
                                     </a>
                                 </li>
@@ -75,7 +75,7 @@
 
                                 <li class="nav-item mx-3">
                                     <div class="btn-group info-usuario-dropdown">
-                                        <button class="btn btn-success inicial-usuario d-flex align-items-center rounded-circle font-weight-bolder dropdown-toggle" id="dropdownMenuButton" role="button"
+                                        <button class="btn btn-naranjo inicial-usuario d-flex align-items-center rounded-circle font-weight-bolder dropdown-toggle" id="dropdownMenuButton" role="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         {{ Str::upper(Str::limit(auth()->user()->nombre,1,'')) }}
                                         </button>
@@ -103,7 +103,7 @@
                 </div>
             </nav>
 
-            <main class="container">
+            <main class="container-fluid">
                 @yield('content')
             </main>
             @include('sweetalert::alert')
