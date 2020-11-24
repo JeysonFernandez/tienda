@@ -24,7 +24,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{route('colors.store')}}" method="POST">
+            <form action="{{route('admin.color.agregarColor')}}" method="POST">
                 @csrf
                 <div class="row row-space">
                     <div class="col-12">

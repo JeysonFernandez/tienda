@@ -60,7 +60,7 @@ Route::group(['as'=> 'admin.'], function(){
         Route::post('/colors/update',[ColorController::class,'confirmarUpdate'])->name('confirmarUpdate');
 
         Route::get('/colors/crear',[ColorController::class,'create'])->name('crearColor');
-        Route::get('/colors/agregar',[ColorController::class,'store'])->name('agregarColor');
+        Route::post('/colors/agregar',[ColorController::class,'store'])->name('agregarColor');
     });
 
     Route::group(['as'=> 'tipo.'], function(){
@@ -69,7 +69,7 @@ Route::group(['as'=> 'admin.'], function(){
         Route::post('/tipos/update',[TipoController::class,'confirmarUpdate'])->name('confirmarUpdate');
 
         Route::get('/tipos/crear',[TipoController::class,'create'])->name('crearTipo');
-        Route::get('/tipos/agregar',[TipoController::class,'store'])->name('agregarTipo');
+        Route::post('/tipos/agregar',[TipoController::class,'store'])->name('agregarTipo');
     });
 
     Route::group(['as'=> 'talla.'], function(){
@@ -78,7 +78,7 @@ Route::group(['as'=> 'admin.'], function(){
         Route::post('/tallas/update',[TallaController::class,'confirmarUpdate'])->name('confirmarUpdate');
 
         Route::get('/tallas/crear',[TallaController::class,'create'])->name('crearTalla');
-        Route::get('/tallas/agregar',[TallaController::class,'store'])->name('agregarTalla');
+        Route::post('/tallas/agregar',[TallaController::class,'store'])->name('agregarTalla');
     });
 
     Route::group(['as'=> 'marca.'], function(){
@@ -87,7 +87,7 @@ Route::group(['as'=> 'admin.'], function(){
         Route::post('/marcas/update',[MarcaController::class,'confirmarUpdate'])->name('confirmarUpdate');
 
         Route::get('/marcas/crear',[MarcaController::class,'create'])->name('crearMarca');
-        Route::get('/marcas/agregar',[MarcaController::class,'store'])->name('agregarMarca');
+        Route::post('/marcas/agregar',[MarcaController::class,'store'])->name('agregarMarca');
     });
 
     Route::group(['as'=> 'genero.'], function(){
@@ -96,7 +96,7 @@ Route::group(['as'=> 'admin.'], function(){
         Route::post('/generos/update',[GeneroController::class,'confirmarUpdate'])->name('confirmarUpdate');
 
         Route::get('/generos/crear',[GeneroController::class,'create'])->name('crearGenero');
-        Route::get('/generos/agregar',[GeneroController::class,'store'])->name('agregarGenero');
+        Route::post('/generos/agregar',[GeneroController::class,'store'])->name('agregarGenero');
     });
 
     Route::group(['as'=> 'proveedor.'], function(){
@@ -105,7 +105,7 @@ Route::group(['as'=> 'admin.'], function(){
         Route::post('/proveedors/update',[ProveedorController::class,'confirmarUpdate'])->name('confirmarUpdate');
 
         Route::get('/proveedors/crear',[ProveedorController::class,'create'])->name('crearProveedor');
-        Route::get('/provedors/agregar',[ProveedorController::class,'store'])->name('agregarProveedor');
+        Route::post('/provedors/agregar',[ProveedorController::class,'store'])->name('agregarProveedor');
     });
 
     Route::group(['as'=> 'usuario.'], function(){
@@ -122,7 +122,7 @@ Route::group(['as'=> 'admin.'], function(){
         Route::post('/productos/update',[ProductoController::class,'confirmarUpdate'])->name('confirmarUpdate');
 
         Route::get('/productos/crear',[ProductoController::class,'create'])->name('crearProducto');
-        Route::get('/productos/agregar',[ProductoController::class,'store'])->name('agregarProducto');
+        Route::post('/productos/agregar',[ProductoController::class,'store'])->name('agregarProducto');
     });
 
     Route::group(['as'=> 'compra.'], function(){
