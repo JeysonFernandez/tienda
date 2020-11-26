@@ -16,22 +16,22 @@ class GeneroController extends Controller
 *
 * @return \Illuminate\Http\Response
 */
-public function index()
-{
+    public function index()
+    {
 
-return redirect()->route('admin.getgeneros');
-}
+    return redirect()->route('admin.genero.getGenero');
+    }
 
 /**
 * Show the form for creating a new resource.
 *
 * @return \Illuminate\Http\Response
 */
-public function create()
-{
-    return view('admin.generos.create',['notificacionProductos'=>NotificacionProducto::all(),
-    'notificacionUsuarios'=>NotificacionUsuario::all()]);
-}
+    public function create()
+    {
+        return view('admin.generos.create',['notificacionProductos'=>NotificacionProducto::all(),
+        'notificacionUsuarios'=>NotificacionUsuario::all()]);
+    }
 
 /**
 * Store a newly created resource in storage.
@@ -39,18 +39,18 @@ public function create()
 * @param \Illuminate\Http\Request $request
 * @return \Illuminate\Http\Response
 */
-public function store(Request $request)
-{
-    /*$validaData = $request->validate([
-    'title' => 'required|min:3'
-    ]);*/
-    $genero = new Genero();
-    $genero->nombre = $request->get('nombre');
-    $genero->borrado = 1;
-    $genero->save();
+    public function store(Request $request)
+    {
+        /*$validaData = $request->validate([
+        'title' => 'required|min:3'
+        ]);*/
+        $genero = new Genero();
+        $genero->nombre = $request->get('nombre');
+        $genero->borrado = 1;
+        $genero->save();
 
-    return redirect()->route('admin.getgenero');
-}
+        return redirect()->route('admin.genero.getGenero');
+    }
 
 /**
 * Display the specified resource.
@@ -61,9 +61,10 @@ public function store(Request $request)
 public function show(Genero $genero)
 {
     $genero = Genero::findOrFail($genero->id);
+
     return view('generos.show',[
-    'genero' => $genero
-    ]);
+                'genero' => $genero
+           ]);
 }
 
 /**
@@ -72,16 +73,16 @@ public function show(Genero $genero)
 * @param \App\genero $genero
 * @return \Illuminate\Http\Response
 */
-public function edit($id)
-{
-$genero = Genero::find($id);
+    public function edit($id)
+    {
+        $genero = Genero::find($id);
 
-return view('admin.generos.edit',[
-'genero' => $genero,
-'notificacionProductos'=>NotificacionProducto::all(),
-'notificacionUsuarios'=>NotificacionUsuario::all()
-]);
-}
+        return view('admin.generos.edit',[
+                'genero' => $genero,
+                'notificacionProductos'=>NotificacionProducto::all(),
+                'notificacionUsuarios'=>NotificacionUsuario::all()
+                ]);
+    }
 
 /**
 * Update the specified resource in storage.
@@ -90,27 +91,25 @@ return view('admin.generos.edit',[
 * @param \App\genero $genero
 * @return \Illuminate\Http\Response
 */
-public function update(StoreGenero $request, $id)
-{
+    public function update(StoreGenero $request, $id)
+    {
 
-    $genero = Genero::find($id);
-    dd($request->get('nombre'));
-    $genero->id = $id;
-    $genero->nombre = $request->nombre;
+        $genero = Genero::find($id);
+        $genero->id = $id;
+        $genero->nombre = $request->nombre;
+        $genero->save();
 
-    $genero->save();
-    return redirect()->route('admin.getgenero');
-}
-public function confirmarUpdate(StoreGenero $request)
-{
+        return redirect()->route('admin.genero.getGenero');
+    }
 
-$genero = Genero::find($request->get('id'));
+    public function confirmarUpdate(StoreGenero $request)
+    {
+        $genero = Genero::find($request->get('id'));
+        $genero->nombre = $request->get('nombre');
+        $genero->save();
 
-$genero->nombre = $request->get('nombre');
-
-$genero->save();
-return redirect()->route('admin.getgenero');
-}
+        return redirect()->route('admin.genero.getGenero');
+    }
 
 /**
 * Remove the specified resource from storage.
@@ -118,19 +117,22 @@ return redirect()->route('admin.getgenero');
 * @param \App\genero $genero
 * @return \Illuminate\Http\Response
 */
-public function destroy($id)
-{
-$genero = Genero::findOrFail($id);
-$genero->borrado = 2;
-$genero->save();
-return redirect()->route('admin.getgenero');
-}
+    public function destroy($id)
+    {
+        $genero = Genero::findOrFail($id);
+        $genero->borrado = 2;
+        $genero->save();
 
-public function confirmDelete(Request $request){
-$genero = Genero::findOrFail($request->idfinal);
-$genero->borrado = 2;
-$genero->save();
-return redirect()->route('admin.getgenero');
-}
+        return redirect()->route('admin.genero.getGenero');
+    }
+
+    public function confirmDelete(Request $request)
+    {
+        $genero = Genero::findOrFail($request->idfinal);
+        $genero->borrado = 2;
+        $genero->save();
+        
+        return redirect()->route('admin.genero.getGenero');
+    }
 
 }

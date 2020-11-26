@@ -89,7 +89,7 @@
                             <input type="number" class="form-control  @error('stock_actual') is-invalid @enderror" id="stock_actual" name="stock_actual" value={{old('stock_actual')}} >
                         </div> 
                         <div class="form-group">
-                            <label for="stock_critico"> Stock Crítico (Si se coloca un valor mayor al Stock Actual, automaticamente el Stock cirtico será igual a Stock Actual) </label>
+                            <label for="stock_critico"> Stock Crítico (Si se coloca un valor mayor al Stock Actual, automáticamente el Stock crítico será igual a Stock Actual) </label>
                             <input type="number" class="form-control  @error('stock_critico') is-invalid @enderror" id="stock_critico" name="stock_critico" value={{old('stock_critico')}} >
                         </div> 
                         <div class="form-group">

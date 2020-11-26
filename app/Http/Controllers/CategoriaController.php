@@ -16,55 +16,55 @@ class CategoriaController extends Controller
 *
 * @return \Illuminate\Http\Response
 */
-public function index()
-{
-
-return redirect()->route('admin.getcategoria');
-}
-
-/**
-* Show the form for creating a new resource.
-*
-* @return \Illuminate\Http\Response
-*/
-public function crearCategoria()
-{
-    return view('admin.categorias.create',['notificacionProductos'=>NotificacionProducto::all(),
-    'notificacionUsuarios'=>NotificacionUsuario::all()]);
-}
-
-/**
-* Store a newly created resource in storage.
-*
-* @param \Illuminate\Http\Request $request
-* @return \Illuminate\Http\Response
-*/
-public function guardarCategoria(Request $request)
-{
-    /*$validaData = $request->validate([
-    'title' => 'required|min:3'
-    ]);*/
-    $categoria = new Categoria();
-    $categoria->nombre = $request->get('nombre');
-    $categoria->borrado = 1;
-    $categoria->save();
+    public function index()
+    {
 
     return redirect()->route('admin.categoria.verCategorias');
-}
+    }
 
-/**
-* Display the specified resource.
-*
-* @param \App\categoria $categoria
-* @return \Illuminate\Http\Response
-*/
-public function show(Categoria $categoria)
-{
-    $categoria = Categoria::findOrFail($categoria->id);
-    return view('categorias.show',[
-    'categoria' => $categoria
-    ]);
-}
+    /**
+    * Show the form for creating a new resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function crearCategoria()
+    {
+        return view('admin.categorias.create',['notificacionProductos'=>NotificacionProducto::all(),
+        'notificacionUsuarios'=>NotificacionUsuario::all()]);
+    }
+
+    /**
+    * Store a newly created resource in storage.
+    *
+    * @param \Illuminate\Http\Request $request
+    * @return \Illuminate\Http\Response
+    */
+    public function guardarCategoria(Request $request)
+    {
+        /*$validaData = $request->validate([
+        'title' => 'required|min:3'
+        ]);*/
+        $categoria = new Categoria();
+        $categoria->nombre = $request->get('nombre');
+        $categoria->borrado = 1;
+        $categoria->save();
+
+        return redirect()->route('admin.categoria.verCategorias');
+    }
+
+    /**
+    * Display the specified resource.
+    *
+    * @param \App\categoria $categoria
+    * @return \Illuminate\Http\Response
+    */
+    public function show(Categoria $categoria)
+    {
+        $categoria = Categoria::findOrFail($categoria->id);
+        return view('categorias.show',[
+        'categoria' => $categoria
+        ]);
+    }
 
 /**
 * Show the form for editing the specified resource.
@@ -72,16 +72,16 @@ public function show(Categoria $categoria)
 * @param \App\categoria $categoria
 * @return \Illuminate\Http\Response
 */
-public function editarCategoria($id)
-{
-    $categoria = Categoria::find($id);
+    public function editarCategoria($id)
+    {
+        $categoria = Categoria::find($id);
 
-    return view('admin.categorias.edit',[
-    'categoria' => $categoria,
-    'notificacionProductos'=>NotificacionProducto::all(),
-    'notificacionUsuarios'=>NotificacionUsuario::all()
-    ]);
-}
+        return view('admin.categorias.edit',[
+        'categoria' => $categoria,
+        'notificacionProductos'=>NotificacionProducto::all(),
+        'notificacionUsuarios'=>NotificacionUsuario::all()
+        ]);
+    }
 
 /**
 * Update the specified resource in storage.
@@ -90,24 +90,24 @@ public function editarCategoria($id)
 * @param \App\categoria $categoria
 * @return \Illuminate\Http\Response
 */
-public function update(Request $request, $id)
-{
+    public function update(Request $request, $id)
+    {
 
-    $categoria = Categoria::find($id);
-    $categoria->id = $id;
-    $categoria->nombre = $request->nombre;
+        $categoria = Categoria::find($id);
+        $categoria->id = $id;
+        $categoria->nombre = $request->nombre;
+        $categoria->save();
 
-    $categoria->save();
-    return redirect()->route('admin.getcategoria');
-}
+        return redirect()->route('admin.getcategoria');
+    }
+
     public function confirmarUpdate(Request $request)
     {
 
         $categoria = Categoria::find($request->get('id'));
-
         $categoria->nombre = $request->get('nombre');
-
         $categoria->save();
+
         return redirect()->route('admin.categoria.verCategorias');
     }
 
@@ -117,19 +117,21 @@ public function update(Request $request, $id)
 * @param \App\categoria $categoria
 * @return \Illuminate\Http\Response
 */
-public function destroy($id)
-{
-$categoria = Categoria::findOrFail($id);
-$categoria->borrado = 2;
-$categoria->save();
-return redirect()->route('admin.getcategoria');
-}
+    public function destroy($id)
+    {
+        $categoria = Categoria::findOrFail($id);
+        $categoria->borrado = 2;
+        $categoria->save();
 
-public function confirmDelete(Request $request){
-$categoria = Categoria::find($request->idfinal);
-$categoria->borrado = 2;
-$categoria->save();
-return redirect()->route('admin.getcategoria');
-}
+        return redirect()->route('admin.getcategoria');
+    }
+
+    public function confirmDelete(Request $request){
+        $categoria = Categoria::find($request->idfinal);
+        $categoria->borrado = 2;
+        $categoria->save();
+
+        return redirect()->route('admin.getcategoria');
+    }
 
 }

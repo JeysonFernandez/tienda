@@ -16,72 +16,73 @@ class MarcaController extends Controller
 *
 * @return \Illuminate\Http\Response
 */
-public function index()
-{
+    public function index()
+    {
 
-return redirect()->route('admin.getmarca');
-}
+    return redirect()->route('admin.marca.getMarca');
+    }
 
-/**
-* Show the form for creating a new resource.
-*
-* @return \Illuminate\Http\Response
-*/
-public function create()
-{
-    return view('admin.marcas.create',['notificacionProductos'=>NotificacionProducto::all(),
-    'notificacionUsuarios'=>NotificacionUsuario::all()]);
-}
+    /**
+    * Show the form for creating a new resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function create()
+    {
+        return view('admin.marcas.create',['notificacionProductos'=>NotificacionProducto::all(),
+        'notificacionUsuarios'=>NotificacionUsuario::all()]);
+    }
 
-/**
-* Store a newly created resource in storage.
-*
-* @param \Illuminate\Http\Request $request
-* @return \Illuminate\Http\Response
-*/
-public function store(Request $request)
-{
-    /*$validaData = $request->validate([
-    'title' => 'required|min:3'
-    ]);*/
-    $marca = new Marca();
-    $marca->nombre = $request->get('nombre');
-    $marca->borrado = 1;
-    $marca->save();
+    /**
+    * Store a newly created resource in storage.
+    *
+    * @param \Illuminate\Http\Request $request
+    * @return \Illuminate\Http\Response
+    */
+    public function store(Request $request)
+    {
+        /*$validaData = $request->validate([
+        'title' => 'required|min:3'
+        ]);*/
+        $marca = new Marca();
+        $marca->nombre = $request->get('nombre');
+        $marca->borrado = 1;
+        $marca->save();
 
-    return redirect()->route('admin.getmarca');
-}
+        return redirect()->route('admin.marca.getMarca');
+    }
 
-/**
-* Display the specified resource.
-*
-* @param \App\marca $marca
-* @return \Illuminate\Http\Response
-*/
-public function show(Marca $marca)
-{
-    $marca = Marca::findOrFail($marca->id);
-    return view('marcas.show',[
-    'marca' => $marca
-    ]);
-}
+    /**
+    * Display the specified resource.
+    *
+    * @param \App\marca $marca
+    * @return \Illuminate\Http\Response
+    */
+    public function show(Marca $marca)
+    {
+        $marca = Marca::findOrFail($marca->id);
 
-/**
-* Show the form for editing the specified resource.
-*
-* @param \App\marca $marca
-* @return \Illuminate\Http\Response
-*/
-public function edit($id)
-{
-$marca = Marca::find($id);
+        return view('marcas.show',[
+        'marca' => $marca
+        ]);
+    }
 
-return view('admin.marcas.edit',[
-'marca' => $marca,
-'notificacionProductos'=>NotificacionProducto::all(),
-'notificacionUsuarios'=>NotificacionUsuario::all()
-]);
-}
+    /**
+    * Show the form for editing the specified resource.
+    *
+    * @param \App\marca $marca
+    * @return \Illuminate\Http\Response
+    */
+    public function edit($id)
+    {
+        $marca = Marca::find($id);
+
+        return view('admin.marcas.edit',[
+        'marca' => $marca,
+        'notificacionProductos'=>NotificacionProducto::all(),
+        'notificacionUsuarios'=>NotificacionUsuario::all()
+        ]);
+    }
 
 /**
 * Update the specified resource in storage.
@@ -90,27 +91,26 @@ return view('admin.marcas.edit',[
 * @param \App\marca $marca
 * @return \Illuminate\Http\Response
 */
-public function update(StoreMarca $request, $id)
-{
+    public function update(StoreMarca $request, $id)
+    {
 
-    $marca = Marca::find($id);
-    dd($request->get('nombre'));
-    $marca->id = $id;
-    $marca->nombre = $request->nombre;
+        $marca = Marca::find($id);
+        $marca->id = $id;
+        $marca->nombre = $request->nombre;
+        $marca->save();
 
-    $marca->save();
-    return redirect()->route('admin.getmarca');
-}
-public function confirmarUpdate(StoreMarca $request)
-{
+        return redirect()->route('admin.marca.getMarca');
+    }
 
-$marca = Marca::find($request->get('id'));
+    public function confirmarUpdate(StoreMarca $request)
+    {
 
-$marca->nombre = $request->get('nombre');
+        $marca = Marca::find($request->get('id'));
+        $marca->nombre = $request->get('nombre');
+        $marca->save();
 
-$marca->save();
-return redirect()->route('admin.getmarca');
-}
+        return redirect()->route('admin.marca.getMarca');
+    }
 
 /**
 * Remove the specified resource from storage.
@@ -118,19 +118,21 @@ return redirect()->route('admin.getmarca');
 * @param \App\marca $marca
 * @return \Illuminate\Http\Response
 */
-public function destroy($id)
-{
-$marca = Marca::findOrFail($id);
-$marca->borrado = 2;
-$marca->save();
-return redirect()->route('admin.getmarca');
-}
+    public function destroy($id)
+    {
+        $marca = Marca::findOrFail($id);
+        $marca->borrado = 2;
+        $marca->save();
+        
+        return redirect()->route('admin.marca.getMarca');
+    }
 
-public function confirmDelete(Request $request){
-$marca = Marca::findOrFail($request->idfinal);
-$marca->borrado = 2;
-$marca->save();
-return redirect()->route('admin.getmarca');
-}
+    public function confirmDelete(Request $request){
+        $marca = Marca::findOrFail($request->idfinal);
+        $marca->borrado = 2;
+        $marca->save();
+
+        return redirect()->route('admin.marca.getMarca');
+    }
 
 }

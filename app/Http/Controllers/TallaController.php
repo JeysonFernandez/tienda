@@ -16,22 +16,22 @@ class TallaController extends Controller
 *
 * @return \Illuminate\Http\Response
 */
-public function index()
-{
+    public function index()
+    {
 
-return redirect()->route('admin.gettalla');
-}
+        return redirect()->route('admin.talla.getTalla');
+    }
 
 /**
 * Show the form for creating a new resource.
 *
 * @return \Illuminate\Http\Response
 */
-public function create()
-{
-    return view('admin.tallas.create',['notificacionProductos'=>NotificacionProducto::all(),
-    'notificacionUsuarios'=>NotificacionUsuario::all()]);
-}
+    public function create()
+    {
+        return view('admin.tallas.create',['notificacionProductos'=>NotificacionProducto::all(),
+        'notificacionUsuarios'=>NotificacionUsuario::all()]);
+    }
 
 /**
 * Store a newly created resource in storage.
@@ -39,18 +39,18 @@ public function create()
 * @param \Illuminate\Http\Request $request
 * @return \Illuminate\Http\Response
 */
-public function store(Request $request)
-{
-    /*$validaData = $request->validate([
-    'title' => 'required|min:3'
-    ]);*/
-    $talla = new Talla();
-    $talla->nombre = $request->get('nombre');
-    $talla->borrado = 1;
-    $talla->save();
+    public function store(Request $request)
+    {
+        /*$validaData = $request->validate([
+        'title' => 'required|min:3'
+        ]);*/
+        $talla = new Talla();
+        $talla->nombre = $request->get('nombre');
+        $talla->borrado = 1;
+        $talla->save();
 
-    return redirect()->route('admin.gettalla');
-}
+        return redirect()->route('admin.talla.getTalla');
+    }
 
 /**
 * Display the specified resource.
@@ -58,13 +58,13 @@ public function store(Request $request)
 * @param \App\talla $talla
 * @return \Illuminate\Http\Response
 */
-public function show(Talla $talla)
-{
-    $talla = Talla::findOrFail($talla->id);
-    return view('tallas.show',[
-    'talla' => $talla
-    ]);
-}
+    public function show(Talla $talla)
+    {
+        $talla = Talla::findOrFail($talla->id);
+        return view('tallas.show',[
+        'talla' => $talla
+        ]);
+    }
 
 /**
 * Show the form for editing the specified resource.
@@ -72,16 +72,16 @@ public function show(Talla $talla)
 * @param \App\talla $talla
 * @return \Illuminate\Http\Response
 */
-public function edit($id)
-{
-$talla = Talla::find($id);
+    public function edit($id)
+    {
+        $talla = Talla::find($id);
 
-return view('admin.tallas.edit',[
-'talla' => $talla,
-'notificacionProductos'=>NotificacionProducto::all(),
-'notificacionUsuarios'=>NotificacionUsuario::all()
-]);
-}
+        return view('admin.tallas.edit',[
+        'talla' => $talla,
+        'notificacionProductos'=>NotificacionProducto::all(),
+        'notificacionUsuarios'=>NotificacionUsuario::all()
+        ]);
+    }
 
 /**
 * Update the specified resource in storage.
@@ -90,27 +90,25 @@ return view('admin.tallas.edit',[
 * @param \App\talla $talla
 * @return \Illuminate\Http\Response
 */
-public function update(StoreTalla $request, $id)
-{
+    public function update(StoreTalla $request, $id)
+    {
+        $talla = Talla::find($id);
+        $talla->id = $id;
+        $talla->nombre = $request->nombre;
+        $talla->save();
 
-    $talla = Talla::find($id);
-    dd($request->get('nombre'));
-    $talla->id = $id;
-    $talla->nombre = $request->nombre;
+        return redirect()->route('admin.talla.geTalla');
+    }
 
-    $talla->save();
-    return redirect()->route('admin.gettalla');
-}
-public function confirmarUpdate(StoreTalla $request)
-{
+    public function confirmarUpdate(StoreTalla $request)
+    {
 
-$talla = Talla::find($request->get('id'));
+        $talla = Talla::find($request->get('id'));
+        $talla->nombre = $request->get('nombre');
+        $talla->save();
 
-$talla->nombre = $request->get('nombre');
-
-$talla->save();
-return redirect()->route('admin.gettalla');
-}
+        return redirect()->route('admin.talla.getTalla');
+    }
 
 /**
 * Remove the specified resource from storage.
@@ -118,19 +116,21 @@ return redirect()->route('admin.gettalla');
 * @param \App\talla $talla
 * @return \Illuminate\Http\Response
 */
-public function destroy($id)
-{
-$talla = Talla::findOrFail($id);
-$talla->borrado = 2;
-$talla->save();
-return redirect()->route('admin.gettalla');
-}
+    public function destroy($id)
+    {
+        $talla = Talla::findOrFail($id);
+        $talla->borrado = 2;
+        $talla->save();
+        
+        return redirect()->route('admin.talla.getTalla');
+    }
 
-public function confirmDelete(Request $request){
-$talla = Talla::findOrFail($request->idfinal);
-$talla->borrado = 2;
-$talla->save();
-return redirect()->route('admin.gettalla');
-}
+    public function confirmDelete(Request $request){
+        $talla = Talla::findOrFail($request->idfinal);
+        $talla->borrado = 2;
+        $talla->save();
+        
+        return redirect()->route('admin.talla.getTalla');
+    }
 
 }

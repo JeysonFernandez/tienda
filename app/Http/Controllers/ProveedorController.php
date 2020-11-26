@@ -19,7 +19,7 @@ class ProveedorController extends Controller
     public function index()
     {
 
-    return redirect()->route('admin.getProveedor');
+        return redirect()->route('admin.proveedor.getProveedor');
     }
 
 /**
@@ -27,11 +27,11 @@ class ProveedorController extends Controller
 *
 * @return \Illuminate\Http\Response
 */
-public function create()
-{
-    return view('admin.proveedores.create',['notificacionProductos'=>NotificacionProducto::all(),
-    'notificacionUsuarios'=>NotificacionUsuario::all()]);
-}
+    public function create()
+    {
+        return view('admin.proveedores.create',['notificacionProductos'=>NotificacionProducto::all(),
+        'notificacionUsuarios'=>NotificacionUsuario::all()]);
+    }
 
 /**
 * Store a newly created resource in storage.
@@ -39,20 +39,20 @@ public function create()
 * @param \Illuminate\Http\Request $request
 * @return \Illuminate\Http\Response
 */
-public function store(Request $request)
-{
-    /*$validaData = $request->validate([
-    'title' => 'required|min:3'
-    ]);*/
-    $proveedor = new Proveedor();
-    $proveedor->nombre = $request->get('nombre');
-    $proveedor->direccion = $request->get('direccion');
-    $proveedor->descripcion = $request->get('descripcion');
-    $proveedor->borrado = "no";
-    $proveedor->save();
+    public function store(Request $request)
+    {
+        /*$validaData = $request->validate([
+        'title' => 'required|min:3'
+        ]);*/
+        $proveedor = new Proveedor();
+        $proveedor->nombre = $request->get('nombre');
+        $proveedor->direccion = $request->get('direccion');
+        $proveedor->descripcion = $request->get('descripcion');
+        $proveedor->borrado = 1;
+        $proveedor->save();
 
-    return redirect()->route('admin.getproveedor');
-}
+        return redirect()->route('admin.proveedor.getProveedor');
+    }
 
 /**
 * Display the specified resource.
@@ -60,13 +60,13 @@ public function store(Request $request)
 * @param \App\proveedor $proveedor
 * @return \Illuminate\Http\Response
 */
-public function show(Proveedor $proveedor)
-{
-    $proveedor = Proveedor::findOrFail($proveedor->id);
-    return view('proveedores.show',[
-    'proveedor' => $proveedor
-    ]);
-}
+    public function show(Proveedor $proveedor)
+    {
+        $proveedor = Proveedor::findOrFail($proveedor->id);
+        return view('proveedores.show',[
+        'proveedor' => $proveedor
+        ]);
+    }
 
 /**
 * Show the form for editing the specified resource.
@@ -74,16 +74,16 @@ public function show(Proveedor $proveedor)
 * @param \App\proveedor $proveedor
 * @return \Illuminate\Http\Response
 */
-public function edit($id)
-{
-$proveedor = Proveedor::find($id);
+    public function edit($id)
+    {
+        $proveedor = Proveedor::find($id);
 
-return view('admin.proveedores.edit',[
-    'proveedor' => $proveedor,
-    'notificacionProductos'=>NotificacionProducto::all(),
-    'notificacionUsuarios'=>NotificacionUsuario::all()
-]);
-}
+        return view('admin.proveedores.edit',[
+            'proveedor' => $proveedor,
+            'notificacionProductos'=>NotificacionProducto::all(),
+            'notificacionUsuarios'=>NotificacionUsuario::all()
+        ]);
+    }
 
 /**
 * Update the specified resource in storage.
@@ -92,26 +92,25 @@ return view('admin.proveedores.edit',[
 * @param \App\proveedor $proveedor
 * @return \Illuminate\Http\Response
 */
-public function update(StoreProveedores $request, $id)
-{
+    public function update(StoreProveedores $request, $id)
+    {
 
-    $proveedor = Proveedor::find($id);
-    $proveedor->id = $id;
-    $proveedor->nombre = $request->nombre;
+        $proveedor = Proveedor::find($id);
+        $proveedor->id = $id;
+        $proveedor->nombre = $request->nombre;
+        $proveedor->save();
+        
+        return redirect()->route('admin.proveedor.getProveedor');
+    }
 
-    $proveedor->save();
-    return redirect()->route('admin.getProveedor');
-}
-public function confirmarUpdate(StoreProveedores $request)
-{
+    public function confirmarUpdate(StoreProveedores $request)
+    {
+        $proveedor = proveedor::find($request->get('id'));
+        $proveedor->nombre = $request->get('nombre');
+        $proveedor->save();
 
-    $proveedor = proveedor::find($request->get('id'));
-
-    $proveedor->nombre = $request->get('nombre');
-
-    $proveedor->save();
-    return redirect()->route('admin.getProveedor');
-}
+        return redirect()->route('admin.proveedor.getProveedor');
+    }
 
 /**
 * Remove the specified resource from storage.
@@ -119,16 +118,18 @@ public function confirmarUpdate(StoreProveedores $request)
 * @param \App\proveedor $proveedor
 * @return \Illuminate\Http\Response
 */
-public function destroy($id)
-{
-    $proveedor = Proveedor::findOrFail($id);
-    $proveedor->borrado = "si";
-    return redirect()->route('admin.getProveedor');
-}
+    public function destroy($id)
+    {
+        $proveedor = Proveedor::findOrFail($id);
+        $proveedor->borrado = 2;
+        return redirect()->route('admin.proveedor.getProveedor');
+    }
 
-public function confirmDelete(Request $request){
-    $proveedor = Proveedor::findOrFail($request->idfinal);
-    $proveedor->borrado = "si";
-    return redirect()->route('admin.getProveedor');
-}
+    public function confirmDelete(Request $request)
+    {
+        $proveedor = Proveedor::findOrFail($request->idfinal);
+        $proveedor->borrado = 2;
+
+        return redirect()->route('admin.proveedor.getProveedor');
+    }
 }

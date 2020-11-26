@@ -49,7 +49,7 @@ public function store(Request $request)
     $color->borrado = 1;
     $color->save();
 
-    return redirect()->route('admin.getcolor');
+    return redirect()->route('admin.getColor');
 }
 
 /**
@@ -74,13 +74,13 @@ public function show(Color $color)
 */
 public function edit($id)
 {
-$color = Color::find($id);
+    $color = Color::find($id);
 
-return view('admin.colores.edit',[
-'color' => $color,
-'notificacionProductos'=>NotificacionProducto::all(),
-'notificacionUsuarios'=>NotificacionUsuario::all()
-]);
+    return view('admin.colores.edit',[
+    'color' => $color,
+    'notificacionProductos'=>NotificacionProducto::all(),
+    'notificacionUsuarios'=>NotificacionUsuario::all()
+    ]);
 }
 
 /**
@@ -99,7 +99,7 @@ public function update(StoreColor $request, $id)
     $color->nombre = $request->nombre;
 
     $color->save();
-    return redirect()->route('admin.getcolor');
+    return redirect()->route('admin.color.getColor');
 }
 public function confirmarUpdate(StoreColor $request)
 {
@@ -109,7 +109,7 @@ $color = Color::find($request->get('id'));
 $color->nombre = $request->get('nombre');
 
 $color->save();
-return redirect()->route('admin.getcolor');
+return redirect()->route('admin.color.getColor');
 }
 
 /**
@@ -120,16 +120,17 @@ return redirect()->route('admin.getcolor');
 */
 public function destroy($id)
 {
-$color = Color::findOrFail($id);
-$color->borrado = 2;
-return redirect()->route('admin.getcolor');
+    $color = Color::findOrFail($id);
+    $color->borrado = 2;
+    return redirect()->route('admin.color.getColor');
 }
 
-public function confirmDelete(Request $request){
-$color = Color::findOrFail($request->idfinal);
-$color->borrado = 2;
-$color->save();
-return redirect()->route('admin.getcolor');
+public function confirmDelete(Request $request)
+{
+    $color = Color::findOrFail($request->idfinal);
+    $color->borrado = 2;
+    $color->save();
+    return redirect()->route('admin.color.getColor');
 }
 
 }

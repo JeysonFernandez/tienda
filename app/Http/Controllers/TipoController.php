@@ -16,22 +16,21 @@ class TipoController extends Controller
 *
 * @return \Illuminate\Http\Response
 */
-public function index()
-{
-
-return redirect()->route('admin.gettipo');
-}
+    public function index()
+    {
+        return redirect()->route('admin.tipo.getTipo');
+    }
 
 /**
 * Show the form for creating a new resource.
 *
 * @return \Illuminate\Http\Response
 */
-public function create()
-{
-    return view('admin.tipos.create',['notificacionProductos'=>NotificacionProducto::all(),
-    'notificacionUsuarios'=>NotificacionUsuario::all()]);
-}
+    public function create()
+    {
+        return view('admin.tipos.create',['notificacionProductos'=>NotificacionProducto::all(),
+        'notificacionUsuarios'=>NotificacionUsuario::all()]);
+    }
 
 /**
 * Store a newly created resource in storage.
@@ -39,18 +38,18 @@ public function create()
 * @param \Illuminate\Http\Request $request
 * @return \Illuminate\Http\Response
 */
-public function store(Request $request)
-{
-    /*$validaData = $request->validate([
-    'title' => 'required|min:3'
-    ]);*/
-    $tipo = new Tipo();
-    $tipo->nombre = $request->get('nombre');
-    $tipo->borrado = 1;
-    $tipo->save();
+    public function store(Request $request)
+    {
+        /*$validaData = $request->validate([
+        'title' => 'required|min:3'
+        ]);*/
+        $tipo = new Tipo();
+        $tipo->nombre = $request->get('nombre');
+        $tipo->borrado = 1;
+        $tipo->save();
 
-    return redirect()->route('admin.gettipo');
-}
+        return redirect()->route('admin.tipo.getTipo');
+    }
 
 /**
 * Display the specified resource.
@@ -58,13 +57,14 @@ public function store(Request $request)
 * @param \App\tipo $tipo
 * @return \Illuminate\Http\Response
 */
-public function show(Tipo $tipo)
-{
-    $tipo = Tipo::findOrFail($tipo->id);
-    return view('tipos.show',[
-    'tipo' => $tipo
-    ]);
-}
+    public function show(Tipo $tipo)
+    {
+        $tipo = Tipo::findOrFail($tipo->id);
+
+        return view('tipos.show',[
+        'tipo' => $tipo
+        ]);
+    }
 
 /**
 * Show the form for editing the specified resource.
@@ -72,16 +72,16 @@ public function show(Tipo $tipo)
 * @param \App\tipo $tipo
 * @return \Illuminate\Http\Response
 */
-public function edit($id)
-{
-$tipo = Tipo::find($id);
+    public function edit($id)
+    {
+        $tipo = Tipo::find($id);
 
-return view('admin.tipos.edit',[
-'tipo' => $tipo,
-'notificacionProductos'=>NotificacionProducto::all(),
-'notificacionUsuarios'=>NotificacionUsuario::all()
-]);
-}
+        return view('admin.tipos.edit',[
+        'tipo' => $tipo,
+        'notificacionProductos'=>NotificacionProducto::all(),
+        'notificacionUsuarios'=>NotificacionUsuario::all()
+        ]);
+    }
 
 /**
 * Update the specified resource in storage.
@@ -90,26 +90,25 @@ return view('admin.tipos.edit',[
 * @param \App\tipo $tipo
 * @return \Illuminate\Http\Response
 */
-public function update(StoreTipo $request, $id)
-{
+    public function update(StoreTipo $request, $id)
+    {
 
-    $tipo = Tipo::find($id);
-    $tipo->id = $id;
-    $tipo->nombre = $request->nombre;
+        $tipo = Tipo::find($id);
+        $tipo->id = $id;
+        $tipo->nombre = $request->nombre;
+        $tipo->save();
 
-    $tipo->save();
-    return redirect()->route('admin.gettipo');
-}
-public function confirmarUpdate(StoreTipo $request)
-{
+        return redirect()->route('admin.tipo.getTipo');
+    }
 
-$tipo = Tipo::find($request->get('id'));
-
-$tipo->nombre = $request->get('nombre');
-
-$tipo->save();
-return redirect()->route('admin.gettipo');
-}
+    public function confirmarUpdate(StoreTipo $request)
+    {
+        $tipo = Tipo::find($request->get('id'));
+        $tipo->nombre = $request->get('nombre');
+        $tipo->save();
+        
+        return redirect()->route('admin.tipo.getTipo');
+    }
 
 /**
 * Remove the specified resource from storage.
@@ -117,19 +116,21 @@ return redirect()->route('admin.gettipo');
 * @param \App\tipo $tipo
 * @return \Illuminate\Http\Response
 */
-public function destroy($id)
-{
-$tipo = Tipo::findOrFail($id);
-$tipo->borrado = 2;
-$tipo->save();
-return redirect()->route('admin.gettipo');
-}
+    public function destroy($id)
+    {
+        $tipo = Tipo::findOrFail($id);
+        $tipo->borrado = 2;
+        $tipo->save();
+        
+        return redirect()->route('admin.tipo.getTipo');
+    }
 
-public function confirmDelete(Request $request){
-$tipo = Tipo::findOrFail($request->idfinal);
-$tipo->borrado = 2;
-$tipo->save();
-return redirect()->route('admin.gettipo');
-}
+    public function confirmDelete(Request $request){
+        $tipo = Tipo::findOrFail($request->idfinal);
+        $tipo->borrado = 2;
+        $tipo->save();
+
+        return redirect()->route('admin.tipo.getTipo');
+    }
 
 }
