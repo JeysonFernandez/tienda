@@ -60,8 +60,8 @@
     <div class="mt-5"><h1>Nuestros Productos</h1></div>
     <hr>
     <div class="row mt-5 card-resultados">
-        @isset($concesiones)
-        @foreach ($concesiones as $concesion_busqueda )
+
+        @foreach ($productos as $producto )
         <div class="col-xl-6 mb-3">
             <div class="card shadow card-resultados mb-3 bg-white px-3">
                 <div class="row no-gutters align-items-center justify-content-around">
@@ -73,10 +73,10 @@
                     </div>
                     <div class="col-xl-7">
                         <div class="card-body py-3 py-xl-0">
-                            <h4 class="card-title  pb-2">Nombre Producto</h4>
+                            <h4 class="card-title  pb-2">{{$producto}}</h4>
                             <dl class="row">
                                 <dt class="col-sm-5">Marca</dt>
-                                <dd class="col-sm-7">Marca</dd>
+                                <dd class="col-sm-7">{{$producto->marca ?? ''}}</dd>
 
                                 <dt class="col-sm-5">Forma</dt>
                                 <dd class="col-sm-7">Forma</dd>
@@ -104,9 +104,7 @@
             </div>
         </div>
         @endforeach
-        @else
 
-        @endisset
 
     </div>
 </div>
