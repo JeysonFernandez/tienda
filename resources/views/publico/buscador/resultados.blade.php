@@ -27,25 +27,7 @@
                 @isset($productos)
                     @foreach ($productos as $producto )
                     <div class="row">
-                        <div class="card col-4 mx-1" >
-                            <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
-                            <div class="card-body">
-                            <h5 class="card-title">{{$producto}}</h5>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Marca:       {{$producto->marca ?? ''}}</li>
-                            <li class="list-group-item">Categoria:   {{$producto->categoria ?? ''}}</li>
-                            <li class="list-group-item">Proveedor:   {{$producto->proveedor ?? ''}}</li>
-                            <li class="list-group-item">Color:       {{$producto->color ?? ''}}</li>
-                            <li class="list-group-item">Talla:       {{$producto->talla ?? ''}}</li>
-                            <li class="list-group-item">Tipos:       {{$producto->tipo ?? ''}}</li>
-                            <li class="list-group-item">Generos:     {{$producto->genero ?? ''}}</li>
-                            </ul>
-                            <div class="card-body">
-                            <a href="{{route('publico.ver-producto',['id' => $producto->id])}}" class="card-link">Ver más</a>
-                            <a href="#" class="card-link">Añadir al carrito</a>
-                            </div>
-                        </div>
+
                         <div class="card col-4 mx-1" >
                             <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
                             <div class="card-body">
@@ -87,6 +69,28 @@
                     </div>
 
                     @endforeach
+
+                    <div class="row">
+                        <div class="card col-4 mx-1" >
+                            <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
+                            <div class="card-body">
+                            <h5 class="card-title">Nombre</h5>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Marca:       {{$producto->marca ?? 'Marca 1'}}</li>
+                            <li class="list-group-item">Categoria:   {{$producto->categoria ?? 'Categoria 1'}}</li>
+                            <li class="list-group-item">Proveedor:   {{$producto->proveedor ?? 'Proveedor 1'}}</li>
+                            <li class="list-group-item">Color:       {{$producto->color ?? 'Color 1'}}</li>
+                            <li class="list-group-item">Talla:       {{$producto->talla ?? 'Talla 1'}}</li>
+                            <li class="list-group-item">Tipos:       {{$producto->tipo ?? 'Tipo 1'}}</li>
+                            <li class="list-group-item">Generos:     {{$producto->genero ?? 'Genero 1'}}</li>
+                            </ul>
+                            <div class="card-body">
+                            <a href="{{route('publico.ver-producto',['id' => 1])}}" class="card-link">Ver más</a>
+                            <a href="#" class="card-link">Añadir al carrito</a>
+                            </div>
+                        </div>
+                    </div>
                 @else
                     No hay datos
                 @endisset
@@ -132,41 +136,7 @@
                     marca_id: inputMarca.value,
         }
 
-        /*
-        Filtro
-        botonBorrar.addEventListener('click',e =>{
 
-            cerrar_toast(cardNombreCategoria,toastCategoria,inputCategoria,inputNombreCategoria);
-            cerrar_toast(cardNombreMarca,toastMarca,inputMarca,inputNombreMarca);
-            cerrar_toast(cardNombreTipoYacimiento,toastTipoYacimiento,inputTipoYacimiento,inputNombreTipoYacimiento);
-            cerrar_toast(cardNombreRecurso,toastRecurso,inputRecursoPrimario,inputNombreRecursoPrimario);
-            recurso_por_tipo_yacimiento('');
-            cerrar_toast(cardNombreRecurso,toastRecurso,inputRecursoPrimario,inputNombreRecursoPrimario);
-            document.getElementById('buscador_texto_nav_bar').value = '';
-            botonBuscar.innerHTML = `<span>Buscar <i class="ml-2 fas fa-caret-right"></i></span>`;
-        });*/
-
-        /*
-            function cantidad_concesiones( buscados ) {
-            $.ajax({
-                url: "{{ route('publico.contador-busqueda') }}",
-                method: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    buscados: buscados
-                },
-                success: function (response) {
-
-                    if (inputRecursoPrimario.value == '' && inputMarca.value == '' && inputCategoria.value == '' && inputTipoYacimiento.value ==''){
-
-                        botonBuscar.innerHTML = `<span>Buscar<i class="ml-2 fas fa-caret-right"></i></span>`;
-                    }else{
-                         botonBuscar.innerHTML = `<span>Buscar (${response})<i class="ml-2 fas fa-caret-right"></i></span>`;
-                    }
-                }
-            });
-
-        }*/
 
 
 

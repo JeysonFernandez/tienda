@@ -11538,6 +11538,12 @@ body {
   font-size: 14.4px;
   font-family: "Open Sans", sans-serif;
   overflow-x: hidden;
+  color: black !important;
+}
+
+.container-index {
+  width: 80%;
+  margin: auto;
 }
 
 hr.vertical {
@@ -24246,6 +24252,10 @@ body.sidebar-toggled footer.sticky-footer {
 
 .main-inicio .busquedas-frecuentes li {
   margin-bottom: 0.5em;
+}
+
+.main-inicio .imagen-card {
+  max-height: 40px;
 }
 
 @media (max-width: 990px) {
