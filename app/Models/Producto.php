@@ -33,7 +33,7 @@ class Producto extends Model
 
     public function __toString()
     {
-        return $this->categoria.' '.$this->marca;
+        return $this->tipo.' '.$this->categoria.' '.$this->color.' '.$this->talla;
     }
 
 

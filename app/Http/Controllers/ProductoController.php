@@ -82,8 +82,8 @@ class ProductoController extends Controller
         $producto->stock_actual = $request->get('stock_actual');
         $producto->precio_unidad = $request->get('precio_unidad');
         $producto->fecha_creacion = now()->format('Y-m-d');
-        $producto->imagen = $request->imagen->store('public/prendas');
-        $producto->borrado = 1;
+        $producto->imagen = '';
+        $producto->borrado = Producto::PUBLICADO;
         $producto->save();
 
         return redirect()->route('admin.producto.getProducto', [

@@ -41,14 +41,11 @@
                                             <dt class="col-sm-5">Marca</dt>
                                             <dd class="col-sm-7">{{$producto->marca ?? ''}}</dd>
 
-                                            <dt class="col-sm-5">Forma</dt>
-                                            <dd class="col-sm-7">Forma</dd>
+                                            <dt class="col-sm-5">Porveedor</dt>
+                                            <dd class="col-sm-7">{{$producto->proveedor ?? ''}}</dd>
 
-                                            <dt class="col-sm-5">Recurso</dt>
-                                            <dd class="col-sm-7">Recursos</dd>
-
-                                            <dt class="col-sm-5 text-truncate">Estudios</dt>
-                                            <dd class="col-sm-7">Cuenta con estudios</dd>
+                                            <dt class="col-sm-5">Precio</dt>
+                                            <dd class="col-sm-7">{{$producto->precio_unidad ?? ''}}</dd>
 
                                         </dl>
                                         <div class="row">
