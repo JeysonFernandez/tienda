@@ -180,23 +180,22 @@ Route::group(['as'=> 'admin.'], function(){
     });
 });
 //--------------------------------------------------------------------------------------------------------------------
-/*
-*/
+
+
 //Buscador
 Route::get('/buscadors', [BuscadorController::class,'datos'])->name('buscador.datos');
 Route::post('/buscadors/filtro', [BuscadorController::class,'filtroGeneral'])->name('buscador.filtroGeneral');
 Route::post('/buscadors/barranavegacion', [BuscadorController::class,'filtroBarra'])->name('buscador.filtroBarra');
-/*
 
-Route::prefix('usuario')->group(function(){
-    Route::get('/{id}','usuario\DashboardUsuarioController@getCompras')->name('usuarioMenu.index');
-    Route::get('/pedidos/{id}','usuario\DashboardUsuarioController@getPedidos')->name('usuarioMenu.getpedidos');
-    Route::get('/pedidos/productos/{id}','usuario\DashboardUsuarioController@getPedidosProductos')->name('usuarioMenu.getpedidoproductos');
+Route::group(['as'=> 'usuario.'], function(){
+    Route::get('/usuario/{id}',[DashboardUsuarioController::class,'getDashboard'])->name('index');
+    Route::get('/pedidos/{id}',[DashboardUsuarioController::class,'getPedidos'])->name('getPedidos');
+    Route::get('/pedidos/productos/{id}',[DashboardUsuarioController::class,'getPedidosProductos'])->name('getPedidoProductos');
 
-    Route::get('/compras/{id}','usuario\DashboardUsuarioController@getCompras')->name('usuarioMenu.getcompras');
-    Route::get('/compras/productos/{id}','usuario\DashboardUsuarioController@getComprasProductos')->name('usuarioMenu.getcompraproductos');
+    Route::get('/compras/{id}',[DashboardUsuarioController::class,'getCompras'])->name('getCompras');
+    Route::get('/compras/productos/{id}',[DashboardUsuarioController::class,'getComprasProductos'])->name('getCompraProductos');
 
-    Route::get('/pagos/{id}','usuario\DashboardUsuarioController@getPagos')->name('usuarioMenu.getpagos');
+    Route::get('/pagos/{id}',[DashboardUsuarioController::class,'getPagos'])->name('getPagos');
 
-    Route::get('/notificaciones/{id}', 'usuario\DashboardUsuarioController@getNotificaciones')->name('usuarioMenu.getnotificaciones');
-});*/
+    Route::get('/notificaciones/{id}', [DashboardUsuarioController::class,'getNotificaciones'])->name('getNotificaciones');
+});

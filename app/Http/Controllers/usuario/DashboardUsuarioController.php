@@ -15,20 +15,21 @@ class DashboardUsuarioController extends Controller
 {
     public function __Construct()
     {
-        $this->middleware('auth');
+        
     }
 
     public function getDashboard($id)
     {
         return
-        view('usuarioMenu.index',['notificaciones'=>NotificacionUsuario::where('usuario_id',$id)->orderBy('id',
+        view('usuario.index',
+        ['notificaciones'=>NotificacionUsuario::where('usuario_id',$id)->orderBy('id',
         'desc')->get()]);
     }
 
     public function getCompras($id){
         $compras = Compra::where('usuario_id',"$id")->get();
         
-        return view('usuarioMenu.compras.compras',[
+        return view('usuario.compras.compras',[
         'compras' => $compras,
         'notificaciones'=>NotificacionUsuario::where('usuario_id',$id)->orderBy('id', 'desc')->get()
         ]);
@@ -41,7 +42,7 @@ class DashboardUsuarioController extends Controller
             ->groupBy('pagos.monto','pagos.fecha','pagos.estado')
             ->get();
         
-        return view('usuarioMenu.pagos.pagos',[
+        return view('usuario.pagos.pagos',[
         'pagos' => $pagos,
         'notificaciones'=>NotificacionUsuario::where('usuario_id',$id)->orderBy('id', 'desc')->get()
         ]);
@@ -49,7 +50,7 @@ class DashboardUsuarioController extends Controller
     public function getPedidos($id){
         $pedidos = Pedido::where('usuario_id','=',"$id")->get();
         
-        return view('usuarioMenu.pedidos.pedidos',[
+        return view('usuario.pedidos.pedidos',[
         'pedidos' => $pedidos,
         'notificaciones'=>NotificacionUsuario::where('usuario_id',$id)->orderBy('id', 'desc')->get()
         ]);
@@ -58,7 +59,7 @@ class DashboardUsuarioController extends Controller
     public function getComprasProductos($id){
         $produc = Compra::find($id);
         
-        return view('usuarioMenu.compras.detalleCompra', [
+        return view('usuario.compras.detalleCompra', [
             'produc' => $produc,
             'notificaciones'=>NotificacionUsuario::where('usuario_id',$id)->orderBy('id', 'desc')->get()
         ]);
@@ -66,13 +67,13 @@ class DashboardUsuarioController extends Controller
     public function getPedidosProductos($id){
         $produc = Pedido::find($id);
         
-        return view('usuarioMenu.pedidos.detallePedido', [
+        return view('usuario.pedidos.detallePedido', [
             'produc' => $produc,
             'notificaciones'=>NotificacionUsuario::where('usuario_id',$id)->orderBy('id', 'desc')->get()
         ]);
     }
     public function getNotificaciones($id){   
-        return view('usuarioMenu.notificaciones.notificacionesUsuarios', [
+        return view('usuario.notificaciones.notificacionesUsuarios', [
             'notificaciones'=>NotificacionUsuario::where('usuario_id',"$id")->orderBy('id', 'desc')->get()
         ]);
     }

@@ -25,7 +25,7 @@
                   <div class="col"><h4>Stock: {{$producto->stock_actual}}</h4></div>
                   <div class="col"><h4>Precio: ${{$producto->precio_unidad}}</h4></div>
                   @if ($producto->stock_actual >0)
-                      <div class="col"><a class="btn btn-lg btn-primary" href="/añadir-al-carrito/{{$producto->id}}">Añadir al carro</a></div>
+                      <div class="col"><a class="btn btn-lg btn-primary" href="{{route('publico.producto.addCarrito',['id' => $producto->id])}}">Añadir al carro</a></div>
                   @else
                   <h5 class="col">No hay stock</h5>
                   @endif
