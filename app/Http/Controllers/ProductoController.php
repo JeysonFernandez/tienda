@@ -153,7 +153,7 @@ class ProductoController extends Controller
         return redirect()->route('admin.producto.getProducto');
     }
 
-    public function confirmarUpdate(StoreProductos $request)
+    public function confirmarUpdate(Request $request)
     {
 
         $producto = Producto::find($request->get('id'));

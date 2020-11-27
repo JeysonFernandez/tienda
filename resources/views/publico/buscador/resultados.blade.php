@@ -19,81 +19,54 @@
             <div class="col-3">
                 <div class="p-0 dropdown-bar">
                     @include('publico.buscador._buscador')
-
-
                 </div>
             </div>
             <div class="col-9 card-resultados">
-                @isset($productos)
-                    @foreach ($productos as $producto )
-                    <div class="row">
+                @foreach ($productos as $producto )
+                    <div class="col-xl-6 mb-3">
+                        <div class="card shadow card-resultados mb-3 bg-white px-3">
+                            <div class="row no-gutters align-items-center justify-content-around">
+                                <div class="col-xl-5 ">
+                                @if($producto->imagen ==null)
+                                    <svg class="card-img img-fluid rounded" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                                @else
+                                    <img src="{{Storage::url($producto->imagen)}}" class="card-img img-fluid rounded">
+                                @endif
 
-                        <div class="card col-4 mx-1" >
-                            <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
-                            <div class="card-body">
-                            <h5 class="card-title">{{$producto}}</h5>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Marca:       {{$producto->marca ?? ''}}</li>
-                            <li class="list-group-item">Categoria:   {{$producto->categoria ?? ''}}</li>
-                            <li class="list-group-item">Proveedor:   {{$producto->proveedor ?? ''}}</li>
-                            <li class="list-group-item">Color:       {{$producto->color ?? ''}}</li>
-                            <li class="list-group-item">Talla:       {{$producto->talla ?? ''}}</li>
-                            <li class="list-group-item">Tipos:       {{$producto->tipo ?? ''}}</li>
-                            <li class="list-group-item">Generos:     {{$producto->genero ?? ''}}</li>
-                            </ul>
-                            <div class="card-body">
-                            <a href="{{route('publico.ver-producto',['id' => $producto->id])}}" class="card-link">Ver más</a>
-                            <a href="#" class="card-link">Añadir al carrito</a>
-                            </div>
-                        </div>
-                        <div class="card col-4 mx-1" >
-                            <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
-                            <div class="card-body">
-                            <h5 class="card-title">{{$producto}}</h5>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Marca:       {{$producto->marca ?? ''}}</li>
-                            <li class="list-group-item">Categoria:   {{$producto->categoria ?? ''}}</li>
-                            <li class="list-group-item">Proveedor:   {{$producto->proveedor ?? ''}}</li>
-                            <li class="list-group-item">Color:       {{$producto->color ?? ''}}</li>
-                            <li class="list-group-item">Talla:       {{$producto->talla ?? ''}}</li>
-                            <li class="list-group-item">Tipos:       {{$producto->tipo ?? ''}}</li>
-                            <li class="list-group-item">Generos:     {{$producto->genero ?? ''}}</li>
-                            </ul>
-                            <div class="card-body">
-                            <a href="#" class="card-link">Ver más</a>
-                            <a href="#" class="card-link">Añadir al carrito</a>
-                            </div>
-                        </div>
-                    </div>
+                                </div>
+                                <div class="col-xl-7">
+                                    <div class="card-body py-3 py-xl-0">
+                                        <h4 class="card-title  pb-2">{{$producto}}</h4>
+                                        <dl class="row">
+                                            <dt class="col-sm-5">Marca</dt>
+                                            <dd class="col-sm-7">{{$producto->marca ?? ''}}</dd>
 
-                    @endforeach
+                                            <dt class="col-sm-5">Forma</dt>
+                                            <dd class="col-sm-7">Forma</dd>
 
-                    <div class="row">
-                        <div class="card col-4 mx-1" >
-                            <img class="card-img-top" src=".../100px180/?text=Image cap" alt="Card image cap">
-                            <div class="card-body">
-                            <h5 class="card-title">Nombre</h5>
-                            </div>
-                            <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Marca:       {{$producto->marca ?? 'Marca 1'}}</li>
-                            <li class="list-group-item">Categoria:   {{$producto->categoria ?? 'Categoria 1'}}</li>
-                            <li class="list-group-item">Proveedor:   {{$producto->proveedor ?? 'Proveedor 1'}}</li>
-                            <li class="list-group-item">Color:       {{$producto->color ?? 'Color 1'}}</li>
-                            <li class="list-group-item">Talla:       {{$producto->talla ?? 'Talla 1'}}</li>
-                            <li class="list-group-item">Tipos:       {{$producto->tipo ?? 'Tipo 1'}}</li>
-                            <li class="list-group-item">Generos:     {{$producto->genero ?? 'Genero 1'}}</li>
-                            </ul>
-                            <div class="card-body">
-                            <a href="{{route('publico.ver-producto',['id' => 1])}}" class="card-link">Ver más</a>
-                            <a href="#" class="card-link">Añadir al carrito</a>
+                                            <dt class="col-sm-5">Recurso</dt>
+                                            <dd class="col-sm-7">Recursos</dd>
+
+                                            <dt class="col-sm-5 text-truncate">Estudios</dt>
+                                            <dd class="col-sm-7">Cuenta con estudios</dd>
+
+                                        </dl>
+                                        <div class="row">
+                                            <div class="col-6 text-left">
+                                                <a href=""
+                                                    class="btn btn-success py-1 my-2">Ver detalles</a>
+                                            </div>
+                                            <div class="col-6 text-right">
+                                                <a href=""
+                                                    class="btn btn-naranjo py-1 my-2">Añadir a Carrito</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                @else
-                    No hay datos
-                @endisset
+                @endforeach
             </div>
 
 
@@ -128,6 +101,7 @@
         const btnCerrartoastCategoria = document.getElementById('btn-toast-categoria');
         const btnCerrartoastMarca = document.getElementById('btn-toast-marca');
 
+        const formBuscador = document.getElementById('form-buscador');
 
         //const botonBorrar = document.querySelector('#boton-borrar');
 
@@ -140,9 +114,7 @@
 
 
 
-
-
-        cantidad_concesiones( arregloBuscador );
+        console.log(categoria);
 
         if(arregloBuscador['categoria_id'] != ''){
             cardNombreCategoria.innerHTML = inputNombreCategoria.value;
@@ -171,11 +143,12 @@
                 nombre.value = '';
 
                 arregloBuscador = rellenar_arreglo_buscador();
-                cantidad_concesiones( arregloBuscador );
             }
         }
 
-
+        function ejecutar_form_buscador(){
+            formBuscador.submit();
+        }
 
 
         categoria.forEach(event  =>{
@@ -190,7 +163,6 @@
 
                 arregloBuscador = rellenar_arreglo_buscador();
 
-                cantidad_concesiones( arregloBuscador );
             });
         });
 
@@ -204,7 +176,6 @@
 
                 arregloBuscador = rellenar_arreglo_buscador();
 
-                cantidad_concesiones( arregloBuscador );
             });
         });
 

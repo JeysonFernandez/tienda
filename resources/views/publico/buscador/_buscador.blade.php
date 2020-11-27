@@ -16,7 +16,7 @@
                         <div id="toast-categoria" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
                             <div class="toast-header">
                                 <span id="card-nombre-categoria" class=" toast-title mr-auto">Categoria 1</span>
-                                <button id="btn-toast-region" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                                <button id="btn-toast-categoria" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -66,7 +66,7 @@
                         <div id="toast-marca" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
                             <div class="toast-header">
                                 <span id="card-nombre-marca" class=" toast-title mr-auto"></span>
-                                <button id="btn-toast-region" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                                <button id="btn-toast-marca" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -172,23 +172,28 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </li>
             <li class="nav-dropdown">
                 <form id="form-buscador" method="get" action="{{ route('publico.busqueda') }}">
 
-                <input type="hidden" id="tipo_concesion_id" name="tipo_concesion_id"  value="{{$input['tipo_concesion_id'] ?? '' }}">
-                <input type="hidden" id="region_id" name="region_id"  value="{{$input['region_id'] ?? '' }}">
-                <input type="hidden" id="tipo_yacimiento_id" name="tipo_yacimiento_id"  value="{{$input['tipo_yacimiento_id'] ?? '' }}">
-                <input type="hidden" id="recurso_primario_id" name="recurso_primario_id"  value="{{$input['recurso_primario_id'] ?? '' }}">
+                <input type="hidden" id="categoria_id"  name="categoria_id"  value="{{$input['categoria_id'] ?? ''}}">
+                <input type="hidden" id="marca_id"      name="marca_id"      value="{{$input['marca_id']     ?? ''}}">
+                <input type="hidden" id="talla_id"      name="talla_id"      value="{{$input['talla_id']     ?? ''}}">
+                <input type="hidden" id="proveedor_id"  name="proveedor_id"  value="{{$input['proveedor_id'] ?? ''}}">
+                <input type="hidden" id="tipo_id"       name="tipo_id"       value="{{$input['tipo_id']      ?? ''}}">
+                <input type="hidden" id="genero_id"     name="genero_id"     value="{{$input['genero_id']    ?? ''}}">
 
-                <input type="hidden" id="nombre_tipo_concesion" name="nombre_tipo_concesion"  value="{{$input['nombre_tipo_concesion'] ?? '' }}">
-                <input type="hidden" id="nombre_region" name="nombre_region"  value="{{$input['nombre_region'] ?? '' }}">
-                <input type="hidden" id="nombre_tipo_yacimiento" name="nombre_tipo_yacimiento"  value="{{$input['nombre_tipo_yacimiento'] ?? '' }}">
-                <input type="hidden" id="nombre_recurso_primario" name="nombre_recurso_primario"  value="{{$input['nombre_recurso_primario'] ?? '' }}">
+                <input type="hidden" id="nombre_categoria"  name="nombre_categoria"  value="{{$input['nombre_categoria'] ?? '' }}">
+                <input type="hidden" id="nombre_marca"      name="nombre_marca"      value="{{$input['nombre_marca'] ?? '' }}"    >
+                <input type="hidden" id="nombre_talla"      name="nombre_talla"      value="{{$input['nombre_talla'] ?? '' }}"    >
+                <input type="hidden" id="nombre_proveedor"  name="nombre_proveedor"  value="{{$input['nombre_proveedor'] ?? '' }}">
+                <input type="hidden" id="nombre_tipo"       name="nombre_tipo"       value="{{$input['nombre_tipo'] ?? '' }}"     >
+                <input type="hidden" id="nombre_genero"     name="nombre_genero"     value="{{$input['nombre_genero'] ?? '' }}"   >
 
-                <input type="hidden" id="buscador_texto_filtro" name="buscadorTexto"  value="{{$input['buscadorTexto'] ?? ''}}">
+                <input type="hidden" id="buscador_texto_filtro"   name="buscadorTexto"  value="{{$input['buscadorTexto'] ?? ''}}">
                 {{--<a id="boton-borrar"  class="btn btn-pcm-pale-blue w-md-50 boton-buscar font-weight-bold"><span>Limpiar <i class="ml-2 fas fa-caret-right"></i></span></a>--}}
 
                 </form>

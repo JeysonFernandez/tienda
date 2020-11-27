@@ -3,7 +3,7 @@
 @section('contenido')
 
 <div class="container-fluid">
-    
+
     <h1 class="h3 mb-2 text-gray-800">Productos</h1>
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -27,7 +27,7 @@
                         </div>
                     @endif
                     <form action="{{route('admin.producto.agregarProducto')}}" method="POST" enctype="multipart/form-data">
-                        @csrf 
+                        @csrf
                         <div class="form-group">
                             <label for="tipo"> Tipo </label>
                             <select name="tipo" id="tipo" class="form-control" >
@@ -87,27 +87,27 @@
                         <div class="form-group">
                             <label for="stock_actual"> Stock Actual </label>
                             <input type="number" class="form-control  @error('stock_actual') is-invalid @enderror" id="stock_actual" name="stock_actual" value={{old('stock_actual')}} >
-                        </div> 
+                        </div>
                         <div class="form-group">
                             <label for="stock_critico"> Stock Crítico (Si se coloca un valor mayor al Stock Actual, automáticamente el Stock crítico será igual a Stock Actual) </label>
                             <input type="number" class="form-control  @error('stock_critico') is-invalid @enderror" id="stock_critico" name="stock_critico" value={{old('stock_critico')}} >
-                        </div> 
+                        </div>
                         <div class="form-group">
                             <label for="precio_unidad"> Precio Unidad ($) </label>
                             <input type="number" class="form-control  @error('precio_unidad') is-invalid @enderror" id="precio_unidad" name="precio_unidad" value={{old('precio_unidad')}}>
-                        </div>  
+                        </div>
                         <div class="form-group">
                             <div class="custom-file">
-                                <input accept="image/*" type="file" id="imagen" name="imagen" class="custom-file-input">
+                                <input  type="file" id="imagen" name="imagen" class="custom-file-input">
                                 <label for="imagen" class="custom-file-label" data-browse="Examinar">Seleccione la imagen</label>
                             </div>
-                        </div> 
+                        </div>
                         <button class="btn btn-primary" type="submit">Agregar</button>
                     </form>
                 </div>
             </div>
     </div>
-        
+
     </div>
 
 </div>
@@ -117,7 +117,7 @@
     <script>
         $('#imagen').on('change',function(){
            var archivo = $(this).val().replace('C:\\fakepath\\',"");
-           $(this).next('.custom-file-label').html(archivo); 
+           $(this).next('.custom-file-label').html(archivo);
         });
     </script>
 @endsection

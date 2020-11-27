@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="form-group text-right">
                                         <!--<button class="btn btn-primary"> <a href="{{route('home')}}" class>Volver</a></button>-->
-                                        <button type="submit" class="btn btn-primary"> Registrarse</button>
+                                        <button type="submit" class="btn btn-naranjo"> Registrarse</button>
                                     </div>
                                 </form>
                             </div>
