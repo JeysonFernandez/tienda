@@ -66,9 +66,11 @@
             <div class="card shadow card-resultados mb-3 bg-white px-3">
                 <div class="row no-gutters align-items-center justify-content-around">
                     <div class="col-xl-5 ">
-                        <img
-                        class="card-img img-fluid rounded"
-                            alt="...">
+                    @if($producto->imagen ==null)
+                        <svg class="card-img img-fluid rounded" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                    @else
+                        <img src="{{Storage::url($producto->imagen)}}" class="card-img img-fluid rounded">
+                    @endif
 
                     </div>
                     <div class="col-xl-7">
