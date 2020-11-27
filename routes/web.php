@@ -39,7 +39,7 @@ Route::group(['as' => 'publico.'], function () {
         Route::get('/borrar-elemento-carro/{id}',[ProductoController::class, 'borrarElementoCarro'])->name('boorarElementoCarrito');
         Route::get('/borrar-carro',[ProductoController::class, 'borrarCarro'])->name('borrarCarro');
         Route::post('/actualizar-carro/{id}',[ProductoController::class, 'actualizarCarrito'])->name('actualizarCarro');
-        Route::get('/ver/{id}', [BuscadorController::class, 'verProducto'])->name('verProducto')->where('id', '[0-9]+');
+        Route::get('/ver/{id}', [ProductoController::class, 'verProducto'])->name('verProducto')->where('id', '[0-9]+');
     });
 });
 

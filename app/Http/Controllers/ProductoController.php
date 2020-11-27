@@ -98,9 +98,9 @@ class ProductoController extends Controller
      * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function verProducto(Producto $producto)
+    public function verProducto($id)
     {
-        $producto = Producto::where('borrado', '=', 1)->findOrFail($producto->id);
+        $producto = Producto::where('borrado', '=', 1)->findOrFail($id);
         return view('publico.producto.detalle', [
             'producto' => $producto,
             'productos' => Producto::inRandomOrder()->take(6)->get()

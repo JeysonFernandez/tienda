@@ -1,6 +1,6 @@
 @extends('layouts.esquema')
 
-@section('contenido')
+@section('content')
     
 
     

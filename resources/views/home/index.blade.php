@@ -92,7 +92,7 @@
                             </dl>
                             <div class="row">
                                 <div class="col-6 text-left">
-                                    <a href=""
+                                <a href="{{route('publico.producto.verProducto',['id'=> $producto->id])}}"
                                         class="btn btn-success py-1 my-2">Ver detalles</a>
                                 </div>
                                 <div class="col-6 text-right">
