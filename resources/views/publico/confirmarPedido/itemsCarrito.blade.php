@@ -11,6 +11,7 @@
                     <table class="table table-striped" width="200">
                         <thead class="thead-dark">
                             <tr>
+                                <th>Imagen</th>
                                 <th>Producto</th>
                                 <th>Cantidad</th>
                                 <th>Precio Unidad</th>
@@ -25,6 +26,9 @@
                             <tr>
                                 <?php $valor+= $detalles['precio'] * $detalles['cantidad']?>
                                 <a href="/producto/{{ $detalles['id'] }}">
+                                    <td>
+                                    <img src="{{Storage::url($detalles['imagen'])}}" class="card-img img-fluid rounded">
+                                    </td>
                                     <td>  {{$detalles['nombre']}} </td>
                                     <td> 
                                         <form action="/actualizar-carro/{{$id}}" method="POST">
@@ -38,14 +42,14 @@
                                                 </div>
                                             </div> 
                                         </form>
-                                        <!--<div class="row">
+                                        {{-- <div class="row">
                                             <div class="col">
                                                 <input type="number" min="1" max="100" value="{{ $detalles['cantidad'] }}" id="producto_{{ $id }}" name="producto_{{ $id }}">
                                             </div>
                                             <div class="col">
                                                 <a href="/actualizar-carrito/{{ $id }}/" class="btn btn-warning btn-update-item" >Actualizar</a>
                                             </div>
-                                        </div>-->
+                                        </div> --}}
                                 
                                     </td>
                                     <td>${{ $detalles['precio'] }}</td>
