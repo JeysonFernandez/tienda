@@ -115,7 +115,7 @@
 
 
                             <div class="form-group mt-3">
-                                <button class="btn btn-block btn-success">Registrarse</button>
+                                <button class="btn btn-block btn-naranjo">Registrarse</button>
                             </div>
 
                         </form>
