@@ -88,7 +88,7 @@
                 <p class="card-text">Talla: {{$producto->talla->nombre}}</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
-                  <a class="btn btn-sm btn-outline-secondary" href="/productos/{{$producto->id}}">Ver</a>
+                  <a class="btn btn-sm btn-outline-secondary" href="{{route('publico.producto.verProducto',['id'=> $producto->id])}}">Ver</a>
                   @if ($producto->stock_actual > 0)
                      <a class="btn btn-sm btn-outline-secondary" href="/añadir-al-carrito/{{$producto->id}}">Añadir al carro</a>
                   @endif

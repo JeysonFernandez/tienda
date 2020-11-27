@@ -28,6 +28,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
+
         return view('productos.index', [
             'productos' => Producto::where('borrado', '=', 1)->get()
         ]);
@@ -97,10 +98,10 @@ class ProductoController extends Controller
      * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function show(Producto $producto)
+    public function verProducto(Producto $producto)
     {
         $producto = Producto::where('borrado', '=', 1)->findOrFail($producto->id);
-        return view('productos.detalle', [
+        return view('publico.producto.detalle', [
             'producto' => $producto,
             'productos' => Producto::inRandomOrder()->take(6)->get()
         ]);
@@ -208,7 +209,7 @@ class ProductoController extends Controller
         //Alert::success('Gola','chao');
 
         return view('home.index', [
-            'productos' => Producto::where('borrado', '=', 'no')->inRandomOrder()->take(20)->get(),
+            'productos' => Producto::where('borrado', '=', 1)->inRandomOrder()->take(20)->get(),
         ]);
     }
 
