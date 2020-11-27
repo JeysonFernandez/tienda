@@ -108,7 +108,7 @@
                     </div>
                 </form>
                 <div class="card-body">
-                    @include('productos.items_carrito')
+                    @include('publico.confirmarPedido.itemsCarrito')
                 </div>
             </div>
         </div>

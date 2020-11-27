@@ -69,7 +69,7 @@
                 <div class="modal-footer" >
                     <div class="d-flex justify-content-between">
                         <button class="btn btn-secondary .align-items-start" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="{{route('marcas.confirmDelete')}}" method="POST" name="f1" id="f1" >
+                    <form action="{{route('admin.marca.confirmDelete')}}" method="POST" name="f1" id="f1" >
                         @csrf
                         @method('delete')
                         <input type="text" name="idfinal" id="idfinal" style="visibility: hidden">

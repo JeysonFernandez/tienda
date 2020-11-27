@@ -32,14 +32,14 @@ Route::get('/usuarios/logout', [UsuarioController::class,'logout'])->name('publi
 
 Route::group(['as' => 'publico.'], function () {
     Route::get('/busqueda', [BuscadorController::class, 'busqueda'])->name('busqueda');
-    Route::get('/ver/{id}', [BuscadorController::class, 'verProducto'])->name('ver-producto')->where('id', '[0-9]+');
 
     Route::group(['as'=> 'producto.'], function(){
         Route::get('/carrito',[ProductoController::class, 'carrito'])->name('carrito');
-        Route::get('/añadir-al-carrito/{id}', [ProductoController::class, 'addCarrito'])->name('addcarrito');
-        Route::get('/borrar-elemento-carro/{id}',[ProductoController::class, 'borrarElementoCarro'])->name('boorarelementocarrito');
-        Route::get('/borrar-carro',[ProductoController::class, 'borrarCarro'])->name('borrarcarro');
-        Route::post('/actualizar-carro/{id}',[ProductoController::class, 'actualizarCarrito'])->name('actualizarcarro');
+        Route::get('/añadir-al-carrito/{id}', [ProductoController::class, 'addCarrito'])->name('addCarrito');
+        Route::get('/borrar-elemento-carro/{id}',[ProductoController::class, 'borrarElementoCarro'])->name('boorarElementoCarrito');
+        Route::get('/borrar-carro',[ProductoController::class, 'borrarCarro'])->name('borrarCarro');
+        Route::post('/actualizar-carro/{id}',[ProductoController::class, 'actualizarCarrito'])->name('actualizarCarro');
+        Route::get('/ver/{id}', [BuscadorController::class, 'verProducto'])->name('verProducto')->where('id', '[0-9]+');
     });
 });
 

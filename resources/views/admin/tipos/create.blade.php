@@ -22,7 +22,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{route('admin.tipo.crearTipo')}}" method="POST">
+            <form action="{{route('admin.tipo.agregarTipo')}}" method="POST">
                 @csrf
                 <div class="row row-space">
                     <div class="col-12">
