@@ -98,7 +98,7 @@ class UsuarioController extends Controller
 
         if(Auth::attempt($credenciales)){
             //Comprar si es admin
-            if(Auth::user()->tipo == 'a'){
+            if(Auth::user()->tipo == 1){
                 $carro= session()->get('carro');
                 if($carro!=null){
                     foreach(session('carro') as $id => $detalles){
@@ -135,7 +135,7 @@ class UsuarioController extends Controller
     {
         $usuario = Usuario::create($request->all());
         $usuario->estado_calidad = 1;
-        $usuario->tipo = 1;
+        $usuario->tipo = 2;
         $usuario->conocido = 1;
         $usuario->password = Hash::make($request->get('password'));
         $usuario->save();
