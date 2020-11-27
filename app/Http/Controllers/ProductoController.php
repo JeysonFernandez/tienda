@@ -215,8 +215,7 @@ class ProductoController extends Controller
 
     public function carrito()
     {
-
-        return view('productos.carrito');
+        return view('publico.confirmarPedido.carrito');
     }
 
     public function addCarrito($id)
@@ -230,7 +229,8 @@ class ProductoController extends Controller
                 'precio' => $producto->precio_unidad,
                 'cantidad_maxima' => $producto->stock_actual,
                 'imagen' => $producto->imagen,
-                'cantidad' => 1]];
+                'nombre' => $producto->id,
+                'cantidad' => 1],];
         } else {
             if (isset($carro[$id])) {
                 $carro[$id]['cantidad']++;
@@ -241,11 +241,14 @@ class ProductoController extends Controller
                 'precio' => $producto->precio_unidad,
                 'cantidad_maxima' => $producto->stock_actual,
                 'imagen' => $producto->imagen,
+                'nombre' => $producto->id,
                 'cantidad' => 1];
             }
         }
         session()->put('carro', $carro);
-        return redirect()->back()->with('success', 'Product added to cart successfully');
+        alert()->success('Perfecto!','Se ha añadido un elemento a tu carrito. Para verlo, inicia sesión.');
+
+        return redirect()->back();
     }
 
     public function borrarElementoCarro($id)
@@ -253,6 +256,7 @@ class ProductoController extends Controller
         $carro = session()->get('carro');
         unset($carro[$id]);
         session()->put('carro', $carro);
+
         return redirect()->back();
     }
 
@@ -263,7 +267,9 @@ class ProductoController extends Controller
             unset($carro[$id]);
         }
         session()->put('carro', $carro);
-        return redirect()->back();
+        alert()->success('Perfecto!','Tu carrito ha sido limpiado exitosamente.');
+
+        return redirect()->route('index');
     }
     public function actualizarCarrito(Request $request, $id)
     {

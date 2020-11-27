@@ -70,7 +70,7 @@
                                 </li>
                                 --}}
                                 <li class="nav-item mx-2">
-                                    <a class="nav-link font-weight-bolder" href="">Mi Carrito</a>
+                                <a class="nav-link font-weight-bolder" href="{{route('publico.producto.carrito')}}">Mi Carrito</a>
                                 </li>
 
                                 <li class="nav-item mx-3">
