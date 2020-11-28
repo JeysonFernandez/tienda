@@ -6,6 +6,7 @@ use App\Http\Controllers\{ProductoController,UsuarioController,BuscadorControlle
 use App\Http\Controllers\{CategoriaController, ColorController, TipoController, TallaController, MarcaController};
 use App\Http\Controllers\{GeneroController,ProveedorController,CompraController,PagoController,FechaController,PedidoController};
 use App\Http\Controllers\Admin\{DashboardController};
+use App\Http\Controllers\usuario\{DashboardUsuarioController};
 /*
 |--------------------------------------------------------------------------
 | Web Routes

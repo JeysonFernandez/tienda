@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 item-carrito">
             @include('publico.confirmarPedido.itemsCarrito')
         </div>
 
-        <div class="">
+        <div class=" col-12 info-pedido">
             @include('publico.confirmarPedido.pedido')
         </div>
     </div>
@@ -61,7 +61,7 @@
                 url: '{{route('publico.getHorasDisponiblesFecha')}}',
                 data: {
                     fecha: e.date.format('YYYY-MM-DD'),
-                    tipo_id_id: tipo_id,
+                    tipo_id: tipo_id,
                 },
             }).then(function(response){
                 $('.lista-horas').html('');
@@ -83,8 +83,9 @@
         $(function(){
             $('.calendario').datetimepicker(cal_options);
 
-            $('.js-tipo').click(function(){
-                tipo_id = $(this).data('id');
+            $('.js-tipo').on('change',function(){
+                tipo_id = $(this).val();
+                console.log(tipo_id);
                 actualizar_horas();
             });
 

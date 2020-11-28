@@ -78,24 +78,33 @@ hr.vertical {
 .color-pcm-red {
     color: $pcmRed;
 }
-
+.calendario{
+    width: 500px;
+    margin: auto;
+    font-size: 17px;
+}
 .active {
     background-color: $orange !important;
     color:white !important;
 }
-
+.day {
+    color: black;
+    &:hover{
+        background-color: $orange !important;
+        color:white !important;
+        cursor: pointer;
+    }
+}
 .disabled {
   pointer-events: none;
   color: whitesmoke;
   cursor: no-drop;
 }
 
-.day {
-    &:hover{
-        background-color: $orange !important;
-        color:white !important;
-        cursor: pointer;
-    }
+
+
+.dow, .picker-switch {
+    color: black;
 }
 .btn-outline-naranjo {
     color: $orange !important;
@@ -116,6 +125,11 @@ hr.vertical {
         box-shadow: 0 0 0 0.2rem $naranjo;
     }
   }
+
+.card-ancho {
+    width: 1000px !important;
+    margin: auto;
+}
 
 
 

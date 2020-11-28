@@ -11606,9 +11606,25 @@ hr.vertical {
   color: #F94D4D;
 }
 
+.calendario {
+  width: 500px;
+  margin: auto;
+  font-size: 17px;
+}
+
 .active {
   background-color: #f6993f !important;
   color: white !important;
+}
+
+.day {
+  color: black;
+}
+
+.day:hover {
+  background-color: #f6993f !important;
+  color: white !important;
+  cursor: pointer;
 }
 
 .disabled {
@@ -11617,10 +11633,9 @@ hr.vertical {
   cursor: no-drop;
 }
 
-.day:hover {
-  background-color: #f6993f !important;
-  color: white !important;
-  cursor: pointer;
+.dow,
+.picker-switch {
+  color: black;
 }
 
 .btn-outline-naranjo {
@@ -11642,6 +11657,11 @@ hr.vertical {
 .btn-outline-naranjo .focus {
   color: #fff !important;
   box-shadow: 0 0 0 0.2rem #FF7518;
+}
+
+.card-ancho {
+  width: 1000px !important;
+  margin: auto;
 }
 
 #baguetteBox-slider figcaption {

@@ -64,7 +64,6 @@
                                         <input type="password" id="passwordconfirmacion" name="passwordconfirmacion" class="form-control @error('passwordconfirmacion') is-invalid @enderror" placeholder="*********"/>
                                     </div>
                                     <div class="form-group text-right">
-                                        <!--<button class="btn btn-primary"> <a href="{{route('home')}}" class>Volver</a></button>-->
                                         <button type="submit" class="btn btn-naranjo"> Registrarse</button>
                                     </div>
                                 </form>

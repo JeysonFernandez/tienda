@@ -21,7 +21,7 @@
             @endif
         @endforeach
     @endif
-    <div class="card mt-3">
+    <div class="card card-ancho mt-3">
         <div class="card-header bg-light text-black ">CONFIRMAR PEDIDO</div>
         <div class="card-body">
         <form method="POST" action ="/pedidos/{{$idUsuario}}">
@@ -31,13 +31,10 @@
                     <input type="text" id="lugar" name="lugar" class="form-control" value="{{old('lugar')}}" placeholder="Ej: Esperidion Vera 1431, Alto Mirador"/>
                 </div>
 
-                <div class="form-group">
-                    <label for="tipo"> Tipo </label>
-                    <select name="tipo" id="tipo" class="form-control" >
-                        <option value="e">Express (urgencia)</option>
-                        <option value="v">Visita</option>
-                    </select>
-                </div>
+                <select class="js-tipo form-control mb-2" name='tipo_id'>
+                    <option class="opcionServicio" value="1">Express</option>
+                    <option class="opcionServicio" value="2">Completo</option>
+                </select>
                 <div class="form-row pl-2">
 
                     <div class="calendario"></div>

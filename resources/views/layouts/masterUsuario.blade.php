@@ -12,21 +12,17 @@
     <title>Mi Cuenta</title>
 
     <!-- Custom fonts for this template-->
-    <link href="{{asset('vendor/fontawesome-free/css/all.css')}}" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+
 
     <!-- Custom styles for this template-->
-    <link href="{{asset('css/sb-admin-2.min.css')}}"rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link href="{{asset('vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
-    
 
 </head>
 
 <body id="page-top">
 
-    
+
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -35,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('home')}}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('index')}}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -85,7 +81,7 @@
 
             <hr class="sidebar-divider d-none d-md-block">
             <div class="sidebar-heading">
-                Pedidos 
+                Pedidos
             </div>
             <li class="nav-item">
                 <a class="nav-link" href="/usuario/pedidos/{{$idUsuario}}" >
@@ -108,7 +104,7 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-            
+
 
         </ul>
         <!-- End of Sidebar -->
@@ -144,7 +140,7 @@
                             <h6 class="dropdown-header">
                                 Notificaciones
                             </h6>
-                            <?php $cont = 0?>  
+                            <?php $cont = 0?>
                             @foreach ($notificaciones as $notificacionUsuario)
                                 @if ($cont<=3)
                                     <a class="dropdown-item d-flex align-items-center" href="#">
@@ -163,11 +159,11 @@
                                                 Su compra se ha registrado exitosamente.
                                             @endif
                                         </div>
-                                    </a>  
-                                @endif  
-                                <?php $cont++?>    
+                                    </a>
+                                @endif
+                                <?php $cont++?>
                             @endforeach
-                            <a class="dropdown-item text-center small text-gray-500" href="{{route('admin.getnotificacionesusuarios')}}">Mostrar todas las notificaciones (Usuarios)</a>
+                            <a class="dropdown-item text-center small text-gray-500" href="">Mostrar todas las notificaciones (Usuarios)</a>
                         </div>
                     </li>
 
@@ -195,7 +191,7 @@
                                 Volver a la Tienda
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{route('usuarios.logout')}}" >
+                            <a class="dropdown-item" href="" >
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Cerrar sesión
                             </a>
@@ -207,7 +203,7 @@
                 </nav>
                 <!-- End of Topbar -->
                 @yield('contenido')
-                
+
 
             </div>
             <!-- End of Main Content -->
@@ -227,7 +223,7 @@
 
     </div>
     <!-- End of Page Wrapper -->
-    
+
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
@@ -237,24 +233,13 @@
     @yield('js')
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+            <script src="{{ asset('js/app.js') }}"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="{{asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
-
-    <!-- Page level plugins -->
-    <script src="{{asset('vendor/chart.js/Chart.min.js')}}"></script>
     <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="{{asset('js/demo/chart-area-demo.js')}}"></script>
-    <script src="{{asset('js/demo/chart-pie-demo.js')}}"></script>
-    <script src="{{asset('js/demo/datatables.js')}}"></script>
 </body>
 
 </html>

@@ -3,7 +3,7 @@
 
 
 <div class="mt-2">
-    <div class="card mt-3">
+    <div class="card card-ancho mt-3">
         <div class="card-header bg-light text-dark ">CARRITO</div>
         <div class="card-body">
             <div class="row">
