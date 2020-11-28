@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Fecha extends Model
+class DiasDisponibles extends Model
 {
     public $timestamps = false;
-    protected $table = "fechas_no_disponibles";
+    protected $table = "dias_disponibles";
 }

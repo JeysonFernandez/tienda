@@ -2,7 +2,7 @@
 
 
 
-<div class="col mt-2">
+<div class="mt-2">
     <div class="card mt-3">
         <div class="card-header bg-light text-dark ">CARRITO</div>
         <div class="card-body">
@@ -19,7 +19,7 @@
                                 <th></th>
                             </tr>
                         </thead>
-                    
+
                     <?php $valor = 0 ?>
                     @if (session('carro'))
                         @foreach (session('carro') as $id => $detalles)
@@ -27,20 +27,20 @@
                                 <?php $valor+= $detalles['precio'] * $detalles['cantidad']?>
                                 <a href="/producto/{{ $detalles['id'] }}">
                                     <td>
-                                    <img src="{{Storage::url($detalles['imagen'])}}" class="card-img img-fluid rounded">
+                                    <img src="" class="card-img img-fluid rounded">
                                     </td>
                                     <td>  {{$detalles['nombre']}} </td>
-                                    <td> 
+                                    <td>
                                         <form action="/actualizar-carro/{{$id}}" method="POST">
-                                            @csrf 
+                                            @csrf
                                             <div class="row">
                                                 <div class="col">
                                                     <input type="number" min="1" max="100" value="{{ $detalles['cantidad'] }}" id="cantidad" name="cantidad">
-                                                </div>  
+                                                </div>
                                                 <div class="col">
                                                     <button class="btn btn-sm btn-warning" type="submit">Actualizar</button>
                                                 </div>
-                                            </div> 
+                                            </div>
                                         </form>
                                         {{-- <div class="row">
                                             <div class="col">
@@ -50,16 +50,16 @@
                                                 <a href="/actualizar-carrito/{{ $id }}/" class="btn btn-warning btn-update-item" >Actualizar</a>
                                             </div>
                                         </div> --}}
-                                
+
                                     </td>
                                     <td>${{ $detalles['precio'] }}</td>
                                     <td>${{$valor}}</td>
                                     <td><a class="btn btn-danger btn-sm" href="/borrar-elemento-carro/{{$id}}"> Eliminar </a></td>
                                 </a>
-                            </tr> 
+                            </tr>
                         @endforeach
                     @endif
-        
+
                     </table>
                 </div>
             </div>
@@ -68,12 +68,12 @@
                 <div class="form-group text-right">
                 <a class="btn btn-danger" href="{{route('publico.producto.borrarCarro')}}"> Borrar Carro </a>
                 </div>
-                    
+
             </div>
             </div>
-            
+
         </div>
     </div>
-</div>        
+</div>
 
 

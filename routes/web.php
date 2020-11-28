@@ -30,8 +30,12 @@ Route::post('/usuarios/login', [UsuarioController::class,'login'])->name('usuari
 Route::get('/usuarios/logout', [UsuarioController::class,'logout'])->name('publico.logout');
 
 
+
+
 Route::group(['as' => 'publico.'], function () {
     Route::get('/busqueda', [BuscadorController::class, 'busqueda'])->name('busqueda');
+    Route::post('/ajax-get-dias-disponibles-tipo',[FechaController::class, 'getDiasDisponiblesTipo'])->name('getDiasDisponiblesTipo');
+    Route::post('/ajax-get-horas-disponibles-fecha',[FechaController::class, 'getHorasDisponiblesFecha'])->name('getHorasDisponiblesFecha');
 
     Route::group(['as'=> 'producto.'], function(){
         Route::get('/carrito',[ProductoController::class, 'carrito'])->name('carrito');

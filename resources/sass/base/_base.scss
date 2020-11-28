@@ -79,6 +79,46 @@ hr.vertical {
     color: $pcmRed;
 }
 
+.active {
+    background-color: $orange !important;
+    color:white !important;
+}
+
+.disabled {
+  pointer-events: none;
+  color: whitesmoke;
+  cursor: no-drop;
+}
+
+.day {
+    &:hover{
+        background-color: $orange !important;
+        color:white !important;
+        cursor: pointer;
+    }
+}
+.btn-outline-naranjo {
+    color: $orange !important;
+    border-color: $orange !important;
+
+    &:hover {
+        color: #fff !important;
+        background-color: $orange;
+        border-color: $orange;
+    }
+
+    &:focus {
+        color: #fff !important;
+        box-shadow: 0 0 0 0.2rem $naranjo;
+    }
+    .focus {
+        color: #fff !important;
+        box-shadow: 0 0 0 0.2rem $naranjo;
+    }
+  }
+
+
+
 #baguetteBox-slider {
 
     figcaption {

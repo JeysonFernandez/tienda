@@ -11606,6 +11606,44 @@ hr.vertical {
   color: #F94D4D;
 }
 
+.active {
+  background-color: #f6993f !important;
+  color: white !important;
+}
+
+.disabled {
+  pointer-events: none;
+  color: whitesmoke;
+  cursor: no-drop;
+}
+
+.day:hover {
+  background-color: #f6993f !important;
+  color: white !important;
+  cursor: pointer;
+}
+
+.btn-outline-naranjo {
+  color: #f6993f !important;
+  border-color: #f6993f !important;
+}
+
+.btn-outline-naranjo:hover {
+  color: #fff !important;
+  background-color: #f6993f;
+  border-color: #f6993f;
+}
+
+.btn-outline-naranjo:focus {
+  color: #fff !important;
+  box-shadow: 0 0 0 0.2rem #FF7518;
+}
+
+.btn-outline-naranjo .focus {
+  color: #fff !important;
+  box-shadow: 0 0 0 0.2rem #FF7518;
+}
+
 #baguetteBox-slider figcaption {
   font-size: 1.1em;
   padding: 0.9em;

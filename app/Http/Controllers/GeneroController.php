@@ -91,7 +91,7 @@ public function show(Genero $genero)
 * @param \App\genero $genero
 * @return \Illuminate\Http\Response
 */
-    public function update(StoreGenero $request, $id)
+    public function update(Request $request, $id)
     {
 
         $genero = Genero::find($id);
@@ -102,7 +102,7 @@ public function show(Genero $genero)
         return redirect()->route('admin.genero.getGenero');
     }
 
-    public function confirmarUpdate(StoreGenero $request)
+    public function confirmarUpdate(Request $request)
     {
         $genero = Genero::find($request->get('id'));
         $genero->nombre = $request->get('nombre');
@@ -131,7 +131,7 @@ public function show(Genero $genero)
         $genero = Genero::findOrFail($request->idfinal);
         $genero->borrado = 2;
         $genero->save();
-        
+
         return redirect()->route('admin.genero.getGenero');
     }
 

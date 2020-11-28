@@ -30,16 +30,7 @@
                     <label for="lugar"> Lugar de Entrega </label>
                     <input type="text" id="lugar" name="lugar" class="form-control" value="{{old('lugar')}}" placeholder="Ej: Esperidion Vera 1431, Alto Mirador"/>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="fecha"> Fecha</label>
-                        <input type="date" id="fecha" name="fecha" value="{{old('fecha')}}" class="form-control @error('fecha') is-invalid @enderror"/>
-                    </div>  
-                    <div class="form-group col-md-6">
-                        <label for="hora"> Hora</label>
-                        <input type="time" id="hora" name="hora" value="{{old('hora')}}" class="form-control @error('hora') is-invalid @enderror"/>
-                    </div>
-                </div>  
+
                 <div class="form-group">
                     <label for="tipo"> Tipo </label>
                     <select name="tipo" id="tipo" class="form-control" >
@@ -47,10 +38,15 @@
                         <option value="v">Visita</option>
                     </select>
                 </div>
-                
-                <div class="form-group text-right">
-                    <button type="submit" class="btn btn-primary"> Confirmar</button>
+                <div class="form-row pl-2">
+
+                    <div class="calendario"></div>
+                    <div class="lista-horas p-2">4</div>
                 </div>
+
+                <input type="hidden" name="fecha" id='fecha' value="">
+                <input type="hidden" name="hora" id='hora' value="">
+                <button type="submit" class="btn btn-naranjo btn-block disabled js-btn-agendar" disabled>Agendar hora seleccionada</button>
             </form>
         </div>
     </div>

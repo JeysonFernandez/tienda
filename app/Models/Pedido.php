@@ -8,6 +8,12 @@ class Pedido extends Model
 {
     public $timestamps = false;
     protected $table = "pedidos";
+
+    const EXPRESS = 1;
+    const NORMAL = 2;
+
+
+
     public function pedidoproducto(){
         return $this->hasMany('App\PedidoProducto');
     }

@@ -15,8 +15,8 @@ class CrearTablaFechaNoDisponibles extends Migration
     {
         Schema::create('fechas_no_disponibles', function (Blueprint $table) {
             $table->id();
-            $table->date('hora_inicio')->nullable();
-            $table->date('hora_final')->nullable();
+            $table->time('hora_inicio')->nullable();
+            $table->time('hora_final')->nullable();
             $table->date('dia')->nullable();
         });
     }

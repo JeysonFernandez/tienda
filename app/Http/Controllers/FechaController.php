@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DiasDisponibles;
 use App\Models\Fecha;
 use App\Models\NotificacionProducto;
 use App\Models\NotificacionUsuario;
@@ -96,5 +97,89 @@ class FechaController extends Controller
     public function destroy(Fecha $fecha)
     {
         //
+    }
+
+    public function getDiasDisponiblesTipo( Request $request )
+    {
+
+        $disponibilidades = DiasDisponibles::orderBy('dia')->get();
+
+        $data = [];
+        foreach ($disponibilidades as $d) {
+            $data[] = [
+                'dia' => $d->dia,
+                'hora_inicio' => $d->hora_inicio,
+                'hora_termino' => $d->hora_termino,
+                'pausas' => $d->pausas,
+            ];
+        }
+
+        return response()->json($data);
+
+
+
+
+    }
+
+    public function getHorasDisponiblesFecha ( Request $request )
+    {
+        $fecha = $request->fecha;
+        $tipo_id = $request->tipo_id;
+
+        if($tipo_id == 1){
+            $duracion = 60;
+        }else{
+            $duracion = 30;
+        }
+
+
+        $disponibilidad = DiasDisponibles::where([
+            ['dia', (date('w', strtotime($fecha)))],
+        ])->first();
+
+        if (empty($disponibilidad)) {
+            return response()->json([]);
+        }
+
+        if($fecha == \Carbon\Carbon::now()->format('Y-m-d')){
+            $inicio = strtotime('+30 minute',strtotime(\Carbon\Carbon::now()));
+        }else{
+            $inicio = strtotime($disponibilidad->hora_inicio);
+        }
+        $termino = strtotime($disponibilidad->hora_termino);
+        $actual = $inicio;
+        $horas = [];
+        $i = 0;
+
+
+
+        // Construye lista de horas disponibles según duración de tipo de cita
+        while (strtotime('+'.$i * $duracion.' minutes', $inicio) < $termino) {
+            $actual = strtotime('+'.$i * $duracion.' minutes', $inicio);
+            $horas[] = date('H:i', $actual);
+            ++$i;
+        }
+
+        // Quita horas que tengan tope con citas agendadas
+
+        // Quita horas que tengan tope con pausas
+        if (!empty($disponibilidad->pausas)) {
+            foreach (json_decode($disponibilidad->pausas) as $pausa) {
+                foreach ($horas as $index => $hora) {
+                    $inicio_hora = strtotime($fecha.' '.$hora.':00');
+                    $inicio_pausa = strtotime($fecha.' '.$pausa->inicio);
+                    $fin_hora = strtotime('+'.$duracion.' minutes', strtotime($fecha.' '.$hora.':00'));
+                    $fin_pausa = strtotime($fecha.' '.$pausa->termino);
+
+                    if ($inicio_pausa >= $fin_hora || $fin_pausa <= $inicio_hora) {
+                        continue;
+                    }
+
+                    unset($horas[$index]);
+                }
+            }
+        }
+
+        return response()->json(array_values($horas));
     }
 }
