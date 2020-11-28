@@ -6,6 +6,7 @@ use App\Models\DiasDisponibles;
 use App\Models\Fecha;
 use App\Models\NotificacionProducto;
 use App\Models\NotificacionUsuario;
+use App\Models\Pedido;
 use Illuminate\Http\Request;
 
 class FechaController extends Controller
@@ -141,6 +142,9 @@ class FechaController extends Controller
             return response()->json([]);
         }
 
+        $pedidos = Pedido::whereBetween('fecha_hora_inicio', [$fecha.' 00:00:00', $fecha.' 23:59:59'])
+                        ->orWhereBetween('fecha_hora_fin', [$fecha.' 00:00:00', $fecha.' 23:59:59'])->get();
+
         if($fecha == \Carbon\Carbon::now()->format('Y-m-d')){
             $inicio = strtotime('+30 minute',strtotime(\Carbon\Carbon::now()));
         }else{
@@ -158,6 +162,21 @@ class FechaController extends Controller
             $actual = strtotime('+'.$i * $duracion.' minutes', $inicio);
             $horas[] = date('H:i', $actual);
             ++$i;
+        }
+
+        foreach ($pedidos as $pedido) {
+            foreach ($horas as $index => $hora) {
+                $inicio_hora = strtotime($fecha.' '.$hora.':00');
+                $inicio_pedido = strtotime($pedido->fecha_hora_inicio);
+                $fin_hora = strtotime('+'.$duracion.' minutes', strtotime($fecha.' '.$hora.':00'));
+                $fin_pedido = strtotime($pedido->fecha_hora_fin);
+
+                if ($inicio_pedido >= $fin_hora || $fin_pedido <= $inicio_hora) {
+                    continue;
+                }
+
+                unset($horas[$index]);
+            }
         }
 
         // Quita horas que tengan tope con citas agendadas

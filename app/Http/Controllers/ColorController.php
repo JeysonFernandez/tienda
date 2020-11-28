@@ -49,7 +49,7 @@ public function store(Request $request)
     $color->borrado = 1;
     $color->save();
 
-    return redirect()->route('admin.getColor');
+    return redirect()->route('admin.color.getColor');
 }
 
 /**
@@ -90,7 +90,7 @@ public function edit($id)
 * @param \App\color $color
 * @return \Illuminate\Http\Response
 */
-public function update(StoreColor $request, $id)
+public function update(Request $request, $id)
 {
 
     $color = Color::find($id);
@@ -101,7 +101,7 @@ public function update(StoreColor $request, $id)
     $color->save();
     return redirect()->route('admin.color.getColor');
 }
-public function confirmarUpdate(StoreColor $request)
+public function confirmarUpdate(Request $request)
 {
 
 $color = Color::find($request->get('id'));

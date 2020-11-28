@@ -89,8 +89,6 @@
     </div>
 
 
-    <input type="text" id="datetimepicker"/>
-
 @endsection
 
 

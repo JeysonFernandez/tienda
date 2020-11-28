@@ -115,14 +115,15 @@ Route::group(['as'=> 'admin.'], function(){
 
     Route::group(['as'=> 'usuario.'], function(){
         Route::get('/usuarios', [DashboardController::class,'getUsuarios'])->name('getUsuario');
-        Route::get('/usuarios/{id}', [DashboardController::class,'getCompraUsuario'])->name('getCompraUsuario');
+        Route::get('/usuarios/{id}/compras', [DashboardController::class,'getComprasUsuario'])->name('getCompraUsuario');
+        Route::get('/usuarios/{id}/pedidos', [DashboardController::class,'getPedidosUsuario'])->name('getPedidoUsuario');
         Route::get('/graficos/usuarios', [DashboardController::class,'getGraficoUsu'])->name('getGraficoUsuario');
     });
 
     Route::group(['as'=> 'producto.'], function(){
         Route::get('/productos', [DashboardController::class,'getProductos'])->name('getProducto');
-        Route::get('/productos/graficos', [ProductoController::class,'getGraficoProducto'])->name('getGraficoProducto');
-        Route::post('/productos/grafico/tipo', [ProductoController::class,'getGraficoProducto'])->name('getGraficoProductoPost');
+        Route::get('/productos/graficos', [DashboardController::class,'getGraficoProducto'])->name('getGraficoProducto');
+        Route::post('/productos/grafico/tipo', [DashboardController::class,'getGraficoProducto'])->name('getGraficoProductoPost');
         Route::delete('/productos/confirmDelete', [ProductoController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/productos/update',[ProductoController::class,'confirmarUpdate'])->name('confirmarUpdate');
 
@@ -170,7 +171,7 @@ Route::group(['as'=> 'admin.'], function(){
     });
 
     Route::group(['as'=> 'pedido.'], function(){
-        Route::get('/pedidos/{id}', [DashboardController::class,'getPedidosUsuario'])->name('getPedidoUsuario');
+        Route::get('/pedidos/{id}', [DashboardController::class,'getPedidosUsuario'])->name('get-PedidoUsuario');
         Route::get('/pedidos/productos/{id}', [DashboardController::class,'getPedidosProductos'])->name('getPedidosProductos');
         Route::post('/pedidos/fecha/{id}', [DashboardController::class,'getPedidosUsuario'])->name('getPedidoUsuarioPost');
         Route::get('/pedidos', [DashboardController::class,'getPedidos'])->name('getPedido');

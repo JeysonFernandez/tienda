@@ -136,6 +136,8 @@ class DashboardController extends Controller
         $colors = Color::all();
 
         $count = 0;
+        $nombreProducto = [];
+        $cantidadProducto = [];
         foreach($productos as $producto){
             $nombreProducto[$count] ="";
             foreach($categorias as $categoria){
@@ -241,7 +243,7 @@ class DashboardController extends Controller
 
     }
     public function getGraficoUsu(){
-        $usuarios = Usuario::where('tipo','=','u')->get();
+        $usuarios = Usuario::where('tipo',2)->get();
 
         $adelantado = 0;
         $retrasado = 0;
@@ -602,6 +604,8 @@ class DashboardController extends Controller
             ->groupBy("$tabla" . '.nombre')
             ->get();
         $count = 0;
+        $nombre = [];
+        $cantidad = [];
         foreach ($data as $nom) {
             $nombre[$count] = $nom->nombre;
             $cantidad[$count] = $nom->cantidad;
@@ -819,22 +823,7 @@ class DashboardController extends Controller
 
     public function getPedidosUsuario(Request $request, $id)
     {
-        $pedidos = DB::table('pedidos')
-            ->where('pedidos.usuario_id', '=', "$id")
-            ->select('pedidos.id', 'pedidos.fecha', 'pedidos.hora', 'pedidos.lugar_visita', 'pedidos.tipo','pedidos.estado')
-            ->leftJoin('usuarios', 'usuarios.id', '=', 'pedidos.usuario_id')
-            ->AddSelect(DB::raw('usuarios.username as usuario'))
-            ->where('usuarios.id', '=', "$id")
-            ->groupBy(
-                'pedidos.id',
-                'pedidos.fecha',
-                'pedidos.hora',
-                'pedidos.lugar_visita',
-                'pedidos.tipo',
-                'pedidos.estado',
-                'usuarios.username'
-            )
-            ->get();
+        $pedidos = Pedido::where('usuario_id',$id)->get();
 
         $fechaInicial = "";
         $fechaFinal = "";
@@ -845,22 +834,10 @@ class DashboardController extends Controller
             if ($request->get('fechaInicial') < $request->get('fechaFinal')) {
                 $fechaInicial = $request->get('fechaInicial');
                 $fechaFinal = $request->get('fechaFinal');
-                $pedidos = DB::table('pedidos')
-                    ->where('pedidos.usuario_id', '=', "$id")
-                    ->select('pedidos.id', 'pedidos.fecha', 'pedidos.hora', 'pedidos.lugar_visita', 'pedidos.tipo','pedidos.estado')
+                $pedidos = Pedido::where('usuario_id',$id)
                     ->where('pedidos.fecha', '>=', "$fechaInicial")
                     ->where('pedidos.fecha', '<=', "$fechaFinal")->leftJoin('usuarios', 'usuarios.id', '=', 'pedidos.usuario_id')
-                    ->AddSelect(DB::raw('usuarios.username as usuario'))
 
-                    ->groupBy(
-                        'pedidos.id',
-                        'pedidos.fecha',
-                        'pedidos.hora',
-                        'pedidos.lugar_visita',
-                        'pedidos.tipo',
-                        'pedidos.estado',
-                        'usuarios.username'
-                    )
                     ->get();
             } else {
                 $mensaje = "La fecha inicial tiene que ser menor a fecha final";
@@ -869,13 +846,16 @@ class DashboardController extends Controller
             $mensaje = 'Selecciones las fechas para una busqueda personalizada';
         }
 
-        return view('admin.pedidos.pedidos', [
+        return view('admin.usuarios.pedidos', [
             'pedidos' => $pedidos,
             'mensaje' => $mensaje,
+            'id' => $id,
             'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
             'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
         ]);
     }
+
+
 
     public function getCompras(Request $request)
     {
@@ -927,13 +907,9 @@ class DashboardController extends Controller
     }
     public function getComprasUsuario(Request $request, $id)
     {
-        $compras = DB::table('compras')
-            ->select('compras.id', 'compras.estado', 'compras.deuda_total', 'compras.deuda_pendiente', 'compras.fecha_siguiente_pago')
-            ->leftJoin('usuarios', 'usuarios.id', '=', 'compras.usuario_id')
-            ->AddSelect(DB::raw('usuarios.username as usuario'))
-            ->where('usuarios.id', '=', "$id")
-            ->groupBy('compras.id', 'compras.estado', 'compras.deuda_total', 'compras.deuda_pendiente', 'compras.fecha_siguiente_pago', 'usuarios.username')
-            ->get();
+        $compras = Compra::where('usuario_id',$id)->get();
+
+
 
         $fechaInicial = "";
         $fechaFinal = "";
@@ -944,27 +920,11 @@ class DashboardController extends Controller
             if ($request->get('fechaInicial') < $request->get('fechaFinal')) {
                 $fechaInicial = $request->get('fechaInicial');
                 $fechaFinal = $request->get('fechaFinal');
-                $compras = DB::table('compras')
-                    ->select('compras.id', 'compras.estado', 'compras.deuda_total', 'compras.deuda_pendiente', 'compras.fecha_siguiente_pago')
+                $compras = Compra::where('usuario_id',$id)
                     ->where('compras.fecha_siguiente_pago', '>=', "$fechaInicial")
-                    ->where('compras.fecha_siguiente_pago', '<=', "$fechaFinal")->leftJoin(
-                        'usuarios',
-                        'usuarios.id',
-                        '=',
-                        'compras.usuario_id'
-                    )
-                    ->AddSelect(DB::raw('usuarios.username as usuario'))
-                    ->where('usuarios.id', '=', "$id")
-                    ->groupBy(
-                        'compras.id',
-                        'compras.estado',
-                        'compras.deuda_total',
-                        'compras.deuda_pendiente',
-                        'compras.fecha_siguiente_pago',
-                        'usuarios.username'
-                    )
+                    ->where('compras.fecha_siguiente_pago', '<=', "$fechaFinal")
                     ->get();
-                $mensaje = "entro";
+                $mensaje = "";
             } else {
                 $mensaje = "La fecha inicial tiene que ser menor a fecha final";
             }

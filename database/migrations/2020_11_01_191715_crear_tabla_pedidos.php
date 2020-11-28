@@ -16,7 +16,9 @@ class CrearTablaPedidos extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
             $table->string('lugar_visita')->nullable();
-            $table->dateTime('fecha_hora')->nullable();
+            $table->date('fecha')->nullable();
+            $table->time('fecha_hora_inicio')->nullable();
+            $table->time('fecha_hora_fin')->nullable();
             $table->tinyInteger('estado')->nullable();
             $table->tinyInteger('tipo')->nullable();
             $table->timestamps();

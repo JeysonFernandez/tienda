@@ -1,10 +1,10 @@
 
 @extends('layouts.master')
 @section('contenido')
-  
+
         <!-- Begin Page Content -->
         <div class="container-fluid" >
-          
+
           <!-- Content Row -->
           <div class="row">
 
@@ -43,12 +43,12 @@
                     </select>
                     <button type="submit">Mostrar</button>
                   </form>
-                  
-                  
+
+
                   <div class="chart-area">
                     <canvas id="myAreaChart"></canvas>
                   </div>
-                  
+
                 </div>
               </div>
               <div class="card shadow mb-4">
@@ -59,17 +59,17 @@
                   <div class="chart-area">
                     <canvas id="productoVendido"></canvas>
                   </div>
-                  
+
                 </div>
               </div>
 
               <!-- Bar Chart -->
-              
+
 
             </div>
 
             <!-- Donut Chart -->
-            
+
           </div>
 
         </div>
@@ -82,19 +82,79 @@
   <script type="text/javascript">
 
 
- 
-  var nombres = @json($nombre[1]);
-  var data = @json($cantidad[1]);
-  graficoArea(nombres,data);
-  
-   var nombres = @json($nombre[0]);
-  var data = @json($cantidad[0]);
-  var grafico = "productoVendido";
-  graficosBar(nombres,data,grafico);
-  
-  
 
-  
+    var nombres1 = @json($nombre[1]);
+    var data1 = @json($cantidad[1]);
+
+    var nombres = @json($nombre[0]);
+    var data = @json($cantidad[0]);
+
+    var ctx = document.getElementById('productoVendido');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: nombres,
+            datasets: [{
+                label: 'Estado de Clientes',
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    var ctx = document.getElementById('myAreaChart');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: nombres1,
+            datasets: [{
+                label: 'Estado de Clientes',
+                data: data1,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+
+
   </script>
 
 

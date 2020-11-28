@@ -27,6 +27,10 @@ class Usuario extends Authenticable
         'deuda_total',
     ];
 
+    const ADELANTADO = 1;
+    const AL_DIA = 2;
+    const MOROSO = 3;
+
 
 
 

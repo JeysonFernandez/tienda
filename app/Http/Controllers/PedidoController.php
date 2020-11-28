@@ -13,8 +13,6 @@ use App\Models\NotificacionUsuario;
 use App\Models\NotificacionProducto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\ReporteUsuario;
-use App\Mail\ReporteAdmin;
 
 class PedidoController extends Controller
 {
@@ -108,135 +106,87 @@ class PedidoController extends Controller
         return redirect()->back();
     }
 
-    public function agregar(StorePedidoRequest $request, $id){
+    public function agregar(Request $request, $id){
         $pedido = new Pedido();
         $pedido->usuario_id = $id;
         $pedido->lugar_visita = $request->get('lugar');
         $pedido->fecha = $request->get('fecha');
-        $pedido->hora = $request->get('hora');
+        $pedido->fecha_hora_inicio = $request->get('hora');
         $pedido->tipo = $request->get('tipo');
-        //Validación de datos
-        $mensaje = '';
-        $fechas = Fecha::all();
-        foreach ($fechas as $fecha){
-            if($fecha->fecha == $pedido->fecha && $fecha->hora == $pedido->hora){
-                $mensaje = 'Esta fecha y lugar ya está ocupada';
-            }
-            else{
-                if($fecha->fecha == $pedido->fecha){
-
-                    $arregloFecha = explode(':', $fecha->hora);
-                    //minutos fecha de la tabla
-                    $horasUno = (int)$arregloFecha[0];
-                    $minutosUno = (int)$arregloFecha[1];
-                    $tiempoUno = $horasUno*60 + $minutosUno;
-
-                    $arregloFechaPedido = explode(':', $pedido->hora);
-                    //minutos fecha de la tabla
-                    $horasDos = (int)$arregloFechaPedido[0];
-                    $minutosDos = (int)$arregloFechaPedido[1];
-                    $tiempoDos = $horasDos*60 + $minutosDos;
-
-                    $resta_tiempo = $tiempoUno - $tiempoDos;
-                    if($resta_tiempo<0){
-                        $resta_tiempo*=-1;
-                    }
-                    if($resta_tiempo<$fecha->duracion){
-                        $mensaje='Esta fecha ya está ocupada';
-                    }
-                }
-            }
+        if($request->get('tipo') == 1){
+            $fin = strtotime('+30 minute',strtotime($request->get('hora')));
+        }else{
+            $fin = strtotime('+60 minute',strtotime($request->get('hora')));
         }
-        //Fin validación de datos
+        $pedido->fecha_hora_fin = $fin;
+        $pedido->save();
 
-        //Si paso la validación de datos
-        if ($mensaje == ''){
-            //guardar pedido
-            $usuario = Usuario::find($pedido->usuario_id);
-            $nombreCompleto = $usuario->nombre.' '.$usuario->apellido.'(Fono: '.$usuario->fono.')';
-            $correo = (['nombreUsuario'=>$nombreCompleto,'fecha'=>$pedido->fecha,'hora'=>$pedido->hora,'tipo'=>'pedido']);
-            Mail::to($usuario->username)->send(new ReporteUsuario($correo));
-            Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
 
+        //guardar pedido
+        $usuario = Usuario::find($pedido->usuario_id);
+        $nombreCompleto = $usuario->nombre.' '.$usuario->apellido.'(Fono: '.$usuario->fono.')';
+
+
+        //insertar nueva notificacion
+        $notificacionUsuario = new NotificacionUsuario();
+        $notificacionUsuario->fecha_creacion = now()->format('Y-m-d');
+        $notificacionUsuario->tipo = 'p';
+        $notificacionUsuario->mensaje='Se ha registrado el pedido de '.$usuario->nombre.' '.$usuario->apellido;
+        $notificacionUsuario->usuario_id = $usuario->id;
+        $notificacionUsuario->click = 'n';
+        $notificacionUsuario->save();
+
+        //guardar pedido_producto
+        $pedidos = Pedido::all();
+        $ultimoPedido = $pedidos->last();
+        foreach (session('carro') as $id => $detalles){
+            //descontar stock
+            $producto = Producto::find($detalles['id']);
+            $producto->stock_actual -= $detalles['cantidad'];
+
+        //Notificacion producto
+        if($producto->stock_Actual<= $producto->stock_critico){
             //insertar nueva notificacion
-            $notificacionUsuario = new NotificacionUsuario();
-            $notificacionUsuario->fecha_creacion = now()->format('Y-m-d');
-            $notificacionUsuario->tipo = 'p';
-            $notificacionUsuario->mensaje='Se ha registrado el pedido de '.$usuario->nombre.' '.$usuario->apellido;
-            $notificacionUsuario->usuario_id = $usuario->id;
-            $notificacionUsuario->click = 'n';
-            $notificacionUsuario->save();
+            $notificacionProducto = new NotificacionProducto();
+            $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
+            $notificacionProducto->tipo = 'c';
+            $notificacionProducto->mensaje='El producto '.$producto->id.'ahora está en estado critico';
+            $notificacionProducto->productos_id = $producto->id;
+            $notificacionProducto->click = 'n';
+            $notificacionProducto->save();
 
-            $pedido->save();
-            //guardar fecha
-            $fechaNueva = new Fecha();
-            $fechaNueva->fecha = $pedido->fecha;
-            $fechaNueva->hora = $pedido->hora;
-            $fechaNueva->tipo = $pedido->tipo;
-            if($fechaNueva->tipo == 'e'){
-                $fechaNueva->duracion = 15;
-            }
-            else{
-                $fechaNueva->duracion = 60;
-            }
-            $fechaNueva->save();
-
-            //guardar pedido_producto
-            $pedidos = Pedido::all();
-            $ultimoPedido = $pedidos->last();
-            foreach (session('carro') as $id => $detalles){
-                //descontar stock
-                $producto = Producto::find($detalles['id']);
-                $producto->stock_actual -= $detalles['cantidad'];
-
-            //Notificacion producto
-            if($producto->stock_Actual<= $producto->stock_critico){
-                //insertar nueva notificacion
-                $notificacionProducto = new NotificacionProducto();
-                $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
-                $notificacionProducto->tipo = 'c';
-                $notificacionProducto->mensaje='El producto '.$producto->id.'ahora está en estado critico';
-                $notificacionProducto->productos_id = $producto->id;
-                $notificacionProducto->click = 'n';
-                $notificacionProducto->save();
-
-                $correo=['nombreProducto'=>$producto->id,'cantidad'=>$producto->stock_actual,'tipo'=>'producto_critico'];
-                Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
-            }
-            if($producto->stock_Actual== 0){
-                //insertar nueva notificacion
-                $notificacionProducto = new NotificacionProducto();
-                $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
-                $notificacionProducto->tipo = 'c';
-                $notificacionProducto->mensaje='Ya no queda stock de '.$producto->id;
-                $notificacionProducto->productos_id = $producto->id;
-                $notificacionProducto->click = 'n';
-                $notificacionProducto->save();
-
-                $correo=['nombreProducto'=>$producto->id,'tipo'=>'sinStock'];
-                Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
-            }
-                $producto->save();
-                //guardar pedidoProducto
-                $pedidoProducto = new PedidoProducto();
-                $pedidoProducto->producto_id = $detalles['id'];
-                $pedidoProducto->pedido_id = $ultimoPedido->id;
-                $pedidoProducto->cantidad_producto = $detalles['cantidad'];
-
-                $valor= $detalles['precio'] * $detalles['cantidad'];
-                $pedidoProducto->valor_total = $valor;
-                $pedidoProducto->save();
-            }
-            $carro= session()->get('carro');
-            foreach(session('carro') as $id => $detalles){
-                unset($carro[$id]);
-            }
-            session()->put('carro',$carro);
-            return redirect(route('home'));
+            $correo=['nombreProducto'=>$producto->id,'cantidad'=>$producto->stock_actual,'tipo'=>'producto_critico'];
         }
-        else{
-            return redirect()->back()->with($mensaje);
+        if($producto->stock_Actual== 0){
+            //insertar nueva notificacion
+            $notificacionProducto = new NotificacionProducto();
+            $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
+            $notificacionProducto->tipo = 'c';
+            $notificacionProducto->mensaje='Ya no queda stock de '.$producto->id;
+            $notificacionProducto->productos_id = $producto->id;
+            $notificacionProducto->click = 'n';
+            $notificacionProducto->save();
+
+            $correo=['nombreProducto'=>$producto->id,'tipo'=>'sinStock'];
         }
+            $producto->save();
+            //guardar pedidoProducto
+            $pedidoProducto = new PedidoProducto();
+            $pedidoProducto->producto_id = $detalles['id'];
+            $pedidoProducto->pedido_id = $ultimoPedido->id;
+            $pedidoProducto->cantidad_producto = $detalles['cantidad'];
+
+            $valor= $detalles['precio'] * $detalles['cantidad'];
+            $pedidoProducto->valor_total = $valor;
+            $pedidoProducto->save();
+        }
+        $carro= session()->get('carro');
+        foreach(session('carro') as $id => $detalles){
+            unset($carro[$id]);
+        }
+        session()->put('carro',$carro);
+        return redirect(route('index'));
+
     }
 
     public function confirmDelete(Request $request)

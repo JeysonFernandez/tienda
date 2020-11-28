@@ -11,3 +11,5 @@ require('datatables.net-bs4');
 
 const flatpickr = require("flatpickr");
 
+var Chart = require('chart.js');
+
