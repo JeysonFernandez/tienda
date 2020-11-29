@@ -57,7 +57,7 @@
         @endisset
 
     </div>
-    <div class="mt-5"><h1>Nuestros Productos</h1></div>
+    <div class="mt-5"><h1>Ve también estos productos</h1></div>
     <hr>
     <div class="row mt-5 card-resultados">
 
