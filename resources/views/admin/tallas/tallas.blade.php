@@ -2,11 +2,7 @@
 
 @section('contenido')
 
-<div class="container-fluid">
-
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Tallas</h1>
-    
+<div class="container-fluid">    
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">

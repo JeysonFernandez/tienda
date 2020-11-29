@@ -21,7 +21,7 @@ class DashboardUsuarioController extends Controller
     public function getDashboard($id)
     {
         return
-        view('publico.usuario.index',
+        view('usuario.index',
         ['notificaciones'=>NotificacionUsuario::where('usuario_id',$id)->orderBy('id',
         'desc')->get()]);
     }

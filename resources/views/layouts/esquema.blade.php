@@ -82,11 +82,16 @@
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="dropdownMenuButton">
                                             <span class="d-block px-4 mb-4 mt-2 bienvenida-usuario">Bienvenido {{ auth()->user()->nombre}} </span>
 
+
                                             <a class="dropdown-item" href="#">
                                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Cambiar contraseña
                                             </a>
-                                            <a class="dropdown-item" href="#">
-                                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Datos personales
+                                            @if ( auth()->user()->tipo == 1 )
+                                            <a class="dropdown-item" href="{{route('admin.index')}}">
+                                            @else
+                                            <a class="dropdown-item" href="{{route('usuario.index',['id' => auth()->user()->id])}}">
+                                            @endif
+                                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Mi Cuenta
                                             </a>
 
                                             <div class="dropdown-divider"></div>
