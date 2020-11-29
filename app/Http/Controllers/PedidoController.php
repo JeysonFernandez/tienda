@@ -107,12 +107,13 @@ class PedidoController extends Controller
     }
 
     public function agregar(Request $request, $id){
+        dd($request->all());
         $pedido = new Pedido();
         $pedido->usuario_id = $id;
         $pedido->lugar_visita = $request->get('lugar');
         $pedido->fecha = $request->get('fecha');
         $pedido->fecha_hora_inicio = $request->get('hora');
-        $pedido->tipo = $request->get('tipo');
+        $pedido->tipo = $request->get('tipo_id');
         if($request->get('tipo') == 1){
             $fin = strtotime('+30 minute',strtotime($request->get('hora')));
         }else{

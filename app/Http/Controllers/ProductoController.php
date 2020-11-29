@@ -246,7 +246,11 @@ class ProductoController extends Controller
             }
         }
         session()->put('carro', $carro);
-        alert()->success('Perfecto!','Se ha añadido un elemento a tu carrito. Para verlo, inicia sesión.');
+        if(Auth::check()){
+            alert()->success('Perfecto!','Se ha añadido un elemento a tu carrito. Puedes editar la cantidad del producto desde el mismo carrito.');
+        }else{
+            alert()->success('Perfecto!','Se ha añadido un elemento a tu carrito. Puedes editar la cantidad del producto desde el mismo carrito. Para verlo, inicia sesión.');
+        }
 
         return redirect()->back();
     }

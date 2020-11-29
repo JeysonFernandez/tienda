@@ -57,6 +57,9 @@
                                     <div class="form-group">
                                         <label for="password"> Contraseña</label>
                                         <input type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" placeholder="*********"/>
+                                        <p>
+                                            <small class="d-block text-muted">Tu contraseña debe tener como mínimo 6 caracteres y una letra.</small>
+                                        </p>
                                     </div>
 
                                     <div class="form-group">
