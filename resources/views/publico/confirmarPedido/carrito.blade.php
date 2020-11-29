@@ -55,7 +55,7 @@
 
             $('.calendario').on('change.datetimepicker', function(e){
             fecha = e.date.format('YYYY-MM-DD');
-            $('form.form-agendar input[name=fecha]').val(fecha);
+            $('#fecha').val(fecha);
             axios({
                 method: 'post',
                 url: '{{route('publico.getHorasDisponiblesFecha')}}',
@@ -85,7 +85,6 @@
 
             $('.js-tipo').on('change',function(){
                 tipo_id = $(this).val();
-                console.log(tipo_id);
                 actualizar_horas();
             });
 
