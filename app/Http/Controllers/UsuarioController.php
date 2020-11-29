@@ -129,8 +129,11 @@ class UsuarioController extends Controller
             alert()->error('Ups!','Los datos ingresados no son correctos. Por favor, intenta nuevamente');
             return redirect()->back();
         }
-
         alert()->success('Conectado!','Has iniciado sesión de forma correcta');
+        if( Auth::user()->tipo==1 ){
+            return view('home.seleccionarPerfil');
+        }
+
         return redirect()->route('index');
     }
 
