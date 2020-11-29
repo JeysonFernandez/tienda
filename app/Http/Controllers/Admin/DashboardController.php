@@ -767,17 +767,17 @@ class DashboardController extends Controller
     public function getPedidos(Request $request)
     {
         $pedidos = DB::table('pedidos')
-            ->select('pedidos.id', 'pedidos.fecha', 'pedidos.hora', 'pedidos.lugar_visita', 'pedidos.tipo','pedidos.estado')
+            ->select('pedidos.id', 'pedidos.fecha', 'pedidos.fecha_hora_inicio', 'pedidos.lugar_visita', 'pedidos.tipo','pedidos.estado')
             ->leftJoin('usuarios', 'usuarios.id', '=', 'pedidos.usuario_id')
-            ->AddSelect(DB::raw('usuarios.username as usuario'))
+            ->AddSelect(DB::raw('usuarios.nombre as usuario'))
             ->groupBy(
                 'pedidos.id',
                 'pedidos.fecha',
-                'pedidos.hora',
+                'pedidos.fecha_hora_inicio',
                 'pedidos.lugar_visita',
                 'pedidos.tipo',
                 'pedidos.estado',
-                'usuarios.username'
+                'usuarios.nombre'
             )
             ->get();
 
@@ -791,19 +791,19 @@ class DashboardController extends Controller
                 $fechaInicial = $request->get('fechaInicial');
                 $fechaFinal = $request->get('fechaFinal');
                 $pedidos = DB::table('pedidos')
-                    ->select('pedidos.id', 'pedidos.fecha', 'pedidos.hora', 'pedidos.lugar_visita',
+                    ->select('pedidos.id', 'pedidos.fecha', 'pedidos.fecha_hora_inicio', 'pedidos.lugar_visita',
                     'pedidos.tipo','pedidos.estado')
                     ->where('pedidos.fecha', '>=', "$fechaInicial")
                     ->where('pedidos.fecha', '<=', "$fechaFinal")->leftJoin('usuarios', 'usuarios.id', '=', 'pedidos.usuario_id')
-                    ->AddSelect(DB::raw('usuarios.username as usuario'))
+                    ->AddSelect(DB::raw('usuarios.nombre as usuario'))
                     ->groupBy(
                         'pedidos.id',
                         'pedidos.fecha',
-                        'pedidos.hora',
+                        'pedidos.fecha_hora_inicio',
                         'pedidos.lugar_visita',
                         'pedidos.tipo',
                         'pedidos.estado',
-                        'usuarios.username'
+                        'usuarios.nombre'
                     )
                     ->get();
             } else {

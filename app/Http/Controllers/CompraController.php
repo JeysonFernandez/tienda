@@ -98,7 +98,7 @@ class CompraController extends Controller
         //
     }
 
-    public function agregar(StoreCompraRequest $request){
+    public function agregar(Request $request){
         $compra = new Compra();
         $compra->usuario_id = $request->get('usuario');
         $compra->deuda_total = $request->get('deuda_total');
@@ -259,5 +259,112 @@ class CompraController extends Controller
         $productos = CompraProducto::where('compra_id',$id)->get();
         return view('usuarioMenu.compras.detalleCompra',['productos'=>$productos,'notificacionProductos' => NotificacionProducto::all(),
         'notificacionUsuarios' => NotificacionUsuario::all()]);
+    }
+
+    public function agregarCompraPedido(Request $request){
+        $compra = new Compra();
+        $compra->usuario_id = $request->get('usuario');
+        $compra->deuda_total = $request->get('deuda_total');
+        $compra->deuda_pendiente = $compra->deuda_total - $request->get('abono');
+        $compra->fecha_siguiente_pago = $request->get('fecha_siguiente_pago');
+        $compra->fecha_compra = $request->get('fecha_compra');
+        if($compra->deuda_pendiente > 0){
+            $compra->estado = 1;
+        }else{
+            $compra->estado = 2;
+        }
+
+        $usuario = Usuario::findOrFail($compra->usuario_id);
+        $nombreCompleto = $usuario->nombre.' '.$usuario->apellido.'(Fono: '.$usuario->fono.')';
+        $correo = (['nombreUsuario'=>$nombreCompleto,'fecha'=>$compra->fecha_compra,'tipo'=>'compra','fecha_siguiente_pago'=>$compra->fecha_siguiente_pago, 'total'=>$compra->deuda_total]);
+
+        Mail::to($usuario->username)->send(new ReporteUsuario($correo));
+        Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
+        //insertar nueva notificacion
+        $notificacionUsuario = new NotificacionUsuario();
+        $notificacionUsuario->fecha_creacion = now()->format('Y-m-d');
+        $notificacionUsuario->tipo = 'C';
+        $notificacionUsuario->mensaje='Se ha registrado la compra de '.$usuario->nombre.' '.$usuario->apellido;
+        $notificacionUsuario->usuario_id = $usuario->id;
+        $notificacionUsuario->click = 1;
+        $notificacionUsuario->save();
+
+        $compra->save();
+
+        //Agregar deuda al usuario
+        $usuario->deuda_total += $compra->deuda_total;
+        $usuario->save();
+        //guardar compra_producto
+        $compras = Compra::all();
+        $ultimaCompra = $compras->last();
+        foreach ($request->all() as $elemento){
+            if( strpos($elemento['id'],'producto') !== false ){
+                $compraProducto = new CompraProducto();
+                $compraProducto->producto_id =0 + explode('o',$elemento['id'])[2];
+                $compraProducto->compra_id = $compra->id;
+                $compraProducto->cantidad_producto = $elemento->value;
+
+                //Descontar cantidad de producto
+                $producto = Producto::findOrFail($compraProducto->producto_id);
+                $nuevoStock = $producto->stock_actual - $compraProducto->cantidad_producto;
+                $producto->stock_actual = $nuevoStock;
+
+                $producto->cant_vendida += $compraProducto->cantidad_producto;
+                $max_venta = Rey::find(1);
+                if($max_venta->cantidad_vendida < $producto->cant_vendida){
+                    $max_venta->producto_id = $producto->id;
+                    $max_venta->cantidad_vendida = $producto->cant_vendida;
+                    $notificacionProducto = new NotificacionProducto();
+                    $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
+                    $notificacionProducto->tipo = 'r';
+                    $notificacionProducto->mensaje=$producto->id.'es el nuevo rey del lugar $$$.';
+                    $notificacionProducto->productos_id= $producto->id;
+                    $notificacionProducto->click = 1;
+
+                    $notificacionProducto->save();
+                    $correo=['nombreProducto'=>$producto->id,'tipo'=>'reyVentas'];
+                    Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
+                }
+
+
+                //Notificacion producto
+                if($producto->stock_Actual<= $producto->stock_critico){
+                    //insertar nueva notificacion
+                    $notificacionProducto = new NotificacionProducto();
+                    $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
+                    $notificacionProducto->tipo = 'c';
+                    $notificacionProducto->mensaje='El producto '.$producto->id.'ahora está en estado critico';
+                    $notificacionProducto->productos_id= $producto->id;
+                    $notificacionProducto->click = 1;
+
+                    $notificacionProducto->save();
+
+                    $correo=['nombreProducto'=>$producto->id,'cantidad'=>$producto->stock_actual,'tipo'=>'producto_critico'];
+                    Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
+                }
+                if($producto->stock_Actual== 0){
+                    //insertar nueva notificacion
+                    $notificacionProducto = new NotificacionProducto();
+                    $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
+                    $notificacionProducto->tipo = 'n';
+                    $notificacionProducto->mensaje='Ya no queda stock de '.$producto->id;
+                    $notificacionProducto->productos_id = $producto->id;
+                    $notificacionProducto->click = 1;
+                    $notificacionProducto->save();
+
+                    $correo=['nombreProducto'=>$producto->id,'tipo'=>'sinStock'];
+                    Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
+                }
+
+                $producto->save();
+
+                $valor= $producto->precio*$$compraProducto->cantidad_producto;
+                $compraProducto->costo_total = $valor;
+                $compraProducto->save();
+            }
+        }
+
+        alert()->success('Perfecto!','La compra ha sido registrada exitosamente.');
+        return redirect('/admin/compras');
     }
 }

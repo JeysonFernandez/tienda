@@ -56,25 +56,26 @@
                                 <td>{{$cont}}</td>
                                 <td>{{$pedido->lugar_visita}}</td>
                                 <td>{{$pedido->fecha}}</td>
-                                <td>{{$pedido->hora}}</td>
+                                <td>{{$pedido->fecha_hora_inicio}}</td>
                                 <td>{{$pedido->usuario}}</td>
                                 <td>
-                                    @if ($pedido->tipo == 'v')
+                                    @if ($pedido->tipo == 1)
                                         Visita
                                     @else
                                         Express
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($pedido->estado == 'p')
+                                    @if ($pedido->estado == 2)
                                         Cancelado
                                     @else
                                         Pendiente
                                     @endif
                                 </td>
                                 <td> 
-                                    <a href="{{route('admin.pedido.getPedidosProductos',$pedido->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
-                                    <a href="/pedidos/{{$pedido->id}}" ><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a></td> 
+                                    {{-- <a href="/pedidos/productos/{{$pedido->id}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>  --}}
+                                    <a href="/pedidos/{{$pedido->id}}" ><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a>
+                                    <a href="/pedidos/comprarPedido/{{$pedido->id}}" ><i class="fas fa-fw fa-2x fa-shopping-cart" aria-hidden="true"></i></a></td>  
                             </tr>
                         
                         @endforeach
@@ -104,7 +105,7 @@
                 <div class="modal-footer" >
                     <div class="d-flex justify-content-between">
                         <button class="btn btn-secondary .align-items-start" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="{{route('admin.productos.confirmDelete')}}" method="POST" name="f1" id="f1" >
+                    <form action="{{route('admin.producto.confirmDelete')}}" method="POST" name="f1" id="f1" >
                         @csrf
                         @method('delete')
                         <input type="text" name="idfinal" id="idfinal" style="visibility: hidden">

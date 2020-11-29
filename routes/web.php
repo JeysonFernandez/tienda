@@ -145,6 +145,7 @@ Route::group(['as'=> 'admin.'], function(){
         Route::delete('/compras/confirmDelete', [CompraController::class,'confirmDelete'])->name('confirmDelete');
         Route::get('/compras/detalle/{id}',[CompraController::class,'detalleCompraUsuario'])->name('detalleUsuario');
         Route::get('/compras/detalleCuenta/{id}',[CompraController::class,'detalleCompraUsuarioCuenta'])->name('detalleUsuarioCuenta');
+        Route::post('/compras/agregarCompraPedido', [CompraController::class,'agregarCompraPedido'])->name('agregarCompraPedido');
     });
 
     Route::group(['as'=> 'pago.'], function(){
@@ -171,8 +172,8 @@ Route::group(['as'=> 'admin.'], function(){
     });
 
     Route::group(['as'=> 'pedido.'], function(){
-        Route::get('/pedidos/{id}', [DashboardController::class,'getPedidosUsuario'])->name('get-PedidoUsuario');
-        Route::get('/pedidos/productos/{id}', [DashboardController::class,'getPedidosProductos'])->name('getPedidosProductos');
+        Route::get('/pedidos/{id}', [DashboardController::class,'getPedidosUsuario'])->name('getPedidoUsuario');
+        Route::get('/pedidos/productos/{id}', [DashboardController::class,'getPedidosProductos'])->name('getPedidoProductos');
         Route::post('/pedidos/fecha/{id}', [DashboardController::class,'getPedidosUsuario'])->name('getPedidoUsuarioPost');
         Route::get('/pedidos', [DashboardController::class,'getPedidos'])->name('getPedido');
         Route::post('/pedidos/fecha', [DashboardController::class,'getPedidos'])->name('getPedidoPost');
@@ -183,6 +184,7 @@ Route::group(['as'=> 'admin.'], function(){
         Route::get('/pedidos/detalle/{id}',[PedidoController::class,'detallePedidoUsuario'])->name('detalleUsuario');
         Route::get('/pedidos/detalleCuenta/{id}',[PedidoController::class,'detallePedidoUsuarioCuenta'])->name('detalleUsuarioCuenta');
         Route::delete('/pedidos/confirmDelete', [PedidoController::class,'confirmDelete'])->name('confirmDelete');
+        Route::get('/pedidos/comprarPedido/{id}', [PedidoController::class,'comprarPedido'])->name('comprarPedido');
     });
 });
 //--------------------------------------------------------------------------------------------------------------------

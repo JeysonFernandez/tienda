@@ -15,6 +15,7 @@ use App\Models\NotificacionProducto;
 use App\Models\NotificacionUsuario;
 use App\Http\Requests\StoreProductos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 use RealRashid\SweetAlert\Facades\Alert;

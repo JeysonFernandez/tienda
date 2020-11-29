@@ -107,18 +107,27 @@ class PedidoController extends Controller
     }
 
     public function agregar(Request $request, $id){
-        dd($request->all());
         $pedido = new Pedido();
         $pedido->usuario_id = $id;
         $pedido->lugar_visita = $request->get('lugar');
         $pedido->fecha = $request->get('fecha');
         $pedido->fecha_hora_inicio = $request->get('hora');
         $pedido->tipo = $request->get('tipo_id');
-        if($request->get('tipo') == 1){
-            $fin = strtotime('+30 minute',strtotime($request->get('hora')));
+
+        //fecha_hora_fin
+        $horaMinuto = explode((':'),$request->get('hora'));
+        $total = $horaMinuto[0]*60  + $horaMinuto[1] ;
+        if($request->get('tipo_id') == 1){
+            $total += 60;
         }else{
-            $fin = strtotime('+60 minute',strtotime($request->get('hora')));
+            $total += 30;
         }
+        $hora = (string)(intdiv($total,60));
+        $minuto =(string)(fmod($total,60));
+        if( (int)$minuto<10 ){
+            $minuto = '0'.$minuto;
+        }
+        $fin = $hora.':'.$minuto;
         $pedido->fecha_hora_fin = $fin;
         $pedido->save();
 
@@ -134,7 +143,7 @@ class PedidoController extends Controller
         $notificacionUsuario->tipo = 'p';
         $notificacionUsuario->mensaje='Se ha registrado el pedido de '.$usuario->nombre.' '.$usuario->apellido;
         $notificacionUsuario->usuario_id = $usuario->id;
-        $notificacionUsuario->click = 'n';
+        $notificacionUsuario->click = 1;
         $notificacionUsuario->save();
 
         //guardar pedido_producto
@@ -152,8 +161,8 @@ class PedidoController extends Controller
             $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
             $notificacionProducto->tipo = 'c';
             $notificacionProducto->mensaje='El producto '.$producto->id.'ahora está en estado critico';
-            $notificacionProducto->productos_id = $producto->id;
-            $notificacionProducto->click = 'n';
+            $notificacionProducto->producto_id = $producto->id;
+            $notificacionProducto->click = 1;
             $notificacionProducto->save();
 
             $correo=['nombreProducto'=>$producto->id,'cantidad'=>$producto->stock_actual,'tipo'=>'producto_critico'];
@@ -164,8 +173,8 @@ class PedidoController extends Controller
             $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
             $notificacionProducto->tipo = 'c';
             $notificacionProducto->mensaje='Ya no queda stock de '.$producto->id;
-            $notificacionProducto->productos_id = $producto->id;
-            $notificacionProducto->click = 'n';
+            $notificacionProducto->producto_id = $producto->id;
+            $notificacionProducto->click = 1;
             $notificacionProducto->save();
 
             $correo=['nombreProducto'=>$producto->id,'tipo'=>'sinStock'];
@@ -175,10 +184,10 @@ class PedidoController extends Controller
             $pedidoProducto = new PedidoProducto();
             $pedidoProducto->producto_id = $detalles['id'];
             $pedidoProducto->pedido_id = $ultimoPedido->id;
-            $pedidoProducto->cantidad_producto = $detalles['cantidad'];
+            $pedidoProducto->cantidad = $detalles['cantidad'];
 
             $valor= $detalles['precio'] * $detalles['cantidad'];
-            $pedidoProducto->valor_total = $valor;
+            $pedidoProducto->costo = $valor;
             $pedidoProducto->save();
         }
         $carro= session()->get('carro');
@@ -214,5 +223,14 @@ class PedidoController extends Controller
         return view('usuarioMenu.pedidos.detallePedido',['productos'=>$productos,'notificacionProductos' => NotificacionProducto::all(),
         'notificacionUsuarios' => NotificacionUsuario::all()]);
     }
+
+    public function comprarPedido($id){
+        $productos = PedidoProducto::where('pedido_id',$id)->get();
+        $pedido = Pedido::where('id', $id)->get();
+        $usuario = Usuario::findOrFail($pedido[0]->usuario_id);
+        return view('admin.pedidos.comprarPedido',['productos'=>$productos,'usuario'=>$usuario,'notificacionProductos' => NotificacionProducto::all(),
+        'notificacionUsuarios' => NotificacionUsuario::all()]);
+    }
+
 
 }
