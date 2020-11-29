@@ -34,7 +34,20 @@ class Usuario extends Authenticable
 
 
 
+    public function getEstadoAttribute()
+    {
+        switch ($this->estado_calidad){
+            case 1:
+                return 'Adelantado';
+            break;
+            case 2:
+                return 'Al Día';
+            break;
+            default:
+                return 'Moroso';
 
+        }
+    }
 
 
 
