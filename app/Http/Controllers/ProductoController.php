@@ -216,7 +216,11 @@ class ProductoController extends Controller
 
     public function carrito()
     {
-        return view('publico.confirmarPedido.carrito');
+        if(Auth::check()){
+            return view('publico.confirmarPedido.carrito');
+        }else{
+            return redirect()->route('index');
+        }
     }
 
     public function addCarrito($id)

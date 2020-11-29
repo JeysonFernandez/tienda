@@ -15,7 +15,7 @@ class DashboardUsuarioController extends Controller
 {
     public function __Construct()
     {
-
+        $this->middleware('auth');
     }
 
     public function getDashboard($id)
