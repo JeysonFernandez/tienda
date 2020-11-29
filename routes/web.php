@@ -30,6 +30,8 @@ Route::view('/login', 'publico.auth.login')->name('publico.auth.login');
 Route::post('/usuarios/login', [UsuarioController::class,'login'])->name('usuarios.login');
 Route::get('/usuarios/logout', [UsuarioController::class,'logout'])->name('publico.logout');
 
+Route::get('/seleccionar-perfil',[UsuarioController::class,'seleccionarPerfil'])->name('seleccionarPerfil');
+
 
 
 
