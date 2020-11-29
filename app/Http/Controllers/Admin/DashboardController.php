@@ -18,6 +18,7 @@ use App\Models\Fecha;
 use App\Models\Pago;
 use App\Models\Compra;
 use App\Models\CompraProducto;
+use App\Models\DiasDisponibles;
 use App\Models\Pedido;
 use App\Models\NotificacionProducto;
 use App\Models\NotificacionUsuario;
@@ -954,5 +955,70 @@ class DashboardController extends Controller
             'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
             'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
         ]);
+    }
+
+    public function disponibilidad(Request $request)
+    {
+
+        if ($request->isMethod('post')) {
+            DB::beginTransaction();
+
+            try {
+                DiasDisponibles::all()->delete();
+
+                $dias = $request->dias;
+
+                /**
+                 * PAUSAS.
+                 */
+                $pausas = [];
+                if (!empty($request->pausas)) {
+                    foreach ($request->pausas as $p) {
+                        $pausas[$p['dia']][] = [
+                            'inicio' => $p['inicio']['h'].':'.$p['inicio']['m'].':00',
+                            'termino' => $p['fin']['h'].':'.$p['fin']['m'].':00',
+                        ];
+                    }
+                }
+
+                /**
+                ONLINE
+                 */
+                $hora_inicio = $request->hora_inicio;
+                $hora_fin = $request->hora_fin;
+
+                foreach ($hora_inicio as $dia => $hi) {
+                    $hf = $hora_fin[$dia];
+
+                    DiasDisponibles::create([
+                        'dia' => $dia,
+                        'hora_inicio' => implode(':', $hi),
+                        'hora_termino' => implode(':', $hf),
+                        'pausas' => (!empty($pausas[$dia])) ? json_encode($pausas[$dia]) : null,
+                    ]);
+                }
+
+                DB::commit();
+                alert()->success('Datos actualizados', 'Se guardaron los datos de duración de sesiones del Profesional para sus especialidades.');
+
+                return redirect(route('admin::profesionales.disponibilidad', ['profesional' => $profesional]));
+            } catch (\Exception $e) {
+                DB::rollback();
+                report($e);
+                alert()->error('Error', 'No se pudo guardar los datos. Intenta otra vez.');
+
+                return back()->withInput();
+            }
+        }
+
+        $disponibilidades_actuales = [];
+        $pausas_actuales = [];
+        $disponibles = DiasDisponibles::all();
+        foreach ($disponibles as $dsp) {
+            $disponibilidades_actuales[$dsp->modalidad_cita_id][$dsp->dia] = $dsp;
+            $pausas_actuales[$dsp->dia] = json_decode($dsp->pausas);
+        }
+
+        return view('admin.profesionales.disponibilidad', compact('profesional', 'disponibilidades_actuales', 'pausas_actuales', 'tipo_citas'));
     }
 }
