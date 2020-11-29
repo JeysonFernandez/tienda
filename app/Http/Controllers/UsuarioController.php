@@ -95,35 +95,39 @@ class UsuarioController extends Controller
     public function login(Request $request){
         $credenciales = $request->only('email','password');
 
-        if(Auth::attempt($credenciales)){
-            //Comprar si es admin
-            if(Auth::user()->tipo == 1){
-                $carro= session()->get('carro');
-                if($carro!=null){
-                    foreach(session('carro') as $id => $detalles){
-                        unset($carro[$id]);
-                    }
-                    session()->put('carro',$carro);
-                }
+         if(!Auth::attempt($credenciales)){
+        //     //Comprar si es admin
+        //     if(Auth::user()->tipo == 1){
+        //         $carro= session()->get('carro');
+        //         if($carro!=null){
+        //             foreach(session('carro') as $id => $detalles){
+        //                 unset($carro[$id]);
+        //             }
+        //             session()->put('carro',$carro);
+        //         }
 
-                //Comprobar si se llegado a la fecha de algun pedido
-                $pedidos=Pedido::all();
-                foreach($pedidos as $pedido){
-                    if($pedido->fecha <= now()->format('Y-m-d')){
-                        $pedido->estado = 'c';
+        //         //Comprobar si se llegado a la fecha de algun pedido
+        //         $pedidos=Pedido::all();
+        //         foreach($pedidos as $pedido){
+        //             if($pedido->fecha <= now()->format('Y-m-d')){
+        //                 $pedido->estado = 'c';
 
-                        $productosPedido = PedidoProducto::where('pedido_id',$pedido->id);
-                        foreach($productosPedido as $productoPedido){
-                            $producto = Producto::find($productoPedido->producto_id);
-                            $producto->stock_actual += $productoPedido->cantidad;
-                            $producto->save();
-                        }
+        //                 $productosPedido = PedidoProducto::where('pedido_id',$pedido->id);
+        //                 foreach($productosPedido as $productoPedido){
+        //                     $producto = Producto::find($productoPedido->producto_id);
+        //                     $producto->stock_actual += $productoPedido->cantidad;
+        //                     $producto->save();
+        //                 }
 
-                        $pedido->save();
-                    }
-                }
+        //                 $pedido->save();
+        //             }
+        //         }
 
-            }
+        //     }
+        // }
+        // else{
+            alert()->error('Ups!','Los datos ingresados no son correctos. Por favor, intenta nuevamente');
+            return redirect()->back();
         }
 
         alert()->success('Conectado!','Has iniciado sesión de forma correcta');
@@ -139,7 +143,7 @@ class UsuarioController extends Controller
         $usuario->password = Hash::make($request->get('password'));
         $usuario->save();
 
-
+        alert()->success('Perfecto!','Has sido registrado exitosamente.');
         return redirect('/');
     }
 

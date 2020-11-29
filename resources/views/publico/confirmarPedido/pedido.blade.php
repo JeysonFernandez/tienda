@@ -32,8 +32,8 @@
                 </div>
 
                 <select class="js-tipo form-control mb-2" name='tipo_id'>
-                    <option class="opcionServicio" value="1">Express</option>
-                    <option class="opcionServicio" value="2">Completo</option>
+                    <option class="opcionServicio" value="1">Completo</option>
+                    <option class="opcionServicio" value="2">Express</option>
                 </select>
                 <div class="form-row pl-2">
 

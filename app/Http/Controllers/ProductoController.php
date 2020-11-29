@@ -15,6 +15,7 @@ use App\Models\NotificacionProducto;
 use App\Models\NotificacionUsuario;
 use App\Http\Requests\StoreProductos;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 use RealRashid\SweetAlert\Facades\Alert;
@@ -246,7 +247,11 @@ class ProductoController extends Controller
             }
         }
         session()->put('carro', $carro);
-        alert()->success('Perfecto!','Se ha añadido un elemento a tu carrito. Para verlo, inicia sesión.');
+        if(Auth::check()){
+            alert()->success('Perfecto!','Se ha añadido un elemento a tu carrito. Puedes editar la cantidad del producto desde el mismo carrito.');
+        }else{
+            alert()->success('Perfecto!','Se ha añadido un elemento a tu carrito. Puedes editar la cantidad del producto desde el mismo carrito. Para verlo, inicia sesión.');
+        }
 
         return redirect()->back();
     }
