@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Usuario;
+use App\Models\Pedido;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -13,15 +14,17 @@ class PedidoUsuarioMail extends Mailable
     use SerializesModels;
 
     protected $usuario;
+    protected $pedido;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Usuario $usuario)
+    public function __construct(Usuario $usuario, $pedido)
     {
         $this->usuario = $usuario;
+        $this->pedido = $pedido;
     }
 
     /**
@@ -33,9 +36,10 @@ class PedidoUsuarioMail extends Mailable
     {
         return $this
         ->from(config('mail.from.address'), config('mail.from.name'))
-        ->view('emails.bienvenidaUsuario')
+        ->view('emails.correoPedidos')
         ->with([
             'usuario' => $this->usuario,
+            'pedido' => $this->pedido,
             ])
         ->subject(config('app.name').' - ¡Te damos la bienvenida!');
     }

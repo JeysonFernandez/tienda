@@ -14,6 +14,8 @@ use App\Models\NotificacionProducto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+use App\Mail\PedidoUsuarioMail;
+
 class PedidoController extends Controller
 {
     /**
@@ -146,6 +148,8 @@ class PedidoController extends Controller
         $notificacionUsuario->click = 1;
         $notificacionUsuario->save();
 
+
+
         //guardar pedido_producto
         $pedidos = Pedido::all();
         $ultimoPedido = $pedidos->last();
@@ -154,31 +158,31 @@ class PedidoController extends Controller
             $producto = Producto::find($detalles['id']);
             $producto->stock_actual -= $detalles['cantidad'];
 
-        //Notificacion producto
-        if($producto->stock_Actual<= $producto->stock_critico){
-            //insertar nueva notificacion
-            $notificacionProducto = new NotificacionProducto();
-            $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
-            $notificacionProducto->tipo = 'c';
-            $notificacionProducto->mensaje='El producto '.$producto->id.'ahora está en estado critico';
-            $notificacionProducto->producto_id = $producto->id;
-            $notificacionProducto->click = 1;
-            $notificacionProducto->save();
+            //Notificacion producto
+            if($producto->stock_Actual<= $producto->stock_critico){
+                //insertar nueva notificacion
+                $notificacionProducto = new NotificacionProducto();
+                $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
+                $notificacionProducto->tipo = 'c';
+                $notificacionProducto->mensaje='El producto '.$producto->id.'ahora está en estado critico';
+                $notificacionProducto->producto_id = $producto->id;
+                $notificacionProducto->click = 1;
+                $notificacionProducto->save();
 
-            $correo=['nombreProducto'=>$producto->id,'cantidad'=>$producto->stock_actual,'tipo'=>'producto_critico'];
-        }
-        if($producto->stock_Actual== 0){
-            //insertar nueva notificacion
-            $notificacionProducto = new NotificacionProducto();
-            $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
-            $notificacionProducto->tipo = 'c';
-            $notificacionProducto->mensaje='Ya no queda stock de '.$producto->id;
-            $notificacionProducto->producto_id = $producto->id;
-            $notificacionProducto->click = 1;
-            $notificacionProducto->save();
+                $correo=['nombreProducto'=>$producto->id,'cantidad'=>$producto->stock_actual,'tipo'=>'producto_critico'];
+            }
+            if($producto->stock_Actual== 0){
+                //insertar nueva notificacion
+                $notificacionProducto = new NotificacionProducto();
+                $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
+                $notificacionProducto->tipo = 'c';
+                $notificacionProducto->mensaje='Ya no queda stock de '.$producto->id;
+                $notificacionProducto->producto_id = $producto->id;
+                $notificacionProducto->click = 1;
+                $notificacionProducto->save();
 
-            $correo=['nombreProducto'=>$producto->id,'tipo'=>'sinStock'];
-        }
+                $correo=['nombreProducto'=>$producto->id,'tipo'=>'sinStock'];
+            }
             $producto->save();
             //guardar pedidoProducto
             $pedidoProducto = new PedidoProducto();
@@ -190,6 +194,9 @@ class PedidoController extends Controller
             $pedidoProducto->costo = $valor;
             $pedidoProducto->save();
         }
+
+        Mail::to($usuario->email)->send(new PedidoUsuarioMail($usuario,$pedido));
+
         $carro= session()->get('carro');
         foreach(session('carro') as $id => $detalles){
             unset($carro[$id]);
