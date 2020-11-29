@@ -92,6 +92,11 @@ class UsuarioController extends Controller
         //
     }
 
+    public function seleccionarPerfil()
+    {
+        return view('home.seleccionarPerfil');
+    }
+
     public function login(Request $request){
         $credenciales = $request->only('email','password');
 

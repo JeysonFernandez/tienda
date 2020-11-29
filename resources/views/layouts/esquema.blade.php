@@ -87,11 +87,12 @@
                                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Cambiar contraseña
                                             </a>
                                             @if ( auth()->user()->tipo == 1 )
-                                            <a class="dropdown-item" href="{{route('admin.index')}}">
+                                            <a class="dropdown-item" href="{{route('seleccionarPerfil')}}">
+                                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Seleccionar Perfil
                                             @else
                                             <a class="dropdown-item" href="{{route('usuario.index',['id' => auth()->user()->id])}}">
-                                            @endif
                                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Mi Cuenta
+                                                @endif
                                             </a>
 
                                             <div class="dropdown-divider"></div>

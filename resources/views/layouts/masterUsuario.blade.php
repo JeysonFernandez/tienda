@@ -186,12 +186,12 @@
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Perfil
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{route('index')}}">
                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Volver a la Tienda
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="" >
+                            <a class="dropdown-item" href="{{route('publico.logout')}}" >
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Cerrar sesión
                             </a>

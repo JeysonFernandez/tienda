@@ -30,6 +30,8 @@ Route::view('/login', 'publico.auth.login')->name('publico.auth.login');
 Route::post('/usuarios/login', [UsuarioController::class,'login'])->name('usuarios.login');
 Route::get('/usuarios/logout', [UsuarioController::class,'logout'])->name('publico.logout');
 
+Route::get('/seleccionar-perfil',[UsuarioController::class,'seleccionarPerfil'])->name('seleccionarPerfil');
+
 
 
 
@@ -194,13 +196,13 @@ Route::post('/buscadors/barranavegacion', [BuscadorController::class,'filtroBarr
 
 Route::group(['as'=> 'usuario.'], function(){
     Route::get('/usuario/{id}',[DashboardUsuarioController::class,'getDashboard'])->name('index');
-    Route::get('/pedidos/{id}',[DashboardUsuarioController::class,'getPedidos'])->name('getPedidos');
-    Route::get('/pedidos/productos/{id}',[DashboardUsuarioController::class,'getPedidosProductos'])->name('getPedidoProductos');
+    Route::get('/usuario/pedidos/{id}',[DashboardUsuarioController::class,'getPedidos'])->name('getPedidos');
+    Route::get('/usuario/pedidos/productos/{id}',[DashboardUsuarioController::class,'getPedidosProductos'])->name('getPedidoProductos');
 
-    Route::get('/compras/{id}',[DashboardUsuarioController::class,'getCompras'])->name('getCompras');
-    Route::get('/compras/productos/{id}',[DashboardUsuarioController::class,'getComprasProductos'])->name('getCompraProductos');
+    Route::get('/usuario/compras/{id}',[DashboardUsuarioController::class,'getCompras'])->name('getCompras');
+    Route::get('/usuario/compras/productos/{id}',[DashboardUsuarioController::class,'getComprasProductos'])->name('getCompraProductos');
 
-    Route::get('/pagos/{id}',[DashboardUsuarioController::class,'getPagos'])->name('getPagos');
+    Route::get('/usuario/pagos/{id}',[DashboardUsuarioController::class,'getPagos'])->name('getPagos');
 
-    Route::get('/notificaciones/{id}', [DashboardUsuarioController::class,'getNotificaciones'])->name('getNotificaciones');
+    Route::get('/usuario/notificaciones/{id}', [DashboardUsuarioController::class,'getNotificaciones'])->name('getNotificaciones');
 });
