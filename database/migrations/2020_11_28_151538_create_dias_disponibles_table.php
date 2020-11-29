@@ -19,6 +19,7 @@ class CreateDiasDisponiblesTable extends Migration
             $table->time('hora_inicio');
             $table->time('hora_termino');
             $table->json('pausas')->nullable();
+            $table->tinyInteger('activo')->nullable();
         });
     }
 
