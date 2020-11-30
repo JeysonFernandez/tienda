@@ -36,14 +36,14 @@
                             @foreach ($productos as $producto)
                                 <div class="form-group col-md-12">
                                     <label for="producto{{$producto->id}}"> {{$producto->id}}</label>
-                                <input type="number" value="{{$producto->cantidad}}" id="producto{{$producto->id}}" name="producto{{$producto->id}}" class="form-control" value="{{$producto->cantidad}}"/>
+                                    <input type="number" value="{{$producto->cantidad}}" max="{{$producto->cantidad}}" id="producto{{$producto->id}}" name="producto{{$producto->id}}" class="form-control" value="{{$producto->cantidad}}"/>
                                     <?php $total+= $producto->costo?>
                                 </div>
                             @endforeach
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="abono"> Abono</label>
-                                    <input type="number" value="0" id="abono" name="abono" class="form-control @error('abono') is-invalid @enderror" value="{{old('abono')}}"/>
+                                    <input type="number" value="0" max="{{$total}}" id="abono" name="abono" class="form-control @error('abono') is-invalid @enderror" value="{{old('abono')}}"/>
 
                                 </div>
                                 <div class="form-group col-md-6">
