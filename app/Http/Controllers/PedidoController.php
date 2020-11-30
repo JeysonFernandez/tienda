@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 use App\Mail\PedidoUsuarioMail;
+use Exception;
 
 class PedidoController extends Controller
 {
@@ -194,8 +195,12 @@ class PedidoController extends Controller
             $pedidoProducto->costo = $valor;
             $pedidoProducto->save();
         }
+        try{
 
-        Mail::to($usuario->email)->send(new PedidoUsuarioMail($usuario,$pedido));
+            Mail::to($usuario->email)->send(new PedidoUsuarioMail($usuario,$pedido));
+        }catch(Exception $e){
+            return report($e);
+        }
 
         $carro= session()->get('carro');
         foreach(session('carro') as $id => $detalles){
