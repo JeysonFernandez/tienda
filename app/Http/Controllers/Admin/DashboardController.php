@@ -743,15 +743,71 @@ class DashboardController extends Controller
             'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
         ]);
     }
-    public function getFechas()
+    public function getFechas(Request $request)
     {
-        $fechas = Fecha::all();
+        if ($request->isMethod('POST')) {
 
-        return view('admin.fechas.fechas', [
-            'fechas' => $fechas,
-            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
-            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
-        ]);
+            try {
+                DiasDisponibles::truncate();
+                $dias = $request->dias;
+
+                /**
+                 * PAUSAS.
+                 */
+                $pausas = [];
+                if (!empty($request->pausas)) {
+                    foreach ($request->pausas as $p) {
+                        $pausas[$p['dia']][] = [
+                            'inicio' => $p['inicio']['h'].':'.$p['inicio']['m'].':00',
+                            'termino' => $p['fin']['h'].':'.$p['fin']['m'].':00',
+                        ];
+                    }
+                }
+
+                /**
+                ONLINE
+                 */
+                $hora_inicio = $request->hora_inicio[1];
+                $hora_fin = $request->hora_fin[1];
+                foreach ($hora_inicio as $dia => $hi) {
+                    $hf = $hora_fin[$dia];
+
+                    $disponible = new DiasDisponibles();
+                    $disponible->dia = $dia;
+                    $disponible->hora_inicio = implode(':', $hi);
+                    $disponible->hora_termino = implode(':', $hf);
+                    $disponible->pausas = (!empty($pausas[$dia])) ? json_encode($pausas[$dia]) : null;
+                    $disponible->activo = !empty($dias[1][$dia]) ? true : false;
+                    $disponible->save();
+                }
+
+
+
+                alert()->success('Datos actualizados', 'Se guardaron los datos de duración de sesiones para las especialidades.');
+
+                return redirect(route('profesional::servicios.disponibilidad'));
+                alert()->success('Datos actualizados', 'Se guardaron los datos de duración de sesiones para las especialidades.');
+
+                return redirect(route('profesional::servicios.disponibilidad'));
+            } catch (\Exception $e) {
+                report($e);
+                alert()->error('Error', 'No se pudo guardar los datos. Intenta otra vez.');
+
+                return back()->withInput();
+            }
+        }
+
+        $disponibilidades_actuales = [];
+        $pausas_actuales = [];
+
+        $disponibilidades = DiasDisponibles::all();
+        foreach ($disponibilidades as $dsp) {
+            $disponibilidades_actuales[1][$dsp->dia] = $dsp;
+            $pausas_actuales[$dsp->dia] = json_decode($dsp->pausas);
+        }
+        return view('admin.fechas.fechas', compact('disponibilidades', 'disponibilidades_actuales', 'pausas_actuales'));
+
+
     }
     public function getPagos()
     {
@@ -961,7 +1017,6 @@ class DashboardController extends Controller
     {
 
         if ($request->isMethod('post')) {
-            DB::beginTransaction();
 
             try {
                 DiasDisponibles::all()->delete();
@@ -998,12 +1053,12 @@ class DashboardController extends Controller
                     ]);
                 }
 
-                DB::commit();
-                alert()->success('Datos actualizados', 'Se guardaron los datos de duración de sesiones del Profesional para sus especialidades.');
 
-                return redirect(route('admin::profesionales.disponibilidad', ['profesional' => $profesional]));
+
+                alert()->success('Datos actualizados', 'Se guardaron los datos de duración de sesiones para las especialidades.');
+
+                return redirect(route('profesional::servicios.disponibilidad'));
             } catch (\Exception $e) {
-                DB::rollback();
                 report($e);
                 alert()->error('Error', 'No se pudo guardar los datos. Intenta otra vez.');
 
@@ -1011,14 +1066,16 @@ class DashboardController extends Controller
             }
         }
 
+
         $disponibilidades_actuales = [];
         $pausas_actuales = [];
-        $disponibles = DiasDisponibles::all();
-        foreach ($disponibles as $dsp) {
-            $disponibilidades_actuales[$dsp->modalidad_cita_id][$dsp->dia] = $dsp;
+
+        $disponibilidades = DiasDisponibles::all();
+        foreach ($disponibilidades as $dsp) {
+            $disponibilidades_actuales[$dsp->dia] = $dsp;
             $pausas_actuales[$dsp->dia] = json_decode($dsp->pausas);
         }
 
-        return view('admin.profesionales.disponibilidad', compact('profesional', 'disponibilidades_actuales', 'pausas_actuales', 'tipo_citas'));
+        return view('admin.fechas.fechas', compact('disponibilidades', 'disponibilidades_actuales', 'pausas_actuales'));
     }
 }

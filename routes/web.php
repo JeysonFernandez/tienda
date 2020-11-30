@@ -167,10 +167,7 @@ Route::group(['as'=> 'admin.'], function(){
     });
 
     Route::group(['as'=> 'fecha.'], function(){
-        Route::get('/fechas', [DashboardController::class,'getFechas'])->name('getFechas');
-        Route::get('/fechas/eliminar/{fecha}{hora}',[FechaController::class,'eliminar'])->name('eliminarFecha');
-        Route::get('/fechas/crear',[FechaController::class,'create'])->name('crearFecha');
-        Route::get('/fechas/agregar',[FechaController::class,'store'])->name('agregarFecha');
+        Route::any('/fechas', [DashboardController::class,'getFechas'])->name('getFechas');
     });
 
     Route::group(['as'=> 'pedido.'], function(){

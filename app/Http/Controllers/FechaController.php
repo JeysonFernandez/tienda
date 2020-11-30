@@ -9,6 +9,7 @@ use App\Models\NotificacionUsuario;
 use App\Models\Pedido;
 use Illuminate\Http\Request;
 
+
 class FechaController extends Controller
 {
     /**
@@ -16,11 +17,70 @@ class FechaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.fechas.fechas',[
-            'fechas' => Fecha::all(),
-        ]);
+
+        if ($request->isMethod('post')) {
+
+            try {
+                DiasDisponibles::all()->delete();
+
+                $dias = $request->dias;
+
+                /**
+                 * PAUSAS.
+                 */
+                $pausas = [];
+                if (!empty($request->pausas)) {
+                    foreach ($request->pausas as $p) {
+                        $pausas[$p['dia']][] = [
+                            'inicio' => $p['inicio']['h'].':'.$p['inicio']['m'].':00',
+                            'termino' => $p['fin']['h'].':'.$p['fin']['m'].':00',
+                        ];
+                    }
+                }
+
+                /**
+                ONLINE
+                 */
+                $hora_inicio = $request->hora_inicio;
+                $hora_fin = $request->hora_fin;
+
+                foreach ($hora_inicio as $dia => $hi) {
+                    $hf = $hora_fin[$dia];
+
+                    DiasDisponibles::create([
+                        'dia' => $dia,
+                        'hora_inicio' => implode(':', $hi),
+                        'hora_termino' => implode(':', $hf),
+                        'pausas' => (!empty($pausas[$dia])) ? json_encode($pausas[$dia]) : null,
+                    ]);
+                }
+
+
+
+                alert()->success('Datos actualizados', 'Se guardaron los datos de duración de sesiones para las especialidades.');
+
+                return redirect(route('profesional::servicios.disponibilidad'));
+            } catch (\Exception $e) {
+                report($e);
+                alert()->error('Error', 'No se pudo guardar los datos. Intenta otra vez.');
+
+                return back()->withInput();
+            }
+        }
+
+        dd('hola');
+        $disponibilidades_actuales = [];
+        $pausas_actuales = [];
+
+        $disponibilidades = DiasDisponibles::all();
+        foreach ($disponibilidades as $dsp) {
+            $disponibilidades_actuales[$dsp->dia] = $dsp;
+            $pausas_actuales[$dsp->dia] = json_decode($dsp->pausas);
+        }
+
+        return view('admin.fechas.fechas', compact('disponibilidades', 'disponibilidades_actuales', 'pausas_actuales'));
     }
 
     /**

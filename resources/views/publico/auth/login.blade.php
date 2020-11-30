@@ -36,7 +36,7 @@
                             </div> --}}
 
                             <input type="hidden" name="idConcesion" value="@isset($id) {{$id}} @else -1 @endisset">
-                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                            <button type="submit" class="btn btn-naranjo btn-user btn-block">
                                 Iniciar Sesión
                             </button>
                         </form>

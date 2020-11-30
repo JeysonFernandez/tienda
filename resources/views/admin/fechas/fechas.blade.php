@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 
-@section('content')
+@section('contenido')
 
 <section class="mi-agenda">
     <div class="card card-table shadow">
@@ -22,16 +22,11 @@
 
                         <h2 class="h6 font-weight-bold text-warning text-uppercase mb-2 border-bottom">Disponibilidad semanal</h2>
 
-                        <input type="hidden" name="profesional_id" value="{{$profesional->id}}">
 
-                        <ul class="nav nav-tabs -nav-justified">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#atencion-online"><i class="fas fa-video fa-fw"></i> Online</a>
-                            </li>
-                        </ul>
+
 
                         <div class="tab-content border px-3 py-4" style="margin-top:-1px">
-                            <div class="tab-pane fade show active" id="atencion-online">
+                            <div class="" id="atencion-online">
 
                                 <div class="row">
                                     <div class="col-4"><p class="border-bottom small text-muted">Día</p></div>
@@ -44,22 +39,22 @@
                                     <div class="col-4">
                                         <div class="form-group form-group-sm">
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" data-id="1" class="custom-control-input" id="dias" name="dias" value="1" >
-                                                <label class="custom-control-label" for="dias">{{nombre_dia($dia)}}</label>
+                                                <input type="checkbox" data-id="1" class="custom-control-input" id="dias_1_{{$dia}}" name="dias[1][{{$dia}}]" value="1" @if(!empty($disponibilidades_actuales[1][$dia])  && $disponibilidades_actuales[1][$dia]->activo) checked @endif>
+                                                <label class="custom-control-label" for="dias_1_{{$dia}}">{{nombre_dia($dia)}}</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
                                             <div class="input-group input-group-sm">
-                                                <select class="custom-select" id="hora_inicio" name="hora_inicio">
+                                                <select class="custom-select" id="hora_inicio_1_{{$dia}}_0" name="hora_inicio[1][{{$dia}}][0]">
                                                     @for($i=0;$i<=23;$i++)
-                                                    <option value="{{$i}}" >{{zerofill($i,2)}}</option>
+                                                    <option value="{{$i}}" @if(!empty($disponibilidades_actuales[1][$dia]) && $disponibilidades_actuales[1][$dia]->hora_inicio->hour == $i) selected @endif>{{zerofill($i,2)}}</option>
                                                     @endfor
                                                 </select>
-                                                <select class="custom-select" id="hora_inicio" name="hora_inicio">
+                                                <select class="custom-select" id="hora_inicio_{{1}}_{{$dia}}_1" name="hora_inicio[1][{{$dia}}][1]">
                                                     @for($i=0;$i<=59;$i++)
-                                                    <option value="{{$i}}" >{{zerofill($i,2)}}</option>
+                                                    <option value="{{$i}}" @if(!empty($disponibilidades_actuales[1][$dia]) && $disponibilidades_actuales[1][$dia]->hora_inicio->minute == $i) selected @endif>{{zerofill($i,2)}}</option>
                                                     @endfor
                                                 </select>
                                             </div>
@@ -68,14 +63,14 @@
                                     <div class="col-4">
                                         <div class="form-group">
                                             <div class="input-group input-group-sm">
-                                                <select class="custom-select" id="hora_fin_{{\App\ModalidadCita::ONLINE}}_{{$dia}}_0" name="hora_fin[{{\App\ModalidadCita::ONLINE}}][{{$dia}}][0]">
+                                                <select class="custom-select" id="hora_fin_{{1}}_{{$dia}}_0" name="hora_fin[{{1}}][{{$dia}}][0]">
                                                     @for($i=0;$i<=23;$i++)
-                                                    <option value="{{$i}}" @if(!empty($disponibilidades_actuales[\App\ModalidadCita::ONLINE][$dia]) && $disponibilidades_actuales[\App\ModalidadCita::ONLINE][$dia]->hora_termino->hour == $i) selected @endif>{{zerofill($i,2)}}</option>
+                                                    <option value="{{$i}}" @if(!empty($disponibilidades_actuales[1][$dia]) && $disponibilidades_actuales[1][$dia]->hora_termino->hour == $i) selected @endif>{{zerofill($i,2)}}</option>
                                                     @endfor
                                                 </select>
-                                                <select class="custom-select" id="hora_fin_{{\App\ModalidadCita::ONLINE}}_{{$dia}}_1" name="hora_fin[{{\App\ModalidadCita::ONLINE}}][{{$dia}}][1]">
+                                                <select class="custom-select" id="hora_fin_{{1}}_{{$dia}}_1" name="hora_fin[{{1}}][{{$dia}}][1]">
                                                     @for($i=0;$i<=59;$i++)
-                                                    <option value="{{$i}}" ></option>{{zerofill($i,2)}}</option>
+                                                    <option value="{{$i}}" @if(!empty($disponibilidades_actuales[1][$dia]) && $disponibilidades_actuales[1][$dia]->hora_termino->minute == $i) selected @endif>{{zerofill($i,2)}}</option>
                                                     @endfor
                                                 </select>
                                             </div>
@@ -86,11 +81,11 @@
                                 @endfor
 
                             </div>
+
                         </div>
                     </div>
                     <div class="col-md-6">
                         <h2 class="h6 font-weight-bold text-warning text-uppercase mb-2 border-bottom">Pausas diarias</h2>
-                        <input type="hidden" name="profesional_id" value="{{$profesional->id}}">
 
                         <div class="js-lista-pausas">
                         @foreach($pausas_actuales as $dia => $pausas)
@@ -224,7 +219,7 @@
 
 @endsection
 
-@section('javascript')
+@section('js')
 <script>
 
 
