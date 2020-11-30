@@ -19,7 +19,7 @@ class ProveedorController extends Controller
     public function index()
     {
 
-        return redirect()->route('admin.proveedor.getProveedor');
+        return redirect()->route('admin.proveedor.verProveedor');
     }
 
 /**
@@ -51,7 +51,7 @@ class ProveedorController extends Controller
         $proveedor->borrado = 1;
         $proveedor->save();
 
-        return redirect()->route('admin.proveedor.getProveedor');
+        return redirect()->route('admin.proveedor.verProveedor');
     }
 
 /**
@@ -74,7 +74,7 @@ class ProveedorController extends Controller
 * @param \App\proveedor $proveedor
 * @return \Illuminate\Http\Response
 */
-    public function edit($id)
+    public function editarProveedor($id)
     {
         $proveedor = Proveedor::find($id);
 
@@ -92,24 +92,24 @@ class ProveedorController extends Controller
 * @param \App\proveedor $proveedor
 * @return \Illuminate\Http\Response
 */
-    public function update(StoreProveedores $request, $id)
+    public function updateProveedor(Request $request, $id)
     {
 
         $proveedor = Proveedor::find($id);
         $proveedor->id = $id;
         $proveedor->nombre = $request->nombre;
         $proveedor->save();
-        
-        return redirect()->route('admin.proveedor.getProveedor');
+
+        return redirect()->route('admin.proveedor.verProveedor');
     }
 
-    public function confirmarUpdate(StoreProveedores $request)
+    public function confirmarUpdate(Request $request)
     {
         $proveedor = proveedor::find($request->get('id'));
         $proveedor->nombre = $request->get('nombre');
         $proveedor->save();
 
-        return redirect()->route('admin.proveedor.getProveedor');
+        return redirect()->route('admin.proveedor.verProveedor');
     }
 
 /**
@@ -122,7 +122,7 @@ class ProveedorController extends Controller
     {
         $proveedor = Proveedor::findOrFail($id);
         $proveedor->borrado = 2;
-        return redirect()->route('admin.proveedor.getProveedor');
+        return redirect()->route('admin.proveedor.verProveedor');
     }
 
     public function confirmDelete(Request $request)
@@ -130,6 +130,6 @@ class ProveedorController extends Controller
         $proveedor = Proveedor::findOrFail($request->idfinal);
         $proveedor->borrado = 2;
 
-        return redirect()->route('admin.proveedor.getProveedor');
+        return redirect()->route('admin.proveedor.verProveedor');
     }
 }

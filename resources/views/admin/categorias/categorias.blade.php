@@ -36,8 +36,12 @@
                             <tr>
                                 <td>{{$i + 1}}</td>
                                 <td>{{$categoria->nombre}}</td>
-                                <td> <a href="{{route('admin.categoria.editarCategoria',['id' => $categoria->id])}}" onclick="nombre(this)"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
-                                <a data-toggle="modal" data-target="#deleteModal" href="#" onclick="nombre(this)" id="{{$categoria->nombre}}-{{$categoria->id}}"><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a></td>
+                                <td><a type="submit" class="btn btn-xs btn-success" data-toggle="tooltip" href="{{route('admin.categoria.editarCategoria',['id' => $categoria->id])}}" title="Editar">
+                                         <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a type="submit" class="btn btn-xs btn-danger"data-toggle="modal" data-target="#deleteModal" href="#" onclick="nombre(this)" id="{{$categoria->nombre}}-{{$categoria->id}}"> <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
                         </tr>
 
                         @endforeach
@@ -74,10 +78,7 @@
                         <button type="submit" class="btn btn-primary .align-items-end">eliminar</button>
                     </form>
                     </div>
-                    <div class="form-group">
-                        <label>Bootstrap DateTimePicker</label>
-                        <input type="text" class="form-control datetimepicker" name="Appointment_time">
-                    </div>
+
 
                 </div>
             </div>

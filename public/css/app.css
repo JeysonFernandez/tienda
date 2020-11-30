@@ -11381,7 +11381,8 @@ a.text-dark:focus {
 }
 
 .card-table {
-  width: 100%;
+  width: 80%;
+  margin: auto;
 }
 
 .favorite {

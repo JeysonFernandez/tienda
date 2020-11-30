@@ -19,7 +19,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{route('admin.categoria.guardarCategoria')}}" method="POST">
+            <form action="{{route('admin.categoria.updateCategoria',['id' => $categoria->id])}}" method="POST">
                 @csrf
                 <div class="row row-space">
                     <div class="col-12">

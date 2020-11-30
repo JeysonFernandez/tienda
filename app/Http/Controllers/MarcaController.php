@@ -19,7 +19,7 @@ class MarcaController extends Controller
     public function index()
     {
 
-    return redirect()->route('admin.marca.getMarca');
+    return redirect()->route('admin.marca.verMarca');
     }
 
     /**
@@ -49,7 +49,7 @@ class MarcaController extends Controller
         $marca->borrado = 1;
         $marca->save();
 
-        return redirect()->route('admin.marca.getMarca');
+        return redirect()->route('admin.marca.verMarca');
     }
 
     /**
@@ -73,7 +73,7 @@ class MarcaController extends Controller
     * @param \App\marca $marca
     * @return \Illuminate\Http\Response
     */
-    public function edit($id)
+    public function editarMarca($id)
     {
         $marca = Marca::find($id);
 
@@ -91,7 +91,7 @@ class MarcaController extends Controller
 * @param \App\marca $marca
 * @return \Illuminate\Http\Response
 */
-    public function update(StoreMarca $request, $id)
+    public function updateMarca(Request $request, $id)
     {
 
         $marca = Marca::find($id);
@@ -99,17 +99,17 @@ class MarcaController extends Controller
         $marca->nombre = $request->nombre;
         $marca->save();
 
-        return redirect()->route('admin.marca.getMarca');
+        return redirect()->route('admin.marca.verMarca');
     }
 
-    public function confirmarUpdate(StoreMarca $request)
+    public function confirmarUpdate(Request $request)
     {
 
         $marca = Marca::find($request->get('id'));
         $marca->nombre = $request->get('nombre');
         $marca->save();
 
-        return redirect()->route('admin.marca.getMarca');
+        return redirect()->route('admin.marca.verMarca');
     }
 
 /**
@@ -123,8 +123,8 @@ class MarcaController extends Controller
         $marca = Marca::findOrFail($id);
         $marca->borrado = 2;
         $marca->save();
-        
-        return redirect()->route('admin.marca.getMarca');
+
+        return redirect()->route('admin.marca.verMarca');
     }
 
     public function confirmDelete(Request $request){
@@ -132,7 +132,7 @@ class MarcaController extends Controller
         $marca->borrado = 2;
         $marca->save();
 
-        return redirect()->route('admin.marca.getMarca');
+        return redirect()->route('admin.marca.verMarca');
     }
 
 }

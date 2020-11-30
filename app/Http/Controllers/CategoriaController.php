@@ -90,7 +90,7 @@ class CategoriaController extends Controller
 * @param \App\categoria $categoria
 * @return \Illuminate\Http\Response
 */
-    public function update(Request $request, $id)
+    public function updateCategoria(Request $request, $id)
     {
 
         $categoria = Categoria::find($id);
@@ -98,7 +98,7 @@ class CategoriaController extends Controller
         $categoria->nombre = $request->nombre;
         $categoria->save();
 
-        return redirect()->route('admin.getcategoria');
+        return redirect()->route('admin.categoria.verCategorias');
     }
 
     public function confirmarUpdate(Request $request)

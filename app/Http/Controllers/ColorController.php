@@ -19,7 +19,7 @@ class ColorController extends Controller
 public function index()
 {
 
-return redirect()->route('admin.getcolor');
+return redirect()->route('admin.verColor');
 }
 
 /**
@@ -49,7 +49,7 @@ public function store(Request $request)
     $color->borrado = 1;
     $color->save();
 
-    return redirect()->route('admin.color.getColor');
+    return redirect()->route('admin.color.verColor');
 }
 
 /**
@@ -72,7 +72,7 @@ public function show(Color $color)
 * @param \App\color $color
 * @return \Illuminate\Http\Response
 */
-public function edit($id)
+public function editarColor($id)
 {
     $color = Color::find($id);
 
@@ -90,16 +90,15 @@ public function edit($id)
 * @param \App\color $color
 * @return \Illuminate\Http\Response
 */
-public function update(Request $request, $id)
+public function updateColor(Request $request, $id)
 {
 
     $color = Color::find($id);
-    dd($request->get('nombre'));
     $color->id = $id;
     $color->nombre = $request->nombre;
 
     $color->save();
-    return redirect()->route('admin.color.getColor');
+    return redirect()->route('admin.color.verColor');
 }
 public function confirmarUpdate(Request $request)
 {
@@ -109,7 +108,7 @@ $color = Color::find($request->get('id'));
 $color->nombre = $request->get('nombre');
 
 $color->save();
-return redirect()->route('admin.color.getColor');
+return redirect()->route('admin.color.verColor');
 }
 
 /**
@@ -122,7 +121,7 @@ public function destroy($id)
 {
     $color = Color::findOrFail($id);
     $color->borrado = 2;
-    return redirect()->route('admin.color.getColor');
+    return redirect()->route('admin.color.verColor');
 }
 
 public function confirmDelete(Request $request)
@@ -130,7 +129,7 @@ public function confirmDelete(Request $request)
     $color = Color::findOrFail($request->idfinal);
     $color->borrado = 2;
     $color->save();
-    return redirect()->route('admin.color.getColor');
+    return redirect()->route('admin.color.verColor');
 }
 
 }
