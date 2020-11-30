@@ -5,7 +5,7 @@
 <div class="container-fluid">
 
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
+    <div class="card card-table shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Tabla de Proveedores</h3></div>
@@ -13,7 +13,7 @@
 
             </div>
         </div>
-        
+
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered text-center aling-center table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -42,19 +42,22 @@
                             <td>{{$proveedor->nombre}}</td>
                             <td>{{$proveedor->direccion}}</td>
                             <td>{{$proveedor->descripcion}}</td>
-                            <td> <a href="/proveedors/{{ $proveedor->id }}/edit" onclick="nombre(this)"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
-                                <a data-toggle="modal" data-target="#deleteModal" href="#" onclick="nombre(this)" id="{{$proveedor->nombre}}-{{$proveedor->id}}"><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a></td> 
-                        </tr>
-                        
+                            <td><a type="submit" class="btn btn-xs btn-success" data-toggle="tooltip" href="{{route('admin.proveedor.editarProveedor',['id' => $proveedor->id])}}" title="Editar">
+                                <i class="fas fa-edit"></i>
+                           </a>
+                           <a type="submit" class="btn btn-xs btn-danger"data-toggle="modal" data-target="#deleteModal" href="#" onclick="nombre(this)" id="{{$proveedor->nombre}}-{{$proveedor->id}}"> <i class="fas fa-trash-alt"></i>
+                           </a>
+                       </td> </tr>
+
                         @endforeach
-                        
-                        
+
+
                     </tbody>
                 </table>
             </div>
         </div>
 
-        
+
     </div>
 
 </div>
@@ -80,8 +83,8 @@
                         <button type="submit" class="btn btn-primary .align-items-end">eliminar</button>
                     </form>
                     </div>
-                    
-                    
+
+
                 </div>
             </div>
         </div>

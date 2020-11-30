@@ -2,55 +2,42 @@
 
 @section('contenido')
 <div class="container-fluid">
-
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
+    <div class="card card-table shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
-                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Editar Marca</h3></div>
-                <div class="p-2 bd-highlight"><a href="{{route('admin.marca.getMarca')}}" class="btn btn-primary btn-lg text-right">Volver</a></div>
+                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Editar marca</h3></div>
+                <div class="p-2 bd-highlight"><a href="{{route('admin.marca.verMarca')}}" class="btn btn-primary btn-lg text-right">Volver</a></div>
             </div>
         </div>
-        
         <div class="card-body">
-
-           <!-- @if ($errors->any())
-                <div class="aler alert-danger">
+            @if ($errors->any())
+                <div class="alert alert-danger mt-3">
                     <ul>
-                        @foreach ( $errors->all() as $error )
-                            <li>{{$error}}</li>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
                         @endforeach
                     </ul>
                 </div>
-            @endif-->
-            
-            <form action="{{route('admin.marca.confirmarUpdate')}}" method="POST">
+            @endif
+            <form action="{{route('admin.marca.updateMarca',['id' => $marca->id])}}" method="POST">
                 @csrf
-                
                 <div class="row row-space">
                     <div class="col-12">
-                        <div class="input-group">
+                        <div class="form-group">
                             <label class="label">Nombre</label>
-                            <input class="input--style-4" type="text" id="nombre" name="nombre" value="{{old('nombre')}}" placeholder="{{$marca->nombre}}">
+                            <input class="form-control @error('nombre') is-invalid @enderror" type="text" id="nombre" name="nombre"   value="{{old('nombre') ?? $marca->nombre ?? '' }}">
                         </div>
                     </div>
-                   
-                </div>
 
-                <div class="p-t-15">
-                    <button class="btn btn--radius-2 btn--blue" type="submit">Actualizar</button>
                 </div>
-                <input class="input--style-4" style="visibility: hidden" type="text" id="id" name="id" value="{{$marca->id}}" placeholder="{{$marca->id}}">
+                <input type="hidden" name="id" value="{{$marca->id}}">
+                <div class="p-t-15">
+                    <button class="btn btn-primary" type="submit">Actualizar</button>
+                </div>
             </form>
         </div>
-        
-        
     </div>
-    
-    
-
 </div>
-    
-    
-            
+
+
 @endsection

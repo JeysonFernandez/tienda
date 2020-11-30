@@ -18,7 +18,7 @@ class TipoController extends Controller
 */
     public function index()
     {
-        return redirect()->route('admin.tipo.getTipo');
+        return redirect()->route('admin.tipo.verTipo');
     }
 
 /**
@@ -48,7 +48,7 @@ class TipoController extends Controller
         $tipo->borrado = 1;
         $tipo->save();
 
-        return redirect()->route('admin.tipo.getTipo');
+        return redirect()->route('admin.tipo.verTipo');
     }
 
 /**
@@ -72,7 +72,7 @@ class TipoController extends Controller
 * @param \App\tipo $tipo
 * @return \Illuminate\Http\Response
 */
-    public function edit($id)
+    public function editarTipo($id)
     {
         $tipo = Tipo::find($id);
 
@@ -90,7 +90,7 @@ class TipoController extends Controller
 * @param \App\tipo $tipo
 * @return \Illuminate\Http\Response
 */
-    public function update(StoreTipo $request, $id)
+    public function updateTipo(Request $request, $id)
     {
 
         $tipo = Tipo::find($id);
@@ -98,16 +98,16 @@ class TipoController extends Controller
         $tipo->nombre = $request->nombre;
         $tipo->save();
 
-        return redirect()->route('admin.tipo.getTipo');
+        return redirect()->route('admin.tipo.verTipo');
     }
 
-    public function confirmarUpdate(StoreTipo $request)
+    public function confirmarUpdate(Request $request)
     {
         $tipo = Tipo::find($request->get('id'));
         $tipo->nombre = $request->get('nombre');
         $tipo->save();
-        
-        return redirect()->route('admin.tipo.getTipo');
+
+        return redirect()->route('admin.tipo.verTipo');
     }
 
 /**
@@ -121,8 +121,8 @@ class TipoController extends Controller
         $tipo = Tipo::findOrFail($id);
         $tipo->borrado = 2;
         $tipo->save();
-        
-        return redirect()->route('admin.tipo.getTipo');
+
+        return redirect()->route('admin.tipo.verTipo');
     }
 
     public function confirmDelete(Request $request){
@@ -130,7 +130,7 @@ class TipoController extends Controller
         $tipo->borrado = 2;
         $tipo->save();
 
-        return redirect()->route('admin.tipo.getTipo');
+        return redirect()->route('admin.tipo.verTipo');
     }
 
 }

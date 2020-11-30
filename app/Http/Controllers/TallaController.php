@@ -19,7 +19,7 @@ class TallaController extends Controller
     public function index()
     {
 
-        return redirect()->route('admin.talla.getTalla');
+        return redirect()->route('admin.talla.verTalla');
     }
 
 /**
@@ -49,7 +49,7 @@ class TallaController extends Controller
         $talla->borrado = 1;
         $talla->save();
 
-        return redirect()->route('admin.talla.getTalla');
+        return redirect()->route('admin.talla.verTalla');
     }
 
 /**
@@ -72,7 +72,7 @@ class TallaController extends Controller
 * @param \App\talla $talla
 * @return \Illuminate\Http\Response
 */
-    public function edit($id)
+    public function editarTalla($id)
     {
         $talla = Talla::find($id);
 
@@ -90,7 +90,7 @@ class TallaController extends Controller
 * @param \App\talla $talla
 * @return \Illuminate\Http\Response
 */
-    public function update(StoreTalla $request, $id)
+    public function updateTalla(Request $request, $id)
     {
         $talla = Talla::find($id);
         $talla->id = $id;
@@ -100,14 +100,14 @@ class TallaController extends Controller
         return redirect()->route('admin.talla.geTalla');
     }
 
-    public function confirmarUpdate(StoreTalla $request)
+    public function confirmarUpdate(Request $request)
     {
 
         $talla = Talla::find($request->get('id'));
         $talla->nombre = $request->get('nombre');
         $talla->save();
 
-        return redirect()->route('admin.talla.getTalla');
+        return redirect()->route('admin.talla.verTalla');
     }
 
 /**
@@ -121,16 +121,16 @@ class TallaController extends Controller
         $talla = Talla::findOrFail($id);
         $talla->borrado = 2;
         $talla->save();
-        
-        return redirect()->route('admin.talla.getTalla');
+
+        return redirect()->route('admin.talla.verTalla');
     }
 
     public function confirmDelete(Request $request){
         $talla = Talla::findOrFail($request->idfinal);
         $talla->borrado = 2;
         $talla->save();
-        
-        return redirect()->route('admin.talla.getTalla');
+
+        return redirect()->route('admin.talla.verTalla');
     }
 
 }

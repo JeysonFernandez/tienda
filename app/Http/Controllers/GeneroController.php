@@ -19,7 +19,7 @@ class GeneroController extends Controller
     public function index()
     {
 
-    return redirect()->route('admin.genero.getGenero');
+    return redirect()->route('admin.genero.verGenero');
     }
 
 /**
@@ -49,7 +49,7 @@ class GeneroController extends Controller
         $genero->borrado = 1;
         $genero->save();
 
-        return redirect()->route('admin.genero.getGenero');
+        return redirect()->route('admin.genero.verGenero');
     }
 
 /**
@@ -73,7 +73,7 @@ public function show(Genero $genero)
 * @param \App\genero $genero
 * @return \Illuminate\Http\Response
 */
-    public function edit($id)
+    public function editarGenero($id)
     {
         $genero = Genero::find($id);
 
@@ -91,7 +91,7 @@ public function show(Genero $genero)
 * @param \App\genero $genero
 * @return \Illuminate\Http\Response
 */
-    public function update(Request $request, $id)
+    public function updateGenero(Request $request, $id)
     {
 
         $genero = Genero::find($id);
@@ -99,7 +99,7 @@ public function show(Genero $genero)
         $genero->nombre = $request->nombre;
         $genero->save();
 
-        return redirect()->route('admin.genero.getGenero');
+        return redirect()->route('admin.genero.verGenero');
     }
 
     public function confirmarUpdate(Request $request)
@@ -108,7 +108,7 @@ public function show(Genero $genero)
         $genero->nombre = $request->get('nombre');
         $genero->save();
 
-        return redirect()->route('admin.genero.getGenero');
+        return redirect()->route('admin.genero.verGenero');
     }
 
 /**
@@ -123,7 +123,7 @@ public function show(Genero $genero)
         $genero->borrado = 2;
         $genero->save();
 
-        return redirect()->route('admin.genero.getGenero');
+        return redirect()->route('admin.genero.verGenero');
     }
 
     public function confirmDelete(Request $request)
@@ -132,7 +132,7 @@ public function show(Genero $genero)
         $genero->borrado = 2;
         $genero->save();
 
-        return redirect()->route('admin.genero.getGenero');
+        return redirect()->route('admin.genero.verGenero');
     }
 
 }

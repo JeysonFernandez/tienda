@@ -67,12 +67,12 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Caracteristicas</h6>
                         <a class="collapse-item" href="{{route('admin.categoria.verCategorias')}}">Categorias</a>
-                        <a class="collapse-item" href="{{route('admin.color.getColor')}}">Color</a>
-                        <a class="collapse-item" href="{{route('admin.genero.getGenero')}}">Generos</a>
-                        <a class="collapse-item" href="{{route('admin.marca.getMarca')}}">Marcas</a>
-                        <a class="collapse-item" href="{{route('admin.tipo.getTipo')}}">Tipos</a>
-                        <a class="collapse-item" href="{{route('admin.talla.getTalla')}}">Tallas</a>
-                        <a class="collapse-item" href="{{route('admin.proveedor.getProveedor')}}">Proveedores</a>
+                        <a class="collapse-item" href="{{route('admin.color.verColor')}}">Color</a>
+                        <a class="collapse-item" href="{{route('admin.genero.verGenero')}}">Generos</a>
+                        <a class="collapse-item" href="{{route('admin.marca.verMarca')}}">Marcas</a>
+                        <a class="collapse-item" href="{{route('admin.tipo.verTipo')}}">Tipos</a>
+                        <a class="collapse-item" href="{{route('admin.talla.verTalla')}}">Tallas</a>
+                        <a class="collapse-item" href="{{route('admin.proveedor.verProveedor')}}">Proveedores</a>
                     </div>
                 </div>
             </li>
