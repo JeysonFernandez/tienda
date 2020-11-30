@@ -826,7 +826,7 @@ class DashboardController extends Controller
         $pedidos = DB::table('pedidos')
             ->select('pedidos.id', 'pedidos.fecha', 'pedidos.fecha_hora_inicio', 'pedidos.lugar_visita', 'pedidos.tipo','pedidos.estado')
             ->leftJoin('usuarios', 'usuarios.id', '=', 'pedidos.usuario_id')
-            ->AddSelect(DB::raw('usuarios.correo as usuario'))
+            ->AddSelect(DB::raw('usuarios.email as usuario'))
             ->groupBy(
                 'pedidos.id',
                 'pedidos.fecha',
@@ -834,7 +834,7 @@ class DashboardController extends Controller
                 'pedidos.lugar_visita',
                 'pedidos.tipo',
                 'pedidos.estado',
-                'usuarios.correo'
+                'usuarios.email'
             )
             ->get();
 
@@ -852,7 +852,7 @@ class DashboardController extends Controller
                     'pedidos.tipo','pedidos.estado')
                     ->where('pedidos.fecha', '>=', "$fechaInicial")
                     ->where('pedidos.fecha', '<=', "$fechaFinal")->leftJoin('usuarios', 'usuarios.id', '=', 'pedidos.usuario_id')
-                    ->AddSelect(DB::raw('usuarios.correo as usuario'))
+                    ->AddSelect(DB::raw('usuarios.email as usuario'))
                     ->groupBy(
                         'pedidos.id',
                         'pedidos.fecha',
@@ -860,7 +860,7 @@ class DashboardController extends Controller
                         'pedidos.lugar_visita',
                         'pedidos.tipo',
                         'pedidos.estado',
-                        'usuarios.correo'
+                        'usuarios.email'
                     )
                     ->get();
             } else {
