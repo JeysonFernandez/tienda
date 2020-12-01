@@ -10,23 +10,24 @@
                         <hr>
                         <form class="user" method="POST" action="{{route('usuarios.login')}}">
                             @csrf
-                            @if($errors->any())
-                            <div class="alert alert-danger">
-                                Correo Electrónico o Contraseña incorrectos.
-                            </div>
-                            @endif
                             @if(session('success'))
                             <div class="alert alert-success">
                                 {{session('success')}}
                             </div>
                             @endif
                             <div class="form-group">
-                                <input type="email" class="form-control form-control-user" id="email" name="email"
+                                <input type="email" class="form-control form-control-user {{ $errors->has('email') ? ' is-invalid' : '' }}" id="email" name="email"
                                     placeholder="Correo Electrónico" value="{{old('email')}}">
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control form-control-user" id="password"
+                                <input type="password" class="form-control form-control-user {{ $errors->has('password') ? ' is-invalid' : '' }}" id="password"
                                     name="password" placeholder="Contraseña">
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
                             </div>
                             {{-- <div class="form-group">
                                 <div class="custom-control custom-checkbox small">
