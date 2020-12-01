@@ -227,8 +227,15 @@ class ProductoController extends Controller
     public function carrito()
     {
         if(Auth::check()){
-            return view('publico.confirmarPedido.carrito');
+            $carro = session()->get('carro');
+            if(!$carro){
+                alert()->info('No hay productos en el carrito','Antes de ver tu carrito, primero debes añadir productos');
+                return redirect()->route('index');
+            }else{
+                return view('publico.confirmarPedido.carrito');
+            }
         }else{
+            alert()->info('Debes iniciar sesión','Antes de ver tu carrito, primero debes iniciar sesión');
             return redirect()->route('index');
         }
     }

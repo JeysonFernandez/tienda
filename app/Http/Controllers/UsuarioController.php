@@ -102,6 +102,16 @@ class UsuarioController extends Controller
     }
 
     public function login(Request $request){
+        $validacion = $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+            ],
+
+            [
+                'email.required' => 'Requerido',
+                'password.required' => 'Requerido',
+            ]
+        );
         $credenciales = $request->only('email','password');
 
          if(!Auth::attempt($credenciales)){
@@ -148,6 +158,26 @@ class UsuarioController extends Controller
 
     public function registrar(Request $request)
     {
+        $validacion = $request->validate([
+            'nombre' => 'required|min:3',
+            'primer_apellido' => 'required',
+            'email' => 'required',
+            'password' => 'required|min:6',
+            'email_confirmation' => 'required',
+            'password_confirmation' => 'required'
+            ],
+
+            [   'nombre.required' => 'Requerido',
+                'nombre.min' => 'El largo del nombre debe ser mayor a 3',
+                'primer_apellido.required'=>'Requerido',
+                'email.required' => 'Requerido',
+                'password.required' => 'Requerido',
+                'password.min' => 'Largo de contraseña menor al esperado',
+                'email_confirmation.required' => 'Requerido',
+                'password_confirmation.required' => 'Requerido'
+            ]
+        );
+
         $usuario = Usuario::create($request->all());
         $usuario->estado_calidad = 1;
         $usuario->tipo = 2;
