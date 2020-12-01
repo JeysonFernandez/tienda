@@ -64,7 +64,7 @@
                                 <td>${{$compra->deuda_pendiente}}</td>
                                 <td>{{$compra->fecha_siguiente_pago}}</td>
                                 <td><a href="{{route('admin.pago.getPagoCompra',$compra->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
-                                    <a href="{{route('admin.compra.getCompraProductos',$compra->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
+                                    <a href="{{route('admin.compra.getComprasProductos',$compra->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
                                 <a href="/compras/{{$compra->id}}" ><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a></td>
                         </tr>
 

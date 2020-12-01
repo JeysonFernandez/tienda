@@ -37,10 +37,10 @@
                             @foreach ($productos as $producto)
                             <div class="form-row mt-2">
                                 <div class="form-group col-md-6">
-                                    <label for="producto{{$producto->producto_id}}"> {{$producto->productos->tipo->nombre}} {{$producto->productos->categoria->nombre}} {{$producto->productos->color->nombre}} {{$producto->productos->talla->nombre}}</label>
+                                    <label for="producto{{$producto->productos->producto_id}}"> {{$producto->productos->tipo->nombre}} {{$producto->productos->categoria->nombre}} {{$producto->productos->color->nombre}} {{$producto->productos->talla->nombre}}</label>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <input type="number" value="{{$producto->cantidad}}" max="{{$producto->cantidad}}" id="producto{{$producto->id}}" name="producto{{$producto->id}}" class="form-control"/>
+                                    <input type="number" value="{{$producto->cantidad}}" max="{{$producto->cantidad}}" id="producto{{$producto->producto_id}}" name="producto{{$producto->producto_id}}" class="form-control"/>
                                     <input type="hidden" value="{{$producto->productos->precio_unidad}}" id="auxiliar-{{$producto->id}}"  class="form-control"/>
                                 </div>
                                 <?php $total+= $producto->costo?>

@@ -88,7 +88,7 @@ class DashboardController extends Controller
     }
 
     public function getComprasProductos($id){
-        $produc = Compra::find($id);
+        $produc = CompraProducto::where('compra_id',$id)->get();
         return view('admin.compras.productos_compra', [
         'produc' => $produc,
         'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),

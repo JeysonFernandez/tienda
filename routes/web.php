@@ -151,7 +151,7 @@ Route::group(['as'=> 'admin.'], function(){
 
     Route::group(['as'=> 'compra.'], function(){
         Route::get('/compras/{id}', [DashboardController::class,'getComprasUsuario'])->name('getCompraUsuario');
-        Route::get('/compras/productos/{id}', [DashboardController::class,'getComprasProductos'])->name('getCompraProductos');
+        Route::get('/compras/productos/{id}', [DashboardController::class,'getComprasProductos'])->name('getComprasProductos');
         Route::post('/compras/fecha/{id}', [DashboardController::class,'getComprasUsuario'])->name('getCompraUsuarioPost');
         Route::get('/compras', [DashboardController::class,'getCompras'])->name('getCompras');
         Route::post('/compras/fecha', [DashboardController::class,'getCompras'])->name('getCompraPost');

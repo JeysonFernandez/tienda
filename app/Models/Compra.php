@@ -10,17 +10,17 @@ class Compra extends Model
     protected $table = "compras";
 
     public function usuario(){
-        return $this->belongsTo('App\Usuario');
+        return $this->belongsTo('App\Models\Usuario');
     }
     public function compraproducto(){
-        return $this->hasMany('App\CompraProducto');
+        return $this->hasMany('App\Models\CompraProducto');
     }
     public function pagos(){
-        return $this->hasMany('App\Pago');
+        return $this->hasMany('App\Models\Pago');
     }
     public function productos(){
-        return $this->belongsToMany('App\Producto')
-        ->withPivot('cantidad_producto','costo_total');
+        return $this->belongsToMany('App\Models\Producto')
+        ->withPivot('cantidad','costo');
     }
 
 

@@ -16,6 +16,8 @@ use App\Mail\ReporteUsuario;
 use App\Mail\ReporteAdmin;
 use App\Models\Rey;
 
+use RealRashid\SweetAlert\Facades\Alert;
+
 class CompraController extends Controller
 {
     /**
@@ -298,14 +300,14 @@ class CompraController extends Controller
         //guardar compra_producto
         $compras = Compra::all();
         $ultimaCompra = $compras->last();
-        $productosPedido = PedidoProducto::where('pedido_id',$request->pedidoId);
+        $productosPedido = PedidoProducto::where('pedido_id',$compra->pedido_id)->get();
         foreach ($productosPedido as $producto){
-            $idProducto = $producto->producto_id; 
-            if( $request->get('producto'.$idProducto) != 0){
+            $idProducto = $producto->producto_id;     
+            if( $request->get('producto'.( (string)$idProducto ) ) != 0){
                 $compraProducto = new CompraProducto();
                 $compraProducto->producto_id = $idProducto;
                 $compraProducto->compra_id = $compra->id;
-                $compraProducto->cantidad_producto = $request->get('producto'.$idProducto);
+                $compraProducto->cantidad = $request->get('producto'.$idProducto);
 
                 //Descontar cantidad de producto
                 $producto = Producto::findOrFail($compraProducto->producto_id);
@@ -313,20 +315,22 @@ class CompraController extends Controller
                 $producto->stock_actual = $nuevoStock;
 
                 $producto->cant_vendida += $compraProducto->cantidad_producto;
-                $max_venta = Rey::find(1);
-                if($max_venta->cantidad_vendida < $producto->cant_vendida){
-                    $max_venta->producto_id = $producto->id;
-                    $max_venta->cantidad_vendida = $producto->cant_vendida;
-                    $notificacionProducto = new NotificacionProducto();
-                    $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
-                    $notificacionProducto->tipo = 'r';
-                    $notificacionProducto->mensaje=$producto->id.'es el nuevo rey del lugar $$$.';
-                    $notificacionProducto->productos_id= $producto->id;
-                    $notificacionProducto->click = 1;
 
-                    $notificacionProducto->save();
-                    $correo=['nombreProducto'=>$producto->id,'tipo'=>'reyVentas'];
-                    Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
+                if(Rey::all()->count() > 0){
+                    $max_venta = Rey::find(1);
+                    if($max_venta->cantidad_vendida < $producto->cant_vendida){
+                        $max_venta->producto_id = $producto->id;
+                        $max_venta->cantidad_vendida = $producto->cant_vendida;
+                        $notificacionProducto = new NotificacionProducto();
+                        $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
+                        $notificacionProducto->tipo = 'r';
+                        $notificacionProducto->mensaje=$producto->id.'es el nuevo rey del lugar $$$.';
+                        $notificacionProducto->productos_id= $producto->id;
+                        $notificacionProducto->click = 1;
+
+                        $notificacionProducto->save();
+                        $correo=['nombreProducto'=>$producto->id,'tipo'=>'reyVentas'];
+                    }
                 }
 
 
@@ -337,13 +341,12 @@ class CompraController extends Controller
                     $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
                     $notificacionProducto->tipo = 'c';
                     $notificacionProducto->mensaje='El producto '.$producto->id.'ahora está en estado critico';
-                    $notificacionProducto->productos_id= $producto->id;
+                    $notificacionProducto->producto_id= $producto->id;
                     $notificacionProducto->click = 1;
 
                     $notificacionProducto->save();
 
                     $correo=['nombreProducto'=>$producto->id,'cantidad'=>$producto->stock_actual,'tipo'=>'producto_critico'];
-                    Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
                 }
                 if($producto->stock_Actual== 0){
                     //insertar nueva notificacion
@@ -351,24 +354,21 @@ class CompraController extends Controller
                     $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
                     $notificacionProducto->tipo = 'n';
                     $notificacionProducto->mensaje='Ya no queda stock de '.$producto->id;
-                    $notificacionProducto->productos_id = $producto->id;
+                    $notificacionProducto->producto_id = $producto->id;
                     $notificacionProducto->click = 1;
                     $notificacionProducto->save();
 
                     $correo=['nombreProducto'=>$producto->id,'tipo'=>'sinStock'];
-                    Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
                 }
 
                 $producto->save();
-
-                $valor= $producto->precio*$$compraProducto->cantidad_producto;
-                $compraProducto->costo_total = $valor;
+                $valor= $producto->precio*$compraProducto->cantidad;
+                $compraProducto->costo = $valor;
                 $compraProducto->save();
             }
-            
         }
 
         alert()->success('Perfecto!','La compra ha sido registrada exitosamente.');
-        return redirect(route('admin.compra.getCompras'));
+        return redirect()->route('admin.compra.getCompras');
     }
 }
