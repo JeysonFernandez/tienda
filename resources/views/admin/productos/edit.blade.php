@@ -8,7 +8,7 @@
     <div class="card card-table shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
-                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Agregar Producto</h3></div>
+                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Editar Producto</h3></div>
 
             </div>
         </div>
@@ -26,7 +26,7 @@
                 </div>
             @endif-->
 
-            <form action="{{route('admin.producto.confirmarUpdate')}}" method="POST">
+            <form action="{{route('admin.producto.updateProducto',['id' => $producto->id])}}" method="POST">
                 @csrf
 
                  @csrf
@@ -83,19 +83,35 @@
                         <div class="form-group">
                             <label class="label">Stock Actual</label>
                             <input class="form-control @error('stock_actual') is-invalid @enderror"type="number" value="{{$producto->stock_actual}}" name="stock_actual" id="stock_actual">
+                            @error('stock_actual')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label class="label">Stock Critico</label>
                             <input class="form-control @error('stock_critico') is-invalid @enderror"type="number" value="{{$producto->stock_critico}}" name="stock_critico" id="stock_critico">
+                            @error('stock_critico')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label class="label">Precio Unidad</label>
                             <input class="form-control @error('precio_unidad') is-invalid @enderror"type="number" value="{{$producto->precio_unidad}}" name="precio_unidad" id="sprecio_unidad">
+                            @error('precio_unidad')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <div class="custom-file">
                                 <input type="file" id="imagen" name="imagen" class="custom-file-input" value="{{URL::asset($producto->imagen)}}">
                                 <label for="imagen" class="custom-file-label" data-browse="Examinar">Seleccione la imagen</label>
+
                             </div>
                         </div>
 
@@ -104,7 +120,7 @@
 
                 </div>
                 <div class="p-t-15">
-                    <button class="btn btn--radius-2 btn--blue" type="submit">Actualizar</button>
+                    <button class="btn btn--radius-2 btn-primary" type="submit">Actualizar</button>
                 </div>
                 <input class="input--style-4" style="visibility: hidden" type="text" id="id" name="id" value="{{$producto->id}}" placeholder="{{$producto->id}}">
             </form>

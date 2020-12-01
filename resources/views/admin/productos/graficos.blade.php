@@ -95,7 +95,7 @@
         data: {
             labels: nombres,
             datasets: [{
-                label: 'Estado de Clientes',
+                label: 'Características',
                 data: data,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -127,17 +127,23 @@
         data: {
             labels: nombres1,
             datasets: [{
-                label: 'Estado de Clientes',
+                label: 'Producto',
                 data: data1,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
                     'rgba(255, 206, 86, 0.2)',
+                    'rgba(215, 99, 132, 0.2)',
+                    'rgba(114, 162, 205, 0.2)',
+                    'rgba(200, 216, 86, 0.2)',
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 206, 86, 1)',
+                    'rgba(215, 99, 132, 1)',
+                    'rgba(114, 162, 205, 1)',
+                    'rgba(200, 216, 86, 1)',
                 ],
                 borderWidth: 1
             }]

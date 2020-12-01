@@ -62,8 +62,11 @@
                                 <td>{{$producto->stock_actual}}</td>
                                 <td>{{$producto->stock_critico}}</td>
                                 <td>{{$producto->precio_unidad}}</td>
-                                <td> <a href="/productos/{{ $producto->id }}/edit" onclick="nombre(this)"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
-                                <a data-toggle="modal" data-target="#deleteModal" href="#" onclick="nombre(this)" id="{{$producto->tipo->nombre}}-{{$producto->id}}"><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a></td>
+                                <td> <a type="submit" class="btn btn-xs btn-success" data-toggle="tooltip" href="{{route('admin.producto.editarProducto',['id' => $producto->id])}}" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                               </a>
+                               <a type="submit" class="btn btn-xs btn-danger"data-toggle="modal" data-target="#deleteModal" href="#" onclick="nombre(this)" id="{{$producto->nombre}}-{{$producto->id}}"> <i class="fas fa-trash-alt"></i>
+                               </a></td>
                         </tr>
 
                         @endforeach

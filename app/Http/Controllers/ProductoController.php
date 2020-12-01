@@ -115,7 +115,7 @@ class ProductoController extends Controller
      * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function editarProducto($id)
     {
         $producto = Producto::find($id);
 
@@ -139,7 +139,7 @@ class ProductoController extends Controller
      * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateProducto(Request $request, $id)
     {
         $producto = Producto::findOrFail($id);
         $producto->tipo_id = $request->get('tipo');
@@ -150,7 +150,7 @@ class ProductoController extends Controller
         $producto->stock_critico = $request->get('stock_critico');
         $producto->stock_actual = $request->get('stock_actual');
         $producto->precio_unidad = $request->get('precio_unidad');
-        $producto->imagen = $request->imagen->store('public/prendas');
+        $producto->imagen = $request->imagen ? $request->imagen->store('public/prendas') : '';
         $producto->save();
         return redirect()->route('admin.producto.getProducto');
     }

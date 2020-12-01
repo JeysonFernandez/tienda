@@ -147,6 +147,10 @@ Route::group(['as'=> 'admin.'], function(){
 
         Route::get('/productos/crear',[ProductoController::class,'create'])->name('crearProducto');
         Route::post('/productos/agregar',[ProductoController::class,'store'])->name('agregarProducto');
+
+        Route::get('/productos/editar/{id}',[ProductoController::class,'editarProducto'])->name('editarProducto');
+
+        Route::post('/productos/editar/{id}',[ProductoController::class,'updateProducto'])->name('updateProducto');
     });
 
     Route::group(['as'=> 'compra.'], function(){
