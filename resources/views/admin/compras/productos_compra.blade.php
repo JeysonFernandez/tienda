@@ -3,16 +3,13 @@
 @section('contenido')
 
 <div class="container-fluid">
-
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">dasdasdasdsductos</h1>
     
 
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
+    <div class="card card-table table shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
-                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Tabla de Productos</h3></div>
+                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Productos de la Compra #</h3></div>
                 
 
             </div>
@@ -32,7 +29,7 @@
                             <th>Talla</th>
                             <th>Stock Actual</th>
                             <th>Stock Critico</th>
-                            <th>Costo Total</th>
+                            <th>Valor Total</th>
                             <th>Cantidad</th>
                         </tr>
                     </thead>
@@ -47,7 +44,7 @@
                             <th>Talla</th>
                             <th>Stock Actual</th>
                             <th>Stock Critico</th>
-                            <th>Costo Total</th>
+                            <th>Valor Total</th>
                             <th>Cantidad</th>
                         </tr>
                     </tfoot>

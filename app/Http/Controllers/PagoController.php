@@ -29,7 +29,7 @@ class PagoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function crearPago()
     {
         $compras = Compra::all();
         return view('admin.pagos.crear_pago',
@@ -104,16 +104,16 @@ class PagoController extends Controller
 
         //ESTADO DEL PAGO   RETRASADO-ADELANTADO- A TIEMPO
         if($pago->fecha > $compra->fecha_siguiente_pago){
-            $pago->estado = 'r';
+            $pago->estado = 1;//retrasado
         }elseif($pago->fecha < $compra->fecha_siguiente_pago){
-            $pago->estado = 'a';
+            $pago->estado = 2;//adelantado
         }else{
-            $pago->estado = 't';
+            $pago->estado = 3;//al dia
         }
 
         //ESTADO DE LA COMPRA  CANCELADA - PENDIENTE
         if($nuevoMonto == 0){
-            $compra->estado = 'c';
+            $compra->estado = 2;
         }else{
             $compra->fecha_siguiente_pago = $request->get('fecha_siguiente_pago');
 
@@ -124,22 +124,19 @@ class PagoController extends Controller
         $nombreCompleto = $usuario->nombre.' '.$usuario->apellido.'(Fono: '.$usuario->fono.')';
         $correo = (['nombreUsuario'=>$nombreCompleto,'fecha'=>$pago->fecha,'monto'=>$pago->monto,'fecha_siguiente_pago'=>$compra->fecha_siguiente_pago,'deuda_pendiente'=>$nuevoMonto,'tipo'=>'pago']);
 
-        Mail::to($usuario->username)->send(new ReporteUsuario($correo));
-        Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
         $notificacionUsuario = new NotificacionUsuario();
         $notificacionUsuario->fecha_creacion = now()->format('Y-m-d');
         $notificacionUsuario->tipo = 'c';
         $notificacionUsuario->mensaje=$usuario->nombre.' '.$usuario->apellido.' está a poco de terminar su deuda
         total.';
         $notificacionUsuario->usuario_id = $usuario->id;
-        $notificacionUsuario->click = 'n';
+        $notificacionUsuario->click = 1;
         $notificacionUsuario->save();
 
         //Descontar al usuario
         $usuario->deuda_total -= $pago->monto;
         if($usuario->deuda_Total<10000){
             $correo = (['nombreUsuario'=>$nombreCompleto,'deuda'=>$nuevoMonto, 'tipo'=>'usuario_critico']);
-            Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
         }
         $usuario->save();
         //insertar nueva notificacion
@@ -148,11 +145,12 @@ class PagoController extends Controller
         $notificacionUsuario->tipo = 'P';
         $notificacionUsuario->mensaje='Se ha registrado el Pago de '.$usuario->nombre.' '.$usuario->apellido;
         $notificacionUsuario->usuario_id = $usuario->id;
-        $notificacionUsuario->click = 'n';
+        $notificacionUsuario->click = 1;
         $notificacionUsuario->save();
 
         $pago->save();
         $compra->save();
-        return redirect()->route('admin.getpagos');
+        alert()->success('Perfecto!','El pago ha sido registrado exitosamente. Se le notificó al usuario.');
+        return redirect()->route('admin.pago.getPagos');
     }
 }

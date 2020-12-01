@@ -179,6 +179,7 @@ class UsuarioController extends Controller
         $usuario->tipo = 2;
         $usuario->conocido = 1;
         $usuario->password = Hash::make($request->get('password'));
+        $usuario->deuda_total = 0;
         $usuario->save();
 
         alert()->success('Perfecto!','Has sido registrado exitosamente.');

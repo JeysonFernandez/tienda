@@ -75,7 +75,10 @@
                                 <td> 
                                     {{-- <a href="/pedidos/productos/{{$pedido->id}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>  --}}
                                     <a href="/pedidos/{{$pedido->id}}" ><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a>
-                                    <a href="/pedidos/comprarPedido/{{$pedido->id}}" ><i class="fas fa-fw fa-2x fa-shopping-cart" aria-hidden="true"></i></a></td>  
+                                    @if ($pedido->estado == 1)
+                                        <a href="/pedidos/comprarPedido/{{$pedido->id}}" ><i class="fas fa-fw fa-2x fa-shopping-cart" aria-hidden="true"></i></a>
+                                    @endif
+                                </td>  
                             </tr>
                         
                         @endforeach
