@@ -238,9 +238,9 @@ class PedidoController extends Controller
 
     public function comprarPedido($id){
         $productos = PedidoProducto::where('pedido_id',$id)->get();
-        $pedido = Pedido::where('id', $id)->get();
+        $pedido = Pedido::find($id)->get();
         $usuario = Usuario::findOrFail($pedido[0]->usuario_id);
-        return view('admin.pedidos.comprarPedido',['productos'=>$productos,'usuario'=>$usuario,'notificacionProductos' => NotificacionProducto::all(),
+        return view('admin.pedidos.comprarPedido',['productos'=>$productos,'pedido'=>$pedido[0],'usuario'=>$usuario,'notificacionProductos' => NotificacionProducto::all(),
         'notificacionUsuarios' => NotificacionUsuario::all()]);
     }
 

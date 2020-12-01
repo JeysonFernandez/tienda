@@ -268,6 +268,7 @@ class CompraController extends Controller
         $compra->deuda_pendiente = $compra->deuda_total - $request->get('abono');
         $compra->fecha_siguiente_pago = $request->get('fecha_siguiente_pago');
         $compra->fecha_compra = $request->get('fecha_compra');
+        $compra->pedido_id = $request->get('pedidoId');
         if($compra->deuda_pendiente > 0){
             $compra->estado = 1;
         }else{
@@ -278,7 +279,7 @@ class CompraController extends Controller
         $nombreCompleto = $usuario->nombre.' '.$usuario->apellido.'(Fono: '.$usuario->fono.')';
         $correo = (['nombreUsuario'=>$nombreCompleto,'fecha'=>$compra->fecha_compra,'tipo'=>'compra','fecha_siguiente_pago'=>$compra->fecha_siguiente_pago, 'total'=>$compra->deuda_total]);
 
-        Mail::to($usuario->username)->send(new ReporteUsuario($correo));
+        Mail::to($usuario->email)->send(new ReporteUsuario($correo));
         Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
         //insertar nueva notificacion
         $notificacionUsuario = new NotificacionUsuario();
@@ -299,68 +300,70 @@ class CompraController extends Controller
         $ultimaCompra = $compras->last();
         foreach ($request->all() as $elemento){
             if( strpos($elemento['id'],'producto') !== false ){
-                $compraProducto = new CompraProducto();
-                $compraProducto->producto_id =0 + explode('o',$elemento['id'])[2];
-                $compraProducto->compra_id = $compra->id;
-                $compraProducto->cantidad_producto = $elemento->value;
+                if($elemento['value']>0){
+                    $compraProducto = new CompraProducto();
+                    $compraProducto->producto_id =0 + explode('o',$elemento['id'])[2];
+                    $compraProducto->compra_id = $compra->id;
+                    $compraProducto->cantidad_producto = $elemento['value'];
 
-                //Descontar cantidad de producto
-                $producto = Producto::findOrFail($compraProducto->producto_id);
-                $nuevoStock = $producto->stock_actual - $compraProducto->cantidad_producto;
-                $producto->stock_actual = $nuevoStock;
+                    //Descontar cantidad de producto
+                    $producto = Producto::findOrFail($compraProducto->producto_id);
+                    $nuevoStock = $producto->stock_actual - $compraProducto->cantidad_producto;
+                    $producto->stock_actual = $nuevoStock;
 
-                $producto->cant_vendida += $compraProducto->cantidad_producto;
-                $max_venta = Rey::find(1);
-                if($max_venta->cantidad_vendida < $producto->cant_vendida){
-                    $max_venta->producto_id = $producto->id;
-                    $max_venta->cantidad_vendida = $producto->cant_vendida;
-                    $notificacionProducto = new NotificacionProducto();
-                    $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
-                    $notificacionProducto->tipo = 'r';
-                    $notificacionProducto->mensaje=$producto->id.'es el nuevo rey del lugar $$$.';
-                    $notificacionProducto->productos_id= $producto->id;
-                    $notificacionProducto->click = 1;
+                    $producto->cant_vendida += $compraProducto->cantidad_producto;
+                    $max_venta = Rey::find(1);
+                    if($max_venta->cantidad_vendida < $producto->cant_vendida){
+                        $max_venta->producto_id = $producto->id;
+                        $max_venta->cantidad_vendida = $producto->cant_vendida;
+                        $notificacionProducto = new NotificacionProducto();
+                        $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
+                        $notificacionProducto->tipo = 'r';
+                        $notificacionProducto->mensaje=$producto->id.'es el nuevo rey del lugar $$$.';
+                        $notificacionProducto->productos_id= $producto->id;
+                        $notificacionProducto->click = 1;
 
-                    $notificacionProducto->save();
-                    $correo=['nombreProducto'=>$producto->id,'tipo'=>'reyVentas'];
-                    Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
+                        $notificacionProducto->save();
+                        $correo=['nombreProducto'=>$producto->id,'tipo'=>'reyVentas'];
+                        Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
+                    }
+
+
+                    //Notificacion producto
+                    if($producto->stock_Actual<= $producto->stock_critico){
+                        //insertar nueva notificacion
+                        $notificacionProducto = new NotificacionProducto();
+                        $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
+                        $notificacionProducto->tipo = 'c';
+                        $notificacionProducto->mensaje='El producto '.$producto->id.'ahora está en estado critico';
+                        $notificacionProducto->productos_id= $producto->id;
+                        $notificacionProducto->click = 1;
+
+                        $notificacionProducto->save();
+
+                        $correo=['nombreProducto'=>$producto->id,'cantidad'=>$producto->stock_actual,'tipo'=>'producto_critico'];
+                        Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
+                    }
+                    if($producto->stock_Actual== 0){
+                        //insertar nueva notificacion
+                        $notificacionProducto = new NotificacionProducto();
+                        $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
+                        $notificacionProducto->tipo = 'n';
+                        $notificacionProducto->mensaje='Ya no queda stock de '.$producto->id;
+                        $notificacionProducto->productos_id = $producto->id;
+                        $notificacionProducto->click = 1;
+                        $notificacionProducto->save();
+
+                        $correo=['nombreProducto'=>$producto->id,'tipo'=>'sinStock'];
+                        Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
+                    }
+
+                    $producto->save();
+
+                    $valor= $producto->precio*$$compraProducto->cantidad_producto;
+                    $compraProducto->costo_total = $valor;
+                    $compraProducto->save();
                 }
-
-
-                //Notificacion producto
-                if($producto->stock_Actual<= $producto->stock_critico){
-                    //insertar nueva notificacion
-                    $notificacionProducto = new NotificacionProducto();
-                    $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
-                    $notificacionProducto->tipo = 'c';
-                    $notificacionProducto->mensaje='El producto '.$producto->id.'ahora está en estado critico';
-                    $notificacionProducto->productos_id= $producto->id;
-                    $notificacionProducto->click = 1;
-
-                    $notificacionProducto->save();
-
-                    $correo=['nombreProducto'=>$producto->id,'cantidad'=>$producto->stock_actual,'tipo'=>'producto_critico'];
-                    Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
-                }
-                if($producto->stock_Actual== 0){
-                    //insertar nueva notificacion
-                    $notificacionProducto = new NotificacionProducto();
-                    $notificacionProducto->fecha_creacion = now()->format('Y-m-d');
-                    $notificacionProducto->tipo = 'n';
-                    $notificacionProducto->mensaje='Ya no queda stock de '.$producto->id;
-                    $notificacionProducto->productos_id = $producto->id;
-                    $notificacionProducto->click = 1;
-                    $notificacionProducto->save();
-
-                    $correo=['nombreProducto'=>$producto->id,'tipo'=>'sinStock'];
-                    Mail::to('chirismo123@gmail.com')->send(new ReporteAdmin($correo));
-                }
-
-                $producto->save();
-
-                $valor= $producto->precio*$$compraProducto->cantidad_producto;
-                $compraProducto->costo_total = $valor;
-                $compraProducto->save();
             }
         }
 

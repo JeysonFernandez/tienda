@@ -25,20 +25,26 @@
                     </div>
                 @endif
                 <?php $total = 0?>
-                <div class="card mt-3">
-                    <div class="card-header bg-light text-black ">Formulario Compra</div>
+                <div class="card card-table table mt-3">
+                <div class="card-header bg-light text-black ">Pedido #{{$pedido->id}}        {{$pedido->lugar_visita}}, {{$pedido->fecha}}</div>
                     <div class="card-body">
                     <form method="POST" action ="/compras/agregarCompraPedido">
                             @csrf
 
                     <input type="text" class="form-control" id="nombre" name="nombre" value="{{$usuario->nombre}} {{$usuario->primer_apellido}}" disabled>
                     <input type="hidden" class="form-control" id="usuario" name="usuario" value="{{$usuario->id}}">
+                    <input type="hidden" class="form-control" id="pedidoId" name="pedidoId" value="{{$pedido->id}}">
                             @foreach ($productos as $producto)
-                                <div class="form-group col-md-12">
-                                    <label for="producto{{$producto->id}}"> {{$producto->id}}</label>
-                                    <input type="number" value="{{$producto->cantidad}}" max="{{$producto->cantidad}}" id="producto{{$producto->id}}" name="producto{{$producto->id}}" class="form-control" value="{{$producto->cantidad}}"/>
-                                    <?php $total+= $producto->costo?>
+                            <div class="form-row mt-2">
+                                <div class="form-group col-md-6">
+                                    <label for="producto{{$producto->producto_id}}"> {{$producto->productos->tipo->nombre}} {{$producto->productos->categoria->nombre}} {{$producto->productos->color->nombre}} {{$producto->productos->talla->nombre}}</label>
                                 </div>
+                                <div class="form-group col-md-6">
+                                    <input type="number" value="{{$producto->cantidad}}" max="{{$producto->cantidad}}" id="producto{{$producto->id}}" name="producto{{$producto->id}}" class="form-control"/>
+                                    <input type="hidden" value="{{$producto->productos->precio_unidad}}" id="auxiliar-{{$producto->id}}"  class="form-control"/>
+                                </div>
+                                <?php $total+= $producto->costo?>
+                            </div>
                             @endforeach
                             <div class="form-row">
                                 <div class="form-group col-md-6">
@@ -48,15 +54,14 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="deuda_total"> Deuda Total</label>
-                                    <input type="number" value="{{$total}}" id="deuda_total" name="deuda_total" class="form-control @error('deuda_total') is-invalid @enderror" value="{{old('deuda_total')}}"/>
+                                    <input type="number" value="{{$total}}"  id="deuda_total" name="deuda_total" class="form-control @error('deuda_total') is-invalid @enderror" value="{{old('deuda_total')}}"/>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="fecha_compra"> Fecha de la Compra</label>
-                                    <input type="date" id="fecha_compra" name="fecha_compra" class="form-control @error('fecha_compra') is-invalid @enderror" value="{{old('fecha_compra')}}"/>
+                                    <input type="hidden" id="fecha_compra" name="fecha_compra" class="form-control @error('fecha_compra') is-invalid @enderror" value="{{$pedido->fecha}}"/>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-12">
                                     <label for="fecha_siguiente_pago"> Fecha del Siguiente Pago</label>
                                     <input type="date" id="fecha_siguiente_pago" name="fecha_siguiente_pago" class="form-control @error('fecha_siguiente_pago') is-invalid @enderror" value="{{old('fecha_siguiente_pago')}}"/>
                                 </div>
@@ -76,4 +81,31 @@
 
 </div>
 
+@endsection
+
+@section('js')
+    <script>
+        
+        
+            let seleccionados=document.querySelectorAll('input');
+            seleccionados.forEach(event  =>{
+                event.addEventListener('change',e=> {
+                    let nuevoTotal = 0;
+                    seleccionados.forEach(q=>{
+                        if( q.id.includes('producto') ){
+                            let idProducto = q.id.split('o')[2];
+                            let precioProducto = document.getElementById(`auxiliar-${idProducto}`); 
+                            nuevoTotal += ( q.value * precioProducto.value );
+                        }
+                    });
+                    let deudaTotal = document.getElementById('deuda_total');
+                    deudaTotal.value = nuevoTotal;
+                });
+            });
+        
+
+        $(function(){
+           
+        });
+    </script>
 @endsection
