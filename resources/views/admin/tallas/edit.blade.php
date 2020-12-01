@@ -27,6 +27,11 @@
                             <label class="label">Nombre</label>
                             <input class="form-control @error('nombre') is-invalid @enderror" type="text" id="nombre" name="nombre"   value="{{old('nombre') ?? $talla->nombre ?? '' }}">
                         </div>
+                        @error('nombre')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
                 </div>

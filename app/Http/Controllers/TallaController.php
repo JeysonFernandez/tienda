@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuardarTallaRequest;
 use App\Models\Talla;
 use App\Models\NotificacionProducto;
 use App\Models\NotificacionUsuario;
@@ -90,14 +91,14 @@ class TallaController extends Controller
 * @param \App\talla $talla
 * @return \Illuminate\Http\Response
 */
-    public function updateTalla(Request $request, $id)
+    public function updateTalla(GuardarTallaRequest $request, $id)
     {
         $talla = Talla::find($id);
         $talla->id = $id;
         $talla->nombre = $request->nombre;
         $talla->save();
 
-        return redirect()->route('admin.talla.geTalla');
+        return redirect()->route('admin.talla.verTalla');
     }
 
     public function confirmarUpdate(Request $request)

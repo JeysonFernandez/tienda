@@ -15,7 +15,7 @@
                     <div class="container-toast" aria-live="polite" aria-atomic="true">
                         <div id="toast-categoria" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
                             <div class="toast-header">
-                                <span id="card-nombre-categoria" class=" toast-title mr-auto">Categoria 1</span>
+                                <span id="card-nombre-categoria" class=" toast-title mr-auto"></span>
                                 <button id="btn-toast-categoria" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
@@ -33,15 +33,15 @@
                     </button>
                     <div class="dropdown-menu shadow dropdown-menu-left black-link">
                         @foreach ($colores as $color )
-                            <a name="tipo-proyecto" class="dropdown-item active" data-id="{{$color->id}}" href="#">{{$color->nombre}}</a>
+                            <a name="color" class="dropdown-item active" data-id="{{$color->id}}" href="#">{{$color->nombre}}</a>
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
                     <div class="container-toast" aria-live="polite" aria-atomic="true">
-                        <div id="toast-region" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                        <div id="toast-color" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
                             <div class="toast-header">
-                                <span id="card-nombre-region" class=" toast-title mr-auto"></span>
-                                <button id="btn-toast-region" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                                <span id="card-nombre-color" class=" toast-title mr-auto"></span>
+                                <button id="btn-toast-color" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -83,15 +83,15 @@
                     </button>
                     <div class="dropdown-menu shadow dropdown-menu-left black-link">
                         @foreach ($tallas as $talla )
-                            <a name="tipo-proyecto" class="dropdown-item active" data-id="{{$talla->id}}" href="#">{{$talla->nombre}}</a>
+                            <a name="talla" class="dropdown-item active" data-id="{{$talla->id}}" href="#">{{$talla->nombre}}</a>
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
                     <div class="container-toast" aria-live="polite" aria-atomic="true">
-                        <div id="toast-region" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                        <div id="toast-talla" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
                             <div class="toast-header">
-                                <span id="card-nombre-region" class=" toast-title mr-auto"></span>
-                                <button id="btn-toast-region" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                                <span id="card-nombre-talla" class=" toast-title mr-auto"></span>
+                                <button id="btn-toast-talla" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -108,15 +108,15 @@
                     </button>
                     <div class="dropdown-menu shadow dropdown-menu-left black-link">
                         @foreach ($proveedores as $proveedor )
-                            <a name="tipo-proyecto" class="dropdown-item active" data-id="{{$proveedor->id}}" href="#">{{$proveedor->nombre}}</a>
+                            <a name="proveedor" class="dropdown-item active" data-id="{{$proveedor->id}}" href="#">{{$proveedor->nombre}}</a>
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
                     <div class="container-toast" aria-live="polite" aria-atomic="true">
-                        <div id="toast-region" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                        <div id="toast-proveedor" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
                             <div class="toast-header">
-                                <span id="card-nombre-region" class=" toast-title mr-auto"></span>
-                                <button id="btn-toast-region" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                                <span id="card-nombre-proveedor" class=" toast-title mr-auto"></span>
+                                <button id="btn-toast-proveedor" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -133,15 +133,15 @@
                     </button>
                     <div class="dropdown-menu shadow dropdown-menu-left black-link">
                         @foreach ($tipos as $tipo )
-                            <a name="tipo-proyecto" class="dropdown-item active" data-id="{{$tipo->id}}" href="#">{{$tipo->nombre}}</a>
+                            <a name="tipo" class="dropdown-item active" data-id="{{$tipo->id}}" href="#">{{$tipo->nombre}}</a>
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
                     <div class="container-toast" aria-live="polite" aria-atomic="true">
-                        <div id="toast-region" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                        <div id="toast-tipo" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
                             <div class="toast-header">
-                                <span id="card-nombre-region" class=" toast-title mr-auto"></span>
-                                <button id="btn-toast-region" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                                <span id="card-nombre-tipo" class=" toast-title mr-auto"></span>
+                                <button id="btn-toast-tipo" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -158,15 +158,15 @@
                     </button>
                     <div class="dropdown-menu shadow dropdown-menu-left black-link">
                         @foreach ($generos as $genero )
-                            <a name="tipo-proyecto" class="dropdown-item active" data-id="{{$genero->id}}" href="#">{{$genero->nombre}}</a>
+                            <a name="genero" class="dropdown-item active" data-id="{{$genero->id}}" href="#">{{$genero->nombre}}</a>
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
                     <div class="container-toast" aria-live="polite" aria-atomic="true">
-                        <div id="toast-region" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
+                        <div id="toast-genero" role="alert" aria-live="assertive" aria-atomic="true" class="toast" data-autohide="false">
                             <div class="toast-header">
-                                <span id="card-nombre-region" class=" toast-title mr-auto"></span>
-                                <button id="btn-toast-region" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
+                                <span id="card-nombre-genero" class=" toast-title mr-auto"></span>
+                                <button id="btn-toast-genero" type="button" class="ml-2 close" data-dismiss="toast" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
@@ -185,6 +185,7 @@
                 <input type="hidden" id="proveedor_id"  name="proveedor_id"  value="{{$input['proveedor_id'] ?? ''}}">
                 <input type="hidden" id="tipo_id"       name="tipo_id"       value="{{$input['tipo_id']      ?? ''}}">
                 <input type="hidden" id="genero_id"     name="genero_id"     value="{{$input['genero_id']    ?? ''}}">
+                <input type="hidden" id="color_id"      name="color_id"      value="{{$input['color_id']    ?? ''}}">
 
                 <input type="hidden" id="nombre_categoria"  name="nombre_categoria"  value="{{$input['nombre_categoria'] ?? '' }}">
                 <input type="hidden" id="nombre_marca"      name="nombre_marca"      value="{{$input['nombre_marca'] ?? '' }}"    >
@@ -192,6 +193,7 @@
                 <input type="hidden" id="nombre_proveedor"  name="nombre_proveedor"  value="{{$input['nombre_proveedor'] ?? '' }}">
                 <input type="hidden" id="nombre_tipo"       name="nombre_tipo"       value="{{$input['nombre_tipo'] ?? '' }}"     >
                 <input type="hidden" id="nombre_genero"     name="nombre_genero"     value="{{$input['nombre_genero'] ?? '' }}"   >
+                <input type="hidden" id="nombre_color"      name="nombre_color"      value="{{$input['nombre_color'] ?? '' }}"   >
 
                 <input type="hidden" id="buscador_texto_filtro"   name="buscadorTexto"  value="{{$input['buscadorTexto'] ?? ''}}">
                 {{--<a id="boton-borrar"  class="btn btn-pcm-pale-blue w-md-50 boton-buscar font-weight-bold"><span>Limpiar <i class="ml-2 fas fa-caret-right"></i></span></a>--}}

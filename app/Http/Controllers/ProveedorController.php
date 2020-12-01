@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuardarProveedorRequest;
 use App\Http\Requests\StoreCaracteristicasProducto;
 use App\Http\Requests\StoreProveedores;
 use App\Models\Proveedor;
@@ -92,7 +93,7 @@ class ProveedorController extends Controller
 * @param \App\proveedor $proveedor
 * @return \Illuminate\Http\Response
 */
-    public function updateProveedor(Request $request, $id)
+    public function updateProveedor(GuardarProveedorRequest $request, $id)
     {
 
         $proveedor = Proveedor::find($id);

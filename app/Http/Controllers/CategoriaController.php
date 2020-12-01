@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuardarCategoriaRequest;
 use App\Models\Categoria;
 use App\Http\Requests\StoreCaracteristicasProducto;
 use App\Http\Requests\StoreCategoria;
@@ -90,7 +91,7 @@ class CategoriaController extends Controller
 * @param \App\categoria $categoria
 * @return \Illuminate\Http\Response
 */
-    public function updateCategoria(Request $request, $id)
+    public function updateCategoria(GuardarCategoriaRequest $request, $id)
     {
 
         $categoria = Categoria::find($id);

@@ -4,9 +4,8 @@
 
 <div class="container-fluid">
 
-    <h1 class="h3 mb-2 text-gray-800">Productos</h1>
     <!-- DataTales Example -->
-    <div class="card shadow mb-4">
+    <div class="card card-table shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Agregar Producto</h3></div>
@@ -87,14 +86,29 @@
                         <div class="form-group">
                             <label for="stock_actual"> Stock Actual </label>
                             <input type="number" class="form-control  @error('stock_actual') is-invalid @enderror" id="stock_actual" name="stock_actual" value={{old('stock_actual')}} >
+                            @error('stock_actual')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="stock_critico"> Stock Crítico (Si se coloca un valor mayor al Stock Actual, automáticamente el Stock crítico será igual a Stock Actual) </label>
                             <input type="number" class="form-control  @error('stock_critico') is-invalid @enderror" id="stock_critico" name="stock_critico" value={{old('stock_critico')}} >
+                            @error('stock_critico')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="precio_unidad"> Precio Unidad ($) </label>
                             <input type="number" class="form-control  @error('precio_unidad') is-invalid @enderror" id="precio_unidad" name="precio_unidad" value={{old('precio_unidad')}}>
+                            @error('precio_unidad')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <div class="custom-file">

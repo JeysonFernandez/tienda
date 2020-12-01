@@ -91,7 +91,7 @@ Route::group(['as'=> 'admin.'], function(){
         Route::get('/tallas', [DashboardController::class,'getTallas'])->name('verTalla');
         Route::delete('/tallas/confirmDelete', [TallaController::class,'confirmDelete'])->name('confirmDelete');
         Route::post('/tallas/update',[TallaController::class,'confirmarUpdate'])->name('confirmarUpdate');
-        Route::post('/categoria/editar/{id}',[TallaController::class,'updateTalla'])->name('updateTalla');
+        Route::post('/tallas/editar/{id}',[TallaController::class,'updateTalla'])->name('updateTalla');
         Route::get('/tallas/crear',[TallaController::class,'create'])->name('crearTalla');
         Route::post('/tallas/agregar',[TallaController::class,'store'])->name('agregarTalla');
 

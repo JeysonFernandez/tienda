@@ -19,7 +19,7 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{route('admin.proveedor.updatProveedor',['id' => $proveedor->id])}}" method="POST">
+            <form action="{{route('admin.proveedor.updateProveedor',['id' => $proveedor->id])}}" method="POST">
                 @csrf
                 <div class="row row-space">
                     <div class="col-12">
@@ -27,6 +27,11 @@
                             <label class="label">Nombre</label>
                             <input class="form-control @error('nombre') is-invalid @enderror" type="text" id="nombre" name="nombre"   value="{{old('nombre') ?? $proveedor->nombre ?? '' }}">
                         </div>
+                        @error('nombre')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
 
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuardarProductoRequest;
 use App\Models\Producto;
 use App\Models\Tipo;
 use App\Models\Marca;
@@ -61,7 +62,7 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GuardarProductoRequest $request)
     {
         /*$validaData = $request->validate([
             'title' => 'required|min:3'

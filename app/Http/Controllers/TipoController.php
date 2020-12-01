@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuardarTipoRequest;
 use App\Models\Tipo;
 use App\Models\NotificacionProducto;
 use App\Models\NotificacionUsuario;
@@ -90,7 +91,7 @@ class TipoController extends Controller
 * @param \App\tipo $tipo
 * @return \Illuminate\Http\Response
 */
-    public function updateTipo(Request $request, $id)
+    public function updateTipo(GuardarTipoRequest $request, $id)
     {
 
         $tipo = Tipo::find($id);

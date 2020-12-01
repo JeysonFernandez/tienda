@@ -79,24 +79,55 @@
 
         const categoria = document.querySelectorAll('a[name=categoria]');
         const marca = document.querySelectorAll('a[name=marca]');
+        const tipo = document.querySelectorAll('a[name=tipo]');
+        const talla = document.querySelectorAll('a[name=talla]');
+        const proveedor = document.querySelectorAll('a[name=proveedor]');
+        const color = document.querySelectorAll('a[name=color]');
+        const genero = document.querySelectorAll('a[name=genero]');
+
 
         const inputCategoria = document.getElementById('categoria_id');
         const inputMarca = document.getElementById('marca_id');
+        const inputTipo = document.getElementById('tipo_id');
+        const inputTalla = document.getElementById('talla_id');
+        const inputProveedor = document.getElementById('proveedor_id');
+        const inputColor = document.getElementById('color_id');
+        const inputGenero = document.getElementById('genero_id');
 
         const inputNombreCategoria = document.getElementById('nombre_categoria');
         const inputNombreMarca = document.getElementById('nombre_marca');
+        const inputNombreTipo = document.getElementById('nombre_tipo');
+        const inputNombreTalla= document.getElementById('nombre_talla');
+        const inputNombreProveedor = document.getElementById('nombre_proveedor');
+        const inputNombreColor = document.getElementById('nombre_color');
+        const inputNombreGenero = document.getElementById('nombre_genero');
 
         const botonBuscar = document.querySelector('#boton-buscar');
         //const botonBorrar = document.querySelector('#boton-borrar');
 
         const cardNombreCategoria = document.getElementById('card-nombre-categoria');
         const cardNombreMarca =  document.getElementById('card-nombre-marca');
+        const cardNombreTipo = document.getElementById('card-nombre-tipo');
+        const cardNombreTalla =  document.getElementById('card-nombre-talla');
+        const cardNombreProveedor = document.getElementById('card-nombre-proveedor');
+        const cardNombreColor =  document.getElementById('card-nombre-color');
+        const cardNombreGenero =  document.getElementById('card-nombre-genero');
 
         const toastCategoria = $('#toast-categoria');
         const toastMarca = $('#toast-marca');
+        const toastTipo = $('#toast-tipo');
+        const toastTalla = $('#toast-talla');
+        const toastProveedor = $('#toast-proveedor');
+        const toastColor = $('#toast-color');
+        const toastGenero = $('#toast-genero');
 
         const btnCerrartoastCategoria = document.getElementById('btn-toast-categoria');
         const btnCerrartoastMarca = document.getElementById('btn-toast-marca');
+        const btnCerrartoastTipo = document.getElementById('btn-toast-tipo');
+        const btnCerrartoastTalla = document.getElementById('btn-toast-talla');
+        const btnCerrartoastProveedor = document.getElementById('btn-toast-proveedor');
+        const btnCerrartoastColor = document.getElementById('btn-toast-color');
+        const btnCerrartoastGenero = document.getElementById('btn-toast-genero');
 
         const formBuscador = document.getElementById('form-buscador');
 
@@ -105,13 +136,17 @@
         let arregloBuscador = {
                     categoria_id: inputCategoria.value,
                     marca_id: inputMarca.value,
+                    tipo_id: inputTipo.value,
+                    talla_id: inputTalla.value,
+                    genero_id: inputGenero.value,
+                    proveedor_id: inputProveedor.value,
+                    color_id: inputColor.value,
         }
 
 
 
 
 
-        console.log(categoria);
 
         if(arregloBuscador['categoria_id'] != ''){
             cardNombreCategoria.innerHTML = inputNombreCategoria.value;
@@ -121,6 +156,26 @@
             cardNombreMarca.innerHTML = inputNombreMarca.value;
             toastMarca.toast('show');
         }
+        if(arregloBuscador['tipo_id'] != ''){
+            cardNombreTipo.innerHTML = inputNombreTipo.value;
+            toastTipo.toast('show');
+        }
+        if(arregloBuscador['talla_id'] != ''){
+            cardNombreTalla.innerHTML = inputNombreTalla.value;
+            toastTalla.toast('show');
+        }
+        if(arregloBuscador['proveedor_id'] != ''){
+            cardNombreProveedor.innerHTML = inputNombreProveedor.value;
+            toastProveedor.toast('show');
+        }
+        if(arregloBuscador['color_id'] != ''){
+            cardNombreColor.innerHTML = inputNombreColor.value;
+            toastColor.toast('show');
+        }
+        if(arregloBuscador['genero_id'] != ''){
+            cardNombreGenero.innerHTML = inputNombreGenero.value;
+            toastGenero.toast('show');
+        }
 
 
 
@@ -128,6 +183,11 @@
             const arregloBuscador = {
                     categoria_id: inputCategoria.value,
                     marca_id: inputMarca.value,
+                    tipo_id: inputTipo.value,
+                    talla_id: inputTalla.value,
+                    proveedor_id: inputProveedor.value,
+                    color_id: inputColor.value,
+                    genero_id: inputGenero.value,
                 }
             return arregloBuscador;
         }
@@ -175,6 +235,68 @@
 
             });
         });
+        tipo.forEach(event  =>{
+            event.addEventListener('click',e => {
+                console.log('hola');
+                inputTipo.value=e.target.getAttribute('data-id');
+                inputNombreTipo.value = e.target.innerHTML;
+
+                cardNombreTipo.innerHTML = e.target.innerHTML;
+                toastTipo.toast('show')
+
+                arregloBuscador = rellenar_arreglo_buscador();
+
+            });
+        });
+        talla.forEach(event  =>{
+            event.addEventListener('click',e => {
+                inputTalla.value=e.target.getAttribute('data-id');
+                inputNombreTalla.value = e.target.innerHTML;
+
+                cardNombreTalla.innerHTML = e.target.innerHTML;
+                toastTalla.toast('show')
+
+                arregloBuscador = rellenar_arreglo_buscador();
+
+            });
+        });
+        proveedor.forEach(event  =>{
+            event.addEventListener('click',e => {
+                inputProveedor.value=e.target.getAttribute('data-id');
+                inputNombreProveedor.value = e.target.innerHTML;
+
+                cardNombreProveedor.innerHTML = e.target.innerHTML;
+                toastMarca.toast('show')
+
+                arregloBuscador = rellenar_arreglo_buscador();
+
+            });
+        });
+        color.forEach(event  =>{
+            event.addEventListener('click',e => {
+                inputColor.value=e.target.getAttribute('data-id');
+                inputNombreColor.value = e.target.innerHTML;
+
+                cardNombreColor.innerHTML = e.target.innerHTML;
+                toastColor.toast('show')
+
+                arregloBuscador = rellenar_arreglo_buscador();
+
+            });
+        });
+        genero.forEach(event  =>{
+            event.addEventListener('click',e => {
+                inputGenero.value=e.target.getAttribute('data-id');
+                inputNombreGenero.value = e.target.innerHTML;
+
+                cardNombreGenero.innerHTML = e.target.innerHTML;
+                toastGenero.toast('show')
+
+                arregloBuscador = rellenar_arreglo_buscador();
+
+            });
+        });
+
 
 
 
@@ -187,6 +309,31 @@
 
         btnCerrartoastMarca.addEventListener('click', e =>{
             cerrar_toast(cardNombreMarca,toastMarca,inputMarca,inputNombreMarca);
+        });
+
+        btnCerrartoastTipo.addEventListener('click', e =>{
+            cerrar_toast(cardNombreTipo,toastTipo,inputTipo,inputNombreTipo);
+        });
+
+        btnCerrartoastTalla.addEventListener('click', e =>{
+            cerrar_toast(cardNombreTalla,toastTalla,inputTalla,inputNombreTalla);
+        });
+
+        btnCerrartoastCategoria.addEventListener('click', e =>{
+            cerrar_toast(cardNombreCategoria,toastCategoria,inputCategoria,inputNombreCategoria);
+        });
+
+        btnCerrartoastProveedor.addEventListener('click', e =>{
+            cerrar_toast(cardNombreProveedor,toastProveedor,inputProveedor,inputNombreProveedor);
+        });btnCerrartoastCategoria.addEventListener('click', e =>{
+            cerrar_toast(cardNombreCategoria,toastCategoria,inputCategoria,inputNombreCategoria);
+        });
+
+        btnCerrartoastColor.addEventListener('click', e =>{
+            cerrar_toast(cardNombreColor,toastColor,inputColor,inputNombreColor);
+        });
+        btnCerrartoastGenero.addEventListener('click', e =>{
+            cerrar_toast(cardNombreGenero,toastGenero,inputGenero,inputNombreGenero);
         });
 
 </script>
