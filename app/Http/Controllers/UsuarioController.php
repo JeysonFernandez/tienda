@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreUsuarioRequest;
 
+use App\Exports\UsuarioExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
+
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UsuarioController extends Controller
@@ -189,5 +193,10 @@ class UsuarioController extends Controller
     public function logout(){
         Auth::logout();
         return redirect()->route('index');
+    }
+
+    public function export()
+    {
+        return Excel::download(new UsuarioExport, 'usuarios-' . now()->format('d-m-Y') . '.xlsx');
     }
 }

@@ -4,13 +4,14 @@
 
 <div class="container-fluid">
 
-    
+
 
     <!-- DataTales Example -->
     <div class="card card-table table shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Tabla de Pedidos</h3></div>
+                <div class="p-2 bd-highlight"><a href="{{route('admin.pedido.exportPedido')}}" class="btn btn-naranjo btn-lg text-right">Exportar Excel</a></div>
             </div>
             <h5>{{$mensaje}}</h5>
             <form action="{{route('admin.pedido.getPedidoPost')}}" method="POST">
@@ -20,7 +21,7 @@
                 <button type="submit">Mostrar</button>
             </form>
         </div>
-        
+
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered text-center aling-center table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -72,7 +73,7 @@
                                         Pendiente
                                     @endif
                                 </td>
-                                <td> 
+                                <td>
                                     {{-- <a href="/pedidos/productos/{{$pedido->id}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>  --}}
                                     <a href="/pedidos/{{$pedido->id}}" ><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a>
                                     @if ($pedido->estado == 1)
@@ -80,16 +81,16 @@
                                     @endif
                                 </td>  
                             </tr>
-                        
+
                         @endforeach
-                        
-                        
+
+
                     </tbody>
                 </table>
             </div>
         </div>
 
-        
+
     </div>
 
 </div>
@@ -115,8 +116,8 @@
                         <button type="submit" class="btn btn-primary .align-items-end">eliminar</button>
                     </form>
                     </div>
-                    
-                    
+
+
                 </div>
             </div>
         </div>

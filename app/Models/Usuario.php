@@ -52,13 +52,13 @@ class Usuario extends Authenticable
 
 
     public function compras(){
-        return $this->hasMany('App\Compra');
+        return $this->hasMany('App\Models\Compra');
     }
 
     public function pedidos(){
-        return $this->hasMany('App\Pedido');
+        return $this->hasMany('App\Models\Pedido');
     }
     public function nusuarios(){
-        return $this->hasMany('App\NotificacionUsuario');
+        return $this->hasMany('App\Models\NotificacionUsuario');
     }
 }

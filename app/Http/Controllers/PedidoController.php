@@ -14,6 +14,12 @@ use App\Models\NotificacionProducto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
+
+use App\Exports\PedidoExport;
+use App\Exports\PedidoUsuarioExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
+
 use App\Mail\PedidoUsuarioMail;
 use Exception;
 
@@ -240,6 +246,15 @@ class PedidoController extends Controller
         $usuario = Usuario::findOrFail($pedido->usuario_id);
         return view('admin.pedidos.comprarPedido',['productos'=>$productos,'pedido'=>$pedido,'usuario'=>$usuario,'notificacionProductos' => NotificacionProducto::all(),
         'notificacionUsuarios' => NotificacionUsuario::all()]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new PedidoExport, 'pedido-' . now()->format('d-m-Y') . '.xlsx');
+    }
+    public function exportUsuario($id)
+    {
+        return Excel::download(new PedidoUsuarioExport($id), 'pedido-usuario' . now()->format('d-m-Y') . '.xlsx');
     }
 
 

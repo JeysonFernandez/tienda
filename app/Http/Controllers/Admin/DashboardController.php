@@ -881,6 +881,7 @@ class DashboardController extends Controller
     public function getPedidosUsuario(Request $request, $id)
     {
         $pedidos = Pedido::where('usuario_id',$id)->get();
+        $usuario = Usuario::find($id);
 
         $fechaInicial = "";
         $fechaFinal = "";
@@ -905,6 +906,7 @@ class DashboardController extends Controller
 
         return view('admin.usuarios.pedidos', [
             'pedidos' => $pedidos,
+            'usuario' => $usuario,
             'mensaje' => $mensaje,
             'id' => $id,
             'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
@@ -965,7 +967,7 @@ class DashboardController extends Controller
     public function getComprasUsuario(Request $request, $id)
     {
         $compras = Compra::where('usuario_id',$id)->get();
-
+        $usuario = Usuario::find($id);
 
 
         $fechaInicial = "";
@@ -990,6 +992,7 @@ class DashboardController extends Controller
 
         return view('admin.usuarios.compras', [
             'compras' => $compras,
+            'usuario' => $usuario,
             'mensaje' => $mensaje,
             'id' => $id,
             'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),

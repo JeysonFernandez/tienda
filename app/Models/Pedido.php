@@ -30,7 +30,7 @@ class Pedido extends Model
         return $this->hasMany('App\Models\PedidoProducto');
     }
     public function usuarios(){
-        return $this->belongsTo('App\Models\Usuario');
+        return $this->belongsTo('App\Models\Usuario','usuario_id','id');
     }
 
     public function productos(){

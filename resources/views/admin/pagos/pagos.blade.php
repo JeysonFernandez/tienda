@@ -13,7 +13,7 @@
 
             </div>
         </div>
-        
+
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered text-center aling-center table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -56,18 +56,18 @@
                                     @endif
                                 </td>
                                 <td><!-- <a href="/compras/{{ $pago->id }}/edit" onclick="nombre(this)"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>-->
-                                <a href="/pagos/{{$pago->id}}" ><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a></td> 
+                                <a href="/pagos/{{$pago->id}}" ><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a></td>
                         </tr>
-                        
+
                         @endforeach
-                        
-                        
+
+
                     </tbody>
                 </table>
             </div>
         </div>
 
-        
+
     </div>
 
 </div>

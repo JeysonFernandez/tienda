@@ -136,6 +136,8 @@ Route::group(['as'=> 'admin.'], function(){
         Route::get('/usuarios/{id}/compras', [DashboardController::class,'getComprasUsuario'])->name('getCompraUsuario');
         Route::get('/usuarios/{id}/pedidos', [DashboardController::class,'getPedidosUsuario'])->name('getPedidoUsuario');
         Route::get('/graficos/usuarios', [DashboardController::class,'getGraficoUsu'])->name('getGraficoUsuario');
+
+        Route::get('usuarios/export/', [UsuarioController::class,'export'])->name('exportUsuario');
     });
 
     Route::group(['as'=> 'producto.'], function(){
@@ -151,6 +153,7 @@ Route::group(['as'=> 'admin.'], function(){
         Route::get('/productos/editar/{id}',[ProductoController::class,'editarProducto'])->name('editarProducto');
 
         Route::post('/productos/editar/{id}',[ProductoController::class,'updateProducto'])->name('updateProducto');
+        Route::get('producto/export/', [ProductoController::class,'export'])->name('exportProducto');
     });
 
     Route::group(['as'=> 'compra.'], function(){
@@ -168,6 +171,9 @@ Route::group(['as'=> 'admin.'], function(){
         Route::get('/compras/detalle/{id}',[CompraController::class,'detalleCompraUsuario'])->name('detalleUsuario');
         Route::get('/compras/detalleCuenta/{id}',[CompraController::class,'detalleCompraUsuarioCuenta'])->name('detalleUsuarioCuenta');
         Route::post('/compras/agregarCompraPedido', [CompraController::class,'agregarCompraPedido'])->name('agregarCompraPedido');
+
+        Route::get('compra/export/', [CompraController::class,'export'])->name('exportCompra');
+        Route::get('compra/export/usuario/{id}', [CompraController::class,'exportUsuario'])->name('exportCompraUsuario');
     });
 
     Route::group(['as'=> 'pago.'], function(){
@@ -204,6 +210,9 @@ Route::group(['as'=> 'admin.'], function(){
         Route::get('/pedidos/detalleCuenta/{id}',[PedidoController::class,'detallePedidoUsuarioCuenta'])->name('detalleUsuarioCuenta');
         Route::delete('/pedidos/confirmDelete', [PedidoController::class,'confirmDelete'])->name('confirmDelete');
         Route::get('/pedidos/comprarPedido/{id}', [PedidoController::class,'comprarPedido'])->name('comprarPedido');
+
+        Route::get('pedido/export/', [PedidoController::class,'export'])->name('exportPedido');
+        Route::get('pedido/export/usuario/{id}', [PedidoController::class,'exportUsuario'])->name('exportPedidoUsuario');
     });
 });
 //--------------------------------------------------------------------------------------------------------------------
@@ -223,6 +232,9 @@ Route::group(['as'=> 'usuario.'], function(){
     Route::get('/usuario/compras/productos/{id}',[DashboardUsuarioController::class,'getComprasProductos'])->name('getCompraProductos');
 
     Route::get('/usuario/pagos/{id}',[DashboardUsuarioController::class,'getPagos'])->name('getPagos');
+
+    Route::get('/usuario/misDatos/{id}',[DashboardUsuarioController::class,'misDatos'])->name('misDatos');
+    Route::post('/usuario/misDatos/guardar/{id}',[DashboardUsuarioController::class,'misDatosGuardar'])->name('misDatosGuardar');
 
     Route::get('/usuario/notificaciones/{id}', [DashboardUsuarioController::class,'getNotificaciones'])->name('getNotificaciones');
 });
