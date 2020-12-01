@@ -41,7 +41,6 @@ class BuscadorController extends Controller
 
         if ( $request->isMethod('get') ) {
             $input = $request->all();
-            dump($input);
             /*if(isset($input['buscadorTexto'])){
 
                 $productos ->where('nombre','LIKE', '%' .$input['buscadorTexto'] . '%')
@@ -76,7 +75,6 @@ class BuscadorController extends Controller
                 $productos->where('proveedor_id',$input['proveedor_id']);
 
             }
-            dump($productos->get());
             $productos = $productos->activas()->get();
             return view('publico.buscador.resultados',compact('productos','categorias','colores','marcas','tallas','proveedores','tipos','generos','input'));
         }
