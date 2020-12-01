@@ -40,7 +40,7 @@ class CategoriaController extends Controller
     * @param \Illuminate\Http\Request $request
     * @return \Illuminate\Http\Response
     */
-    public function guardarCategoria(Request $request)
+    public function guardarCategoria(GuardarCategoriaRequest $request)
     {
         /*$validaData = $request->validate([
         'title' => 'required|min:3'

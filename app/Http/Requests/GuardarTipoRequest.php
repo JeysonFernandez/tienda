@@ -24,8 +24,11 @@ class GuardarTipoRequest extends FormRequest
      */
     public function rules()
     {
+        if(!isset($this->id)){
+            $this->id = '';
+        }
         return [
-            'nombre' => ['required','max:10', Rule::unique('tipos')->ignore($this->id),]
+            'nombre' => ['required','max:100', Rule::unique('tipos')->ignore($this->id),]
         ];
     }
     public function messages()
