@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuardarColorRequest;
 use App\Models\Color;
 use App\Http\Requests\StoreCaracteristicasProducto;
 use App\Http\Requests\StoreColor;
@@ -90,7 +91,7 @@ public function editarColor($id)
 * @param \App\color $color
 * @return \Illuminate\Http\Response
 */
-public function updateColor(Request $request, $id)
+public function updateColor(GuardarColorRequest $request, $id)
 {
 
     $color = Color::find($id);

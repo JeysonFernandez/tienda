@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuardarMarcaRequest;
 use App\Models\Marca;
 use App\Models\NotificacionProducto;
 use App\Models\NotificacionUsuario;
@@ -91,7 +92,7 @@ class MarcaController extends Controller
 * @param \App\marca $marca
 * @return \Illuminate\Http\Response
 */
-    public function updateMarca(Request $request, $id)
+    public function updateMarca(GuardarMarcaRequest $request, $id)
     {
 
         $marca = Marca::find($id);

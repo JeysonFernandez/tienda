@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuardarGeneroRequest;
 use App\Models\Genero;
 use App\Models\NotificacionProducto;
 use App\Models\NotificacionUsuario;
@@ -91,7 +92,7 @@ public function show(Genero $genero)
 * @param \App\genero $genero
 * @return \Illuminate\Http\Response
 */
-    public function updateGenero(Request $request, $id)
+    public function updateGenero(GuardarGeneroRequest $request, $id)
     {
 
         $genero = Genero::find($id);

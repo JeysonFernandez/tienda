@@ -70,7 +70,6 @@ class FechaController extends Controller
             }
         }
 
-        dd('hola');
         $disponibilidades_actuales = [];
         $pausas_actuales = [];
 
