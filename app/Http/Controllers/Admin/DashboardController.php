@@ -920,8 +920,8 @@ class DashboardController extends Controller
         $compras = DB::table('compras')
             ->select('compras.id', 'compras.estado', 'compras.deuda_total', 'compras.deuda_pendiente', 'compras.fecha_siguiente_pago')
             ->leftJoin('usuarios', 'usuarios.id', '=', 'compras.usuario_id')
-            ->AddSelect(DB::raw('usuarios.username as usuario'))
-            ->groupBy('compras.id', 'compras.estado', 'compras.deuda_total', 'compras.deuda_pendiente', 'compras.fecha_siguiente_pago', 'usuarios.username')
+            ->AddSelect(DB::raw('usuarios.email as usuario'))
+            ->groupBy('compras.id', 'compras.estado', 'compras.deuda_total', 'compras.deuda_pendiente', 'compras.fecha_siguiente_pago', 'usuarios.email')
             ->get();
 
         $fechaInicial = "";
@@ -938,14 +938,14 @@ class DashboardController extends Controller
                     ->where('compras.fecha_siguiente_pago', '>=', "$fechaInicial")
                     ->where('compras.fecha_siguiente_pago', '<=', "$fechaFinal")
                     ->leftJoin('usuarios', 'usuarios.id', '=', 'compras.usuario_id')
-                    ->AddSelect(DB::raw('usuarios.username as usuario'))
+                    ->AddSelect(DB::raw('usuarios.email as usuario'))
                     ->groupBy(
                         'compras.id',
                         'compras.estado',
                         'compras.deuda_total',
                         'compras.deuda_pendiente',
                         'compras.fecha_siguiente_pago',
-                        'usuarios.username'
+                        'usuarios.email'
                     )
                     ->get();
                 $mensaje = "entro";
