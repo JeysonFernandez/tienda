@@ -18,6 +18,10 @@ use App\Http\Requests\StoreProductos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use App\Exports\ProductoExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
+
 
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -130,6 +134,11 @@ class ProductoController extends Controller
             'notificacionProductos' => NotificacionProducto::all(),
             'notificacionUsuarios' => NotificacionUsuario::all()
         ]);
+    }
+
+    public function export()
+    {
+        return Excel::download(new ProductoExport, 'producto-' . now()->format('d-m-Y') . '.xlsx');
     }
 
     /**

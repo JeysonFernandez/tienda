@@ -43,10 +43,28 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="usuario/{{$idUsuario}}">
+            <li class="nav-item">
+                <a class="nav-link" href="{{route('usuario.index',['id' => auth()->user()->id])}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Mi cuenta</span></a>
+                    <span>Mi cuenta</span>
+                </a>
+            </li>
+
+            <hr class="sidebar-divider">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Mis Datos</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Caracteristicas</h6>
+                        <a class="collapse-item" href="{{route('usuario.misDatos',['id' => auth()->user()->id])}}"><span>Lista de Compras</span></a>
+
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->

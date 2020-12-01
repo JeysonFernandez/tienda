@@ -9,6 +9,8 @@
             <div class="d-flex bd-highlight mb-3">
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Detalle Compra</h3></div>
 
+
+
             </div>
         </div>
 

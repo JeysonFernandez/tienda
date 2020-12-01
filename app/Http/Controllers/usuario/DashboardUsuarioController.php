@@ -9,7 +9,9 @@ use App\Pago;
 use App\Models\Compra;
 use App\Models\Pedido;
 use App\Models\NotificacionUsuario;
+use App\Models\Usuario;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class DashboardUsuarioController extends Controller
 {
@@ -78,5 +80,24 @@ class DashboardUsuarioController extends Controller
         ]);
     }
 
+
+    public function misDatos($id)
+    {
+        $usuario = Usuario::find($id);
+
+        return view('usuario.perfil.perfil', [
+            'usuario' => $usuario,
+            'notificaciones'=>NotificacionUsuario::where('usuario_id',"$id")->orderBy('id', 'desc')->get()
+        ]);
+    }
+
+    public function misDatosGuardar(Request $request, $id)
+    {
+        $usuario = Usuario::findOrFail($id);
+        $usuario->update($request->all());
+        $usuario->password = Hash::make($request->password);
+        $usuario->save();
+        return redirect()->route('usuario.index',['id' => auth()->user()->id]);
+    }
 
 }

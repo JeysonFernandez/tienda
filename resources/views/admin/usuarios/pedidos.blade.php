@@ -10,9 +10,10 @@
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Tabla de Pedidos</h3></div>
+                <div class="p-2 bd-highlight"><a href="{{route('admin.pedido.exportPedidoUsuario',['id' => $usuario->id])}}" class="btn btn-naranjo btn-lg text-right">Exportar Excel</a></div>
             </div>
             <h5>{{$mensaje}}</h5>
-            <form action="{{route('admin.pedido.getPedidoUsuarioPost',$id)}}" method="POST">
+            <form action="{{route('admin.pedido.getPedidoUsuarioPost',$usuario->id)}}" method="POST">
                 @csrf
                 <input type="date" name="fechaInicial" id="fechaInicial" value="{{old('fechaInicial')}}">
                 <input type="date" name="fechaFinal" id="fechaFinal">
@@ -53,8 +54,8 @@
                                 <td>{{$cont}}</td>
                                 <td>{{$pedido->lugar_visita}}</td>
                                 <td>{{$pedido->fecha}}</td>
-                                <td>{{$pedido->hora}}</td>
-                                <td>{{$pedido->usuario}}</td>
+                                <td>{{$pedido->fecha_hora_inicio}}</td>
+                                <td>{{$usuario->email}}</td>
                                 <td>
                                     @if ($pedido->tipo == 2)
                                         Visita

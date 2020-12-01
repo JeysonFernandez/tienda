@@ -14,6 +14,10 @@ class PedidoProducto extends Model
     {
         return $this->sum('costo');
     }
+    public function getCantidadProductoAttribute()
+    {
+        return $this->count();
+    }
 
     public function productos(){
         return $this->belongsTo('App\Models\Producto','producto_id','id');

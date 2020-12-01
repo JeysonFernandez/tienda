@@ -16,6 +16,12 @@ use App\Mail\ReporteUsuario;
 use App\Mail\ReporteAdmin;
 use App\Models\Rey;
 
+
+use App\Exports\CompraExport;
+use App\Exports\CompraUsuarioExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
+
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CompraController extends Controller
@@ -302,7 +308,7 @@ class CompraController extends Controller
         $ultimaCompra = $compras->last();
         $productosPedido = PedidoProducto::where('pedido_id',$compra->pedido_id)->get();
         foreach ($productosPedido as $producto){
-            $idProducto = $producto->producto_id;     
+            $idProducto = $producto->producto_id;
             if( $request->get('producto'.( (string)$idProducto ) ) != 0){
                 $compraProducto = new CompraProducto();
                 $compraProducto->producto_id = $idProducto;
@@ -370,5 +376,15 @@ class CompraController extends Controller
 
         alert()->success('Perfecto!','La compra ha sido registrada exitosamente.');
         return redirect()->route('admin.compra.getCompras');
+    }
+
+    public function export()
+    {
+        return Excel::download(new CompraExport, 'compra-' . now()->format('d-m-Y') . '.xlsx');
+    }
+    public function exportUsuario($id)
+    {
+        return Excel::download(new CompraUsuarioExport($id), 'compra-usuario' . now()->format('d-m-Y') . '.xlsx');
+
     }
 }

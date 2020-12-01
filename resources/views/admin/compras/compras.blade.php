@@ -12,6 +12,7 @@
             <div class="d-flex bd-highlight mb-3">
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Registro de Compras</h3></div>
                 <div class="p-2 bd-highlight"><a href="/compras/create"><button type="button" class="btn btn-primary btn-lg text-right">Agregar</button></a></div>
+                <div class="p-2 bd-highlight"><a href="{{route('admin.compra.exportCompra')}}" class="btn btn-naranjo btn-lg text-right">Exportar Excel</a></div>
             </div>
             <h5>{{$mensaje}}</h5>
             <form action="{{route('admin.compra.getCompraPost')}}" method="POST">

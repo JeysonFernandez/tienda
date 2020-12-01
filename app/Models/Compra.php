@@ -9,8 +9,11 @@ class Compra extends Model
     public $timestamps = false;
     protected $table = "compras";
 
+
+
+
     public function usuario(){
-        return $this->belongsTo('App\Models\Usuario');
+        return $this->belongsTo('App\Models\Usuario','usuario_id','id');
     }
     public function compraproducto(){
         return $this->hasMany('App\Models\CompraProducto');
