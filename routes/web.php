@@ -59,7 +59,7 @@ Route::group(['as'=> 'admin.'], function(){
         Route::get('/categorias/crear', [CategoriaController::class,'crearCategoria'])->name('crearCategoria');
         Route::get('/categoria/editar/{id}',[CategoriaController::class,'editarCategoria'])->name('editarCategoria');
 
-        Route::post('/categoria/editar/{id}',[CategoriaController::class,'updateCategoria'])->name('updateCategoria');
+        Route::post('/admin/categoria/editar/{id}',[CategoriaController::class,'updateCategoria'])->name('updateCategoria');
         Route::post('/categorias/update',[CategoriaController::class,'guardarCategoria'])->name('guardarCategoria');
     });
 

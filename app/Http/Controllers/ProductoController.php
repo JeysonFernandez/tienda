@@ -88,8 +88,8 @@ class ProductoController extends Controller
         $producto->stock_actual = $request->get('stock_actual');
         $producto->precio_unidad = $request->get('precio_unidad');
         $producto->fecha_creacion = now()->format('Y-m-d');
-        $producto->imagen = '';
         $producto->borrado = $request->get('estado');
+        $producto->imagen = $request->imagen->store('public/prendas');
         $producto->save();
 
         return redirect()->route('admin.producto.getProducto', [
@@ -219,9 +219,18 @@ class ProductoController extends Controller
     public function homeProductos()
     {
         //Alert::success('Gola','chao');
-
+        $cantidad = Producto::where([['borrado','=',1],['cant_vendida','>',0]])->count();
+        if($cantidad>0){
+            $poductosVendidos = Producto::where([['borrado','=',1],['cant_vendida','>',0]])->orderBy('cant_vendida')->take(2);
+            return view('home.index', [
+                'productos' => Producto::where('borrado', '=', 1)->inRandomOrder()->take(20)->get(),
+                'cantidad' => $cantidad,
+                'productosVendidos' => $productosVendidos
+            ]);
+        }
         return view('home.index', [
             'productos' => Producto::where('borrado', '!=', 3)->inRandomOrder()->take(20)->get(),
+            'cantidad' => $cantidad
         ]);
     }
 

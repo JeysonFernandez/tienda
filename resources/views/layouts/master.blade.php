@@ -67,8 +67,8 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Caracteristicas</h6>
                         <a class="collapse-item" href="{{route('admin.categoria.verCategorias')}}">Categorias</a>
-                        <a class="collapse-item" href="{{route('admin.color.verColor')}}">Color</a>
-                        <a class="collapse-item" href="{{route('admin.genero.verGenero')}}">Generos</a>
+                        <a class="collapse-item" href="{{route('admin.color.verColor')}}">Colores</a>
+                        <a class="collapse-item" href="{{route('admin.genero.verGenero')}}">Clasificaciones</a>
                         <a class="collapse-item" href="{{route('admin.marca.verMarca')}}">Marcas</a>
                         <a class="collapse-item" href="{{route('admin.tipo.verTipo')}}">Tipos</a>
                         <a class="collapse-item" href="{{route('admin.talla.verTalla')}}">Tallas</a>
