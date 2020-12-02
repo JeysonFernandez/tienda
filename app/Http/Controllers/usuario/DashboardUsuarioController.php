@@ -10,12 +10,14 @@ use App\Models\Compra;
 use App\Models\Pedido;
 use App\Models\NotificacionUsuario;
 use App\Models\Usuario;
+use App\Models\CompraProducto;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
 use App\Exports\PedidoUsuarioExport;
 use App\Exports\CompraUsuarioExport;
+use App\Exports\CompraProductoExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardUsuarioController extends Controller
@@ -42,15 +44,10 @@ class DashboardUsuarioController extends Controller
         ]);
     }
     public function getPagos($id){
-        $pagos = DB::table('pagos')
-            ->select('pagos.monto','pagos.fecha','pagos.estado')
-            ->leftJoin('compras','pagos.compra_id','=','compras.id')
-            ->where('compras.usuario_id','=',"$id")
-            ->groupBy('pagos.monto','pagos.fecha','pagos.estado')
-            ->get();
+        $compras = Compra::where('usuario_id',$id)->get();
 
         return view('usuario.pagos.pagos',[
-        'pagos' => $pagos,
+        'compras' => $compras,
         'notificaciones'=>NotificacionUsuario::where('usuario_id',$id)->orderBy('id', 'desc')->get()
         ]);
     }
@@ -64,10 +61,10 @@ class DashboardUsuarioController extends Controller
     }
 
     public function getComprasProductos($id){
-        $produc = Compra::find($id);
+        $compra = Compra::find($id);
 
         return view('usuario.compras.detalleCompra', [
-            'produc' => $produc,
+            'compra' => $compra,
             'notificaciones'=>NotificacionUsuario::where('usuario_id',$id)->orderBy('id', 'desc')->get()
         ]);
     }
@@ -112,6 +109,10 @@ class DashboardUsuarioController extends Controller
     public function exportUsuarioCompra($id)
     {
         return Excel::download(new CompraUsuarioExport($id), 'compra-usuario-' . now()->format('d-m-Y') . '.xlsx');
+    }
+    public function exportCompraProducto($id)
+    {
+        return Excel::download(new CompraProductoExport($id), 'compra-producto-' . now()->format('d-m-Y') . '.xlsx');
     }
 
 }

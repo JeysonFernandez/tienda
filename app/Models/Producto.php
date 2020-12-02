@@ -65,7 +65,7 @@ class Producto extends Model
         return $this->belongsTo('App\Models\Genero');
     }
     public function compras(){
-        return $this->belongsToMany('App\Models\Producto');
+        return $this->belongsToMany('App\Models\CompraProducto','id','producto_id');
     }
 
     public function scopeOfCategoria($query, $categoria)
@@ -99,6 +99,16 @@ class Producto extends Model
     public static function ofTalla($talla)
     {
     return static::where('talla_id',$talla);
+    }
+
+
+    public static function costoProducto($id)
+    {
+        foreach($this->compras as $producto ){
+            if($producto->compra_id == $id){
+                return $producto->cantidad;
+            }
+        }
     }
 
 }

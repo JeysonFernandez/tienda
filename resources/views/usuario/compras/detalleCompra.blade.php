@@ -12,7 +12,7 @@
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Tabla de Productos</h3></div>
-
+                <div class="p-2 bd-highlight"><a href="{{route('usuario.exportCompraProducto',['id' => $compra->id])}}" class="btn btn-naranjo btn-lg text-right">Exportar Excel</a></div>
 
             </div>
         </div>
@@ -29,9 +29,7 @@
                             <th>Genero</th>
                             <th>Marca</th>
                             <th>Talla</th>
-                            <th>Stock Actual</th>
-                            <th>Stock Critico</th>
-                            <th>Costo Total</th>
+                            <th>Valor Total</th>
                             <th>Cantidad</th>
                         </tr>
                     </thead>
@@ -44,15 +42,13 @@
                             <th>Genero</th>
                             <th>Marca</th>
                             <th>Talla</th>
-                            <th>Stock Actual</th>
-                            <th>Stock Critico</th>
-                            <th>Costo Total</th>
+                            <th>Valor Total</th>
                             <th>Cantidad</th>
                         </tr>
                     </tfoot>
                     <tbody>
                         <?php $cont = 0?>
-                        @foreach ($produc->productos as $prod)
+                        @foreach ($compra->productos as $prod)
 
 
                             <?php $cont++?>
@@ -64,10 +60,8 @@
                                 <td>{{$prod->genero->nombre}}</td>
                                 <td>{{$prod->marca->nombre}}</td>
                                 <td>{{$prod->talla->nombre}}</td>
-                                <td>{{$prod->stock_actual}}</td>
-                                <td>{{$prod->stock_critico}}</td>
-                                <td>{{$prod->pivot->costo_total}}</td>
-                                <td>{{$prod->pivot->cantidad_producto}}</td>
+                                <td>${{\App\Models\CompraProducto::where('compra_id',$compra->id)->where('producto_id',$prod->id)->first()->costo}}</td>
+                                <td>{{\App\Models\CompraProducto::where('compra_id',$compra->id)->where('producto_id',$prod->id)->first()->cantidad}}</td>
 
                             </tr>
 

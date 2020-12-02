@@ -56,7 +56,7 @@
                                 <td>{{$compra->deuda_pendiente}}</td>
                                 <td>{{$compra->fecha_siguiente_pago}}</td>
                                 <td>
-                                    <a href="{{route('usuarioMenu.getcompraproductos',$compra->id)}}"class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
+                                    <a href="{{route('usuario.getCompraProductos',$compra->id)}}"class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
                                         title="Ver compras del usuario" > <i class="fas fa-shopping-bag"></i>
                                     </a>
                                 </td>

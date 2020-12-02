@@ -19,7 +19,7 @@ class Compra extends Model
         return $this->hasMany('App\Models\CompraProducto');
     }
     public function pagos(){
-        return $this->hasMany('App\Models\Pago');
+        return $this->hasMany('App\Models\Pago','compra_id','id');
     }
     public function productos(){
         return $this->belongsToMany('App\Models\Producto')

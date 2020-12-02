@@ -21,6 +21,6 @@ class CompraProducto extends Model
         return $this->belongsTo('App\Models\Producto','producto_id','id');
     }
     public function compras(){
-        return $this->belongsTo('App\Compra');
+        return $this->belongsTo('App\ModelsCompra','compra_id','id');
     }
 }

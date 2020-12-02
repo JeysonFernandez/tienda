@@ -52,22 +52,23 @@
                     </tfoot>
                     <tbody>
                         <?php $cont = 0?>
-                        @foreach ($produc->productos as $prod)
+                        @foreach ($produc->pedidoproducto as $prod)
 
 
                             <?php $cont++?>
                             <tr>
                                 <td>{{$cont}}</td>
-                                <td>{{$prod->tipo->nombre}}</td>
-                                <td>{{$prod->categoria->nombre}}</td>
-                                <td>{{$prod->color->nombre}}</td>
-                                <td>{{$prod->genero->nombre}}</td>
-                                <td>{{$prod->marca->nombre}}</td>
-                                <td>{{$prod->talla->nombre}}</td>
-                                <td>{{$prod->stock_actual}}</td>
-                                <td>{{$prod->stock_critico}}</td>
-                                <td>{{$prod->pivot->valor_total}}</td>
-                                <td>{{$prod->pivot->cantidad_producto}}</td>
+                                <td>{{$prod->productos->tipo->nombre}}</td>
+                                <td>{{$prod->productos->categoria->nombre}}</td>
+                                <td>{{$prod->productos->color->nombre}}</td>
+                                <td>{{$prod->productos->genero->nombre}}</td>
+                                <td>{{$prod->productos->marca->nombre}}</td>
+                                <td>{{$prod->productos->talla->nombre}}</td>
+                                <td>{{$prod->productos->stock_actual}}</td>
+                                <td>{{$prod->productos->stock_critico}}</td>
+                                <td>${{\App\Models\PedidoProducto::where('pedido_id',$produc->id)->where('producto_id',$prod->productos->id)->first()->costo}}</td>
+                                <td>{{\App\Models\PedidoProducto::where('pedido_id',$produc->id)->where('producto_id',$prod->productos->id)->first()->cantidad}}</td>
+
 
                             </tr>
 

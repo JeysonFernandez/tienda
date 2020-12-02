@@ -162,7 +162,7 @@ class FechaController extends Controller
     public function getDiasDisponiblesTipo( Request $request )
     {
 
-        $disponibilidades = DiasDisponibles::orderBy('dia')->get();
+        $disponibilidades = DiasDisponibles::where('activo', 1)->orderBy('dia')->get();
 
         $data = [];
         foreach ($disponibilidades as $d) {
@@ -171,6 +171,7 @@ class FechaController extends Controller
                 'hora_inicio' => $d->hora_inicio,
                 'hora_termino' => $d->hora_termino,
                 'pausas' => $d->pausas,
+
             ];
         }
 
@@ -186,23 +187,23 @@ class FechaController extends Controller
         $fecha = $request->fecha;
         $tipo_id = $request->tipo_id;
 
-        if($tipo_id == 1){
+        if($tipo_id == Pedido::EXPRESS){
             $duracion = 60;
         }else{
             $duracion = 30;
         }
 
-
         $disponibilidad = DiasDisponibles::where([
             ['dia', (date('w', strtotime($fecha)))],
+            ['activo',1],
         ])->first();
 
-        if (empty($disponibilidad)) {
+        if ( empty($disponibilidad) || empty($disponibilidad->hora_inicio) || empty($disponibilidad->hora_termino) ) {
             return response()->json([]);
         }
 
         $pedidos = Pedido::whereBetween('fecha_hora_inicio', [$fecha.' 00:00:00', $fecha.' 23:59:59'])
-                        ->orWhereBetween('fecha_hora_fin', [$fecha.' 00:00:00', $fecha.' 23:59:59'])->get();
+        ->orWhereBetween('fecha_hora_fin', [$fecha.' 00:00:00', $fecha.' 23:59:59'])->get();
 
         if($fecha == \Carbon\Carbon::now()->format('Y-m-d')){
             $inicio = strtotime('+30 minute',strtotime(\Carbon\Carbon::now()));
@@ -214,7 +215,9 @@ class FechaController extends Controller
         $horas = [];
         $i = 0;
 
-
+        if ( empty($duracion) || empty($inicio) || empty($termino) ) {
+            return response()->json([]);
+        }
 
         // Construye lista de horas disponibles según duración de tipo de cita
         while (strtotime('+'.$i * $duracion.' minutes', $inicio) < $termino) {
@@ -222,7 +225,6 @@ class FechaController extends Controller
             $horas[] = date('H:i', $actual);
             ++$i;
         }
-
         foreach ($pedidos as $pedido) {
             foreach ($horas as $index => $hora) {
                 $inicio_hora = strtotime($fecha.' '.$hora.':00');
@@ -234,9 +236,11 @@ class FechaController extends Controller
                     continue;
                 }
 
+
                 unset($horas[$index]);
             }
         }
+
 
         // Quita horas que tengan tope con citas agendadas
 

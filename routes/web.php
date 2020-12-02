@@ -248,7 +248,9 @@ Route::group(['as'=> 'usuario.'], function(){
     Route::get('/usuario/notificaciones/{id}', [DashboardUsuarioController::class,'getNotificaciones'])->name('getNotificaciones');
 
     Route::get('/usuario/compra/export/{id}', [DashboardUsuarioController::class,'exportUsuarioCompra'])->name('exportCompraUsuario');
+    Route::get('/usuario/compra/producto/export/{id}', [DashboardUsuarioController::class,'exportCompraProducto'])->name('exportCompraProducto');
     Route::get('/usuario/pedido/export/{id}', [DashboardUsuarioController::class,'exportUsuarioPedido'])->name('exportPedidoUsuario');
+    Route::get('/usuario/pedido/producto/export/{id}', [DashboardUsuarioController::class,'exportPedidoProducto'])->name('exportPedidoProducto');
 
     Route::get('/usuario/pago/export/{id}', [PagoController::class,'exportPago'])->name('exportPago');
     Route::get('/usuario/pago/usuario/export/{id}', [PagoController::class,'exportUsuarioPago'])->name('exportUsuarioPago');

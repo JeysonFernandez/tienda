@@ -60,7 +60,7 @@
                                 </td>
                                 <td>
                                     <a href="{{route('usuario.getpedidoproductos',$pedido->id)}}"class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
-                                        title="Ver pedidos del usuario" > <i class="far fa-edit"></i>
+                                        title="Ver pedidos del usuario" ><i class="fas fa-eye"></i>
                                     </a>
                                     <a href="/pedidos/cancelarPedido/{{$pedido->id}}"><button class="btn btn-danger"><i class="fas fa-minus-circle"></i></button></a>
                                 </td>
