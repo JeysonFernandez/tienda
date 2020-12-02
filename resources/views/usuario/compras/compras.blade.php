@@ -10,9 +10,8 @@
     <div class="card card-table shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
-                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Registro de Compras</h3></div>
-                <div class="p-2 bd-highlight"><a href="/compras/create"><button type="button" class="btn btn-primary btn-lg text-right">Agregar</button></a></div>
-
+                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Tabla de Compras</h3></div>
+                <div class="p-2 bd-highlight"><a href="{{route('usuario.exportCompraUsuario',['id' => auth()->user()->id])}}" class="btn btn-naranjo btn-lg text-right">Exportar Excel</a></div>
             </div>
         </div>
 
@@ -56,7 +55,11 @@
                                 <td>{{$compra->deuda_total}}</td>
                                 <td>{{$compra->deuda_pendiente}}</td>
                                 <td>{{$compra->fecha_siguiente_pago}}</td>
-                                <td><a href="{{route('usuarioMenu.getcompraproductos',$compra->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a></td>
+                                <td>
+                                    <a href="{{route('usuarioMenu.getcompraproductos',$compra->id)}}"class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
+                                        title="Ver compras del usuario" > <i class="fas fa-shopping-bag"></i>
+                                    </a>
+                                </td>
                         </tr>
 
                         @endforeach

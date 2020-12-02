@@ -11,6 +11,7 @@
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
                 <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Tabla de Pedidos</h3></div>
+                <div class="p-2 bd-highlight"><a href="{{route('usuario.exportPedidoUsuario',['id' => auth()->user()->id])}}" class="btn btn-naranjo btn-lg text-right">Exportar Excel</a></div>
             </div>
         </div>
 
@@ -48,7 +49,7 @@
                                 <td>{{$cont}}</td>
                                 <td>{{$pedido->lugar_visita}}</td>
                                 <td>{{$pedido->fecha}}</td>
-                                <td>{{$pedido->hora}}</td>
+                                <td>{{$pedido->fecha_hora_inicio}}</td>
                                 <td>{{$pedido->usuario_id}}</td>
                                 <td>
                                     @if ($pedido->tipo == 'v')
@@ -58,7 +59,11 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="/pedidos/cancelarPedido/{{$pedido->id}}"><button class="btn btn-warning">Cancelar</button></a></td>
+                                    <a href="{{route('usuario.getpedidoproductos',$pedido->id)}}"class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
+                                        title="Ver pedidos del usuario" > <i class="far fa-edit"></i>
+                                    </a>
+                                    <a href="/pedidos/cancelarPedido/{{$pedido->id}}"><button class="btn btn-danger"><i class="fas fa-minus-circle"></i></button></a>
+                                </td>
                             </tr>
                             @endif
 

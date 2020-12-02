@@ -12,6 +12,12 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ReporteUsuario;
 use App\Mail\ReporteAdmin;
 
+use App\Exports\PagoCompraExport;
+use App\Exports\PagoExport;
+use App\Exports\PagoUsuarioExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Controller;
+
 class PagoController extends Controller
 {
     /**
@@ -155,4 +161,19 @@ class PagoController extends Controller
         $compra->save();
         return redirect()->route('admin.getpagos');
     }
+
+    public function exportPago()
+    {
+        return Excel::download(new PagoExport, 'pago-' . now()->format('d-m-Y') . '.xlsx');
+    }
+    public function exportUsuarioPago($id)
+    {
+        return Excel::download(new PagoUsuarioExport($id), 'pago-usuario-' . now()->format('d-m-Y') . '.xlsx');
+    }
+    public function exportCompraPago($id)
+    {
+        return Excel::download(new PagoCompraExport($id), 'pago-compra-' . now()->format('d-m-Y') . '.xlsx');
+    }
+
+
 }

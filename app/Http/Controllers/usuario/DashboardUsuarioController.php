@@ -13,6 +13,11 @@ use App\Models\Usuario;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
+
+use App\Exports\PedidoUsuarioExport;
+use App\Exports\CompraUsuarioExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class DashboardUsuarioController extends Controller
 {
     public function __Construct()
@@ -98,6 +103,15 @@ class DashboardUsuarioController extends Controller
         $usuario->password = Hash::make($request->password);
         $usuario->save();
         return redirect()->route('usuario.index',['id' => auth()->user()->id]);
+    }
+
+    public function exportUsuarioPedido($id)
+    {
+        return Excel::download(new PedidoUsuarioExport($id), 'pedido-usuario-' . now()->format('d-m-Y') . '.xlsx');
+    }
+    public function exportUsuarioCompra($id)
+    {
+        return Excel::download(new CompraUsuarioExport($id), 'compra-usuario-' . now()->format('d-m-Y') . '.xlsx');
     }
 
 }

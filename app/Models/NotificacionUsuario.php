@@ -10,10 +10,10 @@ class NotificacionUsuario extends Model
     protected $table = "notificacion_usuarios";
 
     public function usuario(){
-    return $this->belongsTo('App\Usuario');
+    return $this->belongsTo('App\Models\Usuario');
     }
     public function productos(){
-    return $this->belongsToMany('App\Producto','notificacion_productos','id','producto_id')
+    return $this->belongsToMany('App\Models\Producto','notificacion_productos','id','producto_id')
         ->withPivot('mensaje','fecha_creacion','tipo');
     }
 

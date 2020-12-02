@@ -10,7 +10,7 @@ class NotificacionProducto extends Model
     protected $table = "notificacion_productos";
 
     public function productos(){
-        return $this->belongsTo('App\Producto','producto_id');
+        return $this->belongsTo('App\Models\Producto','producto_id');
     }
 
 
