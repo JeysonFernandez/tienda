@@ -60,8 +60,8 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Caracteristicas</h6>
-                        <a class="collapse-item" href="{{route('usuario.misDatos',['id' => auth()->user()->id])}}"><span>Lista de Compras</span></a>
+                        <h6 class="collapse-header">Mis Datos</h6>
+                        <a class="collapse-item" href="{{route('usuario.misDatos',['id' => auth()->user()->id])}}"><span>Información</span></a>
 
                     </div>
                 </div>

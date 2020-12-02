@@ -184,6 +184,15 @@ Route::group(['as'=> 'admin.'], function(){
 
         Route::post('/admin/pagos/agregar',[PagoController::class,'agregar'])->name('agregarPago');
         Route::delete('/pagos/confirmDelete', [PagoController::class,'confirmDelete'])->name('confirmDelete');
+
+
+        Route::get('/pago/export/{id}', [PagoController::class,'exportPago'])->name('exportPago');
+        Route::get('/pago/usuario/export/{id}', [PagoController::class,'exportUsuarioPago'])->name('exportUsuarioPago');
+        Route::get('/pago/compra/export/{id}', [PagoController::class,'exportCompraPago'])->name('exportCompraPago');
+
+
+
+
         Route::get('/admin/pagos/crear',[PagoController::class,'crearPago'])->name('crearPago');
     });
 
@@ -226,7 +235,7 @@ Route::post('/buscadors/barranavegacion', [BuscadorController::class,'filtroBarr
 Route::group(['as'=> 'usuario.'], function(){
     Route::get('/usuario/{id}',[DashboardUsuarioController::class,'getDashboard'])->name('index');
     Route::get('/usuario/pedidos/{id}',[DashboardUsuarioController::class,'getPedidos'])->name('getPedidos');
-    Route::get('/usuario/pedidos/productos/{id}',[DashboardUsuarioController::class,'getPedidosProductos'])->name('getPedidoProductos');
+    Route::get('/usuario/pedidos/productos/{id}',[DashboardUsuarioController::class,'getPedidosProductos'])->name('getpedidoproductos');
 
     Route::get('/usuario/compras/{id}',[DashboardUsuarioController::class,'getCompras'])->name('getCompras');
     Route::get('/usuario/compras/productos/{id}',[DashboardUsuarioController::class,'getComprasProductos'])->name('getCompraProductos');
@@ -237,4 +246,14 @@ Route::group(['as'=> 'usuario.'], function(){
     Route::post('/usuario/misDatos/guardar/{id}',[DashboardUsuarioController::class,'misDatosGuardar'])->name('misDatosGuardar');
 
     Route::get('/usuario/notificaciones/{id}', [DashboardUsuarioController::class,'getNotificaciones'])->name('getNotificaciones');
+
+    Route::get('/usuario/compra/export/{id}', [DashboardUsuarioController::class,'exportUsuarioCompra'])->name('exportCompraUsuario');
+    Route::get('/usuario/pedido/export/{id}', [DashboardUsuarioController::class,'exportUsuarioPedido'])->name('exportPedidoUsuario');
+
+    Route::get('/usuario/pago/export/{id}', [PagoController::class,'exportPago'])->name('exportPago');
+    Route::get('/usuario/pago/usuario/export/{id}', [PagoController::class,'exportUsuarioPago'])->name('exportUsuarioPago');
+    Route::get('/usuario/pago/compra/export/{id}', [PagoController::class,'exportCompraPago'])->name('exportCompraPago');
+
+
+
 });
