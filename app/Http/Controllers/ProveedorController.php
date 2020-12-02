@@ -93,12 +93,12 @@ class ProveedorController extends Controller
 * @param \App\proveedor $proveedor
 * @return \Illuminate\Http\Response
 */
-    public function updateProveedor(GuardarProveedorRequest $request, $id)
+    public function updateProveedor(Request $request, $id)
     {
-
         $proveedor = Proveedor::find($id);
-        $proveedor->id = $id;
-        $proveedor->nombre = $request->nombre;
+        $proveedor->nombre = $request->get('nombre');
+        $proveedor->descripcion = $request->get('descripcion');
+        $proveedor->direccion = $request->get('direccion');
         $proveedor->save();
 
         return redirect()->route('admin.proveedor.verProveedor');
@@ -106,7 +106,7 @@ class ProveedorController extends Controller
 
     public function confirmarUpdate(Request $request)
     {
-        $proveedor = proveedor::find($request->get('id'));
+        $proveedor = Proveedor::find($request->get('id'));
         $proveedor->nombre = $request->get('nombre');
         $proveedor->save();
 

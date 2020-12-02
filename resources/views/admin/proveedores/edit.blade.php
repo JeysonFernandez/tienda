@@ -33,6 +33,28 @@
                             </span>
                         @enderror
                     </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label class="label">Descripción</label>
+                            <input class="form-control @error('descripcion') is-invalid @enderror" type="text" id="descripcion" name="descripcion"   value="{{old('descripcion') ?? $proveedor->descripcion ?? '' }}">
+                        </div>
+                        @error('descripcion')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label class="label">Dirección</label>
+                            <input class="form-control @error('direccion') is-invalid @enderror" type="text" id="direccion" name="direccion"   value="{{old('direccion') ?? $proveedor->direccion ?? '' }}">
+                        </div>
+                        @error('direccion')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
 
                 </div>
                 <input type="hidden" name="id" value="{{$proveedor->id}}">
