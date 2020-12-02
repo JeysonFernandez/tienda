@@ -40,7 +40,7 @@ class ProductoExport implements FromQuery, WithHeadings, WithEvents, WithStyles,
             $producto->stock_critico,
             $producto->precio_unidad,
             ($producto->cantidad_vendida < 1 ? 0: $producto->cantidad_vendida),
-            ($producto->borrado == 2 ? 'Borrado' : 'Publicado') ,
+            ($producto->estado()),
         ];
     }
 

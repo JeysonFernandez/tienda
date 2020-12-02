@@ -116,6 +116,15 @@
                                 <label for="imagen" class="custom-file-label" data-browse="Examinar">Seleccione la imagen</label>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="estado"> Estado </label>
+                            <select name="estado" id="estado" class="form-control">
+                                    <option value="{{\App\Models\Producto::PUBLICADO}}">Publicado</option>
+                                    <option value="{{\App\Models\Producto::BORRADOR}}" selected>Borrador</option>
+                                    <option value="{{\App\Models\Producto::BORRADO}}">Borrado</option>
+                            </select>
+                        </div>
+
                         <button class="btn btn-primary" type="submit">Agregar</button>
                     </form>
                 </div>

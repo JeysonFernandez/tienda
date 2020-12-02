@@ -5,6 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
+use App\Models\Producto;
+
 class GuardarProductoRequest extends FormRequest
 {
     /**
@@ -25,16 +27,16 @@ class GuardarProductoRequest extends FormRequest
     public function rules()
     {
         return [
-            'stock_critico' => 'required',
-            'stock_actual' => 'required',
-            'precio_unidad' => 'required',
-            'tipo' => 'required',
-            'talla' => 'required',
-            'color' => 'required',
-            'genero' => 'required',
-            'categoria' => 'required',
-            'marca' => 'required',
-            'proveedor' => 'required',
+            'stock_critico' => 'required_if:estado,'.Producto::PUBLICADO,
+            'stock_actual' =>  'required_if:estado,'.Producto::PUBLICADO,
+            'precio_unidad' =>  'required_if:estado,'.Producto::PUBLICADO,
+            'tipo' =>  'required_if:estado,'.Producto::PUBLICADO,
+            'talla' =>  'required_if:estado,'.Producto::PUBLICADO,
+            'color' =>  'required_if:estado,'.Producto::PUBLICADO,
+            'genero' =>  'required_if:estado,'.Producto::PUBLICADO,
+            'categoria' =>  'required_if:estado,'.Producto::PUBLICADO,
+            'marca' =>  'required_if:estado,'.Producto::PUBLICADO,
+            'proveedor' =>  'required_if:estado,'.Producto::PUBLICADO,
         ];
     }
     public function attributes()
@@ -55,7 +57,8 @@ class GuardarProductoRequest extends FormRequest
     public function messages()
     {
         return [
-            '*.required'   => 'Complete el campo :attribute',
+
+            '*.required_if'   => 'Complete el campo :attribute cuando el estado es PUBLICADO',
         ];
     }
 

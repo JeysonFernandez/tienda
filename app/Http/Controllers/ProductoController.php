@@ -36,7 +36,7 @@ class ProductoController extends Controller
     {
 
         return view('productos.index', [
-            'productos' => Producto::where('borrado', '=', 1)->get()
+            'productos' => Producto::where('borrado', '!=', 3)->get()
         ]);
     }
 
@@ -89,7 +89,7 @@ class ProductoController extends Controller
         $producto->precio_unidad = $request->get('precio_unidad');
         $producto->fecha_creacion = now()->format('Y-m-d');
         $producto->imagen = '';
-        $producto->borrado = Producto::PUBLICADO;
+        $producto->borrado = $request->get('estado');
         $producto->save();
 
         return redirect()->route('admin.producto.getProducto', [
@@ -106,7 +106,7 @@ class ProductoController extends Controller
      */
     public function verProducto($id)
     {
-        $producto = Producto::where('borrado', '=', 1)->findOrFail($id);
+        $producto = Producto::where('borrado', '!=', 3)->findOrFail($id);
         return view('publico.producto.detalle', [
             'producto' => $producto,
             'productos' => Producto::inRandomOrder()->take(6)->get()
@@ -148,7 +148,7 @@ class ProductoController extends Controller
      * @param  \App\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function updateProducto(Request $request, $id)
+    public function updateProducto(GuardarProductoRequest $request, $id)
     {
         $producto = Producto::findOrFail($id);
         $producto->tipo_id = $request->get('tipo');
@@ -160,6 +160,7 @@ class ProductoController extends Controller
         $producto->stock_actual = $request->get('stock_actual');
         $producto->precio_unidad = $request->get('precio_unidad');
         $producto->imagen = $request->imagen ? $request->imagen->store('public/prendas') : '';
+        $producto->borrado = $request->get('estado');
         $producto->save();
         return redirect()->route('admin.producto.getProducto');
     }
@@ -188,7 +189,7 @@ class ProductoController extends Controller
         if(isset($request->imagen)){
             $producto->imagen = $request->imagen->store('public/prendas');
         }
-
+        $producto->borrado = $request->get('estado');
         $producto->save();
         return redirect()->route('admin.producto.getProducto');
     }
@@ -220,7 +221,7 @@ class ProductoController extends Controller
         //Alert::success('Gola','chao');
 
         return view('home.index', [
-            'productos' => Producto::where('borrado', '=', 1)->inRandomOrder()->take(20)->get(),
+            'productos' => Producto::where('borrado', '!=', 3)->inRandomOrder()->take(20)->get(),
         ]);
     }
 

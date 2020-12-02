@@ -29,7 +29,8 @@
                             <th>Stock Actual</th>
                             <th>Stock Critico</th>
                             <th>Precio</th>
-                            <th></th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -44,7 +45,8 @@
                             <th>Stock Actual</th>
                             <th>Stock Critico</th>
                             <th>Precio</th>
-                            <th></th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -62,6 +64,10 @@
                                 <td>{{$producto->stock_actual}}</td>
                                 <td>{{$producto->stock_critico}}</td>
                                 <td>{{$producto->precio_unidad}}</td>
+                                <td>
+                                @if($producto->borrado == \App\Models\Producto::BORRADOR)Borrado @endif
+                                @if($producto->borrado == \App\Models\Producto::PUBLICADO)Publico @endif
+                                </td>
                                 <td> <a type="submit" class="btn btn-xs btn-success" data-toggle="tooltip" href="{{route('admin.producto.editarProducto',['id' => $producto->id])}}" title="Editar">
                                     <i class="fas fa-edit"></i>
                                </a>

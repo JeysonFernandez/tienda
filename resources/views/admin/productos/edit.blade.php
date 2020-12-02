@@ -114,6 +114,14 @@
 
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="estado"> Estado </label>
+                            <select name="estado" id="estado" class="form-control">
+                                    <option value="{{\App\Models\Producto::PUBLICADO}}" {{$producto->borrado == \App\Models\Producto::PUBLICADO ? 'selected': ''}}>Publicado</option>
+                                    <option value="{{\App\Models\Producto::BORRADOR}}" {{$producto->borrado == \App\Models\Producto::BORRADOR ? 'selected': ''}}>Borrador</option>
+                                    <option value="{{\App\Models\Producto::BORRADO}}" {{$producto->borrado == \App\Models\Producto::BORRADO ? 'selected': ''}}>Borrado</option>
+                            </select>
+                        </div>
 
 
                     </div>

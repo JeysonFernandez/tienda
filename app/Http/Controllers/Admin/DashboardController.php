@@ -107,7 +107,7 @@ class DashboardController extends Controller
     public function getProductos()
     {
 
-        $producto = Producto::where('borrado','=',1)->get();
+        $producto = Producto::where('borrado','!=',3)->get();
 
 
         return view('admin.productos.productos', [

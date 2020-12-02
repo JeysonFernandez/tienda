@@ -36,6 +36,13 @@ class Producto extends Model
         return $this->tipo.' '.$this->categoria.' '.$this->color.' '.$this->talla;
     }
 
+    public function estado()
+    {
+        if($this->borrado == Producto::BORRADOR){return 'Borrador';}
+        if($this->borrado == Producto::PUBLICADO){return 'Publico';}
+        if($this->borrado == Producto::BORRADO){return 'Borrado';}
+    }
+
 
     public function scopeActivas($query)
     {
