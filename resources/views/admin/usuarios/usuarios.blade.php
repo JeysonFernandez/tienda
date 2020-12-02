@@ -50,7 +50,7 @@
                                 <td>{{$usuario->estado_calidad}}</td>
                                 <td>
                                     <a  href="{{route('admin.usuario.getPedidoUsuario',['id' => $usuario->id])}}" class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
-                                        title="Ver pedidos del usuario" > <i class="far fa-edit"></i>
+                                        title="Ver pedidos del usuario" > <i class="fas fa-shopping-basket"></i>
                                     </a>
                                     <a  href="{{route('admin.usuario.getCompraUsuario',['id' => $usuario->id])}}" class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
                                         title="Ver compras del usuario" > <i class="fas fa-shopping-bag"></i>

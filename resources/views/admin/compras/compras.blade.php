@@ -60,9 +60,16 @@
                                 <td>${{$compra->deuda_total}}</td>
                                 <td>${{$compra->deuda_pendiente}}</td>
                                 <td>{{explode(' ',$compra->fecha_siguiente_pago)[0]}}</td>
-                                <td><a href="{{route('admin.pago.getPagoCompra',$compra->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
-                                    <a href="{{route('admin.compra.getComprasProductos',$compra->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
-                                <a href="/compras/{{$compra->id}}" ><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a></td>
+                                <td><a href="{{route('admin.pago.getPagoCompra',$compra->id)}}"class="btn btn-xs btn-success swa-confirm" data-toggle="tooltip"
+                                    title="Ver pedidos del usuario" > <i class="fas fa-dollar-sign"></i>
+                                </a>
+                                    <a href="{{route('admin.compra.getComprasProductos',$compra->id)}}"class="btn btn-xs btn-success swa-confirm" data-toggle="tooltip"
+                                        title="Ver pedidos del usuario" > <i class="fas fa-fw fa-shopping-cart"></i>
+                                    </a>
+                                <a href="/compras/{{$compra->id}}" class="btn btn-xs btn-success swa-confirm" data-toggle="tooltip"
+                                    title="Ver pedidos del usuario" > <i class="fas fa-fw fa-shopping-cart"></i>
+                                </a>
+                            </td>
                         </tr>
 
                         @endforeach

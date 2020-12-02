@@ -289,65 +289,29 @@ class DashboardController extends Controller
             if ($request->get('fechaInicial') < $request->get('fechaFinal')) {
                 $fechaInicial = $request->get('fechaInicial');
                 $fechaFinal = $request->get('fechaFinal');
-                $compras = DB::table('compras')
-                ->select('compras.estado')
-                ->where('compras.fecha_compra', '>=', "$fechaInicial")
+                $comprasEstadoPendiente = Compra::where('estado',1)->where('compras.fecha_compra', '>=', "$fechaInicial")
                 ->where('compras.fecha_compra', '<=', "$fechaFinal" )
-                ->addSelect(DB::raw('count(compras.estado) as cantidad'))
-                ->groupBy('compras.estado')
-                ->get();
+                ->count();
+                $comprasEstadoTerminada = Compra::where('estado',2)->where('compras.fecha_compra', '>=', "$fechaInicial")
+                ->where('compras.fecha_compra', '<=', "$fechaFinal" )
+                ->count();
 
+                $cantidad[0] = $comprasEstadoPendiente;
+                $cantidad[1] = $comprasEstadoTerminada;
 
-                if(count($compras)>1){
-                    if($compras[0]->estado === "p"){
-                        $cantidad[0] = $compras[0]->cantidad;
-                        $cantidad[1] = $compras[1]->cantidad;
-                    }else{
-                        $cantidad[1] = $compras[0]->cantidad;
-                        $cantidad[0] = $compras[1]->cantidad;
-                    }
-                }else if(count($compras)>0){
-                    if($compras[0]->estado === "p"){
-                        $cantidad[0] = $compras[0]->cantidad;
-                        $cantidad[1] = 0;
-                    }else{
-                        $cantidad[1] = 0;
-                        $cantidad[0] = $compras[1]->cantidad;
-                    }
-                }else{
-                    $mensaje = "No existen datos para las fechas asignadas";
-                }
 
 
             } else {
                 $mensaje = "La fecha inicial tiene que ser menor a fecha final";
             }
         } else {
-             $compras = DB::table('compras')
-             ->select('compras.estado')
-             ->addSelect(DB::raw('count(compras.estado) as
-                 cantidad'))
-                 ->groupBy('compras.estado')
-                 ->get();
-            if(count($compras)>1){
-                if($compras[0]->estado === "p"){
-                    $cantidad[0] = $compras[0]->cantidad;
-                    $cantidad[1] = $compras[1]->cantidad;
-                }else{
-                    $cantidad[1] = $compras[0]->cantidad;
-                    $cantidad[0] = $compras[1]->cantidad;
-                    }
-                }else if(count($compras)>0){
-                if($compras[0]->estado === "p"){
-                    $cantidad[0] = $compras[0]->cantidad;
-                    $cantidad[1] = 0;
-                }else{
-                    $cantidad[1] = 0;
-                    $cantidad[0] = $compras[1]->cantidad;
-                }
-            }else{
-                $mensaje = "";
-            }
+            $comprasEstadoPendiente = Compra::where('estado',1)
+            ->count();
+            $comprasEstadoTerminada = Compra::where('estado',2)
+            ->count();
+
+            $cantidad[0] = $comprasEstadoPendiente;
+            $cantidad[1] = $comprasEstadoTerminada;
 
             $mensaje = 'Selecciones las fechas para una busqueda personalizada';
         }
@@ -371,224 +335,61 @@ class DashboardController extends Controller
     }
 
     public function getGraficoPag(Request $request){
+        $fechaInicial = "";
+        $fechaFinal = "";
+        $mensaje = "";
+
+        $nombre = ['Retrasado','Adelantada','A tiempo'];
+        $cantidad = ["","",""];
+
+        if ($request->get('fechaInicial') != null && $request->get('fechaFinal') != null) {
+            if ($request->get('fechaInicial') < $request->get('fechaFinal')) {
+                $fechaInicial = $request->get('fechaInicial');
+                $fechaFinal = $request->get('fechaFinal');
+                $pagosEstadoRetrasado = Pago::where('estado',1)
+                ->where('pagos.fecha', '>=', "$fechaInicial")
+                ->where('pagos.fecha', '<=', "$fechaFinal" )
+                    ->count();
+                $pagosEstadoAdelantada = Pago::where('estado',2)
+                ->where('pagos.fecha', '>=', "$fechaInicial")
+                ->where('pagos.fecha', '<=', "$fechaFinal" )
+                    ->count();
+                $pagosEstadoATiempo = Pago::where('estado',3)
+                ->where('pagos.fecha', '>=', "$fechaInicial")
+                ->where('pagos.fecha', '<=', "$fechaFinal" )
+                    ->count();
+
+                $cantidad[0] = $pagosEstadoRetrasado;
+                $cantidad[1] = $pagosEstadoAdelantada;
+                $cantidad[2] = $pagosEstadoATiempo;
 
 
+        } else {
+            $pagosEstadoRetrasado = Pago::where('estado',1)
+                ->count();
+            $pagosEstadoAdelantada = Pago::where('estado',2)
+                ->count();
+            $pagosEstadoATiempo = Pago::where('estado',3)
+                ->count();
 
-    $fechaInicial = "";
-    $fechaFinal = "";
-    $mensaje = "";
-
-    $nombre = ['Retrasado','Adelantada','A tiempo'];
-    $cantidad = ["","",""];
-
-    if ($request->get('fechaInicial') != null && $request->get('fechaFinal') != null) {
-        if ($request->get('fechaInicial') < $request->get('fechaFinal')) {
-            $fechaInicial = $request->get('fechaInicial');
-            $fechaFinal = $request->get('fechaFinal');
-            $pagos = DB::table('pagos')
-            ->select('pagos.estado')
-            ->where('pagos.fecha', '>=', "$fechaInicial")
-            ->where('pagos.fecha', '<=', "$fechaFinal" ) ->addSelect(DB::raw('count(pagos.estado) as cantidad'))
-                ->groupBy('pagos.estado')
-                ->get();
-            if(count($pagos)>2){
-                switch ($pagos[0]->estado){
-                    case "r":
-                        $cantidad[0] = $pagos[0]->cantidad;
-                        break;
-                    case "a":
-                        $cantidad[1] = $pagos[0]->cantidad;
-                        break;
-                    case "t":
-                        $cantidad[2] = $pagos[0]->cantidad;
-                        break;
-                }
-                switch ($pagos[1]->estado){
-                    case "r":
-                    $cantidad[0] = $pagos[1]->cantidad;
-                    break;
-                    case "a":
-                    $cantidad[1] = $pagos[1]->cantidad;
-                    break;
-                    case "t":
-                    $cantidad[2] = $pagos[1]->cantidad;
-                    break;
-                }
-                switch ($pagos[2]->estado){
-                    case "r":
-                    $cantidad[0] = $pagos[2]->cantidad;
-                    break;
-                    case "a":
-                    $cantidad[1] = $pagos[2]->cantidad;
-                    break;
-                    case "t":
-                    $cantidad[2] = $pagos[2]->cantidad;
-                    break;
-                }
-            } else if(count($pagos)>1) {
-                switch ($pagos[0]->estado){
-                    case "r":
-                    $cantidad[0] = $pagos[0]->cantidad;
-                    break;
-                    case "a":
-                    $cantidad[1] = $pagos[0]->cantidad;
-                    break;
-                    case "t":
-                    $cantidad[2] = $pagos[0]->cantidad;
-                    break;
-                }
-                switch ($pagos[1]->estado){
-                    case "r":
-                    $cantidad[0] = $pagos[1]->cantidad;
-                    break;
-                    case "a":
-                    $cantidad[1] = $pagos[1]->cantidad;
-                    break;
-                    case "t":
-                    $cantidad[2] = $pagos[1]->cantidad;
-                    break;
-                }
-
-                if($cantidad[0] == ""){
-                    $cantidad[0] = 0;
-                }else if($cantidad[1] == ""){
-                    $cantidad[1] = 0;
-                }else{
-                    $cantidad[2] = 0;
-                }
-            }else if(count($pagos)>0){
-                switch ($pagos[0]->estado){
-                    case "r":
-                    $cantidad[0] = $pagos[0]->cantidad;
-                    break;
-                    case "a":
-                    $cantidad[1] = $pagos[0]->cantidad;
-                    break;
-                    case "t":
-                    $cantidad[2] = $pagos[0]->cantidad;
-                    break;
-                }
-                if($cantidad[0] == ""){
-                    $cantidad[0] = 0;
-                }
-                if($cantidad[1] == ""){
-                    $cantidad[1] = 0;
-                }
-                if($cantidad[2] == ""){
-                    $cantidad[2] = 0;
-                }
-            }
-
-    } else {
-        $pagos = DB::table('pagos')
-        ->select('pagos.estado')
-        ->addSelect(DB::raw('count(pagos.estado) as
-        cantidad'))
-        ->groupBy('pagos.estado')
-        ->get();
-        if(count($pagos)>2){
-            switch ($pagos[0]->estado){
-                case "r":
-                $cantidad[0] = $pagos[0]->cantidad;
-                break;
-                case "a":
-                $cantidad[1] = $pagos[0]->cantidad;
-                break;
-                case "t":
-                $cantidad[2] = $pagos[0]->cantidad;
-                break;
-            }
-            switch ($pagos[1]->estado){
-                case "r":
-                $cantidad[0] = $pagos[1]->cantidad;
-                break;
-                case "a":
-                $cantidad[1] = $pagos[1]->cantidad;
-                break;
-                case "t":
-                $cantidad[2] = $pagos[1]->cantidad;
-                break;
-            }
-            switch ($pagos[2]->estado){
-                case "r":
-                $cantidad[0] = $pagos[2]->cantidad;
-                break;
-                case "a":
-                $cantidad[1] = $pagos[2]->cantidad;
-                break;
-                case "t":
-                $cantidad[2] = $pagos[2]->cantidad;
-                break;
-            }
-        } else if(count($pagos)>1) {
-            switch ($pagos[0]->estado){
-                case "r":
-                $cantidad[0] = $pagos[0]->cantidad;
-                break;
-                case "a":
-                $cantidad[1] = $pagos[0]->cantidad;
-                break;
-                case "t":
-                $cantidad[2] = $pagos[0]->cantidad;
-                break;
-            }
-            switch ($pagos[1]->estado){
-                case "r":
-                $cantidad[0] = $pagos[1]->cantidad;
-                break;
-                case "a":
-                $cantidad[1] = $pagos[1]->cantidad;
-                break;
-                case "t":
-                $cantidad[2] = $pagos[1]->cantidad;
-                break;
-            }
-
-            if($cantidad[0] == ""){
-                $cantidad[0] = 0;
-            }else if($cantidad[1] == ""){
-                $cantidad[1] = 0;
-            }else{
-                $cantidad[2] = 0;
-            }
-        }else if(count($pagos)>0){
-            switch ($pagos[0]->estado){
-                case "r":
-                $cantidad[0] = $pagos[0]->cantidad;
-                break;
-                case "a":
-                $cantidad[1] = $pagos[0]->cantidad;
-                break;
-                case "t":
-                $cantidad[2] = $pagos[0]->cantidad;
-                break;
-            }
-            if($cantidad[0] == ""){
-                $cantidad[0] = 0;
-            }
-            if($cantidad[1] == ""){
-                $cantidad[1] = 0;
-            }
-            if($cantidad[2] == ""){
-                $cantidad[2] = 0;
-            }
-
-            }
+            $cantidad[0] = $pagosEstadoRetrasado;
+            $cantidad[1] = $pagosEstadoAdelantada;
+            $cantidad[2] = $pagosEstadoATiempo;
         }
-    }
 
-    if($cantidad[0] == "" && $cantidad[1]=="" && $cantidad[2]==""){
-        $mensaje ="No existen pagos";
-    }
-    return view('admin.pagos.graficos',[
-        'nombre' => $nombre,
-        'cantidad' => $cantidad,
-        'mensaje' => $mensaje,
-        'fechaInicial' => $fechaInicial,
-        'fechaFinal' => $fechaFinal,
-        'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
-        'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
-        ]);
+        if($cantidad[0] == "" && $cantidad[1]=="" && $cantidad[2]==""){
+            $mensaje ="No existen pagos";
+        }
+        return view('admin.pagos.graficos',[
+            'nombre' => $nombre,
+            'cantidad' => $cantidad,
+            'mensaje' => $mensaje,
+            'fechaInicial' => $fechaInicial,
+            'fechaFinal' => $fechaFinal,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+            ]);
+        }
     }
 
 

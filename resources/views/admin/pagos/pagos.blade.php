@@ -56,7 +56,11 @@
                                     @endif
                                 </td>
                                 <td><!-- <a href="/compras/{{ $pago->id }}/edit" onclick="nombre(this)"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>-->
-                                <a href="/pagos/{{$pago->id}}" ><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a></td>
+                                <a class="btn btn-xs btn-danger swa-confirm" data-toggle="tooltip"
+                                    title="Ver pedidos del usuario" ><i class="far fa-trash-alt"></i>
+                                </a>
+
+                            </td>
                         </tr>
 
                         @endforeach
