@@ -1,20 +1,17 @@
 @extends('emails.tienda')
 
 @section('nombre',$usuario->nombre.' '.$usuario->primer_apellido.' '.$usuario->segudo_apellido)
-@section('direccion',$pedido->lugar_visita)
 @section('tipo_cliente',$usuario->estado)
-@section('tipo_pedido',$pedido->tipo_pedido)
-@section('monto_pedido',$pedido->pedidoproducto->sum('costo'))
-@section('fecha',$pedido->fecha.' '.$pedido->fecha_hora_inicio)
+@section('monto_pedido',$compra->compraproducto->sum('costo'))
+@section('fecha',$compra->fecha_compra)
 
-
-@if(isset($pedido))
+@if(isset($compra))
     @section('tituloProducto', 'Productos Comprados')
 @endif
 
 @section('productos_pedidos')
 
-@foreach ($pedido->pedidoproducto as $producto )
+@foreach ($compra->compraproducto as $producto )
 <div style="background-color:transparent;">
     <div class="block-grid three-up" style="min-width: 320px; max-width: 680px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; Margin: 0 auto; background-color: #ffffff;">
     <div style="border-collapse: collapse;display: table;width: 100%;background-color:#ffffff;">

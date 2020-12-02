@@ -267,8 +267,8 @@
 <p style="font-size: 16px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 29px; margin: 0;"><span style="font-size: 16px;"><strong><span style="">@yield('nombre')</span></strong></span></p>
 <p style="font-size: 16px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 29px; margin: 0;"><span style="font-size: 16px;"><span style="">Direccion: @yield('direccion')</span></span></p>
 <p style="font-size: 16px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 29px; margin: 0;"><span style="font-size: 16px;"><span style="">Estado: @yield('tipo_cliente')</span></span></p>
-<p style="font-size: 16px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 29px; margin: 0;"><span style="font-size: 16px;"><span style="">Tipo Pedido: @yield('tipo_pedido')</span></span></p>
 <p style="font-size: 16px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 29px; margin: 0;"><span style="font-size: 16px;"><span style="">Fecha: @yield('fecha')</span></span></p>
+<p style="font-size: 16px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 29px; margin: 0;"><span style="font-size: 16px;"><span style="">@yield('tipo_pedido')</span></span></p>
 </div>
 </div>
 <!--[if mso]></td></tr></table><![endif]-->
@@ -287,7 +287,7 @@
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 5px; font-family: Tahoma, sans-serif"><![endif]-->
 <div style="color:#33563c;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:10px;padding-right:30px;padding-bottom:5px;padding-left:30px;">
 <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #33563c; mso-line-height-alt: 22px;">
-<p style="font-size: 14px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 25px; margin: 0;"><strong><span style="font-size: 16px;">Pago:</span></strong></p>
+<p style="font-size: 14px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 25px; margin: 0;"><strong><span style="font-size: 16px;">Monto Total:</span></strong></p>
 </div>
 </div>
 <!--[if mso]></td></tr></table><![endif]-->
@@ -388,7 +388,7 @@
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 30px; padding-left: 30px; padding-top: 10px; padding-bottom: 5px; font-family: Tahoma, sans-serif"><![endif]-->
 <div style="color:#33563c;font-family:Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height:1.8;padding-top:10px;padding-right:30px;padding-bottom:5px;padding-left:30px;">
 <div style="line-height: 1.8; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #33563c; mso-line-height-alt: 22px;">
-<p style="font-size: 14px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 25px; margin: 0;"><strong><span style="font-size: 16px;">Productos Pedidos</span></strong></p>
+<p style="font-size: 14px; line-height: 1.8; word-break: break-word; text-align: left; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 25px; margin: 0;"><strong><span style="font-size: 16px;">@yield('tituloProducto')</span></strong></p>
 </div>
 </div>
 <!--[if mso]></td></tr></table><![endif]-->

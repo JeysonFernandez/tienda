@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ReporteUsuario;
 use App\Mail\ReporteAdmin;
 use App\Models\Rey;
+use App\Mail\CompraMail;
 
 
 use App\Exports\CompraExport;
@@ -375,12 +376,22 @@ class CompraController extends Controller
                 }
 
                 $producto->save();
-                $valor= $producto->precio*$compraProducto->cantidad;
+                $valor= $producto->precio_unidad * $compraProducto->cantidad;
                 $compraProducto->costo = $valor;
                 $compraProducto->save();
             }
         }
 
+        try{
+            $tipoCorreo = 'admin';
+            Mail::to($usuario->email)->send(new CompraMail($usuario,$compra, $tipoCorreo));
+            $tipoCorreo = 'usuario';
+            $admin = Usuario::find(1);
+            Mail::to($admin->email)->send(new CompraMail($usuario,$compra, $tipoCorreo));
+        }catch(Exception $e){
+            alert()->error('Ups','Algo ha pasado, no se puede mandar el correo');
+            return redirect()->route('index');
+        }
         alert()->success('Perfecto!','La compra ha sido registrada exitosamente.');
         return redirect()->route('admin.compra.getCompras');
     }

@@ -919,12 +919,7 @@ class DashboardController extends Controller
     public function getCompras(Request $request)
     {
 
-        $compras = DB::table('compras')
-            ->select('compras.id', 'compras.estado', 'compras.deuda_total', 'compras.deuda_pendiente', 'compras.fecha_siguiente_pago')
-            ->leftJoin('usuarios', 'usuarios.id', '=', 'compras.usuario_id')
-            ->AddSelect(DB::raw('usuarios.email as usuario'))
-            ->groupBy('compras.id', 'compras.estado', 'compras.deuda_total', 'compras.deuda_pendiente', 'compras.fecha_siguiente_pago', 'usuarios.email')
-            ->get();
+        $compras = Compra::all();
 
         $fechaInicial = "";
         $fechaFinal = "";
@@ -935,20 +930,8 @@ class DashboardController extends Controller
             if ($request->get('fechaInicial') < $request->get('fechaFinal')) {
                 $fechaInicial = $request->get('fechaInicial');
                 $fechaFinal = $request->get('fechaFinal');
-                $compras = DB::table('compras')
-                    ->select('compras.id', 'compras.estado', 'compras.deuda_total', 'compras.deuda_pendiente', 'compras.fecha_siguiente_pago')
-                    ->where('compras.fecha_siguiente_pago', '>=', "$fechaInicial")
-                    ->where('compras.fecha_siguiente_pago', '<=', "$fechaFinal")
-                    ->leftJoin('usuarios', 'usuarios.id', '=', 'compras.usuario_id')
-                    ->AddSelect(DB::raw('usuarios.email as usuario'))
-                    ->groupBy(
-                        'compras.id',
-                        'compras.estado',
-                        'compras.deuda_total',
-                        'compras.deuda_pendiente',
-                        'compras.fecha_siguiente_pago',
-                        'usuarios.email'
-                    )
+                $compras = Compra::where('fecha_siguiente_pago', '>=', "$fechaInicial")
+                    ->where('fecha_siguiente_pago', '<=', "$fechaFinal")
                     ->get();
                 $mensaje = "entro";
             } else {

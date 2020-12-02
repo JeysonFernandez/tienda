@@ -203,7 +203,16 @@ class PedidoController extends Controller
             $pedidoProducto->save();
         }
         
-
+        try{
+            $tipoCorreo = 'admin';
+            Mail::to($usuario->email)->send(new PedidoUsuarioMail($usuario,$pedido, $tipoCorreo));
+            $tipoCorreo = 'usuario';
+            $admin = Usuario::find(1);
+            Mail::to($admin->email)->send(new PedidoUsuarioMail($usuario,$pedido, $tipoCorreo));
+        }catch(Exception $e){
+            alert()->error('Ups','Algo ha pasado, no se puede mandar el correo');
+            return redirect()->route('index');
+        }
         $carro= session()->get('carro');
         foreach(session('carro') as $id => $detalles){
             unset($carro[$id]);
