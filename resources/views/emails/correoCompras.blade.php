@@ -2,8 +2,12 @@
 
 @section('nombre',$usuario->nombre.' '.$usuario->primer_apellido.' '.$usuario->segudo_apellido)
 @section('tipo_cliente',$usuario->estado)
-@section('monto_compra',$compra->compraproducto->sum('costo'))
+@section('monto_pedido',$compra->compraproducto->sum('costo'))
 @section('fecha',$compra->fecha_compra)
+
+@if(isset($compra))
+    @section('tituloProducto', 'Productos Comprados')
+@endif
 
 @section('productos_pedidos')
 

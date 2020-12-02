@@ -7,6 +7,11 @@
 @section('monto_pedido',$pedido->pedidoproducto->sum('costo'))
 @section('fecha',$pedido->fecha.' '.$pedido->fecha_hora_inicio)
 
+
+@if(isset($pedido))
+    @section('tituloProducto', 'Productos Comprados')
+@endif
+
 @section('productos_pedidos')
 
 @foreach ($pedido->pedidoproducto as $producto )
