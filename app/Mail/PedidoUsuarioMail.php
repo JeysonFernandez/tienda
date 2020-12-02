@@ -19,12 +19,13 @@ class PedidoUsuarioMail extends Mailable
     /**
      * Create a new message instance.
      *
-     * @return void
+     * 
      */
-    public function __construct(Usuario $usuario, $pedido)
+    public function __construct(Usuario $usuario,Pedido $pedido)
     {
         $this->usuario = $usuario;
         $this->pedido = $pedido;
+        
     }
 
     /**
@@ -33,7 +34,7 @@ class PedidoUsuarioMail extends Mailable
      * @return $this
      */
     public function build()
-    {
+    {   
         return $this
         ->from(config('mail.from.address'), config('mail.from.name'))
         ->view('emails.correoPedidos')
