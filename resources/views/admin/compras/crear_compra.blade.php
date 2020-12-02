@@ -25,11 +25,6 @@
                     </div>
                 @endif
                 <?php $total = 0?>
-                @if (session('carro'))
-                    @foreach (session('carro') as $id => $detalles)
-                        <?php $total+= $detalles['precio'] * $detalles['cantidad']?>
-                    @endforeach
-                @endif
                 <div class="card mt-3">
                     <div class="card-header bg-light text-black ">Formulario Compra</div>
                     <div class="card-body">

@@ -33,7 +33,6 @@ class Usuario extends Authenticable
 
 
 
-
     public function getEstadoAttribute()
     {
         switch ($this->estado_calidad){
