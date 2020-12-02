@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Compra;
 use App\Models\PedidoProducto;
 use App\Models\Producto;
+use App\Models\Pedido;
 use App\Models\Usuario;
 use App\Models\CompraProducto;
 use App\Http\Requests\StoreCompraRequest;
@@ -278,6 +279,12 @@ class CompraController extends Controller
         $compra->fecha_siguiente_pago = $request->get('fecha_siguiente_pago');
         $compra->fecha_compra = $request->get('fecha_compra');
         $compra->pedido_id = $request->get('pedidoId');
+
+        //cambio de estado
+        $pedidoUpdate = Pedido::find($request->get('pedidoId'));
+        $pedidoUpdate->estado = 2;
+        $pedidoUpdate->save();
+
         if($compra->deuda_pendiente > 0){
             $compra->estado = 1;
         }else{

@@ -177,14 +177,13 @@ Route::group(['as'=> 'admin.'], function(){
     });
 
     Route::group(['as'=> 'pago.'], function(){
-        Route::get('/pagos', [DashboardController::class,'getPagos'])->name('getPagos');
+        Route::get('/pagosAdmin', [DashboardController::class,'getPagos'])->name('getPagos');
         Route::get('/pagos/{id}', [DashboardController::class,'getPagosCompra'])->name('getPagoCompra');
         Route::get('/graficos/pagos', [DashboardController::class,'getGraficoPag'])->name('getGraficoPag');
         Route::post('/graficos/pagos', [DashboardController::class,'getGraficoPag'])->name('getGraficoPagPost');
 
         Route::post('/admin/pagos/agregar',[PagoController::class,'agregar'])->name('agregarPago');
         Route::delete('/pagos/confirmDelete', [PagoController::class,'confirmDelete'])->name('confirmDelete');
-        Route::get('/pagos/crear',[PagoController::class,'create'])->name('crearPago');
 
 
         Route::get('/pago/export/{id}', [PagoController::class,'exportPago'])->name('exportPago');
@@ -194,6 +193,7 @@ Route::group(['as'=> 'admin.'], function(){
 
 
 
+        Route::get('/admin/pagos/crear',[PagoController::class,'crearPago'])->name('crearPago');
     });
 
     Route::group(['as'=> 'notificacion.'], function(){

@@ -3,9 +3,6 @@
 @section('contenido')
 
 <div class="container-fluid">
-
-    <h1 class="h3 mb-2 text-gray-800">Compras</h1>
-
     <!-- DataTales Example -->
     <div class="card card-table shadow mb-4">
         <div class="card-header py-3">
@@ -54,7 +51,7 @@
                             <?php $cont++?>
                             <tr>
                                 <td>{{$cont}}</td>
-                                <td>{{$compra->usuario}}</td>
+                                <td>{{$compra->usuario->nombre}} {{$compra->usuario->primer_apellido}}</td>
                                 <td>
                                 @if ($compra->estado === 'p')
                                     Pendiente
@@ -63,7 +60,7 @@
                                 @endif</td>
                                 <td>${{$compra->deuda_total}}</td>
                                 <td>${{$compra->deuda_pendiente}}</td>
-                                <td>{{$compra->fecha_siguiente_pago}}</td>
+                                <td>{{explode(' ',$compra->fecha_siguiente_pago)[0]}}</td>
                                 <td><a href="{{route('admin.pago.getPagoCompra',$compra->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
                                     <a href="{{route('admin.compra.getComprasProductos',$compra->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
                                 <a href="/compras/{{$compra->id}}" ><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a></td>

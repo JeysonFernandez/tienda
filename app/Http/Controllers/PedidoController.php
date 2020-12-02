@@ -122,6 +122,7 @@ class PedidoController extends Controller
         $pedido->fecha = $request->get('fecha');
         $pedido->fecha_hora_inicio = $request->get('hora');
         $pedido->tipo = $request->get('tipo_id');
+        $pedido->estado = 1; //pendiente 2 es completado
 
         //fecha_hora_fin
         $horaMinuto = explode((':'),$request->get('hora'));
@@ -201,19 +202,15 @@ class PedidoController extends Controller
             $pedidoProducto->costo = $valor;
             $pedidoProducto->save();
         }
-        try{
-
-            Mail::to($usuario->email)->send(new PedidoUsuarioMail($usuario,$pedido));
-        }catch(Exception $e){
-            return report($e);
-        }
+        
 
         $carro= session()->get('carro');
         foreach(session('carro') as $id => $detalles){
             unset($carro[$id]);
         }
         session()->put('carro',$carro);
-        return redirect(route('index'));
+        alert()->success('Perfecto!','Su pedido ha sido registrado exitosamente. Hemos notificado a la administradora.');
+        return redirect()->route('index');
 
     }
 
