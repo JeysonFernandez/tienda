@@ -37,7 +37,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                            <label for="nueva" class="">{{__('Tu contraseña debe como mínimo 6 caracteres y al menos 1 letra')}}</label>
+                                            <label for="nueva" class="">{{__('Tu contraseña debe como mínimo 6 caracteres ')}}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -46,7 +46,7 @@
                                         <label for="password_confirmation" class="">{{__('Repetir Nueva Contraseña')}}</label>
                                         <div class="">
                                             <input id="nueva_confirmation" type="password" class="form-control @error('nueva_confirmation') is-invalid @enderror" name="nueva_confirmation" value="{{ old('nueva_confirmation') }}">
-                                            <label for="password" class="">{{__('Tu contraseña debe como mínimo 6 caracteres')}}</label>
+                                            <label for="password" class=""></label>
                                             @error('nueva_confirmation')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
