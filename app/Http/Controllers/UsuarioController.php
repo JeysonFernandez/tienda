@@ -117,8 +117,7 @@ class UsuarioController extends Controller
         $credenciales = $request->only('email','password');
 
          if(!Auth::attempt($credenciales)){
-        //     //Comprar si es admin
-        //     if(Auth::user()->tipo == 1){
+            if(Auth::user()->tipo == 1){
         //         $carro= session()->get('carro');
         //         if($carro!=null){
         //             foreach(session('carro') as $id => $detalles){
@@ -128,8 +127,21 @@ class UsuarioController extends Controller
         //         }
 
         //         //Comprobar si se llegado a la fecha de algun pedido
-        //         $pedidos=Pedido::all();
-        //         foreach($pedidos as $pedido){
+                $pedidos=Pedido::all();
+                foreach($pedidos as $pedido){
+                    if($pedido->fecha <= now()->format('Y-m-d')){
+                        $pedido->estado = 2;
+
+                        $productosPedido = PedidoProducto::where('pedido_id',$pedido->id);
+                        foreach($productosPedido as $productoPedido){
+                            $producto = Producto::find($productoPedido->producto_id);
+                            $producto->stock_actual += $productoPedido->cantidad;
+                            $producto->save;
+                        }
+                    }
+                }
+            }
+        //      foreach($pedidos as $pedido){
         //             if($pedido->fecha <= now()->format('Y-m-d')){
         //                 $pedido->estado = 'c';
 
