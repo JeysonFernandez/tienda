@@ -260,4 +260,12 @@ Route::group(['as'=> 'usuario.'], function(){
 
 
 
+    Route::get('/contrasena/restablecer/{id?}', [DashboardUsuarioController::class, 'verFormRestablecer'])->name('restablecer.ver-form-restablecer')->where('id', '[0-9]+');
+    Route::post('/contrasena/email', [DashboardUsuarioController::class, 'verFormEmail'])->name('restablecer.ver-form-email');
+    Route::get('contrasena/{id}/{token}', [DashboardUsuarioController::class, 'validacionUsuarioToken'])->name('restablecer.validacion-usuario-token')->where(['id' => '[0-9]+']);
+    Route::get('contrasena/{id}/{concesionId}/{token}', [DashboardUsuarioController::class, 'validacionUsuarioTokenConcesion'])->name('restablecer.validacion-usuario-token-concesion')->where(['id' => '[0-9]+', 'concesionId' => '[0-9]+']);
+    Route::post('/contrasena/restablecida', [DashboardUsuarioController::class, 'restableciendoContrasena'])->name('restablecer.restableciendo-contraseña');
+
+    Route::any('/nueva-contrasena',[DashboardUsuarioController::class, 'cambiarPassword'])->name('cambiar-contrasena');
+
 });

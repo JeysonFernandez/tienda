@@ -56,8 +56,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Mis Datos</h6>
                         <a class="collapse-item" href="{{route('usuario.misDatos',['id' => auth()->user()->id])}}"><span>Información</span></a>
-
+                        <a class="collapse-item" href="{{route('usuario.cambiar-contrasena')}}"><span>Cambiar Contraseña</span></a>
                     </div>
+
                 </div>
             </li>
 
@@ -201,7 +202,7 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
+    @include('sweetalert::alert')
 
     @yield('js')
 
