@@ -53,7 +53,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Gestion Productos
+                Gestión Productos
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -103,7 +103,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{route('admin.producto.getGraficoProducto')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Graficos Productos</span></a>
+                    <span>Gráficos Productos</span></a>
             </li>
 
 
@@ -112,7 +112,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Gestion Usuarios
+                Gestión Usuarios
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -124,7 +124,7 @@
             <li class="nav-item">
                 <a class="nav-link"  href="{{route('admin.usuario.getGraficoUsuario')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Graficos Usuarios</span>
+                    <span>Gráficos Usuarios</span>
                 </a>
             </li>
 
@@ -133,7 +133,7 @@
             <hr class="sidebar-divider d-none d-md-block">
 
             <div class="sidebar-heading">
-                Gestion Fechas
+                Gestión Fechas
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -146,7 +146,7 @@
 
             <hr class="sidebar-divider d-none d-md-block">
             <div class="sidebar-heading">
-                Gestion Compras
+                Gestión Compras
             </div>
             <li class="nav-item">
                 <a class="nav-link" href="{{route('admin.compra.getCompras')}}" >
@@ -157,13 +157,13 @@
             <li class="nav-item">
                 <a class="nav-link"  href="{{route('admin.compra.getGraficoCom')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Graficos Compras</span>
+                    <span>Gráficos Compras</span>
                 </a>
             </li>
 
             <hr class="sidebar-divider d-none d-md-block">
             <div class="sidebar-heading">
-                Gestion Pagos
+                Gestión Pagos
             </div>
             <li class="nav-item">
                 <a class="nav-link" href="{{route('admin.pago.getPagos')}}" >
@@ -171,16 +171,10 @@
                     <span>Pagos</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="{{route('admin.pago.getGraficoPag')}}" >
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Graficos Pagos</span>
-                </a>
-            </li>
 
             <hr class="sidebar-divider d-none d-md-block">
             <div class="sidebar-heading">
-                Gestion Pedidos
+                Gestión Pedidos
             </div>
             <li class="nav-item">
                 <a class="nav-link" href="{{route('admin.pedido.getPedido')}}" >
@@ -191,7 +185,7 @@
             <li class="nav-item">
                 <a class="nav-link"  href="{{route('admin.pedido.getGraficoPed')}}" >
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Graficos Pedidos</span>
+                    <span>Gráficos Pedidos</span>
                 </a>
             </li>
             <hr class="sidebar-divider d-none d-md-block">
