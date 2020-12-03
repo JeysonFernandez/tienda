@@ -12,6 +12,13 @@ class Pedido extends Model
     const EXPRESS = 1;
     const NORMAL = 2;
 
+    const Pendiente = 1;
+    const Cancelado = 2;
+    const Entregado = 3;
+    const Comprado  = 4;
+
+
+
 
     public function getTipoPedidoAttribute()
     {

@@ -25,7 +25,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Cliente</th>
+                            <th>Usuario</th>
                             <th>Estado</th>
                             <th>Deuda Total</th>
                             <th>Deuda Pendiente</th>
@@ -36,7 +36,7 @@
                     <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Cliente</th>
+                            <th>Usuario</th>
                             <th>Estado</th>
                             <th>Deuda Total</th>
                             <th>Deuda Pendiente</th>
@@ -50,7 +50,11 @@
                             <?php $cont++?>
                             <tr>
                                 <td>{{$cont}}</td>
-                                <td>{{$compra->usuario->nombre}} {{$compra->usuario->primer_apellido}}</td>
+                                <td>
+                                    <a  href="" data-toggle="modal" data-target="#modal-usuario-{{$compra->usuario->id}}"  title="Ver detalles compra"
+                                        class="btn btn-success">{{$compra->usuario->email}}</a>
+                                        @include('modals.modal_usuario',['usuario' => $compra->usuario])
+                                </td>
                                 <td>
                                 @if ($compra->estado === 'p')
                                     Pendiente

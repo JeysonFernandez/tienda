@@ -45,7 +45,11 @@
                                 <td>{{$cont}}</td>
                                 <td>{{$pago->monto}}</td>
                                 <td>{{$pago->fecha}}</td>
-                                <td>Compra #{{$pago->compra_id}} / {{$pago->compras->usuario->nombre}} {{$pago->compras->usuario->primer_apellido}}</td>
+                                <td>
+                                    <a  href="" data-toggle="modal" data-target="#modal-compra-{{$pago->compras->id}}"  title="Ver detalles compra"
+                                        class="btn btn-success"><i class="far fa-eye"></i></a>
+                                        @include('modals.modal_compra',['compra' => $pago->compras])
+                                </td>
                                 <td>
                                     @if($pago->estado == 1)
                                         Pagado con retraso
@@ -57,7 +61,7 @@
                                 </td>
                                 <td><!-- <a href="/compras/{{ $pago->id }}/edit" onclick="nombre(this)"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>-->
                                 <a class="btn btn-xs btn-danger swa-confirm" data-toggle="tooltip"
-                                    title="Ver pedidos del usuario" ><i class="far fa-trash-alt"></i>
+                                    title="Ver pedidos del usuario" > <i class="fas fa-fw fa-trash-restore"></i>
                                 </a>
 
                             </td>
