@@ -309,7 +309,7 @@ class CompraController extends Controller
         $compra->save();
 
         //Agregar deuda al usuario
-        $usuario->deuda_total += $compra->deuda_total;
+        $usuario->deuda_total += $compra->deuda_pendiente;
         $usuario->save();
         //guardar compra_producto
         $compras = Compra::all();
