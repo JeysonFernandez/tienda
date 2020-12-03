@@ -24,13 +24,13 @@
             <div class="col-9 card-resultados">
                 @foreach ($productos as $producto )
                     <div class="col-xl-6 mb-3">
-                        <div class="card shadow card-resultados mb-3 bg-white px-3">
+                        <div class="card shadow card-resultados mb-3 bg-white px-3" style="width:700px !important;">
                             <div class="row no-gutters align-items-center justify-content-around">
                                 <div class="col-xl-5 ">
                                 @if($producto->imagen ==null)
                                     <svg class="card-img img-fluid rounded" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                                 @else
-                                    <img src="{{Storage::url($producto->imagen)}}" class="card-img img-fluid rounded">
+                                    <img style="max-height: 600px; background-size:auto;" src="{{Storage::url($producto->imagen)}}" class="card-img img-fluid rounded">
                                 @endif
 
                                 </div>
@@ -41,7 +41,7 @@
                                             <dt class="col-sm-5">Marca</dt>
                                             <dd class="col-sm-7">{{$producto->marca ?? ''}}</dd>
 
-                                            <dt class="col-sm-5">Porveedor</dt>
+                                            <dt class="col-sm-5">Proveedor</dt>
                                             <dd class="col-sm-7">{{$producto->proveedor ?? ''}}</dd>
 
                                             <dt class="col-sm-5">Precio</dt>
@@ -50,11 +50,11 @@
                                         </dl>
                                         <div class="row">
                                             <div class="col-6 text-left">
-                                                <a href=""
+                                                <a href="{{route('publico.producto.verProducto',['id'=> $producto->id])}}"
                                                     class="btn btn-success py-1 my-2">Ver detalles</a>
                                             </div>
                                             <div class="col-6 text-right">
-                                                <a href=""
+                                                <a href="{{route('publico.producto.addCarrito',['id' => $producto->id])}}"
                                                     class="btn btn-naranjo py-1 my-2">Añadir a Carrito</a>
                                             </div>
                                         </div>

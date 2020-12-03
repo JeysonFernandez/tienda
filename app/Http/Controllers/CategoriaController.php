@@ -9,6 +9,7 @@ use App\Http\Requests\StoreCategoria;
 use Illuminate\Http\Request;
 use App\Models\NotificacionProducto;
 use App\Models\NotificacionUsuario;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoriaController extends Controller
 {
@@ -42,14 +43,15 @@ class CategoriaController extends Controller
     */
     public function guardarCategoria(GuardarCategoriaRequest $request)
     {
-        /*$validaData = $request->validate([
-        'title' => 'required|min:3'
-        ]);*/
+        $validaData = $request->validate([
+            'nombre' => 'required|min:3'
+        ]);
         $categoria = new Categoria();
         $categoria->nombre = $request->get('nombre');
         $categoria->borrado = 1;
         $categoria->save();
 
+        alert()->success('Perfecto!','Se ha registrado una nueva categoria.');
         return redirect()->route('admin.categoria.verCategorias');
     }
 
@@ -99,6 +101,7 @@ class CategoriaController extends Controller
         $categoria->nombre = $request->nombre;
         $categoria->save();
 
+        alert()->success('Perfecto!','La categoria se ha editado correctamente.');
         return redirect()->route('admin.categoria.verCategorias');
     }
 
@@ -109,6 +112,7 @@ class CategoriaController extends Controller
         $categoria->nombre = $request->get('nombre');
         $categoria->save();
 
+        alert()->success('Perfecto!','La categoria se ha editado correctamente.');
         return redirect()->route('admin.categoria.verCategorias');
     }
 

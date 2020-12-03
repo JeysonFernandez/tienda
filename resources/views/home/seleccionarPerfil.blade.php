@@ -7,7 +7,7 @@
         <div class="card p-0 o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
                 <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-login-image"></div>
+                    <div class="col-lg-5 d-none d-lg-block bg-login-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/91.jpg')";></div>
                     <div class="col-lg-7">
                         <div class="p-5">
                             <h1 class="h4 text-gray-900 font-weight-bold mb-4 text-center">Tiendita de Pilar</h1>
@@ -24,6 +24,7 @@
                             <hr>
 
                             <div class="text-center">
+                                <a  style="none;" href="{{route('index')}}"><b>Seguir en la tienda</b></a>
                                 <p><a class="small" href="{{route('publico.logout')}}"><b>Cerrar sesión</b></a></p>
                             </div>
                             

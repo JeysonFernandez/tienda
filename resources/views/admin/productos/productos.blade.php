@@ -20,6 +20,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Imagen</th>
                             <th>Tipo</th>
                             <th>Categoria</th>
                             <th>Color</th>
@@ -36,6 +37,7 @@
                     <tfoot>
                         <tr>
                             <th>#</th>
+                            <th>Imagen</th>
                             <th>Tipo</th>
                             <th>Categoria</th>
                             <th>Color</th>
@@ -55,6 +57,13 @@
                             <?php $cont++?>
                             <tr>
                                 <td>{{$cont}}</td>
+                                <td>
+                                    @if($producto->imagen != '')
+                                        <img src="{{Storage::url($producto->imagen)}}" class="card-img img-fluid rounded" style="max-height: 100px; background-size:auto;">
+                                    @else
+                                        No se ha agregado Imagen
+                                    @endif
+                                </td>
                                 <td>{{$producto->tipo->nombre}}</td>
                                 <td>{{$producto->categoria->nombre}}</td>
                                 <td>{{$producto->color->nombre}}</td>

@@ -154,7 +154,7 @@
                 <div class="col btn-group">
                     <button id="titulo-proyecto" class="dropdown-toggle dropdown-titulo px-3"
                     role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="pr-2 fas fa-fw fa-tools"></i>Generos
+                        <i class="pr-2 fas fa-fw fa-tools"></i>Clasificaciones
                     </button>
                     <div class="dropdown-menu shadow dropdown-menu-left black-link">
                         @foreach ($generos as $genero )

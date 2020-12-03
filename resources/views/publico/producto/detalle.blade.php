@@ -12,16 +12,16 @@
             
             
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-2">
                   <div class="card-resultados mt-3 mb-4 ml-4 shadow-sm">
                     @if($producto->imagen ==null)
                       <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                     @else
-                    <img src="{{Storage::url($producto->imagen)}}" class="card-img-top">
+                    <img src="{{Storage::url($producto->imagen)}}" style="max-height:700px;" class="card-img-top">
                     @endif
                   </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-10">
                   <div class="col"><h1>{{$producto->tipo->nombre}} color {{$producto->color->nombre}}, marca {{$producto->marca->nombre}}, {{$producto->talla->nombre}}</h1></div>
                   <div class="col"><h4>Stock: {{$producto->stock_actual}}</h4></div>
                   <div class="col"><h4>Precio: ${{$producto->precio_unidad}}</h4></div>

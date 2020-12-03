@@ -128,7 +128,11 @@
                         <div class="form-group">
                             <div class="custom-file">
                                 <input type="file" id="imagen" name="imagen" class="custom-file-input" value="{{URL::asset($producto->imagen)}}">
+                                @if(!empty($producto->imagen))
+                                <label for="imagen" class="custom-file-label" data-browse="Examinar">{{$producto->imagen}}</label>
+                                @else
                                 <label for="imagen" class="custom-file-label" data-browse="Examinar">Seleccione la imagen</label>
+                                @endif
 
                             </div>
                         </div>

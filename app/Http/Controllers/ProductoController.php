@@ -68,9 +68,6 @@ class ProductoController extends Controller
      */
     public function store(GuardarProductoRequest $request)
     {
-        /*$validaData = $request->validate([
-            'title' => 'required|min:3'
-        ]);*/
         $producto = new Producto();
         $producto->tipo_id = $request->get('tipo');
         $producto->marca_id = $request->get('marca');
@@ -89,9 +86,10 @@ class ProductoController extends Controller
         $producto->precio_unidad = $request->get('precio_unidad');
         $producto->fecha_creacion = now()->format('Y-m-d');
         $producto->borrado = $request->get('estado');
-        $producto->imagen = $request->imagen->store('public/prendas');
+        $producto->imagen = $request->imagen ? $request->imagen->store('public/prendas') : '';
         $producto->save();
 
+        alert()->success('Perfecto!','Se ha agregado un nuevo producto.');
         return redirect()->route('admin.producto.getProducto', [
             'notificacionProductos' => NotificacionProducto::all(),
             'notificacionUsuarios' => NotificacionUsuario::all()
