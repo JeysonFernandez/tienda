@@ -36,7 +36,7 @@ class ProductoController extends Controller
     {
 
         return view('productos.index', [
-            'productos' => Producto::where('borrado', '=', 1)->get()
+            'productos' => Producto::where('borrado', '!=', 3)->get()
         ]);
     }
 
@@ -227,7 +227,7 @@ class ProductoController extends Controller
             ]);
         }
         return view('home.index', [
-            'productos' => Producto::where('borrado', '!=', 3)->inRandomOrder()->take(20)->get(),
+            'productos' => Producto::where('borrado',1)->inRandomOrder()->take(20)->get(),
             'cantidad' => $cantidad
         ]);
     }
