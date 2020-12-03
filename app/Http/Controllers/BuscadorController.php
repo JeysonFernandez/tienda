@@ -31,13 +31,13 @@ class BuscadorController extends Controller
         $productos = Producto::query();
 
 
-        $categorias = Categoria::all();
-        $colores = Color::all();
-        $marcas = Marca::all();
-        $tallas = Talla::all();
-        $proveedores = Proveedor::all();
-        $tipos = Tipo::all();
-        $generos = Genero::all();
+        $categorias = Categoria::where('borrado',1)->get();
+        $colores = Color::where('borrado',1)->get();
+        $marcas = Marca::where('borrado',1)->get();
+        $tallas = Talla::where('borrado',1)->get();
+        $proveedores = Proveedor::where('borrado',1)->get();
+        $tipos = Tipo::where('borrado',1)->get();
+        $generos = Genero::where('borrado',1)->get();
 
         if ( $request->isMethod('get') ) {
             $input = $request->all();

@@ -33,7 +33,7 @@
                     </button>
                     <div class="dropdown-menu shadow dropdown-menu-left black-link">
                         @foreach ($colores as $color )
-                            <a name="color" class="dropdown-item active" data-id="{{$color->id}}" href="#">{{$color->nombre}}</a>
+                            <a name="color" class="dropdown-item ." data-id="{{$color->id}}" href="#">{{$color->nombre}}</a>
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
@@ -58,7 +58,7 @@
                     </button>
                     <div class="dropdown-menu shadow dropdown-menu-left black-link">
                         @foreach ($marcas as $marca )
-                            <a name="marca" class="dropdown-item active" data-id="{{$marca->id}}" href="#">{{$marca->nombre}}</a>
+                            <a name="marca" class="dropdown-item ." data-id="{{$marca->id}}" href="#">{{$marca->nombre}}</a>
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
@@ -83,7 +83,7 @@
                     </button>
                     <div class="dropdown-menu shadow dropdown-menu-left black-link">
                         @foreach ($tallas as $talla )
-                            <a name="talla" class="dropdown-item active" data-id="{{$talla->id}}" href="#">{{$talla->nombre}}</a>
+                            <a name="talla" class="dropdown-item ." data-id="{{$talla->id}}" href="#">{{$talla->nombre}}</a>
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
@@ -108,7 +108,7 @@
                     </button>
                     <div class="dropdown-menu shadow dropdown-menu-left black-link">
                         @foreach ($proveedores as $proveedor )
-                            <a name="proveedor" class="dropdown-item active" data-id="{{$proveedor->id}}" href="#">{{$proveedor->nombre}}</a>
+                            <a name="proveedor" class="dropdown-item ." data-id="{{$proveedor->id}}" href="#">{{$proveedor->nombre}}</a>
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
@@ -133,7 +133,7 @@
                     </button>
                     <div class="dropdown-menu shadow dropdown-menu-left black-link">
                         @foreach ($tipos as $tipo )
-                            <a name="tipo" class="dropdown-item active" data-id="{{$tipo->id}}" href="#">{{$tipo->nombre}}</a>
+                            <a name="tipo" class="dropdown-item ." data-id="{{$tipo->id}}" href="#">{{$tipo->nombre}}</a>
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
@@ -158,7 +158,7 @@
                     </button>
                     <div class="dropdown-menu shadow dropdown-menu-left black-link">
                         @foreach ($generos as $genero )
-                            <a name="genero" class="dropdown-item active" data-id="{{$genero->id}}" href="#">{{$genero->nombre}}</a>
+                            <a name="genero" class="dropdown-item ." data-id="{{$genero->id}}" href="#">{{$genero->nombre}}</a>
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
