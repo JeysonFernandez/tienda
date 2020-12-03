@@ -42,7 +42,7 @@ class CompraProductoExport implements FromQuery, WithHeadings, WithEvents, WithS
             $compra->deuda_pendiente,
             $compra->fecha_siguiente_pago,
             $compra->fecha_compra,
-            $compra->estado,
+            ($compra->estado()),
             $compra->compraproducto->count(),
             $compraproducto->productos->id,
             $compraproducto->productos->fecha_creacion,
@@ -83,6 +83,7 @@ class CompraProductoExport implements FromQuery, WithHeadings, WithEvents, WithS
                 $event->sheet->getDelegate()->mergeCells('R1:R1');
                 $event->sheet->getDelegate()->mergeCells('S1:S1');
                 $event->sheet->getDelegate()->mergeCells('T1:T1');
+
             },
         ];
     }

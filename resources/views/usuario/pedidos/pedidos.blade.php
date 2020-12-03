@@ -24,7 +24,6 @@
                             <th>Lugar a visitar</th>
                             <th>Fecha</th>
                             <th>Hora</th>
-                            <th>Usuario</th>
                             <th>Tipo</th>
                             <th></th>
                         </tr>
@@ -35,7 +34,6 @@
                             <th>Lugar a visitar</th>
                             <th>Fecha</th>
                             <th>Hora</th>
-                            <th>Usuario</th>
                             <th>Tipo</th>
                             <th></th>
                         </tr>
@@ -50,7 +48,6 @@
                                 <td>{{$pedido->lugar_visita}}</td>
                                 <td>{{$pedido->fecha}}</td>
                                 <td>{{$pedido->fecha_hora_inicio}}</td>
-                                <td>{{$pedido->usuario_id}}</td>
                                 <td>
                                     @if ($pedido->tipo == 'v')
                                         Visita
