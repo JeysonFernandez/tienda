@@ -83,7 +83,7 @@ class PedidoExport implements FromQuery, WithHeadings, WithEvents, WithStyles, W
     {
         return [
             [
-                'Id',
+                'ID Pedido',
                 'Lugar Visita',
                 'Fecha',
                 'Hora Inicio',

@@ -93,7 +93,7 @@ class PagoCompraExport implements FromQuery, WithHeadings, WithEvents, WithStyle
     {
         return [
             [
-                'Id',
+                'ID Pago',
                 'Dirección',
                 'Monto',
                 'Fecha',

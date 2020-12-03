@@ -80,7 +80,7 @@ class ProductoExport implements FromQuery, WithHeadings, WithEvents, WithStyles,
     {
         return [
             [
-                'Id',
+                'ID Producto',
                 'Fecha Creación',
                 'Tipo',
                 'Talla',

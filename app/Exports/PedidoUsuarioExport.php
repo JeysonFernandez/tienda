@@ -89,7 +89,7 @@ class PedidoUsuarioExport implements FromQuery, WithHeadings, WithEvents, WithSt
     {
         return [
             [
-                'Id',
+                'ID Pedido',
                 'Lugar Visita',
                 'Fecha',
                 'Hora Inicio',

@@ -54,7 +54,6 @@ class UsuarioExport implements FromQuery, WithHeadings, WithEvents, WithStyles, 
                 $event->sheet->getDelegate()->mergeCells('H1:H1');
                 $event->sheet->getDelegate()->mergeCells('I1:I1');
                 $event->sheet->getDelegate()->mergeCells('J1:J1');
-                $event->sheet->getDelegate()->mergeCells('K1:K1');
             },
         ];
     }
@@ -64,7 +63,7 @@ class UsuarioExport implements FromQuery, WithHeadings, WithEvents, WithStyles, 
         return [
             // Style the first row as bold text.
             1    => ['font' => ['bold' => true], 'alignment' => ['horizontal' => 'center'],['font' => ['size' => 25]]],
-            'A1:K1' => ['fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'd9e2f2']]],
+            'A1:J1' => ['fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'd9e2f2']]],
         ];
     }
 
@@ -73,13 +72,12 @@ class UsuarioExport implements FromQuery, WithHeadings, WithEvents, WithStyles, 
     {
         return [
             [
-                'Id',
+                'ID Usuario',
                 'Nombre',
                 'Primer Apellido',
                 'Segundo Apellido',
                 'Email',
                 'Estado Calidad',
-                'Conocido',
                 'Deuda Total',
                 'Cantidad Compras',
                 'Monto Total Comprado',

@@ -84,7 +84,7 @@ class PagoExport implements FromQuery, WithHeadings, WithEvents, WithStyles, Wit
         return [
             // Style the first row as bold text.
             1    => ['font' => ['bold' => true], 'alignment' => ['horizontal' => 'center'],['font' => ['size' => 25]]],
-            'A1:O1' => ['fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'd9e2f2']]],
+            'A1:P1' => ['fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'd9e2f2']]],
         ];
     }
 
@@ -93,7 +93,7 @@ class PagoExport implements FromQuery, WithHeadings, WithEvents, WithStyles, Wit
     {
         return [
             [
-                'Id',
+                'ID Pago',
                 'Dirección',
                 'Monto',
                 'Fecha',
