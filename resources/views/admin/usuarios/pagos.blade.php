@@ -5,7 +5,6 @@
 <div class="container-fluid">
 
 
-    <h1 class="h3 mb-2 text-gray-800">Pagos</h1>
     <!-- DataTales Example -->
     <div class="card card-table shadow mb-4">
         <div class="card-header py-3">
@@ -50,7 +49,10 @@
                                 <td>{{$id}}</td>
                                 <td>{{$pago->estado}}</td>
                                 <td><!-- <a href="/compras/{{ $pago->id }}/edit" onclick="nombre(this)"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>-->
-                                <a href="/pagos/{{$pago->id}}" ><i class="fas fa-fw fa-2x fa-trash-restore" aria-hidden="true"></i></a></td>
+                                <a href="/pagos/{{$pago->id}}" class="btn btn-xs btn-info swa-confirm" data-toggle="tooltip"
+                                    title="Ver compras del usuario" > <i class="fas fa-shopping-bag"></i></td>
+
+
                         </tr>
 
                         @endforeach

@@ -44,15 +44,15 @@
                             <?php $cont++?>
                             <tr>
                                 <td>{{$cont}}</td>
-                                <td>{{$usuario->nombre}} {{$usuario->apellido}}</td>
+                                <td>{{$usuario->nombre}} {{$usuario->primer_apellido}} {{$usuario->segundo_apellido}}</td>
                                 <td>{{$usuario->email}}</td>
-                                <td>{{$usuario->deuda_total}}</td>
+                                <td>{{$usuario->deuda_total ?? 0}}</td>
                                 <td>{{$usuario->estado_calidad}}</td>
                                 <td>
                                     <a  href="{{route('admin.usuario.getPedidoUsuario',['id' => $usuario->id])}}" class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
                                         title="Ver pedidos del usuario" > <i class="fas fa-shopping-basket"></i>
                                     </a>
-                                    <a  href="{{route('admin.usuario.getCompraUsuario',['id' => $usuario->id])}}" class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
+                                    <a  href="{{route('admin.usuario.getCompraUsuario',['id' => $usuario->id])}}" class="btn btn-xs btn-info swa-confirm" data-toggle="tooltip"
                                         title="Ver compras del usuario" > <i class="fas fa-shopping-bag"></i>
                                     </a>
 
