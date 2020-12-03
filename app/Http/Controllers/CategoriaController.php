@@ -128,7 +128,7 @@ class CategoriaController extends Controller
         $categoria->borrado = 2;
         $categoria->save();
 
-        return redirect()->route('admin.getcategoria');
+        return redirect()->route('admin.categoria.verCategoria');
     }
 
     public function confirmDelete(Request $request){
@@ -136,7 +136,7 @@ class CategoriaController extends Controller
         $categoria->borrado = 2;
         $categoria->save();
 
-        return redirect()->route('admin.getcategoria');
+        return redirect()->route('admin.categoria.verCategorias');
     }
 
 }
