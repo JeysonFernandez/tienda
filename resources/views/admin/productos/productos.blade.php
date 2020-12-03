@@ -80,7 +80,7 @@
                                 <td> <a type="submit" class="btn btn-xs btn-success" data-toggle="tooltip" href="{{route('admin.producto.editarProducto',['id' => $producto->id])}}" title="Editar">
                                     <i class="fas fa-edit"></i>
                                </a>
-                               <a type="submit" class="btn btn-xs btn-danger"data-toggle="modal" data-target="#deleteModal" href="#" onclick="nombre(this)" id="{{$producto->nombre}}-{{$producto->id}}"> <i class="fas fa-trash-alt"></i>
+                               <a type="submit" class="btn btn-xs btn-danger"data-toggle="modal" data-target="#deleteModal" href="#" onclick="nombre(this)" id="{{$producto}}-{{$producto->id}}"> <i class="fas fa-trash-alt"></i>
                                </a></td>
                         </tr>
 
