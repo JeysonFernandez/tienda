@@ -18,6 +18,11 @@ class Pedido extends Model
     const Comprado  = 4;
 
 
+    public function __toString()
+    {
+        return $this->usuarios->email.' | '.$this->fecha;
+    }
+
     public function estado()
     {
         if($this->estado == Pedido::Pendiente){return 'Pendiente';}

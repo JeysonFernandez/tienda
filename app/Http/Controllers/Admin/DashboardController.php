@@ -82,7 +82,6 @@ class DashboardController extends Controller
         //$fechaMes = date_create_from_format("Y-m-d",$fechaMes);
 
         $fechaAnio = date("Y-m-d", strtotime(now() . "+ 1 year"));
-        dd($fechaHoy);
 
 
         $pedidosHoy = Pedido::where('fecha','=',"$fechaHoy")->select(DB::raw('count(id) as cantidad'))->get();
@@ -124,15 +123,16 @@ class DashboardController extends Controller
 
     public function getComprasProductos($id){
         $produc = CompraProducto::where('compra_id',$id)->get();
+        $compra = Compra::find($id);
         return view('admin.compras.productos_compra', [
         'produc' => $produc,
+        'compra' => $compra,
         'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
         'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
         ]);
     }
     public function getPedidosProductos($id){
         $produc = Pedido::find($id);
-
         return view('admin.pedidos.productos_pedido', [
         'produc' => $produc,
         'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
@@ -800,7 +800,6 @@ class DashboardController extends Controller
         $pagos = Pago::where('compra_id',$id)
             ->get();
         $compra = Compra::find($id);
-        dd('pag 2');
         return view('admin.usuarios.pagos', [
             'pagos' => $pagos,
             'compra' =>  $compra,
