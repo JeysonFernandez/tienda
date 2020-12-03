@@ -30,13 +30,6 @@ class GuardarProductoRequest extends FormRequest
             'stock_critico' => 'required_if:estado,'.Producto::PUBLICADO,
             'stock_actual' =>  'required_if:estado,'.Producto::PUBLICADO,
             'precio_unidad' =>  'required_if:estado,'.Producto::PUBLICADO,
-            'tipo' =>  'required_if:estado,'.Producto::PUBLICADO,
-            'talla' =>  'required_if:estado,'.Producto::PUBLICADO,
-            'color' =>  'required_if:estado,'.Producto::PUBLICADO,
-            'genero' =>  'required_if:estado,'.Producto::PUBLICADO,
-            'categoria' =>  'required_if:estado,'.Producto::PUBLICADO,
-            'marca' =>  'required_if:estado,'.Producto::PUBLICADO,
-            'proveedor' =>  'required_if:estado,'.Producto::PUBLICADO,
         ];
     }
     public function attributes()
