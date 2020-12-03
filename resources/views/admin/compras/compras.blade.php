@@ -66,7 +66,7 @@
                                     @if($compra->deuda_pendiente>0)
                                         {{explode(' ',$compra->fecha_siguiente_pago)[0]}}
                                     @else
-                                        No quedan fechas de pago
+                                        Pagado al 100%
                                     @endif
                                 </td>
                                 <td>
