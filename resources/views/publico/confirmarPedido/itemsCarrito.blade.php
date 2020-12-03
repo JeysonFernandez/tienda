@@ -27,18 +27,26 @@
                                 <?php $valor+= $detalles['precio'] * $detalles['cantidad']?>
                                 <a href="/producto/{{ $detalles['id'] }}">
                                     <td>
-                                    <img src="" class="card-img img-fluid rounded">
+                                    @foreach($productos as $producto)
+                                        @if($producto->id == $detalles['id'])
+                                            @if( empty($producto->imagen) )
+                                                <svg class="card-img img-fluid rounded" width="50px;" height="50px;" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                                            @else
+                                                <img src="{{Storage::url($producto->imagen)}}" class="card-img img-fluid rounded" style="max-height:100px;max-width:100px;">
+                                            @endif
+                                            <td>{{$producto}} </td>
+                                        @endif
+                                    @endforeach
                                     </td>
-                                    <td>  {{$detalles['nombre']}} </td>
                                     <td>
                                         <form action="/actualizar-carro/{{$id}}" method="POST">
                                             @csrf
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="number" min="1" max="100" value="{{ $detalles['cantidad'] }}" id="cantidad" name="cantidad">
+                                                    <input type="number" min="1" max="{{ $detalles['cantidad'] }}" value="{{ $detalles['cantidad'] }}" id="cantidad" name="cantidad">
                                                 </div>
                                                 <div class="col">
-                                                    <button class="btn btn-sm btn-warning" type="submit">Actualizar</button>
+                                                    <button class="btn btn-sm btn-naranjo" type="submit">Actualizar</button>
                                                 </div>
                                             </div>
                                         </form>
