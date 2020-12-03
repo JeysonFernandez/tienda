@@ -201,16 +201,18 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         $producto = Producto::findOrFail($id);
-        $producto->borrado = 2;
+        $producto->borrado = 3;
         $producto->save();
+        alert()->success('Perfecto!','El producto se ha eliminado correctamente.');
         return redirect()->route('admin.producto.getProducto');
     }
 
     public function confirmDelete(Request $request)
     {
         $producto = Producto::findOrFail($request->idfinal);
-        $producto->borrado = 2;
+        $producto->borrado = 3;
         $producto->save();
+        alert()->success('Perfecto!','El producto se ha eliminado correctamente.');
         return redirect()->route('admin.producto.getProducto');
     }
 
@@ -278,7 +280,7 @@ class ProductoController extends Controller
         }
         session()->put('carro', $carro);
         if(Auth::check()){
-            alert()->success('Perfecto!','Se ha añadido un elemento a tu carrito. Puedes editar la cantidad del producto desde el mismo carrito.');
+            alert()->success('Datos actualizados', 'Se guardaron los datos de disponibilidad semanal');
         }else{
             alert()->success('Perfecto!','Se ha añadido un elemento a tu carrito. Puedes editar la cantidad del producto desde el mismo carrito. Para verlo, inicia sesión.');
         }

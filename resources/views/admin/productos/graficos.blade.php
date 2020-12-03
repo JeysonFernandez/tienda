@@ -33,7 +33,7 @@
                       @endif>Colores</option>
                       <option id="generos" value="generos" @if ($valor === 'generos')
                           selected
-                      @endif>Generos</option>
+                      @endif>Clasificaciones</option>
                       <option id="marcas" value="marcas" @if ($valor === 'marcas')
                           selected
                       @endif>Marca</option>

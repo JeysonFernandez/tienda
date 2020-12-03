@@ -59,7 +59,7 @@ class FechaController extends Controller
 
 
 
-                alert()->success('Datos actualizados', 'Se guardaron los datos de duración de sesiones para las especialidades.');
+                alert()->success('Datos actualizados', 'Se guardaron los datos de disponibilidad semanal');
 
                 return redirect(route('profesional::servicios.disponibilidad'));
             } catch (\Exception $e) {

@@ -74,7 +74,7 @@
                                 <td>{{$producto->stock_critico}}</td>
                                 <td>{{$producto->precio_unidad}}</td>
                                 <td>
-                                @if($producto->borrado == \App\Models\Producto::BORRADOR)Borrado @endif
+                                @if($producto->borrado == \App\Models\Producto::BORRADOR)Borrador @endif
                                 @if($producto->borrado == \App\Models\Producto::PUBLICADO)Publico @endif
                                 </td>
                                 <td> <a type="submit" class="btn btn-xs btn-success" data-toggle="tooltip" href="{{route('admin.producto.editarProducto',['id' => $producto->id])}}" title="Editar">
