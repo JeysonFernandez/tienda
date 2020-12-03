@@ -7,8 +7,7 @@
     <div class="card card-table shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
-                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Registro de Compras</h3></div>
-                <div class="p-2 bd-highlight"><a href="/compras/create"><button type="button" class="btn btn-primary btn-lg text-right">Agregar</button></a></div>
+                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Usuario / Registro de Compras</h3></div>
                 <div class="p-2 bd-highlight"><a href="{{route('admin.compra.exportCompraUsuario',['id' => $usuario->id])}}" class="btn btn-naranjo btn-lg text-right">Exportar Excel</a></div>
 
             </div>
@@ -27,7 +26,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Cliente</th>
+                            <th>Usuario</th>
                             <th>Estado</th>
                             <th>Deuda Total</th>
                             <th>Deuda Pendiente</th>
@@ -38,7 +37,7 @@
                     <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Cliente</th>
+                            <th>Usuario</th>
                             <th>Estado</th>
                             <th>Deuda Total</th>
                             <th>Deuda Pendiente</th>
@@ -52,7 +51,11 @@
                             <?php $cont++?>
                             <tr>
                                 <td>{{$cont}}</td>
-                                <td>{{$usuario->email}}</td>
+                                <td>
+                                    <a  href="" data-toggle="modal" data-target="#modal-usuario-{{$usuario->id}}"  title="Ver detalles compra"
+                                        class="btn btn-success">{{$usuario->email}}</a>
+                                        @include('modals.modal_usuario',['usuario' => $usuario])
+                                </td>
                                 <td>
                                 @if ($compra->estado === 'p')
                                     Pendiente
@@ -63,8 +66,12 @@
                                 <td>${{$compra->deuda_pendiente}}</td>
                                 <td>{{$compra->fecha_siguiente_pago}}</td>
                                 <td>
-                                    <a href="{{route('admin.compra.getComprasProductos',$compra->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
-                                    <a href="{{route('admin.pago.getPagoCompra',$compra->id)}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>
+                                    <a href="{{route('admin.compra.getComprasProductos',$compra->id)}}"class="btn btn-xs btn-info swa-confirm" data-toggle="tooltip"
+                                        title="Ver compras del usuario" > <i class="fas fa-shopping-bag"></i>
+                                    </a>
+                                    <a href="{{route('admin.pago.getPagoCompra',$compra->id)}}"class="btn btn-xs btn-success swa-confirm" data-toggle="tooltip"
+                                        title="Ver pedidos del usuario" ><i class="fas fa-money-bill-wave"></i>
+                                    </a>
                                 </td>
                         </tr>
 

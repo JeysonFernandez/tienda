@@ -9,7 +9,7 @@
     <div class="card card-table shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
-                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Tabla de Pedidos</h3></div>
+                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Usuario / Tabla de Pedidos</h3></div>
                 <div class="p-2 bd-highlight"><a href="{{route('admin.pedido.exportPedidoUsuario',['id' => $usuario->id])}}" class="btn btn-naranjo btn-lg text-right">Exportar Excel</a></div>
             </div>
             <h5>{{$mensaje}}</h5>
@@ -30,8 +30,8 @@
                             <th>Lugar a visitar</th>
                             <th>Fecha</th>
                             <th>Hora</th>
-                            <th>Usuario</th>
                             <th>Tipo</th>
+                            <th>Usuario</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -41,8 +41,8 @@
                             <th>Lugar a visitar</th>
                             <th>Fecha</th>
                             <th>Hora</th>
-                            <th>Usuario</th>
                             <th>Tipo</th>
+                            <th>Usuario</th>
                             <th></th>
                         </tr>
                     </tfoot>
@@ -55,7 +55,7 @@
                                 <td>{{$pedido->lugar_visita}}</td>
                                 <td>{{$pedido->fecha}}</td>
                                 <td>{{$pedido->fecha_hora_inicio}}</td>
-                                <td>{{$usuario->email}}</td>
+
                                 <td>
                                     @if ($pedido->tipo == 2)
                                         Visita
@@ -64,8 +64,13 @@
                                     @endif
                                 </td>
                                 <td>
+                                    <a  href="" data-toggle="modal" data-target="#modal-usuario-{{$usuario->id}}"  title="Ver detalles compra"
+                                        class="btn btn-success">{{$usuario->email}}</a>
+                                        @include('modals.modal_usuario',['usuario' => $usuario])
+                                </td>
+                                <td>
                                     <a  href="{{route('admin.pedido.getPedidoProductos',$pedido->id)}}" class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
-                                        title="Ver pedidos del usuario" > <i class="far fa-edit"></i>
+                                        title="Ver productos del pedido" > <i class="far fa-edit"></i>
                                     </a>
 
                             </tr>

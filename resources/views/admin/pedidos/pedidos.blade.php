@@ -58,27 +58,28 @@
                                 <td>{{$pedido->lugar_visita}}</td>
                                 <td>{{$pedido->fecha}}</td>
                                 <td>{{$pedido->fecha_hora_inicio}}</td>
-                                <td>{{$pedido->usuario}}</td>
                                 <td>
-                                    @if ($pedido->tipo == 1)
-                                        Visita
-                                    @else
-                                        Express
-                                    @endif
+                                    <a  href="" data-toggle="modal" data-target="#modal-usuario-{{$pedido->usuarios->id}}"  title="Ver detalles compra"
+                                        class="btn btn-success">{{$pedido->usuarios->email}}</a>
+                                        @include('modals.modal_usuario',['usuario' => $pedido->usuarios])
                                 </td>
                                 <td>
-                                    @if ($pedido->estado == 2)
-                                        Cancelado
-                                    @else
-                                        Pendiente
-                                    @endif
+                                    @if ($pedido->tipo == \App\Models\Pedido::EXPRESS) Express @endif
+                                    @if ($pedido->tipo == \App\Models\Pedido::NORMAL) Normal @endif
+                                </td>
+                                <td>
+                                    @if ($pedido->estado == \App\Models\Pedido::Pendiente) Pendiente @endif
+                                    @if ($pedido->estado == \App\Models\Pedido::Cancelado) Cancelado @endif
+                                    @if ($pedido->estado == \App\Models\Pedido::Entregado) Entregado @endif
+                                    @if ($pedido->estado == \App\Models\Pedido::Comprado) Completado @endif
+
                                 </td>
                                 <td>
                                     {{-- <a href="/pedidos/productos/{{$pedido->id}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>  --}}
-                                    <a href="/pedidos/{{$pedido->id}}" class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
+                                    <a href="/pedidos/{{$pedido->usuario_id}}" class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
                                         title="Ver pedidos del usuario" > <i class="fas fa-shopping-basket"></i>
                                     </a>
-                                    @if ($pedido->estado == 1)
+                                    @if ($pedido->estado == \App\Models\Pedido::Pendiente )
                                         <a href="/pedidos/comprarPedido/{{$pedido->id}}" class="btn btn-xs btn-success swa-confirm" data-toggle="tooltip"
                                             title="Ver pedidos del usuario" > <i class="fas fa-fw fa-shopping-cart"></i>
                                         </a>

@@ -45,7 +45,11 @@
                                 <td>{{$cont}}</td>
                                 <td>{{$pago->monto}}</td>
                                 <td>{{$pago->fecha}}</td>
-                                <td>Compra #{{$pago->compra_id}} / {{$pago->compras->usuario->nombre}} {{$pago->compras->usuario->primer_apellido}}</td>
+                                <td>
+                                    <a  href="" data-toggle="modal" data-target="#modal-compra-{{$pago->compras->id}}"  title="Ver detalles compra"
+                                        class="btn btn-success"><i class="far fa-eye"></i></a>
+                                        @include('modals.modal_compra',['compra' => $pago->compras])
+                                </td>
                                 <td>
                                     @if($pago->estado == 1)
                                         Pagado con retraso

@@ -97,6 +97,7 @@ class DashboardController extends Controller
     }
     public function getPedidosProductos($id){
         $produc = Pedido::find($id);
+
         return view('admin.pedidos.productos_pedido', [
         'produc' => $produc,
         'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
@@ -624,45 +625,19 @@ class DashboardController extends Controller
 
     public function getPedidos(Request $request)
     {
-        $pedidos = DB::table('pedidos')
-            ->select('pedidos.id', 'pedidos.fecha', 'pedidos.fecha_hora_inicio', 'pedidos.lugar_visita', 'pedidos.tipo','pedidos.estado')
-            ->leftJoin('usuarios', 'usuarios.id', '=', 'pedidos.usuario_id')
-            ->AddSelect(DB::raw('usuarios.email as usuario'))
-            ->groupBy(
-                'pedidos.id',
-                'pedidos.fecha',
-                'pedidos.fecha_hora_inicio',
-                'pedidos.lugar_visita',
-                'pedidos.tipo',
-                'pedidos.estado',
-                'usuarios.email'
-            )
-            ->get();
-
+        $pedidos = Pedido::all();
         $fechaInicial = "";
         $fechaFinal = "";
         $mensaje = "";
+
 
         if ($request->get('fechaInicial') != null && $request->get('fechaFinal') != null) {
 
             if ($request->get('fechaInicial') < $request->get('fechaFinal')) {
                 $fechaInicial = $request->get('fechaInicial');
                 $fechaFinal = $request->get('fechaFinal');
-                $pedidos = DB::table('pedidos')
-                    ->select('pedidos.id', 'pedidos.fecha', 'pedidos.fecha_hora_inicio', 'pedidos.lugar_visita',
-                    'pedidos.tipo','pedidos.estado')
-                    ->where('pedidos.fecha', '>=', "$fechaInicial")
-                    ->where('pedidos.fecha', '<=', "$fechaFinal")->leftJoin('usuarios', 'usuarios.id', '=', 'pedidos.usuario_id')
-                    ->AddSelect(DB::raw('usuarios.email as usuario'))
-                    ->groupBy(
-                        'pedidos.id',
-                        'pedidos.fecha',
-                        'pedidos.fecha_hora_inicio',
-                        'pedidos.lugar_visita',
-                        'pedidos.tipo',
-                        'pedidos.estado',
-                        'usuarios.email'
-                    )
+                $pedidos = Pedido::where('pedidos.fecha', '>=', "$fechaInicial")
+                    ->where('pedidos.fecha', '<=', "$fechaFinal")
                     ->get();
             } else {
                 $mensaje = "La fecha inicial tiene que ser menor a fecha final";
@@ -787,11 +762,10 @@ class DashboardController extends Controller
 
     public function getPagosCompra($id)
     {
-        $pagos = DB::table('pagos')
-            ->select('pagos.id', 'pagos.monto', 'pagos.direccion', 'pagos.fecha', 'pagos.estado')
-            ->where('compra_id', '=', "$id")
+        $pagos = Pago::where('compra_id',$id)
             ->get();
         $compra = Compra::find($id);
+        dd('pag 2');
         return view('admin.usuarios.pagos', [
             'pagos' => $pagos,
             'compra' =>  $compra,

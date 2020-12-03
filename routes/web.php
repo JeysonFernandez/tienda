@@ -183,6 +183,7 @@ Route::group(['as'=> 'admin.'], function(){
         Route::post('/graficos/pagos', [DashboardController::class,'getGraficoPag'])->name('getGraficoPagPost');
 
         Route::post('/admin/pagos/agregar',[PagoController::class,'agregar'])->name('agregarPago');
+        Route::get('/admin/pagos/compra-{id}/agregar',[PagoController::class,'agregarPagoCompra'])->name('agregarPagoCompra');
         Route::delete('/pagos/confirmDelete', [PagoController::class,'confirmDelete'])->name('confirmDelete');
 
 

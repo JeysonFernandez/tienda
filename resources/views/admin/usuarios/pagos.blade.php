@@ -9,8 +9,8 @@
     <div class="card card-table shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
-                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Registro de Pagos</h3></div>
-            <div class="p-2 bd-highlight"><a href="{{route('admin.pago.crearPago')}}"><button type="button" class="btn btn-primary btn-lg text-right">Agregar</button></a></div>
+                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Usuario / Compra / Registro de Pagos</h3></div>
+            <div class="p-2 bd-highlight"><a href="{{route('admin.pago.agregarPagoCompra',['id' => $compra->id])}}"><button type="button" class="btn btn-primary btn-lg text-right">Agregar</button></a></div>
 
             </div>
         </div>
@@ -51,7 +51,7 @@
                                 </td>
                                 <td><a  href="" data-toggle="modal" data-target="#modal-compra-{{$compra->id}}"  title="Ver detalles compra"
                                     class="btn btn-success"><i class="far fa-eye"></i></a>
-                                    @include('admin.usuarios.modal_compra',['compra' => $compra])
+                                    @include('modals.modal_compra',['compra' => $compra])
                                 </td>
 
 
