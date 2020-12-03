@@ -8,7 +8,7 @@
                     </button>
                     <div class="dropdown-menu shadow dropdown-menu-left black-link">
                         @foreach ($categorias as $categoria )
-                            <a name="categoria" class="dropdown-item active" data-id="{{$categoria->id}}" href="#">{{$categoria->nombre}}</a>
+                            <a name="categoria" class="dropdown-item ." data-id="{{$categoria->id}}" href="#">{{$categoria->nombre}}</a>
                             <div class="dropdown-divider"></div>
                         @endforeach
                     </div>
