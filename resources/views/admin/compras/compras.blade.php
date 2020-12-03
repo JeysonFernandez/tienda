@@ -56,11 +56,10 @@
                                         @include('modals.modal_usuario',['usuario' => $compra->usuario])
                                 </td>
                                 <td>
-                                @if ($compra->estado === 'p')
-                                    Pendiente
-                                @else
-                                    Pagado
-                                @endif</td>
+
+                                    @if($compra->estado == \App\Models\Compra::Pendiente) Pendiente @endif
+                                    @if($compra->estado == \App\Models\Compra::Completado) Completado @endif
+                                </td>
                                 <td>${{$compra->deuda_total}}</td>
                                 <td>${{$compra->deuda_pendiente}}</td>
                                 <td>{{explode(' ',$compra->fecha_siguiente_pago)[0]}}</td>

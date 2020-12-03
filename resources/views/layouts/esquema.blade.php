@@ -90,7 +90,7 @@
                                             <a class="dropdown-item" href="{{route('seleccionarPerfil')}}">
                                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Seleccionar Perfil
                                             @else
-                                            <a class="dropdown-item" href="{{route('usuario.index',['id' => auth()->user()->id])}}">
+                                            <a class="dropdown-item" href="{{route('usuario.getPedidos',['id' => auth()->user()->id])}}">
                                                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Mi Cuenta
                                                 @endif
                                             </a>

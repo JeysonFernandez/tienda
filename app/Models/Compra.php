@@ -13,6 +13,12 @@ class Compra extends Model
     const Completado = 2;
 
 
+    public function estado()
+    {
+        if($this->estado == Compra::Pendiente){return 'Pendiente';}
+        if($this->estado == Compra::Completado){return 'Completado';}
+    }
+
     public function usuario(){
         return $this->belongsTo('App\Models\Usuario','usuario_id','id');
     }
@@ -25,6 +31,13 @@ class Compra extends Model
     public function productos(){
         return $this->belongsToMany('App\Models\Producto')
         ->withPivot('cantidad','costo');
+    }
+
+    public function pedido()
+    {
+
+        return $this->belongsTo('App\Models\Pedido', 'pedido_id', 'id');
+
     }
 
 

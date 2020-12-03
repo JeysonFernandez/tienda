@@ -21,7 +21,6 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Cliente</th>
                             <th>Estado</th>
                             <th>Deuda Total</th>
                             <th>Deuda Pendiente</th>
@@ -32,7 +31,6 @@
                     <tfoot>
                         <tr>
                             <th>#</th>
-                            <th>Cliente</th>
                             <th>Estado</th>
                             <th>Deuda Total</th>
                             <th>Deuda Pendiente</th>
@@ -46,14 +44,11 @@
                             <?php $cont++?>
                             <tr>
                                 <td>{{$cont}}</td>
-                                <td>{{$compra->usuario->username}}</td>
-                                <td>@if($compra->estado ==="t")
-                                    Terminado
-                                @else
-                                    Pendiente
-                                @endif</td>
-                                <td>{{$compra->deuda_total}}</td>
-                                <td>{{$compra->deuda_pendiente}}</td>
+                                <td>@if($compra->estado == \App\Models\Compra::Pendiente) Pendiente @endif
+                                    @if($compra->estado == \App\Models\Compra::Completado) Completado @endif
+                                </td>
+                                <td>${{$compra->deuda_total}}</td>
+                                <td>${{$compra->deuda_pendiente}}</td>
                                 <td>{{$compra->fecha_siguiente_pago}}</td>
                                 <td>
                                     <a href="{{route('usuario.getCompraProductos',$compra->id)}}"class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"

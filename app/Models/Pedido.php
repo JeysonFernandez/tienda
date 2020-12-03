@@ -18,7 +18,13 @@ class Pedido extends Model
     const Comprado  = 4;
 
 
-
+    public function estado()
+    {
+        if($this->estado == Pedido::Pendiente){return 'Pendiente';}
+        if($this->estado == Pedido::Cancelado){return 'Cancelado';}
+        if($this->estado == Pedido::Entregado){return 'Entregado';}
+        if($this->estado == Pedido::Comprado){return 'Comprado';}
+    }
 
     public function getTipoPedidoAttribute()
     {

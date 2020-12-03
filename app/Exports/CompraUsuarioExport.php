@@ -39,7 +39,7 @@ class CompraUsuarioExport implements FromQuery, WithHeadings, WithEvents, WithSt
             $compra->deuda_pendiente,
             $compra->fecha_siguiente_pago,
             $compra->fecha_compra,
-            $compra->estado,
+            ($compra->estado()),
             $compra->compraproducto->count(),
             $compra->pedido_id,
             $compra->pedido->pedidoproducto->sum('costo'),
@@ -49,6 +49,7 @@ class CompraUsuarioExport implements FromQuery, WithHeadings, WithEvents, WithSt
             $usuario->primer_apellido,
             $usuario->segundo_apellido,
             $usuario->email,
+            ($usuario->estado),
         ];
     }
 
@@ -71,6 +72,8 @@ class CompraUsuarioExport implements FromQuery, WithHeadings, WithEvents, WithSt
                 $event->sheet->getDelegate()->mergeCells('M1:M1');
                 $event->sheet->getDelegate()->mergeCells('N1:N1');
                 $event->sheet->getDelegate()->mergeCells('O1:O1');
+                $event->sheet->getDelegate()->mergeCells('P1:P1');
+
             },
         ];
     }
@@ -80,7 +83,7 @@ class CompraUsuarioExport implements FromQuery, WithHeadings, WithEvents, WithSt
         return [
             // Style the first row as bold text.
             1    => ['font' => ['bold' => true], 'alignment' => ['horizontal' => 'center'],['font' => ['size' => 25]]],
-            'A1:O1' => ['fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'd9e2f2']]],
+            'A1:P1' => ['fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'd9e2f2']]],
         ];
     }
 
@@ -104,6 +107,7 @@ class CompraUsuarioExport implements FromQuery, WithHeadings, WithEvents, WithSt
                 'Primer Apellido',
                 'Segundo Apellido',
                 'Email',
+                'Estado'
 
 
             ],

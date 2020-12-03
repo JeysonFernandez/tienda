@@ -47,7 +47,11 @@
                                     <td>{{$cont}}</td>
                                     <td>{{$pago->monto}}</td>
                                     <td>{{$pago->fecha}}</td>
-                                    <td>{{$pago->estado}}</td>
+                                    <td>
+                                        @if($pago->estado == \App\Models\Pago::Retrasado) Atrasado @endif
+                                        @if($pago->estado == \App\Models\Pago::Adelantada) Adelantada @endif
+                                        @if($pago->estado == \App\Models\Pago::Tiempo) A Tiempo @endif
+                                    </td>
                                     <td>
                                         <a href="{{route('usuario.getCompraProductos',$compra->id)}}"class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
                                             title="Ver compras del usuario" > <i class="fas fa-shopping-bag"></i>

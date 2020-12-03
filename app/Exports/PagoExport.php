@@ -45,12 +45,13 @@ class PagoExport implements FromQuery, WithHeadings, WithEvents, WithStyles, Wit
             $compra->deuda_total,
             $compra->deuda_pendiente,
             $compra->fecha_siguiente_pago,
-            $compra->estado,
+            ($compra->estado()),
             $compra->usuario_id,
             $usuario->nombre,
             $usuario->primer_apellido,
             $usuario->segundo_apellido,
             $usuario->email,
+            ($usuario->estado),
         ];
     }
 
@@ -73,6 +74,7 @@ class PagoExport implements FromQuery, WithHeadings, WithEvents, WithStyles, Wit
                 $event->sheet->getDelegate()->mergeCells('M1:M1');
                 $event->sheet->getDelegate()->mergeCells('N1:N1');
                 $event->sheet->getDelegate()->mergeCells('O1:O1');
+                $event->sheet->getDelegate()->mergeCells('P1:P1');
             },
         ];
     }
@@ -106,6 +108,7 @@ class PagoExport implements FromQuery, WithHeadings, WithEvents, WithStyles, Wit
                 'Primer Apellido',
                 'Segundo Apellido',
                 'Email',
+                'Estado'
             ],
 
         ];

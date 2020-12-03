@@ -45,12 +45,13 @@ class PagoCompraExport implements FromQuery, WithHeadings, WithEvents, WithStyle
             $compra->deuda_total,
             $compra->deuda_pendiente,
             $compra->fecha_siguiente_pago,
-            $compra->estado,
+            ($compra->estado()),
             $compra->usuario_id,
             $usuario->nombre,
             $usuario->primer_apellido,
             $usuario->segundo_apellido,
             $usuario->email,
+            ($usuario->estado),
         ];
     }
 
@@ -73,6 +74,7 @@ class PagoCompraExport implements FromQuery, WithHeadings, WithEvents, WithStyle
                 $event->sheet->getDelegate()->mergeCells('M1:M1');
                 $event->sheet->getDelegate()->mergeCells('N1:N1');
                 $event->sheet->getDelegate()->mergeCells('O1:O1');
+                $event->sheet->getDelegate()->mergeCells('P1:P1');
             },
         ];
     }
@@ -82,7 +84,7 @@ class PagoCompraExport implements FromQuery, WithHeadings, WithEvents, WithStyle
         return [
             // Style the first row as bold text.
             1    => ['font' => ['bold' => true], 'alignment' => ['horizontal' => 'center'],['font' => ['size' => 25]]],
-            'A1:O1' => ['fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'd9e2f2']]],
+            'A1:P1' => ['fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'd9e2f2']]],
         ];
     }
 
@@ -106,6 +108,7 @@ class PagoCompraExport implements FromQuery, WithHeadings, WithEvents, WithStyle
                 'Primer Apellido',
                 'Segundo Apellido',
                 'Email',
+                'Estado'
             ],
 
         ];

@@ -33,8 +33,8 @@ class PedidoExport implements FromQuery, WithHeadings, WithEvents, WithStyles, W
             $pedido->fecha,
             $pedido->fecha_hora_inicio,
             $pedido->fecha_hora_fin,
-            $pedido->estado,
-            $pedido->tipo,
+            ($pedido->estado()),
+            ($pedido->tipo_pedido),
             $pedido->pedidoproducto->sum('costo'),
             $pedido->pedidoproducto->count(),
             $pedido->usuario_id,
@@ -42,6 +42,7 @@ class PedidoExport implements FromQuery, WithHeadings, WithEvents, WithStyles, W
             $usuario->primer_apellido,
             $usuario->segundo_apellido,
             $usuario->email,
+            ($usuario->estado),
         ];
     }
 
@@ -63,6 +64,7 @@ class PedidoExport implements FromQuery, WithHeadings, WithEvents, WithStyles, W
                 $event->sheet->getDelegate()->mergeCells('L1:L1');
                 $event->sheet->getDelegate()->mergeCells('M1:M1');
                 $event->sheet->getDelegate()->mergeCells('N1:N1');
+                $event->sheet->getDelegate()->mergeCells('O1:O1');
             },
         ];
     }
@@ -72,7 +74,7 @@ class PedidoExport implements FromQuery, WithHeadings, WithEvents, WithStyles, W
         return [
             // Style the first row as bold text.
             1    => ['font' => ['bold' => true], 'alignment' => ['horizontal' => 'center'],['font' => ['size' => 25]]],
-            'A1:N1' => ['fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'd9e2f2']]],
+            'A1:O1' => ['fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['argb' => 'd9e2f2']]],
         ];
     }
 
@@ -95,6 +97,7 @@ class PedidoExport implements FromQuery, WithHeadings, WithEvents, WithStyles, W
                 'Primer Apellido',
                 'Segundo Apellido',
                 'Email',
+                'Estado',
 
 
             ],
