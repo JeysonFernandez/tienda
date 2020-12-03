@@ -188,7 +188,7 @@ Route::group(['as'=> 'admin.'], function(){
         Route::delete('/pagos/confirmDelete', [PagoController::class,'confirmDelete'])->name('confirmDelete');
 
 
-        Route::get('/pago/export/{id}', [PagoController::class,'exportPago'])->name('exportPago');
+        Route::get('/pago/export', [PagoController::class,'exportPago'])->name('exportPago');
         Route::get('/pago/usuario/export/{id}', [PagoController::class,'exportUsuarioPago'])->name('exportUsuarioPago');
         Route::get('/pago/compra/export/{id}', [PagoController::class,'exportCompraPago'])->name('exportCompraPago');
 
