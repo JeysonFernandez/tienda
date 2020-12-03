@@ -9,8 +9,8 @@ class Pedido extends Model
     public $timestamps = false;
     protected $table = "pedidos";
 
-    const EXPRESS = 1;
-    const NORMAL = 2;
+    const EXPRESS = 2;
+    const NORMAL = 1;
 
     const Pendiente = 1;
     const Cancelado = 2;
