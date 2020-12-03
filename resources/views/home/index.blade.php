@@ -8,7 +8,7 @@
     <div class="mt-5"><h1>Productos destacados</h1></div>
     <hr>
     <div class="row mt-5 card-resultados">
-        @foreach ($productos as $producto )
+        @foreach ($productosVendidos as $producto )
         <div class="col-xl-6 mb-3">
             <div class="card shadow card-resultados mb-3 bg-white px-3">
                 <div class="row no-gutters align-items-center justify-content-around">

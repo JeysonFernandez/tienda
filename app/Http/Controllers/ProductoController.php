@@ -225,7 +225,7 @@ class ProductoController extends Controller
         //Alert::success('Gola','chao');
         $cantidad = Producto::where([['borrado','=',1],['cant_vendida','>',0]])->count();
         if($cantidad>0){
-            $poductosVendidos = Producto::where([['borrado','=',1],['cant_vendida','>',0]])->orderBy('cant_vendida')->take(2);
+            $productosVendidos = Producto::where([['borrado','=',1],['cant_vendida','>',0]])->orderBy('cant_vendida')->take(2)->get();
             return view('home.index', [
                 'productos' => Producto::where('borrado', '=', 1)->inRandomOrder()->take(20)->get(),
                 'cantidad' => $cantidad,
