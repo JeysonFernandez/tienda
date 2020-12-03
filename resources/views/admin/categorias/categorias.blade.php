@@ -67,7 +67,7 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Producto a eliminar es <span id="nombreProducto"></span></div>
+                <div class="modal-body">Categoría a eliminar es <span id="nombreProducto"></span></div>
                 <div class="modal-footer" >
                     <div class="d-flex justify-content-between">
                         <button class="btn btn-secondary .align-items-start" type="button" data-dismiss="modal">Cancel</button>

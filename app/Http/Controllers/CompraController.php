@@ -328,7 +328,7 @@ class CompraController extends Controller
                 $nuevoStock = $producto->stock_actual - $compraProducto->cantidad_producto;
                 $producto->stock_actual = $nuevoStock;
 
-                $producto->cant_vendida += $compraProducto->cantidad_producto;
+                $producto->cant_vendida += $compraProducto->cantidad;
 
                 if(Rey::all()->count() > 0){
                     $max_venta = Rey::find(1);

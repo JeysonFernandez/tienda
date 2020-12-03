@@ -128,6 +128,7 @@ class CategoriaController extends Controller
         $categoria->borrado = 2;
         $categoria->save();
 
+        alert()->success('Perfecto!','La categoria se ha borrado correctamente.');
         return redirect()->route('admin.categoria.verCategoria');
     }
 
@@ -136,6 +137,7 @@ class CategoriaController extends Controller
         $categoria->borrado = 2;
         $categoria->save();
 
+        alert()->success('Perfecto!','La categoria se ha borrado correctamente.');
         return redirect()->route('admin.categoria.verCategorias');
     }
 
