@@ -127,13 +127,8 @@
                         <div class="col-6">
                         <div class="form-group">
                             <div class="custom-file">
-                                <input type="file" id="imagen" name="imagen" class="custom-file-input" value="{{URL::asset($producto->imagen)}}">
-                                @if(!empty($producto->imagen))
-                                <label for="imagen" class="custom-file-label" data-browse="Examinar">{{$producto->imagen}}</label>
-                                @else
+                                <input type="file" id="imagen" name="imagen" class="custom-file-input" value="">
                                 <label for="imagen" class="custom-file-label" data-browse="Examinar">Seleccione la imagen</label>
-                                @endif
-
                             </div>
                         </div>
                     </div>
@@ -162,4 +157,14 @@
 
 </div>
 
+@endsection
+
+
+@section('js')
+    <script>
+        $('#imagen').on('change',function(){
+           var archivo = $(this).val().replace('C:\\fakepath\\',"");
+           $(this).next('.custom-file-label').html(archivo);
+        });
+    </script>
 @endsection
