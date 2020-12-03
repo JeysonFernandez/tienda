@@ -11,7 +11,7 @@
     <div class="card card-table shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
-                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Pedido / Productos</h3></div>
+                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Productos del pedido</h3></div>
 
 
             </div>
@@ -23,6 +23,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Imagen</th>
                             <th>Tipo</th>
                             <th>Categoria</th>
                             <th>Color</th>
@@ -31,13 +32,14 @@
                             <th>Talla</th>
                             <th>Stock Actual</th>
                             <th>Stock Critico</th>
-                            <th>Costo Total</th>
+                            <th>Valor Total</th>
                             <th>Cantidad</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>#</th>
+                            <th>Imagen</th>
                             <th>Tipo</th>
                             <th>Categoria</th>
                             <th>Color</th>
@@ -46,7 +48,7 @@
                             <th>Talla</th>
                             <th>Stock Actual</th>
                             <th>Stock Critico</th>
-                            <th>Costo Total</th>
+                            <th>Valor Total</th>
                             <th>Cantidad</th>
                         </tr>
                     </tfoot>
@@ -58,6 +60,13 @@
                             <?php $cont++?>
                             <tr>
                                 <td>{{$cont}}</td>
+                                    <td>
+                                        @if($prod->imagen != '')
+                                            <img src="{{Storage::url($producto->imagen)}}" class="card-img img-fluid rounded" style="max-height: 100px; background-size:auto;">
+                                        @else
+                                            No se ha agregado Imagen
+                                        @endif
+                                    </td>
                                 <td>{{$prod->productos->tipo->nombre}}</td>
                                 <td>{{$prod->productos->categoria->nombre}}</td>
                                 <td>{{$prod->productos->color->nombre}}</td>

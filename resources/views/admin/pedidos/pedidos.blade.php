@@ -76,8 +76,8 @@
                                 </td>
                                 <td>
                                     {{-- <a href="/pedidos/productos/{{$pedido->id}}"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>  --}}
-                                    <a href="/pedidos/{{$pedido->usuario_id}}" class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
-                                        title="Ver pedidos del usuario" > <i class="fas fa-shopping-basket"></i>
+                                    <a href="/pedidos/productos/{{$pedido->id}}" class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
+                                        title="Ver productos del pedido" > <i class="fas fa-shopping-basket"></i>
                                     </a>
                                     @if ($pedido->estado == \App\Models\Pedido::Pendiente )
                                         <a href="/pedidos/comprarPedido/{{$pedido->id}}" class="btn btn-xs btn-success swa-confirm" data-toggle="tooltip"
