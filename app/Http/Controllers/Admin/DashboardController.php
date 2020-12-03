@@ -34,8 +34,42 @@ class DashboardController extends Controller
     }
 
     public function index()
-    {
-        return view('admin.index');
+    {$fechaHoy = now()->format('Y-m-d');
+
+        $fechaUnaSemana = date("Y-m-d", strtotime(now()."+ 1 week"));
+
+        $fechaMes = date("Y-m-d", strtotime(now() . "+ 1 month"));
+        //$fechaMes = date_create_from_format("Y-m-d",$fechaMes);
+
+        $fechaAnio = date("Y-m-d", strtotime(now() . "+ 1 year"));
+
+
+        $pedidosHoy = Pedido::where('fecha','=',"$fechaHoy")->count();
+        $pedidosEnUnaSemana = Pedido::whereBetween('fecha',[$fechaHoy,$fechaUnaSemana])->count();
+        $pedidosEnUnMes = $pedidosEnUnaSemana = Pedido::whereBetween('fecha',[$fechaHoy,$fechaMes])->count();
+
+
+        $comprasHoy = Compra::where('fecha_compra','=',"$fechaHoy")->count();
+
+
+        $pagosHoy = Pago::where('fecha','=',"$fechaHoy")->where('estado','!=','a')->count();
+        $pagosEnUnaSemana = Pago::whereBetween('fecha',["$fechaHoy","$fechaUnaSemana"])->count();
+        $pagosEnUnMes = Pago::where('fecha','=',"$fechaMes")->where('estado','!=','a')->count();
+
+
+
+
+        return view('admin.index', [
+            'pedidosHoy' => $pedidosHoy,
+            'pedidosEnUnaSemana' => $pedidosEnUnaSemana,
+            'pedidosEnUnMes' => $pedidosEnUnMes,
+            'comprasHoy' => $comprasHoy,
+            'pagosHoy' => $pagosHoy,
+            'pagosEnUnaSemana' => $pagosEnUnaSemana,
+            'pagosEnUnMes' => $pagosEnUnMes,
+            'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
+            'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
+        ]);
     }
 
     public function getDashboard()
@@ -48,6 +82,7 @@ class DashboardController extends Controller
         //$fechaMes = date_create_from_format("Y-m-d",$fechaMes);
 
         $fechaAnio = date("Y-m-d", strtotime(now() . "+ 1 year"));
+        dd($fechaHoy);
 
 
         $pedidosHoy = Pedido::where('fecha','=',"$fechaHoy")->select(DB::raw('count(id) as cantidad'))->get();
