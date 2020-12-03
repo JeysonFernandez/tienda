@@ -18,6 +18,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BienvenidaMail;
 
 class UsuarioController extends Controller
 {
@@ -185,8 +187,12 @@ class UsuarioController extends Controller
         $usuario->password = Hash::make($request->get('password'));
         $usuario->deuda_total = 0;
         $usuario->save();
-
-        alert()->success('Perfecto!','Has sido registrado exitosamente.');
+        try{
+            Mail::to($usuario->email)->send(new BienvenidaMail($usuario));
+        }catch(Exception $e){
+            return $e;
+        }
+        alert()->success('Perfecto!','Has sido registrado exitosamente. Ahora puedes iniciar sesión.');
         return redirect('/');
     }
 

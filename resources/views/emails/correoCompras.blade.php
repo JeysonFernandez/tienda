@@ -1,7 +1,8 @@
 @extends('emails.tienda')
-
+@section('titulo','Datos del cliente: ')
 @section('nombre',$usuario->nombre.' '.$usuario->primer_apellido.' '.$usuario->segudo_apellido)
 @section('tipo_cliente',$usuario->estado)
+@section('monto_total','Monto total: ')
 @section('monto_pedido',$compra->compraproducto->sum('costo'))
 @section('fecha',$compra->fecha_compra)
 

@@ -93,7 +93,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                            <label for="password" class="">Tu contraseña debe como mínimo 6 caracteres y al menos 1 letra</label>
+                                            <label for="password" class="small">Tu contraseña debe como mínimo 6 caracteres y al menos 1 letra</label>
                                         </div>
                                     </div>
                                 </div>

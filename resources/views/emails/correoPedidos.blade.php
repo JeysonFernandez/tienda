@@ -1,9 +1,11 @@
 @extends('emails.tienda')
 
+@section('titulo','Datos del cliente: ')
 @section('nombre',$usuario->nombre.' '.$usuario->primer_apellido.' '.$usuario->segudo_apellido)
 @section('direccion',$pedido->lugar_visita)
 @section('tipo_cliente',$usuario->estado)
 @section('tipo_pedido',$pedido->tipo_pedido)
+@section('monto_total','Monto total: ')
 @section('monto_pedido',$pedido->pedidoproducto->sum('costo'))
 @section('fecha',$pedido->fecha.' '.$pedido->fecha_hora_inicio)
 
