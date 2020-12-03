@@ -240,7 +240,8 @@ class ProductoController extends Controller
                 alert()->info('No hay productos en el carrito','Antes de ver tu carrito, primero debes añadir productos');
                 return redirect()->route('index');
             }else{
-                return view('publico.confirmarPedido.carrito');
+                $productos = Producto::all();
+                return view('publico.confirmarPedido.carrito', compact('productos'));
             }
         }else{
             alert()->info('Debes iniciar sesión','Antes de ver tu carrito, primero debes iniciar sesión');
@@ -291,6 +292,7 @@ class ProductoController extends Controller
         unset($carro[$id]);
         session()->put('carro', $carro);
 
+        alert()->success('Elemento eliminado.','Se ha eliminado un producto de tu carrito');
         return redirect()->back();
     }
 
