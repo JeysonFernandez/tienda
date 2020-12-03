@@ -20,12 +20,7 @@ class PagoExport implements FromQuery, WithHeadings, WithEvents, WithStyles, Wit
     /**
     * @return \Illuminate\Support\Collection
     */
-    protected $id;
 
-    public function __construct(int $id)
-    {
-        $this->id = $id;
-    }
     public function query()
     {
         return Pago::query();
