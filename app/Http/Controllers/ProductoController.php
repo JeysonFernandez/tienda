@@ -36,7 +36,7 @@ class ProductoController extends Controller
     {
 
         return view('productos.index', [
-            'productos' => Producto::where('borrado', '!=', 3)->get()
+            'productos' => Producto::where('borrado', '=', 1)->get()
         ]);
     }
 
