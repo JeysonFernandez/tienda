@@ -53,6 +53,16 @@ class PagoController extends Controller
         'notificacionUsuarios'=>NotificacionUsuario::all()]);
     }
 
+    public function pagoPersonalizado($id)
+    {
+        $compra = Compra::findOrFail($id);
+        return view('admin.pagos.crear_pagoPersonalizado',
+        ['compra' => $compra,
+         'id' => $id,
+        'notificacionProductos'=>NotificacionProducto::all(),
+        'notificacionUsuarios'=>NotificacionUsuario::all()]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

@@ -63,11 +63,11 @@
                                 <td>${{$compra->deuda_total}}</td>
                                 <td>${{$compra->deuda_pendiente}}</td>
                                 <td>{{explode(' ',$compra->fecha_siguiente_pago)[0]}}</td>
-                                <td><a href="{{route('admin.pago.getPagoCompra',$compra->id)}}"class="btn btn-xs btn-success swa-confirm" data-toggle="tooltip"
-                                    title="Ver pedidos del usuario" ><i class="fas fa-money-bill-wave"></i>
+                                <td><a href="{{route('admin.pago.pagoPersonalizado',$compra->id)}}"class="btn btn-xs btn-success swa-confirm" data-toggle="tooltip"
+                                    title="Agregar un pago" ><i class="fas fa-money-bill-wave"></i>
                                 </a>
                                     <a href="{{route('admin.compra.getComprasProductos',$compra->id)}}"class="btn btn-xs btn-warning swa-confirm" data-toggle="tooltip"
-                                        title="Ver pedidos del usuario" > <i class="fas fa-fw fa-shopping-cart"></i>
+                                        title="Ver detalles compra" > <i class="far fa-eye"></i>
                                     </a>
                             </td>
                         </tr>

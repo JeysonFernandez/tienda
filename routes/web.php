@@ -184,6 +184,7 @@ Route::group(['as'=> 'admin.'], function(){
 
         Route::post('/admin/pagos/agregar',[PagoController::class,'agregar'])->name('agregarPago');
         Route::get('/admin/pagos/compra-{id}/agregar',[PagoController::class,'agregarPagoCompra'])->name('agregarPagoCompra');
+        Route::get('/pagoPersonalizado/{id}',[PagoController::class,'pagoPersonalizado'])->name('pagoPersonalizado');
         Route::delete('/pagos/confirmDelete', [PagoController::class,'confirmDelete'])->name('confirmDelete');
 
 
