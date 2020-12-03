@@ -21,6 +21,7 @@
                             <th>#</th>
                             <th>Mensaje</th>
                             <th>Producto</th>
+                            <th> Imagen</th>
                             <th>Fecha</th>
                             <th></th>
                         </tr>
@@ -30,6 +31,7 @@
                             <th>#</th>
                             <th>Mensaje</th>
                             <th>Producto</th>
+                            <th>Imagen</th>
                             <th>Fecha</th>
                             <th></th>
                         </tr>
@@ -49,6 +51,13 @@
                             {{$notificacion->productos->genero->nombre}}
                             {{$notificacion->productos->marca->nombre}}
                             {{$notificacion->productos->talla->nombre}}
+                                </td>
+                                <td>
+                                    @if($notificacion->productos->imagen != '')
+                                        <img src="{{Storage::url($notificacion->productos->imagen)}}" class="card-img img-fluid rounded" style="max-height: 100px;max-width:100px; background-size:auto;">
+                                    @else
+                                        No se ha agregado Imagen
+                                    @endif
                                 </td>
                                 <td>
                             {{$notificacion->fecha_creacion}}</td>
