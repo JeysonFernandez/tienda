@@ -261,77 +261,10 @@
                         </li>
 
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <!--<span class="badge badge-danger badge-counter">3+</span>-->
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Notificaciones
-                                </h6>
-                                <?php $cont = 0?>
-                                {{--
-                                @foreach ($notificacionUsuarios as $notificacionUsuario)
-                                    @if ($cont<=3)
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="mr-3">
-                                                <div class="icon-circle bg-success">
-                                                    <i class="fas fa-donate text-white"></i>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="small text-gray-500">{{$notificacionUsuario->fecha_creacion}}</div>
-                                                {{$notificacionUsuario->mensaje}}
-                                            </div>
-                                        </a>
-                                    @endif
-                                    <?php $cont++?>
-                                @endforeach--}}
-                                <a class="dropdown-item text-center small text-gray-500" href="{{route('admin.notificacion.getNotificacionesUsuarios')}}">Mostrar todas las notificaciones (Usuarios)</a>
-                            </div>
-                        </li>
+                        
 
                          <!-- Nav Item - Alerts -->
-                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                               <!-- <span class="badge badge-danger badge-counter">3+</span>-->
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Notificaciones
-                                </h6>
-                                <?php $cont = 0?>
-                                {{--
-                                @foreach ($notificacionProductos as $notificacionProducto)
-                                    @if ($cont<=3)
-                                        <a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="mr-3">
-                                                <div class="icon-circle bg-success">
-                                                    <i class="fas fa-donate text-white"></i>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div class="small text-gray-500">{{$notificacionProducto->fecha_creacion}}</div>
-                                                {{$notificacionProducto->mensaje}}
-                                            </div>
-                                        </a>
-                                    @endif
-                                    <?php $cont++?>
-                                @endforeach
-                                    --}}
-                                <a class="dropdown-item text-center small text-gray-500" href="{{route('admin.notificacion.getNotificacionesProductos')}}">Mostrar todas las notificaciones(Productos)</a>
-                            </div>
-                        </li>
+                         
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
