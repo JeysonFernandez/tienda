@@ -86,7 +86,9 @@ class ProductoController extends Controller
         $producto->precio_unidad = $request->get('precio_unidad');
         $producto->fecha_creacion = now()->format('Y-m-d');
         $producto->borrado = $request->get('estado');
-        $producto->imagen = $request->imagen ? $request->imagen->store('public/prendas') : '';
+        if(isset($request->imagen)){
+            $producto->imagen = $request->imagen->store('public/prendas');
+        }
         $producto->save();
 
         alert()->success('Perfecto!','Se ha agregado un nuevo producto.');
@@ -157,7 +159,9 @@ class ProductoController extends Controller
         $producto->stock_critico = $request->get('stock_critico');
         $producto->stock_actual = $request->get('stock_actual');
         $producto->precio_unidad = $request->get('precio_unidad');
-        $producto->imagen = $request->imagen ? $request->imagen->store('public/prendas') : '';
+        if(isset($request->imagen)){
+            $producto->imagen = $request->imagen->store('public/prendas');
+        }
         $producto->borrado = $request->get('estado');
         $producto->save();
         return redirect()->route('admin.producto.getProducto');
