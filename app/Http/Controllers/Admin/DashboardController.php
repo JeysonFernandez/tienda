@@ -791,10 +791,10 @@ class DashboardController extends Controller
             ->select('pagos.id', 'pagos.monto', 'pagos.direccion', 'pagos.fecha', 'pagos.estado')
             ->where('compra_id', '=', "$id")
             ->get();
-
+        $compra = Compra::find($id);
         return view('admin.usuarios.pagos', [
             'pagos' => $pagos,
-            'id' =>  $id,
+            'compra' =>  $compra,
             'notificacionProductos' => NotificacionProducto::orderBy('id', 'desc')->get(),
             'notificacionUsuarios' => NotificacionUsuario::orderBy('id', 'desc')->get()
         ]);

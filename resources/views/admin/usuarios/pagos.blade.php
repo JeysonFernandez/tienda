@@ -23,9 +23,8 @@
                             <th>#</th>
                             <th>Monto</th>
                             <th>Fecha</th>
-                            <th>Compra </th>
                             <th>Estado del Pago</th>
-                            <th></th>
+                            <th>ID Compra</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -33,9 +32,8 @@
                             <th>#</th>
                             <th>Monto</th>
                             <th>Fecha</th>
-                            <th>Compra </th>
                             <th>Estado del Pago</th>
-                            <th></th>
+                            <th>ID Compra</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -46,11 +44,15 @@
                                 <td>{{$cont}}</td>
                                 <td>{{$pago->monto}}</td>
                                 <td>{{$pago->fecha}}</td>
-                                <td>{{$id}}</td>
-                                <td>{{$pago->estado}}</td>
-                                <td><!-- <a href="/compras/{{ $pago->id }}/edit" onclick="nombre(this)"><i class="fas fa-fw fa-2x fa-pen-square" aria-hidden="true"></i></a>-->
-                                <a href="/pagos/{{$pago->id}}" class="btn btn-xs btn-info swa-confirm" data-toggle="tooltip"
-                                    title="Ver compras del usuario" > <i class="fas fa-shopping-bag"></i></td>
+                                <td>
+                                    @if($pago->estado == \App\Models\Pago::Retrasado) Atrasado @endif
+                                    @if($pago->estado == \App\Models\Pago::Adelantada) Adelantada @endif
+                                    @if($pago->estado == \App\Models\Pago::Tiempo) A Tiempo @endif
+                                </td>
+                                <td><a  href="" data-toggle="modal" data-target="#modal-compra-{{$compra->id}}"  title="Ver detalles compra"
+                                    class="btn btn-success"><i class="far fa-eye"></i></a>
+                                    @include('admin.usuarios.modal_compra',['compra' => $compra])
+                                </td>
 
 
                         </tr>

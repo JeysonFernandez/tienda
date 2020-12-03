@@ -9,7 +9,8 @@ class Compra extends Model
     public $timestamps = false;
     protected $table = "compras";
 
-
+    const Pendiente = 1;
+    const Completado = 2;
 
 
     public function usuario(){
