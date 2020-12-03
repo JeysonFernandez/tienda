@@ -31,7 +31,7 @@
 
                  @csrf
                 <div class="row row-space">
-                    <div class="col-12">
+                    <div class="col-6">
                         <div class="form-group">
                             <label class="label">Tipo</label>
                             <select class="form-control @error('tipo') is-invalid @enderror" name="tipo" id="tipo">
@@ -40,6 +40,8 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="col-6">
                         <div class="form-group">
                             <label class="label">Categoria</label>
                             <select class="form-control @error('categoria') is-invalid @enderror" name="categoria" id="categoria">
@@ -48,6 +50,8 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="col-6">
                         <div class="form-group">
                             <label class="label">Color</label>
                             <select class="form-control @error('color') is-invalid @enderror" name="color" id="color">
@@ -56,6 +60,8 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="col-6">
                         <div class="form-group">
                             <label class="label">Genero</label>
                             <select class="form-control @error('genero') is-invalid @enderror" name="genero" id="genero">
@@ -64,6 +70,8 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="col-6">
                         <div class="form-group">
                             <label class="label">Marca</label>
                             <select class="form-control @error('marca') is-invalid @enderror" name="marca" id="marca">
@@ -72,6 +80,8 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="col-6">
                         <div class="form-group">
                             <label class="label">Talla</label>
                             <select class="form-control @error('talla') is-invalid @enderror" name="talla" id="talla">
@@ -80,6 +90,8 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="col-6">
                         <div class="form-group">
                             <label class="label">Stock Actual</label>
                             <input class="form-control @error('stock_actual') is-invalid @enderror"type="number" value="{{$producto->stock_actual}}" name="stock_actual" id="stock_actual">
@@ -89,6 +101,8 @@
                             </span>
                             @enderror
                         </div>
+                    </div>
+                    <div class="col-6">
                         <div class="form-group">
                             <label class="label">Stock Critico</label>
                             <input class="form-control @error('stock_critico') is-invalid @enderror"type="number" value="{{$producto->stock_critico}}" name="stock_critico" id="stock_critico">
@@ -98,6 +112,8 @@
                             </span>
                             @enderror
                         </div>
+                    </div>
+                    <div class="col-6">
                         <div class="form-group">
                             <label class="label">Precio Unidad</label>
                             <input class="form-control @error('precio_unidad') is-invalid @enderror"type="number" value="{{$producto->precio_unidad}}" name="precio_unidad" id="sprecio_unidad">
@@ -107,6 +123,8 @@
                             </span>
                             @enderror
                         </div>
+                    </div>
+                        <div class="col-6">
                         <div class="form-group">
                             <div class="custom-file">
                                 <input type="file" id="imagen" name="imagen" class="custom-file-input" value="{{URL::asset($producto->imagen)}}">
@@ -114,6 +132,8 @@
 
                             </div>
                         </div>
+                    </div>
+                    <div class="col-6">
                         <div class="form-group">
                             <label for="estado"> Estado </label>
                             <select name="estado" id="estado" class="form-control">
@@ -122,13 +142,11 @@
                                     <option value="{{\App\Models\Producto::BORRADO}}" {{$producto->borrado == \App\Models\Producto::BORRADO ? 'selected': ''}}>Borrado</option>
                             </select>
                         </div>
-
-
                     </div>
-
-                </div>
-                <div class="p-t-15">
-                    <button class="btn btn--radius-2 btn-primary" type="submit">Actualizar</button>
+                <div class="col-6"></div>
+                    <div class="p-t-15">
+                        <button class="btn btn--radius-2 btn-primary ml-3" type="submit">Actualizar</button>
+                    </div>
                 </div>
                 <input class="input--style-4" style="visibility: hidden" type="text" id="id" name="id" value="{{$producto->id}}" placeholder="{{$producto->id}}">
             </form>
