@@ -61,8 +61,8 @@
                             <tr>
                                 <td>{{$cont}}</td>
                                     <td>
-                                        @if($prod->imagen != '')
-                                            <img src="{{Storage::url($producto->imagen)}}" class="card-img img-fluid rounded" style="max-height: 100px; background-size:auto;">
+                                        @if($prod->productos->imagen != '')
+                                            <img src="{{Storage::url($prod->productos->imagen)}}" class="card-img img-fluid rounded" style="max-height: 100px;max-width:100px; background-size:auto;">
                                         @else
                                             No se ha agregado Imagen
                                         @endif
@@ -75,8 +75,8 @@
                                 <td>{{$prod->productos->talla->nombre}}</td>
                                 <td>{{$prod->productos->stock_actual}}</td>
                                 <td>{{$prod->productos->stock_critico}}</td>
-                                <td>{{$prod->valor_total}}</td>
-                                <td>{{$prod->cantidad_producto}}</td>
+                                <td>{{$prod->costo}}</td>
+                                <td>{{$prod->cantidad}}</td>
 
                             </tr>
 

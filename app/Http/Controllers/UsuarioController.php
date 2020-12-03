@@ -181,7 +181,7 @@ class UsuarioController extends Controller
         );
 
         $usuario = Usuario::create($request->all());
-        $usuario->estado_calidad = 1;
+        $usuario->estado_calidad = 2;
         $usuario->tipo = 2;
         $usuario->conocido = 1;
         $usuario->password = Hash::make($request->get('password'));

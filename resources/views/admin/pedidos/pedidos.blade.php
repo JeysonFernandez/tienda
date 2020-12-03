@@ -65,7 +65,7 @@
                                 </td>
                                 <td>
                                     @if ($pedido->tipo == \App\Models\Pedido::EXPRESS) Express @endif
-                                    @if ($pedido->tipo == \App\Models\Pedido::NORMAL) Normal @endif
+                                    @if ($pedido->tipo == \App\Models\Pedido::NORMAL) Completo @endif
                                 </td>
                                 <td>
                                     @if ($pedido->estado == \App\Models\Pedido::Pendiente) Pendiente @endif

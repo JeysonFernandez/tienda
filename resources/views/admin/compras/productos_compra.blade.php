@@ -59,8 +59,8 @@
                             <tr>
                                 <td>{{$cont}}</td>
                                 <td>
-                                    @if($prod->imagen != '')
-                                        <img src="{{Storage::url($producto->imagen)}}" class="card-img img-fluid rounded" style="max-height: 100px; background-size:auto;">
+                                    @if($prod->productos->imagen != '')
+                                        <img src="{{Storage::url($prod->productos->imagen)}}" class="card-img img-fluid rounded" style="max-height: 100px;max-width:100px; background-size:auto;">
                                     @else
                                         No se ha agregado Imagen
                                     @endif
