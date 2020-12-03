@@ -3,12 +3,12 @@
 @section('contenido')
 
 <div class="container-fluid">
-    
+
     <!-- DataTales Example -->
     <div class="card card-table tabla shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
-                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Agregar Compra</h3></div>
+                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Agregar Compra</h3><br><h5>{{$produc}}</h5></div>
 
             </div>
         </div>
@@ -65,18 +65,18 @@
                                     <label for="fecha_siguiente_pago"> Fecha del Siguiente Pago</label>
                                     <input type="date" id="fecha_siguiente_pago" name="fecha_siguiente_pago" class="form-control @error('fecha_siguiente_pago') is-invalid @enderror" value="{{old('fecha_siguiente_pago')}}"/>
                                 </div>
-                            </div> 
-                            
+                            </div>
+
                             <div class="form-group text-right">
                                 <button type="submit" class="btn btn-primary"> Confirmar</button>
                             </div>
                     </form>
                     </div>
                     </div>
-            
+
                 </div>
             </div>
-        
+
     </div>
 
 </div>
@@ -85,8 +85,8 @@
 
 @section('js')
     <script>
-        
-        
+
+
             let seleccionados=document.querySelectorAll('input');
             seleccionados.forEach(event  =>{
                 event.addEventListener('change',e=> {
@@ -94,7 +94,7 @@
                     seleccionados.forEach(q=>{
                         if( q.id.includes('producto') ){
                             let idProducto = q.id.split('o')[2];
-                            let precioProducto = document.getElementById(`auxiliar-${idProducto}`); 
+                            let precioProducto = document.getElementById(`auxiliar-${idProducto}`);
                             nuevoTotal += ( q.value * precioProducto.value );
                         }
                     });
@@ -102,10 +102,10 @@
                     deudaTotal.value = nuevoTotal;
                 });
             });
-        
+
 
         $(function(){
-           
+
         });
     </script>
 @endsection

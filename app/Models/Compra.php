@@ -13,6 +13,11 @@ class Compra extends Model
     const Completado = 2;
 
 
+    public function __toString()
+    {
+        return $this->usuario->email.' | '.$this->fecha_compra;
+    }
+
     public function estado()
     {
         if($this->estado == Compra::Pendiente){return 'Pendiente';}
