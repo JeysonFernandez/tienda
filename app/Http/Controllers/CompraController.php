@@ -283,7 +283,7 @@ class CompraController extends Controller
 
         //cambio de estado
         $pedidoUpdate = Pedido::find($request->get('pedidoId'));
-        $pedidoUpdate->estado = 2;
+        $pedidoUpdate->estado = 4;
         $pedidoUpdate->save();
 
         if($compra->deuda_pendiente > 0){

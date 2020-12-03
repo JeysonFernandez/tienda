@@ -129,9 +129,8 @@ class UsuarioController extends Controller
         //         //Comprobar si se llegado a la fecha de algun pedido
                 $pedidos=Pedido::all();
                 foreach($pedidos as $pedido){
-                    if($pedido->fecha <= now()->format('Y-m-d')){
-                        $pedido->estado = 2;
-
+                    if($pedido->fecha <= now()->format('Y-m-d') &&  $pedido->fecha_hora_inicio<= now()->format('H:m:s') ){
+                        $pedido->estado = 3;
                         $productosPedido = PedidoProducto::where('pedido_id',$pedido->id);
                         foreach($productosPedido as $productoPedido){
                             $producto = Producto::find($productoPedido->producto_id);
