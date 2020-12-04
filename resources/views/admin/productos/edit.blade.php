@@ -116,12 +116,13 @@
                     <div class="col-6">
                         <div class="form-group">
                             <label class="label">Precio Unidad</label>
-                            <input class="form-control @error('precio_unidad') is-invalid @enderror"type="number" value="{{$producto->precio_unidad}}" name="precio_unidad" id="sprecio_unidad">
+                            <input class="form-control @error('precio_unidad') is-invalid @enderror"type="number" value="{{$producto->precio_unidad}}" name="precio_unidad" id="precio_unidad">
                             @error('precio_unidad')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
+                        </div>
                     </div>
                     <div class="col-6">
                         <div class="form-group">
@@ -134,8 +135,8 @@
                             @enderror
                         </div>
                     </div>
-                    </div>
-                        <div class="col-6">
+
+                    <div class="col-6">
                         <div class="form-group">
                             <div class="custom-file">
                                 <input type="file" id="imagen" name="imagen" class="custom-file-input" value="">
