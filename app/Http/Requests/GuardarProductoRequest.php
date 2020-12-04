@@ -30,6 +30,7 @@ class GuardarProductoRequest extends FormRequest
             'stock_critico' => 'required_if:estado,'.Producto::PUBLICADO,
             'stock_actual' =>  'required_if:estado,'.Producto::PUBLICADO,
             'precio_unidad' =>  'required_if:estado,'.Producto::PUBLICADO,
+            'costo_producto' =>  'required_if:estado,'.Producto::PUBLICADO,
         ];
     }
     public function attributes()
@@ -38,6 +39,7 @@ class GuardarProductoRequest extends FormRequest
             'stock_critico' => 'Stock Critico',
             'stock_actual' => 'Stock Actual',
             'precio_unidad' => 'Precio Unidad',
+            'costo_producto' => 'Costo Unidad',
             'tipo_id' => 'Tipo',
             'talla_id' => 'Talla',
             'color_id' => 'Color',

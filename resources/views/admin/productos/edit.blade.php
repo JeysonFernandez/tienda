@@ -122,7 +122,18 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="costo_producto"> Costo Unidad ($) </label>
+                            <input type="number" class="form-control  @error('costo_producto') is-invalid @enderror" id="costo_producto" name="costo_producto" value={{old('costo_producto')}}>
+                            @error('costo_producto')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
+                    </div>
                     </div>
                         <div class="col-6">
                         <div class="form-group">

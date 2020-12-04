@@ -8,7 +8,7 @@
     <div class="card card-table tabla shadow mb-4">
         <div class="card-header py-3">
             <div class="d-flex bd-highlight mb-3">
-                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Tabla de Categorias</h3></div>
+                <div class="mr-auto p-2 bd-highlight"> <h3 class="m-0 font-weight-bold text-primary">Tabla de Categorías</h3></div>
                 <div class="p-2 bd-highlight"><a href="{{route('admin.categoria.crearCategoria')}}" class="btn btn-primary btn-lg text-right">Agregar</a></div>
 
             </div>
