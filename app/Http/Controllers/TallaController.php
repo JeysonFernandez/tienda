@@ -50,6 +50,8 @@ class TallaController extends Controller
         $talla->borrado = 1;
         $talla->save();
 
+
+    alert()->success('Perfecto!','La talla se ha agregado correctamente.');
         return redirect()->route('admin.talla.verTalla');
     }
 
@@ -98,6 +100,7 @@ class TallaController extends Controller
         $talla->nombre = $request->nombre;
         $talla->save();
 
+        alert()->success('Perfecto!','La talla se ha actualizado correctamente.');
         return redirect()->route('admin.talla.verTalla');
     }
 
@@ -108,6 +111,7 @@ class TallaController extends Controller
         $talla->nombre = $request->get('nombre');
         $talla->save();
 
+        alert()->success('Perfecto!','La talla se ha actualizado correctamente.');
         return redirect()->route('admin.talla.verTalla');
     }
 
@@ -123,6 +127,7 @@ class TallaController extends Controller
         $talla->borrado = 2;
         $talla->save();
 
+        alert()->success('Perfecto!','La talla se ha borrado correctamente.');
         return redirect()->route('admin.talla.verTalla');
     }
 
@@ -131,6 +136,7 @@ class TallaController extends Controller
         $talla->borrado = 2;
         $talla->save();
 
+        alert()->success('Perfecto!','La talla se ha borrado correctamente.');
         return redirect()->route('admin.talla.verTalla');
     }
 

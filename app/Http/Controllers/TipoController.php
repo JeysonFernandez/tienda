@@ -49,6 +49,7 @@ class TipoController extends Controller
         $tipo->borrado = 1;
         $tipo->save();
 
+        alert()->success('Perfecto!','El tipo se ha agregado correctamente.');
         return redirect()->route('admin.tipo.verTipo');
     }
 
@@ -99,6 +100,7 @@ class TipoController extends Controller
         $tipo->nombre = $request->nombre;
         $tipo->save();
 
+        alert()->success('Perfecto!','El tipo se ha actualizado correctamente.');
         return redirect()->route('admin.tipo.verTipo');
     }
 
@@ -108,6 +110,7 @@ class TipoController extends Controller
         $tipo->nombre = $request->get('nombre');
         $tipo->save();
 
+        alert()->success('Perfecto!','El tipo se ha actualizado correctamente.');
         return redirect()->route('admin.tipo.verTipo');
     }
 
@@ -123,6 +126,7 @@ class TipoController extends Controller
         $tipo->borrado = 2;
         $tipo->save();
 
+        alert()->success('Perfecto!','El tipo se ha borrado correctamente.');
         return redirect()->route('admin.tipo.verTipo');
     }
 
@@ -131,6 +135,7 @@ class TipoController extends Controller
         $tipo->borrado = 2;
         $tipo->save();
 
+        alert()->success('Perfecto!','El tipo se ha borrado correctamente.');
         return redirect()->route('admin.tipo.verTipo');
     }
 

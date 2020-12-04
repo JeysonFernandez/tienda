@@ -52,6 +52,7 @@ class ProveedorController extends Controller
         $proveedor->borrado = 1;
         $proveedor->save();
 
+        alert()->success('Perfecto!','El proveedor se ha agregado correctamente.');
         return redirect()->route('admin.proveedor.verProveedor');
     }
 
@@ -101,6 +102,7 @@ class ProveedorController extends Controller
         $proveedor->direccion = $request->get('direccion');
         $proveedor->save();
 
+        alert()->success('Perfecto!','El proveedor se ha actualizado correctamente.');
         return redirect()->route('admin.proveedor.verProveedor');
     }
 
@@ -110,6 +112,7 @@ class ProveedorController extends Controller
         $proveedor->nombre = $request->get('nombre');
         $proveedor->save();
 
+        alert()->success('Perfecto!','El proveedor se ha actualizado correctamente.');
         return redirect()->route('admin.proveedor.verProveedor');
     }
 
@@ -123,6 +126,7 @@ class ProveedorController extends Controller
     {
         $proveedor = Proveedor::findOrFail($id);
         $proveedor->borrado = 2;
+        alert()->success('Perfecto!','El proveedor se ha borrado correctamente.');
         return redirect()->route('admin.proveedor.verProveedor');
     }
 
@@ -131,6 +135,7 @@ class ProveedorController extends Controller
         $proveedor = Proveedor::findOrFail($request->idfinal);
         $proveedor->borrado = 2;
 
+        alert()->success('Perfecto!','El proveedor se ha borrado correctamente.');
         return redirect()->route('admin.proveedor.verProveedor');
     }
 }

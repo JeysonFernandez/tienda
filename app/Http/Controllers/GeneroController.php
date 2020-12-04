@@ -50,6 +50,8 @@ class GeneroController extends Controller
         $genero->borrado = 1;
         $genero->save();
 
+
+        alert()->success('Perfecto!','La clasificación se ha agregado correctamente.');
         return redirect()->route('admin.genero.verGenero');
     }
 
@@ -100,6 +102,7 @@ public function show(Genero $genero)
         $genero->nombre = $request->nombre;
         $genero->save();
 
+        alert()->success('Perfecto!','La clasificación se ha actualizado correctamente.');
         return redirect()->route('admin.genero.verGenero');
     }
 
@@ -109,6 +112,7 @@ public function show(Genero $genero)
         $genero->nombre = $request->get('nombre');
         $genero->save();
 
+        alert()->success('Perfecto!','La clasificación se ha actualizado correctamente.');
         return redirect()->route('admin.genero.verGenero');
     }
 
@@ -124,6 +128,8 @@ public function show(Genero $genero)
         $genero->borrado = 2;
         $genero->save();
 
+
+        alert()->success('Perfecto!','La clasificación se ha borrado correctamente.');
         return redirect()->route('admin.genero.verGenero');
     }
 
@@ -133,6 +139,7 @@ public function show(Genero $genero)
         $genero->borrado = 2;
         $genero->save();
 
+        alert()->success('Perfecto!','La clasificación se ha borrado correctamente.');
         return redirect()->route('admin.genero.verGenero');
     }
 

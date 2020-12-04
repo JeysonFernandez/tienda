@@ -50,6 +50,7 @@ public function store(Request $request)
     $color->borrado = 1;
     $color->save();
 
+    alert()->success('Perfecto!','El color se ha agregado correctamente.');
     return redirect()->route('admin.color.verColor');
 }
 
@@ -99,6 +100,8 @@ public function updateColor(GuardarColorRequest $request, $id)
     $color->nombre = $request->nombre;
 
     $color->save();
+
+    alert()->success('Perfecto!','El color se ha actualizado correctamente.');
     return redirect()->route('admin.color.verColor');
 }
 public function confirmarUpdate(Request $request)
@@ -109,6 +112,8 @@ $color = Color::find($request->get('id'));
 $color->nombre = $request->get('nombre');
 
 $color->save();
+
+alert()->success('Perfecto!','El color se ha actualizado correctamente.');
 return redirect()->route('admin.color.verColor');
 }
 
@@ -122,6 +127,7 @@ public function destroy($id)
 {
     $color = Color::findOrFail($id);
     $color->borrado = 2;
+    alert()->success('Perfecto!','El color se ha borrado correctamente.');
     return redirect()->route('admin.color.verColor');
 }
 
@@ -130,6 +136,7 @@ public function confirmDelete(Request $request)
     $color = Color::findOrFail($request->idfinal);
     $color->borrado = 2;
     $color->save();
+    alert()->success('Perfecto!','El color se ha borrado correctamente.');
     return redirect()->route('admin.color.verColor');
 }
 
