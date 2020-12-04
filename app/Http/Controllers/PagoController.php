@@ -37,7 +37,7 @@ class PagoController extends Controller
      */
     public function crearPago()
     {
-        $compras = Compra::all();
+        $compras = Compra::where('deuda_pendiente','>',0)->get();
         return view('admin.pagos.crear_pago',
         ['compras' => $compras,'notificacionProductos'=>NotificacionProducto::all(),
         'notificacionUsuarios'=>NotificacionUsuario::all()]);
