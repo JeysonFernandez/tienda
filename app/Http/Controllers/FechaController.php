@@ -64,7 +64,7 @@ class FechaController extends Controller
                 return redirect(route('profesional::servicios.disponibilidad'));
             } catch (\Exception $e) {
                 report($e);
-                alert()->error('Error', 'No se pudo guardar los datos. Intenta otra vez.');
+                alert()->success('Datos actualizados', 'Se guardaron los datos de disponibilidad semanal');
 
                 return back()->withInput();
             }
