@@ -102,7 +102,7 @@ class PedidoController extends Controller
 
     public function cancelar($id){
         $pedido = Pedido::findOrFail($id);
-        $pedido->estado = 'c';
+        $pedido->estado = 2;
 
         $productosPedido = PedidoProducto::where('pedido_id',$pedido->id);
         foreach($productosPedido as $productoPedido){
@@ -116,6 +116,14 @@ class PedidoController extends Controller
     }
 
     public function agregar(Request $request, $id){
+        $validation=$request->validate(
+            [
+                'lugar' => 'required',
+                'fecha' => 'required',
+                'fecha' => 'required'
+            ]
+
+        );
         $pedido = new Pedido();
         $pedido->usuario_id = $id;
         $pedido->lugar_visita = $request->get('lugar');

@@ -71,7 +71,7 @@
                                     @if ($pedido->estado == \App\Models\Pedido::Pendiente) Pendiente @endif
                                     @if ($pedido->estado == \App\Models\Pedido::Cancelado) Cancelado @endif
                                     @if ($pedido->estado == \App\Models\Pedido::Entregado) Entregado @endif
-                                    @if ($pedido->estado == \App\Models\Pedido::Comprado) Completado @endif
+                                    @if ($pedido->estado == \App\Models\Pedido::Comprado) Comprado @endif
 
                                 </td>
                                 <td>
@@ -79,9 +79,9 @@
                                     <a href="/pedidos/productos/{{$pedido->id}}" class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
                                         title="Ver productos del pedido" > <i class="fas fa-shopping-basket"></i>
                                     </a>
-                                    @if ($pedido->estado == \App\Models\Pedido::Pendiente )
+                                    @if ($pedido->estado == \App\Models\Pedido::Entregado )
                                         <a href="/pedidos/comprarPedido/{{$pedido->id}}" class="btn btn-xs btn-success swa-confirm" data-toggle="tooltip"
-                                            title="Ver pedidos del usuario" > <i class="fas fa-fw fa-shopping-cart"></i>
+                                            title="Comprar Pedido"> <i class="fas fa-fw fa-shopping-cart"></i>
                                         </a>
                                     @endif
                                 </td>

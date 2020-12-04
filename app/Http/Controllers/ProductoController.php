@@ -48,15 +48,15 @@ class ProductoController extends Controller
     public function create()
     {
         return view('admin.productos.create', [
-            'tipos' => Tipo::all(),
-            'categorias' => Categoria::all(),
-            'marcas' => Marca::all(),
-            'tallas' => Talla::all(),
-            'colors' => Color::all(),
-            'generos' => Genero::all(),
-            'proveedores' => Proveedor::all(),
-            'notificacionProductos' => NotificacionProducto::all(),
-            'notificacionUsuarios' => NotificacionUsuario::all()
+            'tipos' => Tipo::where('borrado','!=',2)->get(),
+            'categorias' => Categoria::where('borrado','!=',2)->get(),
+            'marcas' => Marca::where('borrado','!=',2)->get(),
+            'tallas' => Talla::where('borrado','!=',2)->get(),
+            'colors' => Color::where('borrado','!=',2)->get(),
+            'generos' => Genero::where('borrado','!=',2)->get(),
+            'proveedores' => Proveedor::where('borrado','!=',2)->get(),
+            'notificacionProductos' => NotificacionProducto::where('borrado','!=',2)->get(),
+            'notificacionUsuarios' => NotificacionUsuario::where('borrado','!=',2)->get()
         ]);
     }
 
@@ -258,6 +258,10 @@ class ProductoController extends Controller
     public function addCarrito($id)
     {
         $producto = Producto::find($id);
+        if($producto->stock_actual==0){
+            alert()->success('Lo sentimos','Este producto está agotado');
+            return redirect()->back();
+        }
         $carro = session()->get('carro');
 
         if (!$carro) {
@@ -284,7 +288,7 @@ class ProductoController extends Controller
         }
         session()->put('carro', $carro);
         if(Auth::check()){
-            alert()->success('Datos actualizados', 'Se guardaron los datos de disponibilidad semanal');
+            alert()->success('Perfecto!','Se ha añadido un elemento a tu carrito. Puedes editar la cantidad del producto desde el mismo carrito.');
         }else{
             alert()->success('Perfecto!','Se ha añadido un elemento a tu carrito. Puedes editar la cantidad del producto desde el mismo carrito. Para verlo, inicia sesión.');
         }
