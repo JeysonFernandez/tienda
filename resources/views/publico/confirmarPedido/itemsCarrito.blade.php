@@ -43,7 +43,11 @@
                                             @csrf
                                             <div class="row">
                                                 <div class="col">
-                                                    <input type="number" min="1" max="{{ $detalles['cantidad'] }}" value="{{ $detalles['cantidad'] }}" id="cantidad" name="cantidad">
+                                                    @foreach($productos as $producto)
+                                                    @if($producto->id == $detalles['id'])
+                                                    <input type="number" min="1" max="{{ $producto->stock_actual}}" value="{{ $detalles['cantidad'] }}" id="cantidad" name="cantidad">
+                                                    @endif 
+                                                    @endforeach
                                                 </div>
                                                 <div class="col">
                                                     <button class="btn btn-sm btn-naranjo" type="submit">Actualizar</button>
