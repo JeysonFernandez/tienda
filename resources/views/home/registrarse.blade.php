@@ -51,6 +51,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label for="telefono"> Teléfono</label>
+                                        <input type="telefono" id="telefono" name="telefono"  class="form-control @error('telefono') is-invalid @enderror" placeholder="+56965036534" value="{{old('telefono')}}"/>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="email"> Correo Electrónico</label>
                                         <input type="email" id="email" name="email" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}" class="form-control @error('email') is-invalid @enderror" placeholder="chirismo123@gmail.com" value="{{old('email')}}"/>
                                     </div>

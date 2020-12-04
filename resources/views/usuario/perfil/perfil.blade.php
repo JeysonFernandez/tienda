@@ -57,6 +57,20 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
+                                        <label for="telefono" class="">Teléfono</label>
+
+                                        <div class="">
+                                            <input id="telefono" type="telefono" class="form-control @error('telefono') is-invalid @enderror" name="telefono" value="{{ old('telefono') }}"   autofocus>
+                                            @error('telefono')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
                                         <label for="email" class="">Correo electrónico</label>
 
                                         <div class="">
@@ -83,6 +97,7 @@
                                         </div>
                                     </div>
                                 </div>
+
 
                             </div>
                             <div class="form-group mt-3">
