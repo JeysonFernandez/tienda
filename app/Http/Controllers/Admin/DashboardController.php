@@ -622,13 +622,10 @@ class DashboardController extends Controller
 
                 alert()->success('Datos actualizados', 'Se guardaron los datos de duración de sesiones para las especialidades.');
 
-                return redirect(route('profesional::servicios.disponibilidad'));
-                alert()->success('Datos actualizados', 'Se guardaron los datos de duración de sesiones para las especialidades.');
-
-                return redirect(route('profesional::servicios.disponibilidad'));
+                return redirect(route('admin.fecha.getFechas'));
             } catch (\Exception $e) {
                 report($e);
-                alert()->error('Error', 'No se pudo guardar los datos. Intenta otra vez.');
+                alert()->error('Ups','Algo ha pasado en el sistema, vuelve a intentarlo.');
 
                 return back()->withInput();
             }

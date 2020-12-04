@@ -45,7 +45,7 @@ class FechaController extends Controller
                  */
                 $hora_inicio = $request->hora_inicio;
                 $hora_fin = $request->hora_fin;
-
+                
                 foreach ($hora_inicio as $dia => $hi) {
                     $hf = $hora_fin[$dia];
 
@@ -63,7 +63,6 @@ class FechaController extends Controller
 
                 return redirect(route('profesional::servicios.disponibilidad'));
             } catch (\Exception $e) {
-                report($e);
                 alert()->success('Datos actualizados', 'Se guardaron los datos de disponibilidad semanal');
 
                 return back()->withInput();
@@ -79,6 +78,8 @@ class FechaController extends Controller
             $pausas_actuales[$dsp->dia] = json_decode($dsp->pausas);
         }
 
+
+        alert()->success('Datos actualizados', 'Se guardaron los datos de disponibilidad semanal');
         return view('admin.fechas.fechas', compact('disponibilidades', 'disponibilidades_actuales', 'pausas_actuales'));
     }
 
