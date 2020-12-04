@@ -161,8 +161,9 @@
                                     </select>
                                 </div>
                             </div>
-                            <button class="btn btn-primary ml-3" type="submit">Agregar</button>
+
                         </div>
+                        <button class="btn btn-primary " type="submit">Agregar</button>
                     </form>
                 </div>
             </div>
