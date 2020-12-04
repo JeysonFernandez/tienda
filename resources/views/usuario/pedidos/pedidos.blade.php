@@ -41,7 +41,7 @@
                     <tbody>
                         <?php $cont = 0?>
                         @foreach ($pedidos as $pedido)
-                            @if ($pedido->estado <> 'c')
+                            @if ($pedido->estado <> 2)
                             <?php $cont++?>
                             <tr>
                                 <td>{{$cont}}</td>
@@ -59,7 +59,9 @@
                                     <a href="{{route('usuario.getpedidoproductos',$pedido->id)}}"class="btn btn-xs btn-naranjo swa-confirm" data-toggle="tooltip"
                                         title="Ver pedidos del usuario" ><i class="fas fa-eye"></i>
                                     </a>
+                                    @if($pedido->estado == 1)
                                     <a href="/pedidos/cancelarPedido/{{$pedido->id}}"><button class="btn btn-danger"><i class="fas fa-minus-circle"></i></button></a>
+                                    @endif
                                 </td>
                             </tr>
                             @endif
