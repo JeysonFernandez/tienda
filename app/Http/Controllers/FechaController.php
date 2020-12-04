@@ -188,9 +188,9 @@ class FechaController extends Controller
         $tipo_id = $request->tipo_id;
 
         if($tipo_id == Pedido::EXPRESS){
-            $duracion = 60;
+            $duracion = 20;
         }else{
-            $duracion = 30;
+            $duracion = 60;
         }
 
         $disponibilidad = DiasDisponibles::where([
